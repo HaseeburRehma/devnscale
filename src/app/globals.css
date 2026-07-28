@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design tokens — mapped 1:1 from the Figma variable collection
+   ============================================================ */
+@theme {
+  /* Accent — lime */
+  --color-lime-50: #f8fae2;
+  --color-lime-100: #eef3bc;
+  --color-lime-300: #d1e15a;
+  --color-lime-400: #c4d434;
+  --color-lime-500: #bdc61d;
+  --color-lime-600: #9ca718;
+  --color-lime-700: #7b8513;
+
+  /* Brand — green */
+  --color-brand-100: #c7e8d9;
+  --color-brand-200: #9cd6bc;
+  --color-brand-500: #1e8c72;
+  --color-brand-600: #15705d;
+  --color-brand-700: #0f5749;
+  --color-brand-800: #084234;
+  --color-brand-900: #042f22;
+  --color-brand-950: #012a1c;
+
+  /* Neutrals */
+  --color-ink-0: #ffffff;
+  --color-ink-50: #fafafa;
+  --color-ink-100: #f4f4f5;
+  --color-ink-200: #e5e5e5;
+  --color-ink-300: #d4d4d4;
+  --color-ink-400: #a3a3a3;
+  --color-ink-500: #737373;
+  --color-ink-600: #525252;
+  --color-ink-700: #404040;
+  --color-ink-800: #262626;
+  --color-ink-900: #1b1b1b;
+  --color-ink-950: #0a0a0a;
+
+  /* Semantic */
+  --color-text-primary: #1b1b1b;
+  --color-text-secondary: #525252;
+  --color-text-muted: #737373;
+  --color-text-accent: #7b8513;
+  --color-canvas: #fafafa;
+  --color-border-default: #d4d4d4;
+  --color-border-subtle: #e5e5e5;
+
+  /* Type families */
+  --font-display: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-body: var(--font-inter), Inter, sans-serif;
+
+  /* Radii */
+  --radius-lg: 12px;
+  --radius-card: 24px;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  /* `clip`, not `hidden` — `hidden` makes the body a scroll container, which
+     breaks position: sticky for the case-study deck. */
+  overflow-x: clip;
+}
+
+/* Figma type ramp — display sizes scale fluidly down to mobile */
+.t-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 1.19rem + 5.83vw, 5rem); /* 40 → 80 */
+  line-height: 1.1;
+  letter-spacing: -0.0375em; /* -3px @ 80px */
+}
+
+.t-subsection {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.875rem, 1.28rem + 2.64vw, 3rem); /* 30 → 48 */
+  line-height: 1.167;
+  letter-spacing: -0.03125em; /* -1.5px @ 48px */
+}
+
+.t-h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 1.35rem + 1.77vw, 2.5rem); /* 28 → 40 */
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.t-h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1.24rem + 1.18vw, 2rem); /* 24 → 32 */
+  line-height: 1.25;
+  letter-spacing: -0.03125em;
+}
+
+.t-h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.375rem, 1.25rem + 0.59vw, 1.75rem); /* 22 → 28 */
+  line-height: 1.286;
+  letter-spacing: -0.0179em;
+}
+
+.t-h5 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.t-h6 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.333;
+}
+
+.t-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.333;
+  color: var(--color-text-accent);
+}
+
+.t-body-lg {
+  font-size: 1.125rem;
+  line-height: 1.556;
+}
+
+.t-body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.t-body-sm {
+  font-size: 0.875rem;
+  line-height: 1.429;
+}
+
+/* Page gutter — 80px at 1440, scaling down responsively */
+.shell {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, -0.31rem + 6.94vw, 5rem); /* 20 → 80 */
+}
+
+/* ============================================================
+   Motion
+   ============================================================ */
+
+/* Dot-matrix chevrons marching right — one tile is 18px (6 cols @ 3px pitch) */
+@keyframes dot-march {
+  from {
+    transform: translateX(-18px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Horizontal marquees */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Hero glow breathing */
+@keyframes glow-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-dot-march {
+  animation: dot-march 0.9s linear infinite;
+}
+
+/* Hero entrance — CSS so the copy is painted even before hydration */
+.rise-in {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Scroll reveals. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Without scripting nothing would ever set data-revealed, so show everything
+   rather than leaving the page blank. Replaces the old bootstrap <script>,
+   which React 19 refuses to run inside a component. */
+@media (scripting: none) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Case-study deck. Every card pins at the same offset with an ascending
+   z-index (set inline), so each slides completely over the last — the
+   mechanic devnscale.com uses. Pure CSS, so the server and client render
+   identical markup and it works before hydration.
+   Gated on height too: pinning a card taller than the viewport traps scroll. */
+@media (min-width: 768px) and (min-height: 640px) {
+  .stack-card {
+    position: sticky;
+    top: 100px;
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee-left {
+  animation: marquee-left var(--marquee-duration, 30s) linear infinite;
+}
+
+.marquee-right {
+  animation: marquee-right var(--marquee-duration, 30s) linear infinite;
+}
+
+/* Pause marquees on hover of their container */
+.marquee-host:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
