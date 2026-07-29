@@ -15,7 +15,9 @@ import { PROCESS_STEPS } from "@/lib/content";
 /**
  * Scroll-driven work process, matching the live site's mechanics.
  *
- * The section is a 3-viewport-tall track with a pinned panel. The lime arc is
+ * The track is only ~0.7 of a viewport longer than the pinned panel, so the
+ * scrollable range splits into four short steps — roughly one scroll gesture
+ * each, rather than a long pin you have to grind through. The lime arc is
  * a 90° segment (dash = quarter, gap = three quarters) that travels clockwise
  * around the ring as you scroll: at step 1 it spans Consultation → Strategy,
  * at step 2 Strategy → Implementation, and so on. Exactly one node is lit at
@@ -76,7 +78,7 @@ export default function Process() {
   const step = PROCESS_STEPS[active];
 
   return (
-    <section ref={trackRef} className="relative h-[190vh] bg-brand-900 md:h-[300vh]">
+    <section ref={trackRef} className="relative h-[140vh] bg-brand-900 md:h-[170vh]">
       {/* On phones the stepper is only ~370px tall, so a full-height pinned
           panel would centre it in a sea of empty green. Shorter panel there,
           with top padding to clear the fixed nav. */}

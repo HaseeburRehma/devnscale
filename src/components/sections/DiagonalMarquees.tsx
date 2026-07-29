@@ -23,11 +23,16 @@ const ICONS = {
 
 /**
  * Measured from the Figma render: both ribbons are 55px thick, tilted ±5°,
- * and cross at (centre, 95px) inside the 164px band. The dark ribbon paints
- * over the lime one at the intersection.
+ * crossing at the centre. The dark ribbon paints over the lime one there.
+ *
+ * A ±5° tilt makes each ribbon rise or fall by (width/2)·tan5° by the time it
+ * reaches the viewport edge, so a fixed-height strip clips their far corners —
+ * and worse the wider the screen. The strip height therefore tracks the
+ * viewport: tan(5°) ≈ 0.0875, so it needs about 8.75vw plus the band
+ * thickness, with a floor so it still reads on phones.
  */
-const CROSS_Y = 95;
 const BAND_H = 55;
+const STRIP_H = `max(120px, calc(9vw + ${BAND_H + 5}px))`;
 
 function Band({
   tone,
@@ -45,11 +50,10 @@ function Band({
   const isLime = tone === "lime";
   return (
     <div
-      className={`marquee-host absolute left-[-15%] flex w-[130%] items-center overflow-hidden ${
+      className={`marquee-host absolute left-[-20%] top-1/2 flex w-[140%] items-center overflow-hidden ${
         isLime ? "bg-lime-500" : "bg-brand-950"
       }`}
       style={{
-        top: CROSS_Y,
         height: BAND_H,
         zIndex: z,
         transform: `translateY(-50%) rotate(${rotate}deg)`,
@@ -91,7 +95,8 @@ function Band({
 export default function DiagonalMarquees() {
   return (
     <div
-      className="relative h-[164px] overflow-hidden bg-white"
+      className="relative overflow-hidden bg-white"
+      style={{ height: STRIP_H }}
       aria-hidden="true"
     >
       <Band tone="lime" direction="left" rotate={5} duration="38s" z={1} />
