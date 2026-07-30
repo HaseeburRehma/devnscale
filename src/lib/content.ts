@@ -1,10 +1,12 @@
 /** All copy transcribed from the Figma home page. */
 
+// Hrefs are page-relative (`/#…`) so they resolve from any route, not just
+// the home page — About Us is now its own page.
 export const NAV_LINKS = [
-  { label: "Our Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "About Us", href: "#about" },
-  { label: "Contact Us", href: "#contact" },
+  { label: "Our Services", href: "/#services" },
+  { label: "Work", href: "/#work" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/#contact" },
 ];
 
 export const HERO_STATS =
@@ -195,16 +197,140 @@ export const MARQUEE_ITEMS = [
 
 export const FOOTER_LINKS = {
   main: [
-    { label: "Home", href: "#top", active: true },
-    { label: "About Us", href: "#about" },
-    { label: "Our Services", href: "#services" },
+    { label: "Home", href: "/", active: true },
+    { label: "About Us", href: "/about" },
+    { label: "Our Services", href: "/#services" },
     { label: "Careers", href: "#" },
     { label: "Blogs", href: "#" },
   ],
   other: [
-    { label: "Contact Us", href: "#contact" },
+    { label: "Contact Us", href: "/#contact" },
     { label: "Privacy Policy", href: "#" },
     { label: "Term & Condition", href: "#" },
   ],
   contact: ["+92 000 0000 000", "info@dns.com"],
+};
+
+/* ============================================================
+   About page — copy transcribed from the Figma "DEV N SCALE — About Us"
+   frame. Placeholder headings in the source are replaced with brand copy
+   in the same voice as the rest of the site.
+   ============================================================ */
+
+export const ABOUT_HERO = {
+  eyebrow: "WHO WE ARE",
+  // The lime span is highlighted in the headline.
+  titleLead: "Great software starts with",
+  titleAccent: "the right people.",
+  subtitle:
+    "Dev N Scale is a senior, design-led software studio. We take products from first idea to production — and treat every build like it's our own.",
+};
+
+export const ABOUT_STATS = [
+  { value: "10+", label: "Years of Design Experience" },
+  { value: "90%+", label: "International Clients" },
+  { value: "6+", label: "Industries Served" },
+];
+
+export const ABOUT_APPROACH = {
+  eyebrow: "OUR APPROACH",
+  // Rendered as one statement with `accent` highlighted in lime.
+  lead: "We keep teams",
+  accent: "small, senior, and close to the work.",
+  tail: "It is how good software gets built, and how it keeps earning its place.",
+};
+
+export const ABOUT_JOURNEY = {
+  eyebrow: "OUR JOURNEY",
+  title: "From a small studio to a partner at scale.",
+  intro:
+    "A few hundred products later, the same belief holds — small teams, close to the work, do the best work.",
+  milestones: [
+    {
+      year: "2019",
+      title: "Where it started",
+      body: "Two people, one rule: design and engineering in the same room. The first products shipped weeks faster for it.",
+    },
+    {
+      year: "2021",
+      title: "Built for scale",
+      body: "A senior team took shape. We moved from one-off builds to full products — strategy, design, and delivery under one roof.",
+    },
+    {
+      year: "2023",
+      title: "Across borders",
+      body: "Clients in 50+ countries. Remote by default, senior by design, shipping across time zones without losing the thread.",
+    },
+    {
+      year: "2025",
+      title: "Still close to the work",
+      body: "500+ projects in, the model hasn't changed. Small teams, real ownership, software built to last.",
+    },
+  ],
+};
+
+export const ABOUT_STORY = {
+  eyebrow: "OUR STORY",
+  title: "Started small, on purpose.",
+  // Set to a path under /public (e.g. "/img/about/story.jpg") to swap the
+  // branded placeholder panel for a real photo.
+  image: "",
+  paragraphs: [
+    "Dev N Scale began with a simple frustration. Good products kept getting buried under handoffs, status calls, and teams that never quite talked to each other.",
+    "So we built the studio we wanted to hire. Senior people who design and ship in the same room, close to the customer, and accountable for the result.",
+  ],
+  name: "Alex Rehman",
+  role: "Founder and Managing Director",
+  badge: "Building since 2019",
+};
+
+export const ABOUT_VALUES = [
+  {
+    icon: "eye",
+    title: "Clarity",
+    body: "Plain answers, honest timelines, and work you can follow at every step.",
+  },
+  {
+    icon: "pencil",
+    title: "Craft",
+    body: "We sweat the details that people feel, even the ones they never notice.",
+  },
+  {
+    icon: "trending",
+    title: "Momentum",
+    body: "Small releases, shipped often, so progress stays visible the whole way.",
+  },
+  {
+    icon: "users",
+    title: "Partnership",
+    body: "We work as part of your team, not a vendor you have to manage.",
+  },
+] as const;
+
+// `photo`: set to a path under /public (e.g. "/img/team/elias-brandt.jpg") to
+// swap the branded monogram tile for a real portrait. `linkedin`: profile URL.
+type TeamMember = {
+  name: string;
+  role: string;
+  initials: string;
+  photo?: string;
+  linkedin?: string;
+};
+
+export const ABOUT_TEAM: {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  members: TeamMember[];
+} = {
+  eyebrow: "OUR TEAM",
+  title: "The people behind the work.",
+  subtitle:
+    "A small, senior team — the people you meet are the people who build.",
+  members: [
+    { name: "Elias Brandt", role: "Founder & Principal Engineer", initials: "EB", photo: "", linkedin: "#" },
+    { name: "Omar Haddad", role: "Head of Engineering", initials: "OH", photo: "", linkedin: "#" },
+    { name: "Danyal Khan", role: "Lead Product Designer", initials: "DK", photo: "", linkedin: "#" },
+    { name: "Rohit Raja", role: "Growth & Delivery Lead", initials: "RR", photo: "", linkedin: "#" },
+  ],
 };

@@ -11,7 +11,7 @@ import { ArrowRightIcon, CalendarIcon } from "@/components/icons";
  */
 export default function SecondaryButton({
   children = "Book a Consultation",
-  href = "#contact",
+  href = "/#contact",
   variant = "dark",
   className = "",
 }: {

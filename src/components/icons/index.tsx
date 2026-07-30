@@ -97,6 +97,40 @@ export function BitcoinIcon({ className }: IconProps) {
   );
 }
 
+/* ---------- Value icons (About page) ---------- */
+
+// Clarity — eye.
+export function EyeIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+// Craft — pencil / edit.
+export function PencilIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z" />
+      <path d="M15 5l3 3" />
+    </svg>
+  );
+}
+
+// Partnership — two people.
+export function UsersIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M16 20v-1.5a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20" />
+      <circle cx="9" cy="7" r="3.5" />
+      <path d="M22 20v-1.5a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.63a4 4 0 0 1 0 7.74" />
+    </svg>
+  );
+}
+
 /* ---------- UI icons ---------- */
 
 export function CalendarIcon({ className }: IconProps) {
