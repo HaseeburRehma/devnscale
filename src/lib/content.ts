@@ -200,7 +200,7 @@ export const FOOTER_LINKS = {
     { label: "Home", href: "/", active: true },
     { label: "About Us", href: "/about" },
     { label: "Our Services", href: "/services" },
-    { label: "Work", href: "/work" },
+    { label: "Careers", href: "#" },
     { label: "Blogs", href: "#" },
   ],
   other: [
@@ -481,9 +481,9 @@ export const CASE_STUDY = {
     title: "From scattered tools to one clear view.",
     body: "Field teams were juggling paper run sheets, group chats, and three different apps, and nothing quite agreed. We designed and built one platform where dispatch, drivers, and the warehouse all see the same live status, on the web and on the phone in their pocket.",
     stats: [
-      { value: "38", label: "Screens shipped" },
-      { value: "120+", label: "UI components" },
-      { value: "100%", label: "Responsive" },
+      { value: "38+", label: "Screens Designed" },
+      { value: "120+", label: "Product Components" },
+      { value: "100%", label: "Mobile-First Experience" },
     ],
   },
   designSystem: {
@@ -506,9 +506,14 @@ export const CASE_STUDY = {
       { value: "2.4x", label: "faster dispatch" },
     ],
   },
+  experience: {
+    eyebrow: "THE EXPERIENCE",
+    title: "Every screen, working together.",
+    body: "Every touch point in the field, every column on dispatch — designed to feel like one product, one team, one live picture that everyone can trust.",
+  },
   gallery: {
     eyebrow: "THE FULL PICTURE",
-    title: "Every screen, working together.",
+    title: "The full picture, at a glance.",
   },
   selectedWork: {
     eyebrow: "SELECTED WORK",

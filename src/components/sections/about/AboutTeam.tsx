@@ -40,7 +40,7 @@ export default function AboutTeam() {
           </Reveal>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {members.map((member, i) => (
             <Reveal key={member.name} delay={i * 0.08}>
               <div className="group">
@@ -98,7 +98,7 @@ export default function AboutTeam() {
               <h3 className="t-h3 text-white">{hiring.title}</h3>
               <p className="t-body mt-2 text-ink-300">{hiring.body}</p>
             </div>
-            <PrimaryButton href="/contact">View Openings</PrimaryButton>
+            <PrimaryButton href="/contact">Apply To Join Us</PrimaryButton>
           </div>
         </Reveal>
       </div>

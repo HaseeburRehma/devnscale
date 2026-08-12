@@ -5,7 +5,6 @@ import {
   LinkedInIcon,
   XIcon,
 } from "@/components/icons";
-import Logo from "@/components/ui/Logo";
 import NewsletterForm from "@/components/ui/NewsletterForm";
 import PatternBackdrop from "@/components/ui/PatternBackdrop";
 import PrimaryButton from "@/components/ui/PrimaryButton";
@@ -71,7 +70,6 @@ export default function Footer() {
         <div className="mt-24 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[1fr_auto_auto_auto] lg:gap-16">
           <Reveal>
             <div className="max-w-[420px]">
-              <Logo className="mb-7" />
               <h3 className="font-display text-[26px] font-medium text-white">
                 Stay Connected
               </h3>

@@ -28,7 +28,7 @@ export default function ContactPage() {
           subtitle={CONTACT_HERO.subtitle}
         />
         <ContactBooking />
-        <LogoSlider />
+        <LogoSlider tone="light" />
         <ContactReach />
         <Testimonial />
         <Faqs />

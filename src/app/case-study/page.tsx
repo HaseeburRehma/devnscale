@@ -13,6 +13,7 @@ import {
   CaseOverview,
   CaseProduct,
   CaseResults,
+  CaseExperience,
   CaseGallery,
 } from "@/components/sections/case/CaseBody";
 import { CASE_STUDY } from "@/lib/content";
@@ -40,6 +41,7 @@ export default function CaseStudyPage() {
         <CaseDesignSystem />
         <CaseProduct />
         <CaseResults />
+        <CaseExperience />
         <CaseGallery />
         <SelectedWork />
         <Testimonial />

@@ -70,7 +70,7 @@ export function CaseOverview() {
 export function CaseProduct() {
   const { product } = CASE_STUDY;
   return (
-    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
       <div className="shell">
         <Reveal>
           <p className="t-eyebrow">{product.eyebrow}</p>
@@ -126,6 +126,36 @@ export function CaseResults() {
         <InView className="lg:order-last">
           <MediaFrame label="Live status" className="aspect-[730/470] w-full" />
         </InView>
+      </div>
+    </section>
+  );
+}
+
+/* The Experience — narrative + two paired product shots. */
+export function CaseExperience() {
+  const { experience } = CASE_STUDY;
+  return (
+    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+      <div className="shell">
+        <div className="mx-auto max-w-[720px] text-center">
+          <Reveal>
+            <p className="t-eyebrow">{experience.eyebrow}</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="t-subsection mt-4 text-ink-900">{experience.title}</h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="t-body-lg mt-5 text-text-secondary">{experience.body}</p>
+          </Reveal>
+        </div>
+        <AnimatedGroup className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <MediaFrame label="Driver — checkpoint" className="aspect-square w-full" />
+          <MediaFrame
+            label="Dispatch — live map"
+            tone="light"
+            className="aspect-square w-full"
+          />
+        </AnimatedGroup>
       </div>
     </section>
   );

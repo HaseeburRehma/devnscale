@@ -12,12 +12,16 @@ const LOGOS = [
   { src: "/img/logos/logo-word-lime.svg", w: 152, h: 24 },
 ];
 
-export default function LogoSlider() {
+export default function LogoSlider({ tone = "dark" }: { tone?: "dark" | "light" } = {}) {
+  const isLight = tone === "light";
+  const sectionBg = isLight ? "bg-canvas" : "bg-ink-950";
+  const labelBg = isLight ? "bg-canvas" : "bg-ink-950";
+  const labelText = isLight ? "text-ink-900" : "text-white";
   return (
-    <section className="relative flex h-[76px] items-center overflow-hidden bg-ink-950">
+    <section className={`relative flex h-[76px] items-center overflow-hidden ${sectionBg}`}>
       {/* pinned label */}
-      <div className="relative z-10 flex h-full shrink-0 items-center bg-ink-950 pl-5 pr-6 sm:pl-10 lg:pl-20">
-        <span className="font-display text-[18px] font-bold leading-[1.15] text-white">
+      <div className={`relative z-10 flex h-full shrink-0 items-center pl-5 pr-6 sm:pl-10 lg:pl-20 ${labelBg}`}>
+        <span className={`font-display text-[18px] font-bold leading-[1.15] ${labelText}`}>
           Happy
           <br />
           Clients

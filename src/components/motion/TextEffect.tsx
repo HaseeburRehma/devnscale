@@ -21,16 +21,16 @@ export default function TextEffect({
   as?: "h1" | "h2" | "h3" | "p";
 }) {
   const reduce = useReducedMotion();
-  // `accent` is appended after `text` and tinted lime; the two are separate
-  // strings, so build the combined word list and mark where the accent starts.
+  // `accent` is appended after `text`; on inner pages the extra word(s) render
+  // in the same colour as the rest of the headline (matching the Figma design),
+  // and only the home hero uses the lime tint via its own markup.
   const leadWords = text.split(" ");
   const words = accent ? [...leadWords, ...accent.split(" ")] : leadWords;
-  const accentStart = leadWords.length;
 
   if (reduce) {
     return (
       <Tag className={className}>
-        {text} {accent && <span className="text-lime-500">{accent}</span>}
+        {accent ? `${text} ${accent}` : text}
       </Tag>
     );
   }
@@ -48,9 +48,7 @@ export default function TextEffect({
         {words.map((word, i) => (
           <span key={i} className="inline-block overflow-hidden align-bottom">
             <motion.span
-              className={`inline-block ${
-                accent && i >= accentStart ? "text-lime-500" : ""
-              }`}
+              className="inline-block"
               variants={{
                 hidden: { y: "110%", opacity: 0 },
                 visible: {
