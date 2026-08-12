@@ -25,9 +25,17 @@ export default function SelectedWork() {
           </p>
         </Reveal>
 
-        <AnimatedGroup className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+        {/* Two-card row on desktop; on tall viewports each card also pins as
+            it scrolls past so the pair reads like the stacking case-study
+            deck on devnscale.com — same `.stack-card` mechanic Projects uses. */}
+        <AnimatedGroup className="relative mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
           {selectedWork.cases.map((c, i) => (
-            <a key={c.name} href="/case-study" className="group block">
+            <a
+              key={c.name}
+              href="/case-study"
+              className="stack-card group block"
+              style={{ zIndex: i + 1 }}
+            >
               <Tilt max={5} className="[transform-style:preserve-3d]">
                 <div className="overflow-hidden rounded-[20px] border border-border-subtle bg-white transition-[border-color,box-shadow] duration-300 group-hover:border-border-default group-hover:shadow-[0_16px_40px_rgba(25,33,61,0.1)]">
                   <div className="relative">

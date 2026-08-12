@@ -113,8 +113,8 @@ export default function ServicesShowcase() {
                             transition={{ duration: 0.4, ease: EASE }}
                             className="overflow-hidden"
                           >
-                            <div className="grid grid-cols-1 gap-6 pb-8 sm:pl-9 md:grid-cols-[1fr_auto] md:gap-10">
-                              <div>
+                            <div className="grid grid-cols-1 items-center gap-8 pb-10 md:grid-cols-[minmax(0,1fr)_360px] md:gap-12 lg:grid-cols-[minmax(0,1fr)_400px] xl:grid-cols-[minmax(0,1fr)_440px]">
+                              <div className="sm:pl-9">
                                 <p className="t-body-lg max-w-[440px] text-text-secondary">
                                   {s.body}
                                 </p>
@@ -261,57 +261,223 @@ function NumberChip({
 }
 
 /**
- * A colourful faceted 3D glyph that echoes the Rubik-cube-esque render used
- * in the Figma prototype. Per-service seed picks its palette so each service
- * gets a distinct facet colouring. Rotates in on activate.
+ * The Figma prototype pairs each service with a cluster of separate,
+ * FLOATING isometric cubes — not a compact hex — with each cube showing its
+ * own top/left/right faces in different colours (rainbow, gold, teal, pink,
+ * dark). This renders that: 6 disparate cubes spread across the viewbox,
+ * each cube gets a stagger-in on activate, and they wobble on a gentle
+ * infinite loop.
  */
 function ServiceGlyph({ seed }: { seed: number }) {
-  const palettes = [
-    ["#c4d434", "#1e8c72", "#012a1c", "#c084fc", "#f472b6", "#22d3ee"],
-    ["#f472b6", "#22d3ee", "#facc15", "#a855f7", "#1e8c72", "#012a1c"],
-    ["#f97316", "#22c55e", "#3b82f6", "#e11d48", "#eab308", "#1b1b1b"],
-    ["#22d3ee", "#a855f7", "#c4d434", "#f472b6", "#0f5749", "#1b1b1b"],
-    ["#eab308", "#1e8c72", "#0ea5e9", "#a3e635", "#7c3aed", "#111"],
-    ["#f472b6", "#c4d434", "#0f5749", "#1b1b1b", "#a855f7", "#22c55e"],
-    ["#22c55e", "#f59e0b", "#c084fc", "#0ea5e9", "#1e8c72", "#1b1b1b"],
-    ["#0ea5e9", "#c084fc", "#c4d434", "#e11d48", "#1e8c72", "#1b1b1b"],
+  // Per-service palettes — each palette is a set of 6 (top,left,right) x 6 cubes
+  // The Figma cubes look shiny/gradient — approximate with distinct fills per face.
+  const palettes: Array<
+    Array<{ top: string; left: string; right: string }>
+  > = [
+    // Web — the design's reference set (magenta / orange / teal / dark / lime)
+    [
+      { top: "#e879f9", left: "#c026d3", right: "#7e22ce" },
+      { top: "#f97316", left: "#c2410c", right: "#7c2d12" },
+      { top: "#22d3ee", left: "#0891b2", right: "#155e75" },
+      { top: "#f472b6", left: "#db2777", right: "#831843" },
+      { top: "#facc15", left: "#ca8a04", right: "#713f12" },
+      { top: "#1f2937", left: "#111827", right: "#030712" },
+    ],
+    // Mobile — greens + cyan
+    [
+      { top: "#a3e635", left: "#65a30d", right: "#365314" },
+      { top: "#22d3ee", left: "#0891b2", right: "#155e75" },
+      { top: "#84cc16", left: "#4d7c0f", right: "#1a2e05" },
+      { top: "#e879f9", left: "#a21caf", right: "#4a044e" },
+      { top: "#facc15", left: "#a16207", right: "#422006" },
+      { top: "#0f172a", left: "#020617", right: "#000" },
+    ],
+    // Design — pink + purple
+    [
+      { top: "#f0abfc", left: "#c026d3", right: "#701a75" },
+      { top: "#f472b6", left: "#db2777", right: "#500724" },
+      { top: "#c4b5fd", left: "#7c3aed", right: "#3b0764" },
+      { top: "#fda4af", left: "#e11d48", right: "#4c0519" },
+      { top: "#facc15", left: "#a16207", right: "#422006" },
+      { top: "#1e1b4b", left: "#0f0a2e", right: "#000" },
+    ],
+    // AI — cyan / purple electric
+    [
+      { top: "#67e8f9", left: "#0e7490", right: "#164e63" },
+      { top: "#a78bfa", left: "#5b21b6", right: "#2e1065" },
+      { top: "#f0abfc", left: "#a21caf", right: "#581c87" },
+      { top: "#facc15", left: "#a16207", right: "#422006" },
+      { top: "#4ade80", left: "#166534", right: "#052e16" },
+      { top: "#020617", left: "#000", right: "#000" },
+    ],
+    // QA — cool blues + red
+    [
+      { top: "#93c5fd", left: "#1d4ed8", right: "#1e3a8a" },
+      { top: "#fda4af", left: "#e11d48", right: "#4c0519" },
+      { top: "#a3e635", left: "#4d7c0f", right: "#1a2e05" },
+      { top: "#67e8f9", left: "#0891b2", right: "#164e63" },
+      { top: "#facc15", left: "#a16207", right: "#422006" },
+      { top: "#111", left: "#020617", right: "#000" },
+    ],
+    // Pitch — gold + purple
+    [
+      { top: "#fde047", left: "#a16207", right: "#422006" },
+      { top: "#c4b5fd", left: "#7c3aed", right: "#3b0764" },
+      { top: "#f0abfc", left: "#a21caf", right: "#581c87" },
+      { top: "#fbbf24", left: "#b45309", right: "#451a03" },
+      { top: "#4ade80", left: "#166534", right: "#052e16" },
+      { top: "#0f172a", left: "#020617", right: "#000" },
+    ],
+    // Marketing — orange + green
+    [
+      { top: "#fdba74", left: "#c2410c", right: "#7c2d12" },
+      { top: "#4ade80", left: "#166534", right: "#052e16" },
+      { top: "#c4b5fd", left: "#5b21b6", right: "#2e1065" },
+      { top: "#fda4af", left: "#e11d48", right: "#4c0519" },
+      { top: "#67e8f9", left: "#0891b2", right: "#164e63" },
+      { top: "#111", left: "#020617", right: "#000" },
+    ],
+    // Crypto — bright rainbow
+    [
+      { top: "#67e8f9", left: "#0891b2", right: "#164e63" },
+      { top: "#f472b6", left: "#be185d", right: "#500724" },
+      { top: "#fde047", left: "#a16207", right: "#422006" },
+      { top: "#a3e635", left: "#4d7c0f", right: "#1a2e05" },
+      { top: "#c4b5fd", left: "#7c3aed", right: "#3b0764" },
+      { top: "#0f172a", left: "#020617", right: "#000" },
+    ],
   ];
   const p = palettes[seed % palettes.length];
+
+  // Anchor points for six floating cubes spread across a 300x300 viewbox.
+  // Each entry: (cx, cy, size). Kept intentionally uneven so the cluster
+  // reads as a physical arrangement rather than a grid — echoing the
+  // Figma prototype's disparate iso-cube scatter.
+  const cubes: Array<{ cx: number; cy: number; s: number; float: number }> = [
+    { cx: 70, cy: 78, s: 34, float: 0 },
+    { cx: 175, cy: 55, s: 42, float: 0.3 },
+    { cx: 245, cy: 130, s: 30, float: 0.6 },
+    { cx: 60, cy: 200, s: 38, float: 0.15 },
+    { cx: 165, cy: 200, s: 36, float: 0.75 },
+    { cx: 240, cy: 240, s: 28, float: 0.45 },
+  ];
 
   return (
     <motion.div
       key={seed}
-      initial={{ opacity: 0, scale: 0.9, rotate: -10 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-      transition={{ duration: 0.55, delay: 0.1, ease: EASE }}
-      className="mx-auto hidden aspect-square w-[200px] shrink-0 md:block"
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.55, delay: 0.05, ease: EASE }}
+      className="mx-auto hidden aspect-square w-full max-w-[440px] shrink-0 md:block"
       aria-hidden="true"
     >
       <svg
-        viewBox="0 0 200 200"
+        viewBox="0 0 300 300"
         className="size-full drop-shadow-[0_18px_36px_rgba(1,42,28,0.28)]"
       >
-        {/* 3D iso cube composition — a big cube + smaller cubes stacked
-            around it for that "faceted geometric" look from Figma. */}
-        <g transform="translate(100 100)">
-          {/* main cube — top / left / right faces */}
-          <polygon points="0,-60 52,-30 0,0 -52,-30" fill={p[0]} />
-          <polygon points="-52,-30 0,0 0,60 -52,30" fill={p[1]} />
-          <polygon points="52,-30 0,0 0,60 52,30" fill={p[2]} />
-          {/* top-right satellite cube */}
-          <polygon points="52,-30 78,-45 78,-15 52,0" fill={p[3]} opacity="0.95" />
-          <polygon points="52,0 78,-15 78,15 52,30" fill={p[4]} opacity="0.9" />
-          <polygon points="52,-30 78,-45 104,-30 78,-15" fill={p[5]} opacity="0.85" />
-          {/* bottom-left satellite cube */}
-          <polygon points="-52,-30 -78,-15 -78,15 -52,30" fill={p[3]} opacity="0.9" />
-          <polygon points="-78,-15 -52,-30 -78,-45 -104,-30" fill={p[4]} opacity="0.85" />
-          <polygon points="-52,30 -78,15 -78,45 -52,60" fill={p[5]} opacity="0.9" />
-          {/* small top cube */}
-          <polygon points="-30,-70 0,-85 30,-70 0,-55" fill={p[0]} opacity="0.85" />
-          <polygon points="-30,-70 0,-55 0,-30 -30,-40" fill={p[1]} opacity="0.85" />
-          <polygon points="30,-70 0,-55 0,-30 30,-40" fill={p[2]} opacity="0.85" />
-        </g>
+        <defs>
+          {/* white sheen dropped on each cube's top face so the render reads
+              lit-from-above rather than flat isometric. */}
+          <linearGradient id="cube-shine" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {cubes.map((c, i) => (
+          <FloatingCube
+            key={`${seed}-${i}`}
+            cx={c.cx}
+            cy={c.cy}
+            size={c.s}
+            colors={p[i]}
+            delay={i * 0.08}
+            floatOffset={c.float}
+          />
+        ))}
       </svg>
     </motion.div>
+  );
+}
+
+/**
+ * A single isometric cube with a top / left / right face, wrapped in a
+ * motion group that fades + drops in on mount and bobs subtly forever.
+ */
+function FloatingCube({
+  cx,
+  cy,
+  size,
+  colors,
+  delay,
+  floatOffset,
+}: {
+  cx: number;
+  cy: number;
+  size: number;
+  colors: { top: string; left: string; right: string };
+  delay: number;
+  floatOffset: number;
+}) {
+  const s = size;
+  // isometric corners around (cx, cy)
+  //     A(0,-s)
+  //  L(-s√3/2, -s/2)    R(s√3/2, -s/2)
+  //     B(0, 0)
+  //  L'(-s√3/2, s/2)    R'(s√3/2, s/2)
+  //     C(0, s)
+  const w = s * 0.866; // sqrt(3)/2
+  const Ax = 0,
+    Ay = -s;
+  const Lx = -w,
+    Ly = -s / 2;
+  const Rx = w,
+    Ry = -s / 2;
+  const Bx = 0,
+    By = 0;
+  const Lpx = -w,
+    Lpy = s / 2;
+  const Rpx = w,
+    Rpy = s / 2;
+  const Cx = 0,
+    Cy = s;
+
+  const pts = (arr: [number, number][]) =>
+    arr.map(([x, y]) => `${x},${y}`).join(" ");
+
+  return (
+    <motion.g
+      initial={{ opacity: 0, y: -8, scale: 0.85 }}
+      animate={{
+        opacity: 1,
+        // gentle infinite bob offset per cube for a "hanging in space" feel
+        y: [0, -3, 0, 3, 0],
+        scale: 1,
+      }}
+      transition={{
+        opacity: { duration: 0.5, delay, ease: EASE },
+        scale: { duration: 0.5, delay, ease: EASE },
+        y: {
+          duration: 4.5,
+          delay: delay + floatOffset,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+      }}
+      style={{ transformOrigin: `${cx}px ${cy}px` }}
+      transform={`translate(${cx} ${cy})`}
+    >
+      {/* top face */}
+      <polygon points={pts([[Ax, Ay], [Rx, Ry], [Bx, By], [Lx, Ly]])} fill={colors.top} />
+      {/* left face */}
+      <polygon points={pts([[Lx, Ly], [Bx, By], [Cx, Cy], [Lpx, Lpy]])} fill={colors.left} />
+      {/* right face */}
+      <polygon points={pts([[Rx, Ry], [Rpx, Rpy], [Cx, Cy], [Bx, By]])} fill={colors.right} />
+      {/* subtle top-face highlight */}
+      <polygon
+        points={pts([[Ax, Ay], [Rx, Ry], [Bx, By], [Lx, Ly]])}
+        fill="url(#cube-shine)"
+        opacity="0.35"
+      />
+    </motion.g>
   );
 }
