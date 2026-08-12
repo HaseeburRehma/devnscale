@@ -4,7 +4,7 @@
 // the home page — About Us is now its own page.
 export const NAV_LINKS = [
   { label: "Our Services", href: "/services" },
-  { label: "Work", href: "/case-study" },
+  { label: "Work", href: "/work" },
   { label: "About Us", href: "/about" },
   { label: "Contact Us", href: "/contact" },
 ];
@@ -200,7 +200,7 @@ export const FOOTER_LINKS = {
     { label: "Home", href: "/", active: true },
     { label: "About Us", href: "/about" },
     { label: "Our Services", href: "/services" },
-    { label: "Work", href: "/case-study" },
+    { label: "Work", href: "/work" },
     { label: "Blogs", href: "#" },
   ],
   other: [
@@ -220,10 +220,10 @@ export const FOOTER_LINKS = {
 export const ABOUT_HERO = {
   eyebrow: "WHO WE ARE",
   // The lime span is highlighted in the headline.
-  titleLead: "Great software starts with",
-  titleAccent: "the right people.",
+  titleLead: "We Build Digital Products That Move Businesses",
+  titleAccent: "Forward.",
   subtitle:
-    "Dev N Scale is a senior, design-led software studio. We take products from first idea to production — and treat every build like it's our own.",
+    "At Dev N Scale, we combine strategy, design, and technology to build digital products that solve real business problems. From idea to execution, we create scalable solutions designed to perform, adapt, and grow with your business.",
 };
 
 export const ABOUT_STATS = [
@@ -322,17 +322,24 @@ export const ABOUT_TEAM: {
   title: string;
   subtitle: string;
   members: TeamMember[];
+  hiring: { title: string; body: string };
 } = {
   eyebrow: "OUR TEAM",
   title: "The people behind the work.",
   subtitle:
     "A small, senior team — the people you meet are the people who build.",
   members: [
-    { name: "Elias Brandt", role: "Founder & Principal Engineer", initials: "EB", photo: "", linkedin: "#" },
+    { name: "Elias Brandt", role: "Founder & Principal Eng.", initials: "EB", photo: "", linkedin: "#" },
     { name: "Omar Haddad", role: "Head of Engineering", initials: "OH", photo: "", linkedin: "#" },
-    { name: "Danyal Khan", role: "Lead Product Designer", initials: "DK", photo: "", linkedin: "#" },
-    { name: "Rohit Raja", role: "Growth & Delivery Lead", initials: "RR", photo: "", linkedin: "#" },
+    { name: "Daniyal Khan", role: "Lead Product Designer", initials: "DK", photo: "", linkedin: "#" },
+    { name: "Yusuf Raza", role: "Mobile Lead", initials: "YR", photo: "", linkedin: "#" },
+    { name: "Marco Adler", role: "QA & Automation Lead", initials: "MA", photo: "", linkedin: "#" },
+    { name: "Jonas Vogel", role: "AI & Backend Engineer", initials: "JV", photo: "", linkedin: "#" },
   ],
+  hiring: {
+    title: "We're hiring.",
+    body: "Join a small, senior team building products people actually use. We're always open to great engineers and designers.",
+  },
 };
 
 /* ============================================================
@@ -342,10 +349,10 @@ export const ABOUT_TEAM: {
 
 export const SERVICES_HERO = {
   eyebrow: "OUR SERVICES",
-  titleLead: "Everything you need to launch, grow, and",
-  titleAccent: "scale.",
+  titleLead: "Everything You Need To Build, Launch, And",
+  titleAccent: "Scale.",
   subtitle:
-    "One senior team across strategy, design, engineering, and growth — pick a single service or hand us the whole product from first sketch to launch.",
+    "From product development and UI/UX design to custom software and digital solutions, we bring the right expertise together to turn ideas into reliable, high-performing products built for long-term growth.",
 };
 
 export const SERVICES_INTRO = {
@@ -420,10 +427,10 @@ export const SERVICE_SHOWCASE = [
 
 export const CONTACT_HERO = {
   eyebrow: "CONTACT US",
-  titleLead: "Let's build something worth",
-  titleAccent: "shipping.",
+  titleLead: "Have An Idea? Let's Build Something That",
+  titleAccent: "Matters.",
   subtitle:
-    "Tell us where you are and where you want to go. We reply within one business day with clear next steps — no forms lost in a void.",
+    "Whether you're starting something new, improving an existing product, or planning your next stage of growth, we're ready to help. Tell us what you're working on, and let's explore how we can build it together.",
 };
 
 export const CONTACT_BOOKING = {
@@ -513,4 +520,31 @@ export const CASE_STUDY = {
       { name: "Ledgerly", url: "ledgerly.io.com", year: "2025", tags: ["Web App", "Design", "QA"] },
     ],
   },
+} as const;
+
+/* ============================================================
+   Work page — copy from Figma "DEV N SCALE — Work" (4833:17865)
+   ============================================================ */
+
+export const WORK_HERO = {
+  eyebrow: "SELECTED WORK",
+  titleLead: "We Turn Complex Ideas Into Products That",
+  titleAccent: "Work.",
+  subtitle:
+    "Explore the digital products and solutions we've designed and built for businesses looking to improve their operations, strengthen their digital presence, and scale with confidence.",
+};
+
+export const WORK = {
+  eyebrow: "SELECTED WORK",
+  title: "Case studies we're proud of.",
+  subtitle:
+    "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
+  cases: [
+    { name: "Halo Health", url: "halohealth.app.com", year: "2025", tags: ["iOS", "Android", "UI/UX"], href: "/case-study" },
+    { name: "Ledgerly", url: "ledgerly.io.com", year: "2025", tags: ["Web App", "Design", "QA"], href: "/case-study" },
+    { name: "Northbeam", url: "northbeam.co", year: "2024", tags: ["Branding", "Website", "SEO"], href: "/case-study" },
+    { name: "Aster Studio", url: "asterstudio.com", year: "2024", tags: ["UI/UX", "Web App", "Motion"], href: "/case-study" },
+    { name: "Fieldnote", url: "fieldnote.app", year: "2023", tags: ["Mobile", "Web", "API"], href: "/case-study" },
+    { name: "Vantage Labs", url: "vantagelabs.ai", year: "2023", tags: ["AI", "Backend", "QA"], href: "/case-study" },
+  ],
 } as const;

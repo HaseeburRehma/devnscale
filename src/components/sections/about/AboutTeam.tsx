@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { LinkedInIcon } from "@/components/icons";
 import Reveal from "@/components/ui/Reveal";
+import PrimaryButton from "@/components/ui/PrimaryButton";
 import { ABOUT_TEAM } from "@/lib/content";
 
 /** A distinct brand-tinted portrait wash per member, cycled by index. */
@@ -18,7 +19,7 @@ const TINTS = [
  * deliberate. Swap the tile for <Image> once portraits are supplied.
  */
 export default function AboutTeam() {
-  const { eyebrow, title, subtitle, members } = ABOUT_TEAM;
+  const { eyebrow, title, subtitle, members, hiring } = ABOUT_TEAM;
 
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
@@ -39,7 +40,7 @@ export default function AboutTeam() {
           </Reveal>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {members.map((member, i) => (
             <Reveal key={member.name} delay={i * 0.08}>
               <div className="group">
@@ -89,6 +90,17 @@ export default function AboutTeam() {
             </Reveal>
           ))}
         </div>
+
+        {/* hiring card */}
+        <Reveal delay={0.1}>
+          <div className="mt-6 flex flex-col items-start justify-between gap-6 rounded-[20px] bg-brand-900 p-8 sm:flex-row sm:items-center sm:p-10">
+            <div className="max-w-[560px]">
+              <h3 className="t-h3 text-white">{hiring.title}</h3>
+              <p className="t-body mt-2 text-ink-300">{hiring.body}</p>
+            </div>
+            <PrimaryButton href="/contact">View Openings</PrimaryButton>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

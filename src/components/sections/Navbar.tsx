@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import PrimaryButton from "@/components/ui/PrimaryButton";
+import Logo from "@/components/ui/Logo";
 import { CloseIcon, MenuIcon } from "@/components/icons";
 import { NAV_LINKS } from "@/lib/content";
 
@@ -35,14 +36,7 @@ export default function Navbar() {
       >
         <div className="shell relative flex h-[74px] items-center justify-between">
           {/* Logo */}
-          <a href="#top" className="group flex shrink-0 items-center gap-2.5">
-            <span className="flex h-[34px] items-center justify-center rounded-[9px] bg-lime-400 px-[11px] font-display text-[18px] font-bold text-brand-950 transition-transform duration-300 group-hover:scale-105">
-              D
-            </span>
-            <span className="font-display text-[21px] font-bold tracking-[-0.3px] text-white">
-              DEV N SCALE
-            </span>
-          </a>
+          <Logo />
 
           {/* Centred links */}
           {/* links stay out to ~900px, matching the live site */}
