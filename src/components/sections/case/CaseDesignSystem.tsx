@@ -40,18 +40,6 @@ export default function CaseDesignSystem() {
               {designSystem.body}
             </p>
           </Reveal>
-          <Reveal delay={0.16}>
-            <div className="mt-7 flex flex-wrap gap-2.5">
-              {designSystem.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-border-default px-4 py-1.5 text-[13px] font-medium text-ink-700"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </Reveal>
         </div>
 
         {/* specimen sheet */}

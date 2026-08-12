@@ -12,6 +12,7 @@ export function CaseHeroImage() {
         <InView>
           <MediaFrame
             label="Fieldnote · Dispatch control room"
+            device="laptop"
             className="aspect-[2/1] w-full"
           />
         </InView>
@@ -22,13 +23,28 @@ export function CaseHeroImage() {
 
 function StatRow({
   stats,
+  withDividers = false,
 }: {
   stats: readonly { value: string; label: string }[];
+  withDividers?: boolean;
 }) {
   return (
-    <div className="flex flex-wrap items-start gap-x-16 gap-y-8">
+    <div
+      className={
+        withDividers
+          ? "flex flex-wrap items-center justify-center gap-y-10 divide-x divide-border-subtle sm:flex-nowrap"
+          : "flex flex-wrap items-start gap-x-16 gap-y-8"
+      }
+    >
       {stats.map((s) => (
-        <div key={s.label}>
+        <div
+          key={s.label}
+          className={
+            withDividers
+              ? "flex flex-1 flex-col items-center px-8 text-center first:pl-0 last:pr-0"
+              : ""
+          }
+        >
           <p className="font-display text-[clamp(2.25rem,1.8rem+2vw,3rem)] font-bold leading-none tracking-[-0.03em] text-ink-900">
             {s.value}
           </p>
@@ -39,30 +55,36 @@ function StatRow({
   );
 }
 
-/* Overview — split heading/body, then a stat row. */
+/* Overview — split heading/body (white); stats live in their own canvas band. */
 export function CaseOverview() {
   const { overview } = CASE_STUDY;
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
-      <div className="shell">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
-          <div>
-            <Reveal>
-              <p className="t-eyebrow">{overview.eyebrow}</p>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <h2 className="t-subsection mt-4 text-ink-900">{overview.title}</h2>
+    <>
+      <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
+        <div className="shell">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
+            <div>
+              <Reveal>
+                <p className="t-eyebrow">{overview.eyebrow}</p>
+              </Reveal>
+              <Reveal delay={0.06}>
+                <h2 className="t-subsection mt-4 text-ink-900">{overview.title}</h2>
+              </Reveal>
+            </div>
+            <Reveal delay={0.1}>
+              <p className="t-body-lg text-text-secondary lg:pt-2">{overview.body}</p>
             </Reveal>
           </div>
-          <Reveal delay={0.1}>
-            <p className="t-body-lg text-text-secondary lg:pt-2">{overview.body}</p>
+        </div>
+      </section>
+      <section className="border-y border-border-subtle bg-canvas py-12 sm:py-16">
+        <div className="shell">
+          <Reveal>
+            <StatRow stats={overview.stats} withDividers />
           </Reveal>
         </div>
-        <div className="mt-14 border-t border-border-subtle pt-12">
-          <StatRow stats={overview.stats} />
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -124,7 +146,11 @@ export function CaseResults() {
           </Reveal>
         </div>
         <InView className="lg:order-last">
-          <MediaFrame label="Live status" className="aspect-[730/470] w-full" />
+          <MediaFrame
+            label="Live status"
+            device="laptop"
+            className="aspect-[730/470] w-full"
+          />
         </InView>
       </div>
     </section>

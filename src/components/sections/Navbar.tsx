@@ -35,8 +35,9 @@ export default function Navbar() {
         }`}
       >
         <div className="shell relative flex h-[74px] items-center justify-between">
-          {/* Logo */}
-          <Logo />
+          {/* Logo — its inner mark fill washes from pale-lime to white as the
+              nav settles onto its solid backdrop. */}
+          <Logo scrolled={scrolled} />
 
           {/* Centred links */}
           {/* links stay out to ~900px, matching the live site */}

@@ -329,12 +329,12 @@ export const ABOUT_TEAM: {
   subtitle:
     "A small, senior team — the people you meet are the people who build.",
   members: [
-    { name: "Elias Brandt", role: "Founder & Principal Eng.", initials: "EB", photo: "", linkedin: "#" },
-    { name: "Omar Haddad", role: "Head of Engineering", initials: "OH", photo: "", linkedin: "#" },
-    { name: "Daniyal Khan", role: "Lead Product Designer", initials: "DK", photo: "", linkedin: "#" },
-    { name: "Yusuf Raza", role: "Mobile Lead", initials: "YR", photo: "", linkedin: "#" },
-    { name: "Marco Adler", role: "QA & Automation Lead", initials: "MA", photo: "", linkedin: "#" },
-    { name: "Jonas Vogel", role: "AI & Backend Engineer", initials: "JV", photo: "", linkedin: "#" },
+    { name: "Elias Brandt", role: "Founder & Principal Eng.", initials: "EB", photo: "/img/team/elias-brandt.png", linkedin: "#" },
+    { name: "Omar Haddad", role: "Head of Engineering", initials: "OH", photo: "/img/team/omar-haddad.png", linkedin: "#" },
+    { name: "Daniyal Khan", role: "Lead Product Designer", initials: "DK", photo: "/img/team/daniyal-khan.png", linkedin: "#" },
+    { name: "Yusuf Raza", role: "Mobile Lead", initials: "YR", photo: "/img/team/yusuf-raza.png", linkedin: "#" },
+    { name: "Marco Adler", role: "QA & Automation Lead", initials: "MA", photo: "/img/team/marco-adler.png", linkedin: "#" },
+    { name: "Jonas Vogel", role: "AI & Backend Engineer", initials: "JV", photo: "/img/team/jonas-vogel.png", linkedin: "#" },
   ],
   hiring: {
     title: "We're hiring.",
