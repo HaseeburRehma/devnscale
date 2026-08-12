@@ -102,6 +102,7 @@ export default function PageHero({
             as="h1"
             text={title}
             accent={accent}
+            perCharacter
             className={`mt-6 max-w-[1200px] text-balance text-white ${
               sm ? "t-subsection" : "t-page-hero"
             }`}

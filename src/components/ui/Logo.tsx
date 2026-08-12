@@ -29,12 +29,12 @@ export default function Logo({
     >
       {/* Two stacked marks cross-fade on scroll — same SVG, only its container
           filter changes, so no re-layout and no icon flicker. */}
-      <span className="relative h-[36px] w-[34px] transition-transform duration-300 group-hover:scale-105">
+      <span className="relative h-[48px] w-[46px] shrink-0 transition-transform duration-300 group-hover:scale-105 sm:h-[52px] sm:w-[50px]">
         <Image
           src="/img/logos/mark.svg"
           alt=""
-          width={34}
-          height={36}
+          width={50}
+          height={52}
           priority
           className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${
             scrolled ? "opacity-0" : "opacity-100"
@@ -43,8 +43,8 @@ export default function Logo({
         <Image
           src="/img/logos/mark.svg"
           alt=""
-          width={34}
-          height={36}
+          width={50}
+          height={52}
           priority
           className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${
             scrolled ? "opacity-100" : "opacity-0"
@@ -57,12 +57,12 @@ export default function Logo({
         />
       </span>
       <span className="flex flex-col justify-center leading-none">
-        <span className="font-display text-[20px] font-bold tracking-[-0.3px] text-white">
+        <span className="font-display text-[22px] font-bold leading-[1.05] tracking-[-0.3px] text-white sm:text-[24px]">
           Dev n <span className="text-lime-400">Scale</span>
         </span>
         {withTagline && (
-          <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.22em] text-ink-400">
-            Built · System · Growth
+          <span className="mt-1.5 text-[10px] font-medium uppercase leading-none tracking-[0.28em] text-ink-300 sm:text-[11px]">
+            Built • System • Growth
           </span>
         )}
       </span>

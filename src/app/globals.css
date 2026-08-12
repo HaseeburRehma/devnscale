@@ -236,6 +236,54 @@ body {
   }
 }
 
+/* Richer footer-mark movement — floats up and sways side-to-side, with a
+   whisper of z-axis rotation so the 3D render feels alive rather than a
+   sticker on the page. */
+@keyframes float-sway {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+  }
+  25% {
+    transform: translate3d(6px, -10px, 0) rotate(0.4deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(0.8deg);
+  }
+  75% {
+    transform: translate3d(-6px, -10px, 0) rotate(-0.4deg);
+  }
+}
+
+/* Behind-the-mark glow that pulses gently in sync with the float. */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+/* Highlight sheen that rotates across the mark on a slow cycle. */
+@keyframes shimmer {
+  0%,
+  100% {
+    transform: rotate(0deg);
+    opacity: 0;
+  }
+  20%,
+  60% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
 .animate-dot-march {
   animation: dot-march 0.9s linear infinite;
 }

@@ -28,24 +28,35 @@ export default function Footer() {
         {/* CTA */}
         <div className="flex flex-col items-center text-center">
           <Reveal>
-            <div className="relative h-[220px] w-[174px] sm:h-[330px] sm:w-[260px]">
-              {/* lime glow behind the mark, so it sits proud of the tiled bg */}
+            <div className="relative h-[240px] w-[190px] sm:h-[350px] sm:w-[280px]">
+              {/* soft pulsing lime glow, so the mark reads proud of the tiled bg */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -z-0"
+                className="pointer-events-none absolute inset-0 -z-0 motion-safe:animate-[glow-pulse_4.5s_ease-in-out_infinite]"
                 style={{
                   background:
-                    "radial-gradient(closest-side, rgba(196,212,52,0.35), rgba(196,212,52,0) 70%)",
-                  filter: "blur(30px)",
+                    "radial-gradient(closest-side, rgba(196,212,52,0.42), rgba(196,212,52,0) 70%)",
+                  filter: "blur(32px)",
                 }}
               />
+              {/* the mark itself — floats, drifts, and gets a subtle tilt sway */}
               <Image
                 src="/img/logo-3d.png"
                 alt="Dev n Scale"
                 fill
-                sizes="260px"
-                className="relative z-10 object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.45)] motion-safe:animate-[float_6s_ease-in-out_infinite]"
+                sizes="280px"
+                className="relative z-10 object-contain drop-shadow-[0_28px_38px_rgba(0,0,0,0.5)] motion-safe:animate-[float-sway_7s_ease-in-out_infinite]"
                 priority={false}
+              />
+              {/* highlight sheen sweep, gated on motion */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay motion-safe:animate-[shimmer_9s_ease-in-out_infinite]"
+                style={{
+                  background:
+                    "conic-gradient(from 210deg at 60% 40%, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 25%, rgba(255,255,255,0) 40%)",
+                  filter: "blur(2px)",
+                }}
               />
             </div>
           </Reveal>

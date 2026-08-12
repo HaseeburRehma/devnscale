@@ -14,10 +14,13 @@ export default function AboutApproach() {
         </Reveal>
 
         <Reveal delay={0.06}>
-          <p className="t-subsection mt-6 max-w-[960px] text-ink-900">
+          <p className="t-subsection mt-6 max-w-[1080px] text-ink-900">
             {ABOUT_APPROACH.lead}{" "}
-            <span className="text-lime-600">{ABOUT_APPROACH.accent}</span>{" "}
-            <span className="text-ink-400">{ABOUT_APPROACH.tail}</span>
+            {/* Pale-lime cream, matching Figma — a very soft accent that keeps
+                the sentence feeling like one continuous line rather than a
+                highlight break. */}
+            <span className="text-[#dfe6a3]">{ABOUT_APPROACH.accent}</span>{" "}
+            <span className="text-ink-300">{ABOUT_APPROACH.tail}</span>
           </p>
         </Reveal>
       </div>
