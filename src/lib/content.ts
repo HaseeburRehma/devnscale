@@ -3,10 +3,10 @@
 // Hrefs are page-relative (`/#…`) so they resolve from any route, not just
 // the home page — About Us is now its own page.
 export const NAV_LINKS = [
-  { label: "Our Services", href: "/#services" },
-  { label: "Work", href: "/#work" },
+  { label: "Our Services", href: "/services" },
+  { label: "Work", href: "/case-study" },
   { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "/#contact" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export const HERO_STATS =
@@ -199,12 +199,12 @@ export const FOOTER_LINKS = {
   main: [
     { label: "Home", href: "/", active: true },
     { label: "About Us", href: "/about" },
-    { label: "Our Services", href: "/#services" },
-    { label: "Careers", href: "#" },
+    { label: "Our Services", href: "/services" },
+    { label: "Work", href: "/case-study" },
     { label: "Blogs", href: "#" },
   ],
   other: [
-    { label: "Contact Us", href: "/#contact" },
+    { label: "Contact Us", href: "/contact" },
     { label: "Privacy Policy", href: "#" },
     { label: "Term & Condition", href: "#" },
   ],
@@ -334,3 +334,183 @@ export const ABOUT_TEAM: {
     { name: "Rohit Raja", role: "Growth & Delivery Lead", initials: "RR", photo: "", linkedin: "#" },
   ],
 };
+
+/* ============================================================
+   Services page — copy from Figma "DEV N SCALE — Our Services"
+   (4697:10764). Hero placeholder replaced with brand copy.
+   ============================================================ */
+
+export const SERVICES_HERO = {
+  eyebrow: "OUR SERVICES",
+  titleLead: "Everything you need to launch, grow, and",
+  titleAccent: "scale.",
+  subtitle:
+    "One senior team across strategy, design, engineering, and growth — pick a single service or hand us the whole product from first sketch to launch.",
+};
+
+export const SERVICES_INTRO = {
+  eyebrow: "WHAT WE DO",
+  title: "Services built to scale your business.",
+  body: "One team for the whole journey. Pick a single service, or let us run the entire product from first sketch to launch.",
+};
+
+/** The interactive service showcase list. Bodies + tags per service. */
+export const SERVICE_SHOWCASE = [
+  {
+    id: "web",
+    title: "Web Development",
+    body: "High-performance websites and web apps on modern stacks. Fast, accessible, and ready to scale from a first MVP to enterprise traffic.",
+    icon: "code",
+    tags: ["Design systems", "Frontend + backend", "SEO ready"],
+  },
+  {
+    id: "mobile",
+    title: "Mobile App Development",
+    body: "End-to-end iOS, Android, and cross-platform apps built for performance, offline resilience, and a store-ready polish.",
+    icon: "smartphone",
+    tags: ["iOS + Android", "React Native", "Offline-first"],
+  },
+  {
+    id: "design",
+    title: "Design",
+    body: "UI/UX and brand design that speaks before words do — from pixel-perfect product interfaces to complete identity systems.",
+    icon: "layout",
+    tags: ["UI/UX", "Design systems", "Brand identity"],
+  },
+  {
+    id: "ai",
+    title: "AI Chatbot Development",
+    body: "Intelligent conversational interfaces that automate support, qualify leads, and improve experience around the clock.",
+    icon: "chat",
+    tags: ["LLM agents", "Support automation", "RAG"],
+  },
+  {
+    id: "qa",
+    title: "Software Quality Assurance",
+    body: "Manual and automated testing that catches bugs before your users do, so every release ships with confidence.",
+    icon: "shield",
+    tags: ["Automation", "Manual QA", "CI pipelines"],
+  },
+  {
+    id: "pitch",
+    title: "Pitch Deck",
+    body: "Investor decks and fundraising presentations designed to open doors and close rounds.",
+    icon: "presentation",
+    tags: ["Investor decks", "Storytelling", "Data viz"],
+  },
+  {
+    id: "marketing",
+    title: "Digital Marketing",
+    body: "Data-driven SEO, paid ads, and performance marketing that reach the right audience at the right time.",
+    icon: "trending",
+    tags: ["SEO", "Paid ads", "Analytics"],
+  },
+  {
+    id: "crypto",
+    title: "Crypto Dashboards Expert",
+    body: "Web3 dashboards, DeFi platforms, and CRM systems built for the decentralised world.",
+    icon: "bitcoin",
+    tags: ["Web3 UX", "DeFi", "Realtime data"],
+  },
+] as const;
+
+/* ============================================================
+   Contact page — copy from Figma "DEV N SCALE — Contact Us" (4758:1685)
+   ============================================================ */
+
+export const CONTACT_HERO = {
+  eyebrow: "CONTACT US",
+  titleLead: "Let's build something worth",
+  titleAccent: "shipping.",
+  subtitle:
+    "Tell us where you are and where you want to go. We reply within one business day with clear next steps — no forms lost in a void.",
+};
+
+export const CONTACT_BOOKING = {
+  title: "Book your Appointment",
+  body: "Book your appointment with Dev N Scale today and get software built by senior people who care. We turn early ideas into products your customers rely on.",
+  note: "We reply within one business day.",
+  formTitle: "We're just a message away",
+  services: [
+    "UI/UX Design",
+    "Web Development",
+    "Mobile Development",
+    "AI Chatbot",
+    "QA & Testing",
+    "Pitch Decks",
+    "Digital Marketing",
+  ],
+};
+
+export const CONTACT_REACH = {
+  eyebrow: "REACH OUT TO US",
+  title: "Reach out to us",
+  subtitle: "You can reach us by email, by phone, or with a visit to the studio.",
+  cards: [
+    { icon: "mail", label: "Email", value: "hello@devnscale.com" },
+    { icon: "phone", label: "Phone", value: "+49 211 555 0199" },
+    { icon: "pin", label: "Office", value: "Königsallee 92, Düsseldorf" },
+  ],
+} as const;
+
+/* ============================================================
+   Case Study page — copy from Figma "DEV N SCALE — Case Study" (4850:15665)
+   Images are empty frames in Figma → branded placeholders in the build.
+   ============================================================ */
+
+export const CASE_STUDY = {
+  eyebrow: "CASE STUDY · LOGISTICS",
+  title: "Fieldnote",
+  subtitle:
+    "A field operations platform that keeps warehouse and delivery teams working from the same live picture, from first scan to final drop off.",
+  meta: [
+    { value: "2023", label: "YEAR" },
+    { value: "UX/UI, Development", label: "SERVICES" },
+    { value: "Logistics", label: "INDUSTRY" },
+    { value: "Web, iOS", label: "PLATFORM" },
+  ],
+  overview: {
+    eyebrow: "OVERVIEW",
+    title: "From scattered tools to one clear view.",
+    body: "Field teams were juggling paper run sheets, group chats, and three different apps, and nothing quite agreed. We designed and built one platform where dispatch, drivers, and the warehouse all see the same live status, on the web and on the phone in their pocket.",
+    stats: [
+      { value: "38", label: "Screens shipped" },
+      { value: "120+", label: "UI components" },
+      { value: "100%", label: "Responsive" },
+    ],
+  },
+  designSystem: {
+    eyebrow: "DESIGN SYSTEM",
+    title: "A system the team could grow with.",
+    body: "Before a single screen, we set the foundations. A clear type scale, a calm color palette, and a component kit that keeps every new feature on brand and quick to build.",
+    tags: ["Type scale", "Color tokens", "Components", "Icons"],
+  },
+  product: {
+    eyebrow: "THE PRODUCT",
+    title: "Built for the field, not the boardroom.",
+    body: "Drivers get a fast, glanceable app. Dispatch gets a full control room on the web. Both stay in sync in real time.",
+  },
+  results: {
+    eyebrow: "RESULTS",
+    title: "Faster days, fewer missed drops.",
+    body: "Within the first quarter, dispatch was quicker, drivers stopped calling in for updates, and far fewer parcels came back to the depot.",
+    stats: [
+      { value: "31%", label: "fewer failed deliveries" },
+      { value: "2.4x", label: "faster dispatch" },
+    ],
+  },
+  gallery: {
+    eyebrow: "THE FULL PICTURE",
+    title: "Every screen, working together.",
+  },
+  selectedWork: {
+    eyebrow: "SELECTED WORK",
+    title: "Case studies we're proud of.",
+    subtitle:
+      "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
+    cases: [
+      { name: "Halo Health", url: "halohealth.app.com", year: "2025", tags: ["iOS", "Android", "UI/UX"] },
+      { name: "Ledgerly", url: "ledgerly.io.com", year: "2025", tags: ["Web App", "Design", "QA"] },
+    ],
+  },
+} as const;
