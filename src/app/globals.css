@@ -284,6 +284,40 @@ body {
   }
 }
 
+/* ============================================================
+   Services showcase pinned deck. The section is one long scroll of
+   service blocks in the centre column; the left dial and right cube
+   sit in position: sticky columns so they stay pinned in view while
+   the centre column travels past them. Top/bottom gradient masks
+   fade services in and out of the visible window.
+   ============================================================ */
+
+.services-side-sticky {
+  position: sticky;
+  top: calc(50vh - 220px);
+  height: 440px;
+}
+
+.services-mask-top,
+.services-mask-bottom {
+  position: sticky;
+  left: 0;
+  right: 0;
+  height: 22vh;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.services-mask-top {
+  top: 0;
+  background: linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.services-mask-bottom {
+  bottom: 0;
+  background: linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
 .animate-dot-march {
   animation: dot-march 0.9s linear infinite;
 }
