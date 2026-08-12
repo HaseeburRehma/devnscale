@@ -93,7 +93,7 @@ export default function ServicesShowcase() {
             from behind white) */}
         <div className="services-mask-top" aria-hidden="true" />
 
-        <div className="mx-auto grid max-w-[1440px] grid-cols-[46%_1fr_360px] gap-x-8 px-20 xl:grid-cols-[46%_1fr_440px]">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-[340px_minmax(0,1fr)_380px] gap-x-8 px-8 lg:px-12 xl:grid-cols-[360px_minmax(0,520px)_440px] xl:gap-x-12 xl:px-20">
           {/* Left — off-canvas circle, sticky */}
           <div className="relative">
             <div className="services-side-sticky relative">
@@ -120,8 +120,33 @@ export default function ServicesShowcase() {
           <div className="relative">
             <div className="services-side-sticky pointer-events-none">
               <motion.div
-                animate={{ rotate: reduce ? 0 : [0, 3, 0, -3, 0] }}
-                transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+                key={active}
+                initial={{ scale: 0.94, rotate: -8, opacity: 0.6 }}
+                animate={
+                  reduce
+                    ? { scale: 1, rotate: 0, opacity: 1 }
+                    : {
+                        scale: [0.94, 1.02, 1, 1.01, 1],
+                        rotate: [-8, 4, -2, 2, 0],
+                        opacity: 1,
+                        y: [0, -8, 0, 8, 0],
+                      }
+                }
+                transition={
+                  reduce
+                    ? { duration: 0.4 }
+                    : {
+                        scale: { duration: 1.1, ease: EASE },
+                        rotate: { duration: 1.2, ease: EASE },
+                        opacity: { duration: 0.5, ease: EASE },
+                        y: {
+                          duration: 6,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1,
+                        },
+                      }
+                }
                 className="relative size-full"
               >
                 <Image
@@ -130,7 +155,7 @@ export default function ServicesShowcase() {
                   fill
                   priority
                   sizes="440px"
-                  className="object-contain drop-shadow-[0_28px_50px_rgba(1,42,28,0.28)]"
+                  className="object-contain drop-shadow-[0_28px_50px_rgba(1,42,28,0.28)] motion-safe:animate-[spin_28s_linear_infinite]"
                 />
               </motion.div>
             </div>
@@ -183,11 +208,11 @@ function ServiceBlock({
 }
 
 /**
- * Off-canvas partial circle with orbiting step numbers. 720×720 circle
- * centred on the left edge of its column, so only the right arc peeks in.
- * 01 sits at 3 o'clock, each subsequent step 30° clockwise. Numbers are
- * rotated to hug the tangent; the active step lights up dark and gets a
- * lime dot beside it.
+ * Off-canvas half-dial with a **three-number window** — only the previous
+ * step (top), the active step (3 o'clock, with the lime dot), and the next
+ * step (bottom) are visible at any time, matching the Figma prototype.
+ * Numbers cross-fade between roles when the active index changes so the
+ * dial reads as a slowly turning wheel rather than a jumping list.
  */
 function Dial({
   activeIndex,
@@ -199,9 +224,15 @@ function Dial({
   reduce: boolean;
 }) {
   const R = 360;
-  const cx = -R + 60; // circle centre is 60px in from the SVG left, so most of it clips off-canvas
-  const cy = R; // vertical centre matches the SVG's own centre
-  const stepAngle = 30;
+  const cx = -R + 60; // circle centre 60px in from SVG left; most clips off-canvas
+  const cy = R;
+  // three fixed slots on the visible arc: top-right (60°), 3-o'clock (0°),
+  // bottom-right (-60° / 300°). The active number always lands at 0°.
+  const slots = [
+    { angle: -60, role: "prev" as const },
+    { angle: 0, role: "active" as const },
+    { angle: 60, role: "next" as const },
+  ];
 
   return (
     <svg
@@ -210,16 +241,26 @@ function Dial({
       aria-hidden="true"
     >
       <circle cx={cx} cy={cy} r={R} fill="none" stroke="#e5e5e5" strokeWidth={1} />
-      {Array.from({ length: total }).map((_, i) => {
-        // 01 at 3 o'clock (angle 0), stepping clockwise: 02 at 30°, …
-        const angle = i * stepAngle;
-        const rad = (angle * Math.PI) / 180;
+      {slots.map((slot) => {
+        const idx =
+          slot.role === "prev"
+            ? (activeIndex - 1 + total) % total
+            : slot.role === "next"
+              ? (activeIndex + 1) % total
+              : activeIndex;
+        const rad = (slot.angle * Math.PI) / 180;
         const x = cx + R * Math.cos(rad);
         const y = cy + R * Math.sin(rad);
-        const isActive = i === activeIndex;
-        const numRotation = angle + 90;
+        const isActive = slot.role === "active";
+        const numRotation = slot.angle + 90;
         return (
-          <g key={i} transform={`translate(${x} ${y})`}>
+          <motion.g
+            key={`${slot.role}-${idx}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+            transform={`translate(${x} ${y})`}
+          >
             {isActive && (
               <motion.circle
                 layoutId="services-dot"
@@ -237,13 +278,13 @@ function Dial({
               dominantBaseline="middle"
               fontFamily="var(--font-display), sans-serif"
               fontWeight={500}
-              fontSize={isActive ? 24 : 22}
+              fontSize={isActive ? 28 : 22}
               fill={isActive ? "#1b1b1b" : "#d4d4d4"}
               transform={isActive ? undefined : `rotate(${numRotation})`}
             >
-              0{i + 1}
+              0{idx + 1}
             </text>
-          </g>
+          </motion.g>
         );
       })}
     </svg>
