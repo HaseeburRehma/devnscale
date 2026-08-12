@@ -81,6 +81,17 @@ body {
   letter-spacing: -0.0375em; /* -3px @ 80px */
 }
 
+/* Inner-page hero — a shade smaller than the home hero so long titles
+   ("We Build Digital Products That Move Businesses Forward.") wrap to two
+   lines at desktop, matching the Figma inner-page hero. */
+.t-page-hero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 0.9rem + 3.8vw, 3.375rem); /* 32 → 54 */
+  line-height: 1.1;
+  letter-spacing: -0.032em;
+}
+
 .t-subsection {
   font-family: var(--font-display);
   font-weight: 700;
@@ -211,6 +222,17 @@ body {
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Slow, subtle bob for the footer 3D mark. */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
   }
 }
 

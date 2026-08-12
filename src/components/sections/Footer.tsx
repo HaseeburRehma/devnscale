@@ -30,12 +30,22 @@ export default function Footer() {
         <div className="flex flex-col items-center text-center">
           <Reveal>
             <div className="relative h-[220px] w-[174px] sm:h-[330px] sm:w-[260px]">
+              {/* lime glow behind the mark, so it sits proud of the tiled bg */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 -z-0"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, rgba(196,212,52,0.35), rgba(196,212,52,0) 70%)",
+                  filter: "blur(30px)",
+                }}
+              />
               <Image
                 src="/img/logo-3d.png"
-                alt="Dev N Scale"
+                alt="Dev n Scale"
                 fill
                 sizes="260px"
-                className="object-contain"
+                className="relative z-10 object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.45)] motion-safe:animate-[float_6s_ease-in-out_infinite]"
                 priority={false}
               />
             </div>

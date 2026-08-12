@@ -176,13 +176,13 @@ export default function Process() {
                 );
               })}
 
-              <div className="absolute left-1/2 top-1/2 w-[min(60%,243px)] -translate-x-1/2 -translate-y-1/2 text-center">
-                <div className="relative mx-auto aspect-square w-[min(45%,100px)]">
+              <div className="absolute left-1/2 top-1/2 flex w-[min(64%,290px)] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center">
+                <div className="relative aspect-square w-[min(50%,120px)]">
                   <Image
                     src={step.image}
                     alt=""
                     fill
-                    sizes="100px"
+                    sizes="120px"
                     className="object-contain"
                   />
                 </div>
@@ -195,11 +195,12 @@ export default function Process() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="w-full"
                   >
-                    <h3 className="mt-6 font-display text-[clamp(0.875rem,0.75rem+0.56vw,1rem)] font-medium text-white">
+                    <h3 className="mt-4 font-display text-[clamp(0.9375rem,0.8rem+0.6vw,1.0625rem)] font-medium text-white">
                       {step.heading}
                     </h3>
-                    <p className="mt-2 text-[clamp(0.75rem,0.69rem+0.28vw,0.875rem)] leading-5 text-ink-300">
+                    <p className="mx-auto mt-2 max-w-[240px] text-[clamp(0.75rem,0.69rem+0.28vw,0.875rem)] leading-5 text-ink-300">
                       {step.body}
                     </p>
                   </motion.div>

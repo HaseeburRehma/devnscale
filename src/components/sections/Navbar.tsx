@@ -28,10 +28,10 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div
-        className={`border-b transition-colors duration-300 ${
+        className={`transition-[background-color,backdrop-filter,border-color] duration-500 ${
           scrolled
-            ? "border-white/10 bg-[#03150f]/80 backdrop-blur-md"
-            : "border-white/20 bg-black/30"
+            ? "border-b border-white/10 bg-[#03150f]/80 backdrop-blur-xl"
+            : "border-b border-white/[0.06] bg-gradient-to-b from-black/55 via-black/20 to-transparent backdrop-blur-[6px]"
         }`}
       >
         <div className="shell relative flex h-[74px] items-center justify-between">

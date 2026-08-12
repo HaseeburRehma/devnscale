@@ -7,7 +7,8 @@ import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
 import DiagonalMarquees from "@/components/sections/DiagonalMarquees";
 
-import AboutHero from "@/components/sections/about/AboutHero";
+import PageHero from "@/components/sections/PageHero";
+import { ABOUT_HERO } from "@/lib/content";
 import AboutStats from "@/components/sections/about/AboutStats";
 import AboutApproach from "@/components/sections/about/AboutApproach";
 import AboutJourney from "@/components/sections/about/AboutJourney";
@@ -26,7 +27,12 @@ export default function AboutPage() {
     <>
       <Navbar />
       <main>
-        <AboutHero />
+        <PageHero
+          eyebrow={ABOUT_HERO.eyebrow}
+          title={ABOUT_HERO.titleLead}
+          accent={ABOUT_HERO.titleAccent}
+          subtitle={ABOUT_HERO.subtitle}
+        />
         <AboutStats />
         <AboutApproach />
         <WhyUs />
