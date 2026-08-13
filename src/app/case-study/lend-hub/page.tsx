@@ -36,6 +36,8 @@ export default function LendHubCaseStudyPage() {
           title={study.title}
           subtitle={study.subtitle}
           size="sm"
+          backgroundImage={study.heroBackground}
+          eyebrowClassName="text-white/80"
         />
         <CaseMeta study={study} />
         <CaseHeroImage study={study} />

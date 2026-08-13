@@ -36,6 +36,8 @@ export default function LendSaasCaseStudyPage() {
           title={study.title}
           subtitle={study.subtitle}
           size="sm"
+          backgroundImage={study.heroBackground}
+          eyebrowClassName="text-ink-900"
         />
         <CaseMeta study={study} />
         <CaseHeroImage study={study} />

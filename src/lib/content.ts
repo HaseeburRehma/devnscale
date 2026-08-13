@@ -242,29 +242,29 @@ export const ABOUT_APPROACH = {
 
 export const ABOUT_JOURNEY = {
   eyebrow: "OUR JOURNEY",
-  title: "From a small studio to a partner at scale.",
+  title: "From a Spark to a Full-Stack Powerhouse",
   intro:
-    "A few hundred products later, the same belief holds — small teams, close to the work, do the best work.",
+    "What started as one developer's conviction that software should be built right, not just built fast, grew into a team, a system, and a company that delivers at scale.",
   milestones: [
     {
-      year: "2019",
-      title: "Where it started",
-      body: "Two people, one rule: design and engineering in the same room. The first products shipped weeks faster for it.",
+      year: "2021",
+      title: "The Spark",
+      body: "It started with a simple belief: businesses deserve software partners who think like founders. DevnScale was born out of that conviction. Lean, hungry, and ready to prove it.",
     },
     {
-      year: "2021",
-      title: "Built for scale",
-      body: "A senior team took shape. We moved from one-off builds to full products — strategy, design, and delivery under one roof.",
+      year: "2022",
+      title: "The First Bet",
+      body: "A client took a chance on us. We didn't just deliver, we over-delivered. That first project became our blueprint: understand deeply, build precisely, exceed expectations.",
     },
     {
       year: "2023",
-      title: "Across borders",
-      body: "Clients in 50+ countries. Remote by default, senior by design, shipping across time zones without losing the thread.",
+      title: "50+ Projects and Counting",
+      body: "What began as one project turned into fifty. Across industries, across borders, each one built with the same standard: no shortcuts, no compromises, just work that speaks for itself.",
     },
     {
       year: "2025",
-      title: "Still close to the work",
-      body: "500+ projects in, the model hasn't changed. Small teams, real ownership, software built to last.",
+      title: "Built to Scale",
+      body: "From a solo founder to a team of 25 engineers, designers, and strategists. Every hire was intentional, every role earned. What started small now operates at full capacity, and we're only accelerating.",
     },
   ],
 };
@@ -470,6 +470,9 @@ export type CaseStudy = {
   title: string;
   subtitle: string;
   meta: readonly { value: string; label: string }[];
+  /** Full-bleed hero background exported from Figma (replaces the default
+   *  site grid+glow behind the PageHero title). */
+  heroBackground: string;
   heroImage: string;
   overview: {
     eyebrow: string;
@@ -534,6 +537,7 @@ const CASE_STUDY_MCA: CaseStudy = {
     { value: "FinTech · Alternative Finance", label: "INDUSTRY" },
     { value: "iOS · Android", label: "PLATFORM" },
   ],
+  heroBackground: "/img/case/mca/hero-bg.png",
   heroImage: "/img/case/hero.png",
   overview: {
     eyebrow: "THE CHALLENGE",
@@ -617,6 +621,7 @@ const CASE_STUDY_SAAS: CaseStudy = {
     { value: "FinTech", label: "INDUSTRY" },
     { value: "Web", label: "PLATFORM" },
   ],
+  heroBackground: "/img/case/saas/hero-bg.png",
   heroImage: "/img/case/saas/hero.png",
   overview: {
     eyebrow: "THE CHALLENGE",
@@ -702,6 +707,7 @@ const CASE_STUDY_LEND_HUB: CaseStudy = {
     { value: "FinTech", label: "INDUSTRY" },
     { value: "Web", label: "PLATFORM" },
   ],
+  heroBackground: "/img/case/lend-hub/hero-bg.png",
   heroImage: "/img/case/lend-hub/hero.png",
   overview: {
     eyebrow: "THE CHALLENGE",
@@ -797,9 +803,9 @@ export const WORK_HERO = {
     "Explore the digital products and solutions we've designed and built for businesses looking to improve their operations, strengthen their digital presence, and scale with confidence.",
 };
 
-// 6 case cards. Cover images pulled from the Figma Work grid (only 3
-// unique renders — Figma cycles them across the 6 cases). Category
-// badge appears top-left on the cover.
+// 6 case cards. Cover images exported straight from the Figma Work grid
+// (node 4835:15593) — Aster Studio and Fieldnote intentionally share one
+// render there, everything else has its own unique cover.
 export const WORK = {
   eyebrow: "SELECTED WORK",
   title: "Case studies we're proud of.",
@@ -812,7 +818,7 @@ export const WORK = {
       year: "2025",
       badge: "Mobile App",
       tags: ["iOS", "Android", "UI/UX"],
-      cover: "/img/case/cover-1.png",
+      cover: "/img/case/work-cover-mca.jpg",
       // Mobile-first case → MCA Calculator (the only mobile case in the deck).
       href: "/case-study",
     },
@@ -822,7 +828,7 @@ export const WORK = {
       year: "2025",
       badge: "Web Platform",
       tags: ["Web App", "Design", "QA"],
-      cover: "/img/case/cover-2.png",
+      cover: "/img/case/work-cover-ledgerly.jpg",
       // Ledgerly (Web Platform) → the DeFi/XRPL Lend SaaS case study.
       href: "/case-study/lend-saas",
     },
@@ -832,7 +838,7 @@ export const WORK = {
       year: "2024",
       badge: "Brand + Site",
       tags: ["Branding", "Website", "SEO"],
-      cover: "/img/case/cover-2.png",
+      cover: "/img/case/work-cover-northbeam.jpg",
       href: "/case-study/lend-hub",
     },
     {
@@ -841,7 +847,7 @@ export const WORK = {
       year: "2024",
       badge: "SaaS",
       tags: ["UI/UX", "Web App", "Motion"],
-      cover: "/img/case/cover-3.png",
+      cover: "/img/case/work-cover-aster.png",
       // SaaS card → OpulenceX (the DeFi/XRPL SaaS case).
       href: "/case-study/lend-saas",
     },
@@ -851,7 +857,7 @@ export const WORK = {
       year: "2023",
       badge: "Logistics",
       tags: ["Mobile", "Web", "API"],
-      cover: "/img/case/cover-3.png",
+      cover: "/img/case/work-cover-aster.png",
       // Logistics/mobile-heavy → MCA (the mobile calculator case).
       href: "/case-study",
     },
@@ -861,7 +867,7 @@ export const WORK = {
       year: "2023",
       badge: "AI Platform",
       tags: ["AI", "Backend", "QA"],
-      cover: "/img/case/cover-1.png",
+      cover: "/img/case/work-cover-vantage.png",
       href: "/case-study/lend-hub",
     },
   ],

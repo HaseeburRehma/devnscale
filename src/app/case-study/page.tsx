@@ -34,6 +34,8 @@ export default function CaseStudyPage() {
           title={CASE_STUDY.title}
           subtitle={CASE_STUDY.subtitle}
           size="sm"
+          backgroundImage={CASE_STUDY.heroBackground}
+          eyebrowClassName="text-white/80"
         />
         <CaseMeta />
         <CaseHeroImage />
