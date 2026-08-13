@@ -10,6 +10,7 @@ import {
   useSpring,
 } from "motion/react";
 import PatternBackdrop from "@/components/ui/PatternBackdrop";
+import { useLenis } from "@/components/motion/SmoothScroll";
 import { PROCESS_STEPS } from "@/lib/content";
 
 /**
@@ -50,6 +51,7 @@ function polar(angleDeg: number) {
 export default function Process() {
   const trackRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
+  const lenis = useLenis();
 
   const { scrollYProgress } = useScroll({
     target: trackRef,
@@ -71,8 +73,12 @@ export default function Process() {
     const el = trackRef.current;
     if (!el) return;
     const distance = el.offsetHeight - window.innerHeight;
-    const target = el.offsetTop + distance * ((i + 0.4) / STEP_COUNT);
-    window.scrollTo({ top: Math.max(el.offsetTop, target), behavior: "smooth" });
+    const target = Math.max(el.offsetTop, el.offsetTop + distance * ((i + 0.4) / STEP_COUNT));
+    if (lenis) {
+      lenis.scrollTo(target);
+    } else {
+      window.scrollTo({ top: target, behavior: "smooth" });
+    }
   };
 
   const step = PROCESS_STEPS[active];

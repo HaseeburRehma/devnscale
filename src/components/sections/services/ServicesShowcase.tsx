@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import Reveal from "@/components/ui/Reveal";
+import { useLenis } from "@/components/motion/SmoothScroll";
 import { SERVICES_INTRO, SERVICE_SHOWCASE } from "@/lib/content";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -30,6 +31,7 @@ export default function ServicesShowcase() {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const lenis = useLenis();
 
   // Which service block sits closest to viewport centre right now.
   useEffect(() => {
@@ -63,10 +65,13 @@ export default function ServicesShowcase() {
 
   const goTo = (i: number) => {
     setActive(i);
-    cardRefs.current[i]?.scrollIntoView({
-      behavior: reduce ? "auto" : "smooth",
-      block: "center",
-    });
+    const el = cardRefs.current[i];
+    if (!el) return;
+    if (lenis) {
+      lenis.scrollTo(el, { offset: -window.innerHeight / 2 + el.offsetHeight / 2 });
+    } else {
+      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+    }
   };
 
   return (
@@ -247,11 +252,23 @@ function ServiceBlock({
  * rather than a fixed viewBox, so it always renders at true 1:1 pixel
  * scale — no SVG letterboxing shrinking the numbers down. The radius
  * tracks the box height (so the full arc fits top-to-bottom) and the
- * centre is pinned `width - R` from the left, which keeps the active
- * number anchored at the box's right edge — the right "half" of the
- * circle stays inside the column, the rest bleeds off-canvas to the
- * left, at any column width.
+ * centre is pinned near the right edge, which keeps the active number
+ * anchored close to the column's edge — the right "half" of the circle
+ * stays inside the column, the rest bleeds off-canvas to the left, at
+ * any column width.
+ *
+ * PAD_X/PAD_Y inset the circle from the container edges. They matter
+ * because `.services-side-sticky` clips overflow: the active label uses
+ * textAnchor="start", so its text draws *rightward* from its anchor —
+ * without horizontal clearance the active number's own text overflows
+ * past the column's right edge and gets clipped to nothing (invisible,
+ * only the dot showing). Vertical clearance keeps whichever label lands
+ * near the top/bottom of the arc (±90°) from being cut in half by the
+ * same clip.
  */
+const PAD_X = 44;
+const PAD_Y = 24;
+
 function Dial({
   activeIndex,
   total,
@@ -277,8 +294,8 @@ function Dial({
     return () => ro.disconnect();
   }, []);
 
-  const R = box.height / 2;
-  const cx = box.width - R;
+  const R = Math.max(0, box.height / 2 - PAD_Y);
+  const cx = box.width - PAD_X - R;
   const cy = box.height / 2;
   const step = 180 / (total - 1);
 
