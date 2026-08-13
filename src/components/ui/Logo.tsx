@@ -62,7 +62,7 @@ export default function Logo({
         </span>
         {withTagline && (
           <span className="mt-1.5 text-[10px] font-medium uppercase leading-none tracking-[0.28em] text-ink-300 sm:text-[11px]">
-            Built • System • Growth
+            Design • Build • Scale
           </span>
         )}
       </span>

@@ -66,12 +66,12 @@ export const SERVICES = [
 
 export const PROJECTS = [
   {
-    pill: "Website Design",
-    title: "DJI Drones",
-    body: "Full website UI/UX design for a premium drone products brand built to showcase a high-quality hardware product to a global audience.",
-    metric: "+42%",
-    metricLabel: "30-day retention",
-    image: "/img/projects/dji-drones.png",
+    pill: "FinTech Mobile App Design",
+    title: "Merchant Cash Advance Calculator (MCA)",
+    body: "MCA professionals often rely on multiple tools to calculate deals, manage templates, and review previous calculations. We designed one connected experience to bring these tasks together in a faster, more organized workflow.",
+    metric: "38+",
+    metricLabel: "Screens Designed",
+    image: "/img/projects/halo-health-mca.png",
   },
   {
     pill: "Website Design",
@@ -208,7 +208,7 @@ export const FOOTER_LINKS = {
     { label: "Privacy Policy", href: "#" },
     { label: "Term & Condition", href: "#" },
   ],
-  contact: ["+92 000 0000 000", "info@dns.com"],
+  contact: ["+49 211 555 0199", "hello@devnscale.com"],
 };
 
 /* ============================================================
@@ -362,6 +362,10 @@ export const SERVICES_INTRO = {
 };
 
 /** The interactive service showcase list. Bodies + tags per service. */
+// Seven services — copy transcribed verbatim from the Figma Services
+// showcase component (5304:66287). Figma's numbered dial ends at 07 with
+// Digital Marketing; no Crypto card here. (The homepage's separate
+// SERVICES card grid is the place that carries the 8th Crypto entry.)
 export const SERVICE_SHOWCASE = [
   {
     id: "web",
@@ -373,51 +377,44 @@ export const SERVICE_SHOWCASE = [
   {
     id: "mobile",
     title: "Mobile App Development",
-    body: "End-to-end iOS, Android, and cross-platform apps built for performance, offline resilience, and a store-ready polish.",
+    body: "Native and cross-platform apps for iOS and Android that people actually keep on their home screen.",
     icon: "smartphone",
-    tags: ["iOS + Android", "React Native", "Offline-first"],
+    tags: ["iOS + Android", "Offline first", "Store ready"],
   },
   {
     id: "design",
-    title: "Design",
-    body: "UI/UX and brand design that speaks before words do — from pixel-perfect product interfaces to complete identity systems.",
+    title: "UI/UX Design",
+    body: "Research-led product and brand design. Interfaces that are clear, on brand, and a pleasure to use.",
     icon: "layout",
-    tags: ["UI/UX", "Design systems", "Brand identity"],
+    tags: ["User research", "Design systems", "Prototyping"],
   },
   {
     id: "ai",
     title: "AI Chatbot Development",
-    body: "Intelligent conversational interfaces that automate support, qualify leads, and improve experience around the clock.",
+    body: "Custom AI assistants trained on your content to handle support, sales, and internal ops around the clock.",
     icon: "chat",
-    tags: ["LLM agents", "Support automation", "RAG"],
+    tags: ["Trained on your data", "Multi channel", "Human handoff"],
   },
   {
     id: "qa",
     title: "Software Quality Assurance",
-    body: "Manual and automated testing that catches bugs before your users do, so every release ships with confidence.",
+    body: "Manual and automated testing that catches issues before your users do, on every release.",
     icon: "shield",
-    tags: ["Automation", "Manual QA", "CI pipelines"],
+    tags: ["Automated tests", "Manual QA", "CI pipelines"],
   },
   {
     id: "pitch",
-    title: "Pitch Deck",
-    body: "Investor decks and fundraising presentations designed to open doors and close rounds.",
+    title: "Pitch Deck Presentations",
+    body: "Investor and sales ready decks with a sharp narrative and the design that gets you the meeting.",
     icon: "presentation",
-    tags: ["Investor decks", "Storytelling", "Data viz"],
+    tags: ["Story and script", "Custom visuals", "Data rooms"],
   },
   {
     id: "marketing",
     title: "Digital Marketing",
-    body: "Data-driven SEO, paid ads, and performance marketing that reach the right audience at the right time.",
+    body: "SEO, paid, and content that turns your launch into a real pipeline. Measured, not guessed.",
     icon: "trending",
-    tags: ["SEO", "Paid ads", "Analytics"],
-  },
-  {
-    id: "crypto",
-    title: "Crypto Dashboards Expert",
-    body: "Web3 dashboards, DeFi platforms, and CRM systems built for the decentralised world.",
-    icon: "bitcoin",
-    tags: ["Web3 UX", "DeFi", "Realtime data"],
+    tags: ["SEO + content", "Paid media", "Analytics"],
   },
 ] as const;
 
