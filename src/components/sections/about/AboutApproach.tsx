@@ -1,98 +1,88 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import Reveal from "@/components/ui/Reveal";
 import { ABOUT_APPROACH } from "@/lib/content";
 
 /**
- * "OUR APPROACH" — types the sentence out character by character each time
- * the section scrolls into view (restarts on every visit, per user ask).
+ * "OUR APPROACH" — scroll-driven word color fill.
  *
- * The sentence is split into three colour bands:
- *   • lead  — "We keep teams "   → dark ink
- *   • accent — "small, senior…"  → yellow/lime cream (matches Figma)
- *   • tail  — "It is how good…"  → dark ink
+ * The full sentence starts dull (low-opacity ink) and each word "lights up"
+ * to its final color as the section scrolls through the viewport. Because
+ * the animation is bound directly to scroll progress, scrolling back up
+ * naturally rewinds it — no IntersectionObserver / restart logic needed.
  *
- * Typing runs at ~55ms/character; a caret pulses at the current write head.
- * When the user scrolls the section out of view the state resets so a
- * scroll-back replays the animation. Reduced-motion users see the full
- * sentence immediately with no caret.
+ * Colour bands:
+ *   • lead  — "We keep teams"          → dark ink
+ *   • accent — "small, senior…"        → lime/cream from Figma
+ *   • tail  — "It is how good…"        → dark ink
+ *
+ * Reduced-motion users see the finished sentence at full color.
  */
 
-const TYPE_MS = 55; // per character
-const START_DELAY = 250; // small pause before the first char lands
+const DULL = "rgba(17, 24, 20, 0.15)";
+const INK = "rgb(17, 24, 20)"; // matches text-ink-900
+const ACCENT = "rgb(200, 208, 44)"; // #c8d02c
 
-// Read once at module load — SSR-safe fallback (`false`) and the effect below
-// keeps it in sync if the OS setting changes at runtime.
-function initialReduce(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+type Band = "lead" | "accent" | "tail";
+
+function Word({
+  progress,
+  range,
+  color,
+  children,
+}: {
+  progress: MotionValue<number>;
+  range: [number, number];
+  color: string;
+  children: React.ReactNode;
+}) {
+  // Interpolate the word's color between DULL and its final color over its
+  // own slice of scroll progress. `clamp` keeps it stable outside the range.
+  const c = useTransform(progress, range, [DULL, color], { clamp: true });
+  return (
+    <motion.span style={{ color: c }} className="transition-colors">
+      {children}
+    </motion.span>
+  );
 }
 
 export default function AboutApproach() {
   const { eyebrow, lead, accent, tail } = ABOUT_APPROACH;
-  const fullLen = `${lead} `.length + `${accent} `.length + tail.length;
-  const [reduce, setReduce] = useState(initialReduce);
-  const [len, setLen] = useState<number>(() => (initialReduce() ? fullLen : 0));
-  const [active, setActive] = useState(false);
+  const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Sync reduced-motion via the external media-query change event.
-  useEffect(() => {
-    const m = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const onChange = () => setReduce(m.matches);
-    m.addEventListener?.("change", onChange);
-    return () => m.removeEventListener?.("change", onChange);
-  }, []);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    // Start filling as soon as the section top hits 85% of the viewport;
+    // finish when the section top reaches 15%. Feels natural at normal
+    // scroll speeds and rewinds smoothly on scroll-back.
+    offset: ["start 0.85", "start 0.15"],
+  });
 
-  // Watch scroll — when the section enters view, reset & start typing;
-  // when it leaves, reset so the next entry replays from zero.
-  useEffect(() => {
-    if (reduce) return;
-    const el = sectionRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setLen(0);
-            setActive(true);
-          } else {
-            setActive(false);
-            setLen(0);
-          }
-        });
-      },
-      { threshold: 0.35 },
+  // Split each band into words with a color tag; keep a single flat list so
+  // each word gets a contiguous slice of scroll progress.
+  const words = useMemo(() => {
+    const bands: { text: string; band: Band; color: string }[] = [
+      { text: lead, band: "lead", color: INK },
+      { text: accent, band: "accent", color: ACCENT },
+      { text: tail, band: "tail", color: INK },
+    ];
+    return bands.flatMap((b, bandIdx) =>
+      b.text.split(" ").map((w, i) => ({
+        word: w,
+        color: b.color,
+        // Unique key across bands even when the same word repeats.
+        key: `${bandIdx}-${i}-${w}`,
+      })),
     );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [reduce]);
+  }, [lead, accent, tail]);
 
-  // Advance the character counter while active.
-  useEffect(() => {
-    if (!active || reduce) return;
-    if (len >= fullLen) return;
-    const t = setTimeout(
-      () => setLen((n) => n + 1),
-      len === 0 ? START_DELAY : TYPE_MS,
-    );
-    return () => clearTimeout(t);
-  }, [active, len, reduce, fullLen]);
-
-  // Slice the running character count into the three coloured runs.
-  const leadRun = `${lead} `;
-  const accentRun = `${accent} `;
-  const shownLead = leadRun.slice(0, Math.min(len, leadRun.length));
-  const shownAccent =
-    len > leadRun.length
-      ? accentRun.slice(0, Math.min(len - leadRun.length, accentRun.length))
-      : "";
-  const shownTail =
-    len > leadRun.length + accentRun.length
-      ? tail.slice(0, len - leadRun.length - accentRun.length)
-      : "";
-  const done = len >= fullLen;
+  const total = words.length;
+  // Each word lights over a small overlapping window so the fill reads as
+  // a flowing wave rather than a strict staircase.
+  const WINDOW = 1.6;
 
   return (
     <section
@@ -105,18 +95,35 @@ export default function AboutApproach() {
         </Reveal>
 
         <p
-          className="t-subsection mt-6 max-w-[1080px] text-ink-900"
+          className="t-subsection mt-6 max-w-[1080px] leading-[1.15]"
           aria-label={`${lead} ${accent} ${tail}`}
         >
           <span aria-hidden>
-            {shownLead}
-            <span className="text-[#c8d02c]">{shownAccent}</span>
-            <span className="text-ink-900">{shownTail}</span>
-            {!reduce && !done && (
-              <span className="typewriter-caret ml-0.5 inline-block w-[2px] align-baseline">
-                &nbsp;
-              </span>
-            )}
+            {words.map((w, i) => {
+              const start = i / total;
+              const end = Math.min(1, (i + WINDOW) / total);
+              if (reduce) {
+                // Reduced motion → render each word in its final color, no scroll binding.
+                return (
+                  <span key={w.key} style={{ color: w.color }}>
+                    {w.word}
+                    {i < total - 1 ? " " : ""}
+                  </span>
+                );
+              }
+              return (
+                <span key={w.key}>
+                  <Word
+                    progress={scrollYProgress}
+                    range={[start, end]}
+                    color={w.color}
+                  >
+                    {w.word}
+                  </Word>
+                  {i < total - 1 ? " " : ""}
+                </span>
+              );
+            })}
           </span>
         </p>
       </div>
