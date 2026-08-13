@@ -87,8 +87,10 @@ export default function Process() {
     <section ref={trackRef} className="relative h-[140vh] bg-brand-900 md:h-[170vh]">
       {/* On phones the stepper is only ~370px tall, so a full-height pinned
           panel would centre it in a sea of empty green. Shorter panel there,
-          with top padding to clear the fixed nav. */}
-      <div className="sticky top-0 flex h-[68svh] min-h-[480px] items-center overflow-hidden pt-[74px] md:h-screen md:min-h-[600px] md:pt-0">
+          with top padding to clear the fixed nav. On desktop the panel pins
+          below the 74px fixed nav (was pinning under it) so the "Our Work
+          Process" heading isn't crammed against the nav bar. */}
+      <div className="sticky top-0 flex h-[68svh] min-h-[480px] items-center overflow-hidden pt-[74px] md:h-[calc(100svh-100px)] md:min-h-[640px] md:items-start md:pt-16 md:top-[100px]">
         <PatternBackdrop opacity={0.045} />
 
         <div className="shell relative w-full">

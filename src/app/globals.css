@@ -400,8 +400,12 @@ body {
    z-index (set inline), so each slides completely over the last — the
    mechanic devnscale.com uses. Pure CSS, so the server and client render
    identical markup and it works before hydration.
-   Gated on height too: pinning a card taller than the viewport traps scroll. */
-@media (min-width: 768px) and (min-height: 640px) {
+   Gated on height too: pinning a card taller than the viewport traps scroll.
+   The height guard is 560px — tall enough that a card (~450–500px + 100px
+   sticky offset) still comfortably fits, but low enough that ordinary
+   laptop-with-devtools viewports (~600–640px) don't slip through the
+   crack the old 640-px threshold left open. */
+@media (min-width: 768px) and (min-height: 560px) {
   .stack-card {
     position: sticky;
     top: 100px;
