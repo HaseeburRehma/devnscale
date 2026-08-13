@@ -29,7 +29,7 @@ export default function AboutTeam() {
   const roster = [...members, ...members];
 
   return (
-    <section className="overflow-hidden bg-white py-16 sm:py-20 lg:py-[104px]">
+    <section className="overflow-hidden bg-white section-y">
       <div className="shell">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>

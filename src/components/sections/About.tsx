@@ -3,7 +3,7 @@ import Reveal from "@/components/ui/Reveal";
 
 export default function About() {
   return (
-    <section id="about" className="bg-white py-16 sm:py-20 lg:py-[104px]">
+    <section id="about" className="bg-white section-y">
       <div className="shell flex flex-col items-center gap-12 lg:flex-row lg:gap-20">
         <div className="flex-1">
           <Reveal>

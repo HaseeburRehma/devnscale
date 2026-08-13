@@ -12,7 +12,7 @@ import { WORK } from "@/lib/content";
  */
 export default function WorkGrid() {
   return (
-    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-canvas section-y">
       <div className="shell">
         <Reveal>
           <p className="t-eyebrow">{WORK.eyebrow}</p>

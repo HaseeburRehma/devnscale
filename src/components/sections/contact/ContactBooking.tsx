@@ -20,7 +20,7 @@ export default function ContactBooking() {
     setPicked((p) => (p.includes(s) ? p.filter((x) => x !== s) : [...p, s]));
 
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-white section-y">
       <div className="shell grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Intro */}
         <div className="flex flex-col">

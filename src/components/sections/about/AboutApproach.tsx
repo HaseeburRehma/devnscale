@@ -87,7 +87,7 @@ export default function AboutApproach() {
   return (
     <section
       ref={sectionRef}
-      className="bg-white py-16 sm:py-20 lg:py-[104px]"
+      className="bg-white section-y"
     >
       <div className="shell">
         <Reveal>

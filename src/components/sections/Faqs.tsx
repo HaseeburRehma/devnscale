@@ -10,7 +10,7 @@ export default function Faqs() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-canvas section-y">
       <div className="shell grid grid-cols-1 gap-12 lg:grid-cols-[1fr_800px] lg:gap-20">
         <div>
           <Reveal>

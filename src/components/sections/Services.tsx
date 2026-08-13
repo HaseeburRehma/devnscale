@@ -96,7 +96,7 @@ export default function Services() {
   const [web, mobile, ...rest] = SERVICES;
 
   return (
-    <section id="services" className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+    <section id="services" className="bg-canvas section-y">
       <div className="shell">
         <Reveal>
           <p className="t-eyebrow">WHAT WE DO</p>

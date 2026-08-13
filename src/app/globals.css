@@ -182,6 +182,20 @@ body {
   padding-inline: clamp(1.25rem, -0.31rem + 6.94vw, 5rem); /* 20 → 80 */
 }
 
+/* Standard vertical rhythm for content sections. One utility instead of
+ * `py-16 sm:py-20 lg:py-[104px]` scattered across ~20 files. Uses clamp so
+ * spacing eases from 48px on small phones to 80px on wide desktops — enough
+ * air, but not the ~208px chasm the old class produced between sections. */
+.section-y {
+  padding-block: clamp(3rem, 1.75rem + 3.6vw, 5rem); /* 48 → 80 */
+}
+
+/* Tighter variant for sections that sit tucked between two others with
+ * their own generous padding (e.g. narrow stats/meta strips). */
+.section-y-sm {
+  padding-block: clamp(2rem, 1.25rem + 2vw, 3rem); /* 32 → 48 */
+}
+
 /* ============================================================
    Motion
    ============================================================ */

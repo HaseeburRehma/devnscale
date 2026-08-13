@@ -15,7 +15,7 @@ const MAX_BAR = 300;
 
 export default function WhyUs() {
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-white section-y">
       <div className="shell">
         <Reveal>
           <p className="t-eyebrow">WHY DEV N SCALE</p>

@@ -73,7 +73,7 @@ export function CaseOverview({ study = CASE_STUDY }: StudyProps) {
   const { overview } = study;
   return (
     <>
-      <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
+      <section className="bg-white section-y">
         <div className="shell">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
             <div>
@@ -131,7 +131,7 @@ function CaseImagePanel({
 export function CaseProblem({ study = CASE_STUDY }: StudyProps) {
   const { problem } = study;
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-white section-y">
       <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,470px)_1fr] lg:gap-20">
         <div>
           <Reveal>
@@ -156,7 +156,7 @@ export function CaseProblem({ study = CASE_STUDY }: StudyProps) {
 export function CaseDesignedForWork({ study = CASE_STUDY }: StudyProps) {
   const { designSystem } = study;
   return (
-    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-canvas section-y">
       <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_minmax(0,470px)] lg:gap-20">
         <InView>
           <CaseImagePanel
@@ -185,7 +185,7 @@ export function CaseDesignedForWork({ study = CASE_STUDY }: StudyProps) {
 export function CaseResults({ study = CASE_STUDY }: StudyProps) {
   const { results } = study;
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-white section-y">
       <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,470px)_1fr] lg:gap-20">
         <div>
           <Reveal>
@@ -215,7 +215,7 @@ export function CaseResults({ study = CASE_STUDY }: StudyProps) {
 export function CaseExperience({ study = CASE_STUDY }: StudyProps) {
   const { experience } = study;
   return (
-    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-canvas section-y">
       <div className="shell">
         <Reveal>
           <p className="t-eyebrow">{experience.eyebrow}</p>
@@ -252,7 +252,7 @@ export function CaseExperience({ study = CASE_STUDY }: StudyProps) {
 export function CaseGallery({ study = CASE_STUDY }: StudyProps) {
   const { gallery } = study;
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-white section-y">
       <div className="shell">
         <div className="mx-auto max-w-[640px] text-center">
           <Reveal>

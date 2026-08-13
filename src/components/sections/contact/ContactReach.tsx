@@ -9,7 +9,7 @@ const ICONS = { mail: MailIcon, phone: PhoneIcon, pin: MapPinIcon } as const;
 export default function ContactReach() {
   const { title, subtitle, cards } = CONTACT_REACH;
   return (
-    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-canvas section-y">
       <div className="shell">
         <div className="mx-auto max-w-[460px] text-center">
           <Reveal>

@@ -47,8 +47,8 @@ export default function PageHero({
   return (
     <section
       id="top"
-      className={`relative isolate flex items-center overflow-hidden bg-[#02150e] pb-16 pt-[150px] ${
-        sm ? "min-h-[500px] lg:h-[557px]" : "min-h-[560px] lg:h-[653px]"
+      className={`relative isolate flex items-center overflow-hidden bg-[#02150e] pb-12 pt-[110px] sm:pb-16 sm:pt-[130px] lg:pt-[150px] ${
+        sm ? "min-h-[440px] sm:min-h-[500px] lg:h-[557px]" : "min-h-[500px] sm:min-h-[560px] lg:h-[653px]"
       } lg:py-0`}
     >
       {hasImage ? (

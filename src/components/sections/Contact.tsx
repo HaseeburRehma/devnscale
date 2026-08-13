@@ -28,7 +28,7 @@ export default function Contact() {
   const [service, setService] = useState("");
 
   return (
-    <section id="contact" className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+    <section id="contact" className="bg-canvas section-y">
       <div className="shell grid grid-cols-1 gap-12 lg:grid-cols-[440px_1fr] lg:gap-20">
         {/* Info column */}
         <div>

@@ -11,7 +11,7 @@ import { ABOUT_STORY } from "@/lib/content";
  */
 export default function AboutStory() {
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-white section-y">
       <div className="shell flex flex-col items-center gap-12 lg:flex-row lg:gap-20">
         {/* visual */}
         <Reveal className="w-full lg:w-[520px] lg:shrink-0">

@@ -94,7 +94,7 @@ export default function AboutJourney() {
   const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section className="relative overflow-hidden bg-brand-900 py-16 sm:py-20 lg:py-[104px]">
+    <section className="relative overflow-hidden bg-brand-900 section-y">
       <PatternBackdrop opacity={0.05} />
 
       {/* soft top glow so the path's origin looks like it's pouring out of
