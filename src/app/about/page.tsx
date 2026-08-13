@@ -12,7 +12,6 @@ import { ABOUT_HERO } from "@/lib/content";
 import AboutStats from "@/components/sections/about/AboutStats";
 import AboutApproach from "@/components/sections/about/AboutApproach";
 import AboutJourney from "@/components/sections/about/AboutJourney";
-import AboutStory from "@/components/sections/about/AboutStory";
 import AboutValues from "@/components/sections/about/AboutValues";
 import AboutTeam from "@/components/sections/about/AboutTeam";
 
@@ -37,7 +36,6 @@ export default function AboutPage() {
         <AboutApproach />
         <WhyUs />
         <AboutJourney />
-        <AboutStory />
         <AboutValues />
         <AboutTeam />
         <Testimonial />
