@@ -820,34 +820,64 @@ export const WORK = {
   title: "Case studies we're proud of.",
   subtitle:
     "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
-  // Three real case studies live on the site; the Work grid renders exactly
-  // those. Add a new entry here when a fourth case ships.
+  /* Six cards, mirroring the Figma Work-page grid (frame 4833:17865). Covers
+   * are exported from Figma with the category pill + lime arrow baked into
+   * the image, so WorkGrid renders the cover as-is. Only three case-study
+   * pages exist today; the other three cards route to the closest match so
+   * users never land on a wrong page. */
   cases: [
     {
-      name: "MCA Calculator",
-      url: "case-study/mca",
+      name: "Merchant Cash Advance Calculator (MCA)",
+      url: "halohealth.app.com",
       year: "2024",
       badge: "Mobile App",
       tags: ["iOS", "Android", "UI/UX"],
-      cover: "/img/case/work-cover-mca.jpg",
+      cover: "/img/case/work-cover-1-mca.png",
       href: "/case-study",
     },
     {
-      name: "OpulenceX",
-      url: "case-study/lend-saas",
+      name: "Lend SaaS Application",
+      url: "ledgerly.io.com",
       year: "2024",
-      badge: "SaaS",
+      badge: "Web App",
+      tags: ["Web App", "Design", "QA"],
+      cover: "/img/case/work-cover-2-lend-saas.png",
+      href: "/case-study/lend-hub",
+    },
+    {
+      name: "OpulenceX — DeFi Suite",
+      url: "opulencex.xyz",
+      year: "2024",
+      badge: "Brand + Site",
       tags: ["Web App", "DeFi", "XRPL"],
-      cover: "/img/case/work-cover-ledgerly.jpg",
+      cover: "/img/case/work-cover-3-opulencex.png",
       href: "/case-study/lend-saas",
     },
     {
-      name: "Lend SaaS — Central Hub",
-      url: "case-study/lend-hub",
+      name: "Aster Studio",
+      url: "asterstudio.com",
       year: "2024",
-      badge: "Web Platform",
-      tags: ["Web App", "FinTech", "UX"],
-      cover: "/img/case/work-cover-northbeam.jpg",
+      badge: "SaaS",
+      tags: ["UI/UX", "Web App", "Motion"],
+      cover: "/img/case/work-cover-4-aster.png",
+      href: "/case-study/lend-saas",
+    },
+    {
+      name: "Fieldnote",
+      url: "fieldnote.app",
+      year: "2023",
+      badge: "Logistics",
+      tags: ["Mobile", "Web", "API"],
+      cover: "/img/case/work-cover-5-fieldnote.png",
+      href: "/case-study",
+    },
+    {
+      name: "AI Marketplace",
+      url: "vantagelabs.ai",
+      year: "2023",
+      badge: "AI Platform",
+      tags: ["AI", "Web", "Marketplace"],
+      cover: "/img/case/work-cover-6-marketplace.png",
       href: "/case-study/lend-hub",
     },
   ],

@@ -2,13 +2,13 @@ import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import AnimatedGroup from "@/components/motion/AnimatedGroup";
 import Tilt from "@/components/motion/Tilt";
-import { ArrowRightIcon } from "@/components/icons";
 import { WORK } from "@/lib/content";
 
 /**
- * The Work page portfolio grid — six case cards, each with a real cover
- * image from Figma, a dark-glass category badge (top-left), a lime arrow
- * badge (top-right), and body meta (project name, url + year, tag pills).
+ * The Work page portfolio grid — six case cards. Cover images are exported
+ * from Figma with the category pill + lime arrow already baked in, so this
+ * component renders the cover as-is and adds only the card body below
+ * (project name, url + year, tag pills).
  */
 export default function WorkGrid() {
   return (
@@ -33,7 +33,7 @@ export default function WorkGrid() {
             <a key={c.name} href={c.href} className="group block">
               <Tilt max={5} className="[transform-style:preserve-3d]">
                 <div className="overflow-hidden rounded-[20px] border border-border-subtle bg-white shadow-[0_10px_26px_0_rgba(5,28,18,0.06)] transition-[border-color,box-shadow] duration-300 group-hover:border-border-default group-hover:shadow-[0_18px_42px_rgba(5,28,18,0.12)]">
-                  {/* Cover */}
+                  {/* Cover — badge + arrow are baked into the Figma export. */}
                   <div className="relative aspect-[624/368] w-full overflow-hidden">
                     <Image
                       src={c.cover}
@@ -42,14 +42,6 @@ export default function WorkGrid() {
                       sizes="(min-width: 768px) 624px, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                     />
-                    {/* dark-glass category pill (top-left) */}
-                    <span className="absolute left-6 top-6 rounded-full border border-white/25 bg-black/40 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.02em] text-white backdrop-blur-md">
-                      {c.badge}
-                    </span>
-                    {/* lime arrow badge (top-right) */}
-                    <span className="absolute right-6 top-6 flex size-[42px] items-center justify-center rounded-full bg-lime-500 text-ink-950 transition-transform duration-300 group-hover:-translate-y-0.5">
-                      <ArrowRightIcon className="size-[18px] -rotate-45" />
-                    </span>
                   </div>
                   {/* Body */}
                   <div className="px-7 py-6">
