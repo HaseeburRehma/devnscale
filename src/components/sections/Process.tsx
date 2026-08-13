@@ -90,7 +90,7 @@ export default function Process() {
           with top padding to clear the fixed nav. On desktop the panel pins
           below the 74px fixed nav (was pinning under it) so the "Our Work
           Process" heading isn't crammed against the nav bar. */}
-      <div className="sticky top-0 flex h-[68svh] min-h-[480px] items-center overflow-hidden pt-[74px] md:h-[calc(100svh-100px)] md:min-h-[640px] md:items-start md:pt-16 md:top-[100px]">
+      <div className="sticky top-0 flex h-[68svh] min-h-[480px] items-center overflow-hidden pt-[74px] md:h-[calc(100svh-100px)] md:min-h-[640px] md:pt-0 md:top-[100px]">
         <PatternBackdrop opacity={0.045} />
 
         <div className="shell relative w-full">
