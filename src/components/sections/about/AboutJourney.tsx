@@ -31,54 +31,56 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  *   • trails off at bottom-left
  */
 const VB_W = 1280;
-const VB_H = 1200;
+const VB_H = 1240;
 
-// Hand-tuned cubic Bézier path that walks between the four milestones with
-// a compact lasso loop above 01, matching the Figma. Kept smooth so the
-// line reads like a continuous ink stroke, not a stitched polyline.
+// Hand-tuned cubic Bézier path. Layout matches the Figma: dots stay near
+// the CENTRAL SPINE of the section with only small horizontal drift, and
+// the ink line meanders down between them (starting with a small lasso
+// loop above 01). Cards alternate right/left of the spine.
 const PATH_D = [
-  // enter from centre-top
-  "M 700 0",
-  // tight lasso above 01 — arcs right, loops back, then out to the 01 dot
-  "C 780 40 900 100 900 170",
-  "C 900 240 780 260 760 210",
-  "C 745 175 810 155 860 195",
-  // approach 01 dot
-  "C 900 225 920 215 940 210",
-  // === 01 dot (940, 210) ===
-  // clean S-curve down to 02 (left side)
-  "C 940 340 700 380 520 440",
-  "C 460 460 420 500 460 520",
-  // === 02 dot (460, 520) ===
-  // sweep down-right to 03
-  "C 560 540 720 640 900 780",
-  "C 930 800 940 800 940 800",
-  // === 03 dot (940, 800) ===
+  // enter from centre-top (below the "OUR JOURNEY" header)
+  "M 640 0",
+  // gentle drift right to set up the lasso
+  "C 650 60 690 100 690 150",
+  // lasso: loops up-right, wraps back, exits down toward 01
+  "C 690 220 620 240 600 200",
+  "C 590 170 640 150 675 180",
+  "C 700 210 700 260 660 300",
+  // === 01 dot (660, 300) ===
+  // curve down-left through center to 02 (slightly left of centre)
+  "C 620 380 560 420 560 480",
+  "C 560 540 620 560 580 580",
+  // === 02 dot (580, 580) ===
+  // sweep down-right through 03
+  "C 550 640 640 720 680 800",
+  "C 700 840 700 850 690 860",
+  // === 03 dot (690, 860) ===
   // sweep down-left to 04
-  "C 940 940 720 1000 460 1080",
-  "C 380 1105 340 1105 340 1100",
-  // === 04 dot (340, 1100) ===
-  // trail off toward bottom-left
-  "C 300 1105 260 1140 240 1180",
+  "C 660 940 580 1020 560 1100",
+  "C 555 1120 555 1130 560 1140",
+  // === 04 dot (560, 1140) ===
+  // trail off bottom-left
+  "C 540 1170 500 1200 460 1220",
 ].join(" ");
 
 const MILESTONES_XY = [
-  { x: 940, y: 210 },
-  { x: 460, y: 520 },
-  { x: 940, y: 800 },
-  { x: 340, y: 1100 },
+  { x: 660, y: 300 },
+  { x: 580, y: 580 },
+  { x: 690, y: 860 },
+  { x: 560, y: 1140 },
 ] as const;
 
-// Card anchors — the card sits BESIDE its dot on the correct side.
+// Card anchors. Cards sit next to their dots on the correct side and stay
+// off-centre so the path can breathe.
 const CARD_POS = [
-  // 01 — top right, card to right of dot
-  { left: "62%", top: "8%", side: "right" as const },
-  // 02 — mid left, card to left of dot (right-aligned)
-  { left: "8%", top: "38%", side: "left" as const },
-  // 03 — right, card to right of dot
-  { left: "62%", top: "63%", side: "right" as const },
-  // 04 — bottom left, card to left of dot
-  { left: "6%", top: "88%", side: "left" as const },
+  // 01 — dot slightly right of centre, card to its RIGHT
+  { left: "56%", top: "18%", side: "right" as const },
+  // 02 — dot slightly left of centre, card fully to LEFT (right-aligned)
+  { left: "8%", top: "36%", side: "left" as const },
+  // 03 — dot slightly right of centre, card to its RIGHT
+  { left: "58%", top: "60%", side: "right" as const },
+  // 04 — dot near centre, card to LEFT (right-aligned)
+  { left: "6%", top: "84%", side: "left" as const },
 ];
 
 export default function AboutJourney() {
@@ -126,7 +128,7 @@ export default function AboutJourney() {
         <div
           ref={trackRef}
           className="relative mx-auto mt-16 hidden md:block"
-          style={{ height: 1250 }}
+          style={{ height: 1280 }}
         >
           <svg
             viewBox={`0 0 ${VB_W} ${VB_H}`}
