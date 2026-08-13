@@ -28,6 +28,10 @@ export default function Footer() {
         {/* CTA */}
         <div className="flex flex-col items-center text-center">
           <Reveal>
+            {/* Figma sizes this box 394x498 (mark hugs the top, ~27% of
+                the box height left empty below it as the gap before the
+                heading) — replicate with a square inner wrapper pinned to
+                top:-6.59%, rather than centering the mark in the box. */}
             <div className="relative h-[240px] w-[190px] sm:h-[350px] sm:w-[280px]">
               {/* soft pulsing lime glow, so the mark reads proud of the tiled bg */}
               <div
@@ -39,25 +43,27 @@ export default function Footer() {
                   filter: "blur(32px)",
                 }}
               />
-              {/* the mark itself — floats, drifts, and gets a subtle tilt sway */}
-              <Image
-                src="/img/logo-3d.png"
-                alt="Dev n Scale"
-                fill
-                sizes="280px"
-                className="relative z-10 object-contain drop-shadow-[0_28px_38px_rgba(0,0,0,0.5)] motion-safe:animate-[float-sway_7s_ease-in-out_infinite]"
-                priority={false}
-              />
-              {/* highlight sheen sweep, gated on motion */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay motion-safe:animate-[shimmer_9s_ease-in-out_infinite]"
-                style={{
-                  background:
-                    "conic-gradient(from 210deg at 60% 40%, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 25%, rgba(255,255,255,0) 40%)",
-                  filter: "blur(2px)",
-                }}
-              />
+              <div className="absolute inset-x-0 top-[-6.59%] aspect-square">
+                {/* the mark itself — floats, drifts, and gets a subtle tilt sway */}
+                <Image
+                  src="/img/logo-3d.png"
+                  alt="Dev n Scale"
+                  fill
+                  sizes="280px"
+                  className="relative z-10 object-contain drop-shadow-[0_28px_38px_rgba(0,0,0,0.5)] motion-safe:animate-[float-sway_7s_ease-in-out_infinite]"
+                  priority={false}
+                />
+                {/* highlight sheen sweep, gated on motion */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay motion-safe:animate-[shimmer_9s_ease-in-out_infinite]"
+                  style={{
+                    background:
+                      "conic-gradient(from 210deg at 60% 40%, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 25%, rgba(255,255,255,0) 40%)",
+                    filter: "blur(2px)",
+                  }}
+                />
+              </div>
             </div>
           </Reveal>
 

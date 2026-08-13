@@ -1,48 +1,71 @@
 /**
- * "Happy Clients" marquee. The Figma uses generic logoipsum-style client
- * placeholders (a friendly stand-in for real client marks that haven't been
- * commissioned yet), so this component renders the same until real client
- * logos are supplied. `tone="light"` swaps to a canvas background for pages
- * whose neighbouring sections are light (Contact).
+ * "Happy Clients" marquee — real client logos imported from the Figma
+ * "Logo Slider" component (node 4764:1719 / 4509:5055), each on its own
+ * white pill exactly as designed. A couple of the source marks are large
+ * raster crops (the Figma frame only shows a zoomed-in slice of them), so
+ * those carry the exact top/left/width/height crop from Figma rather than
+ * being shown in full.
  */
 
-// Simple pictogram + wordmark placeholders — 8 distinct "brand" marks that
-// look like a real client roster in silhouette.
-type Placeholder = { name: string; glyph: string };
-const CLIENTS: Placeholder[] = [
-  { name: "Logoipsum", glyph: "spark" },
-  { name: "Logoipsum", glyph: "dot-triple" },
-  { name: "Logoipsum", glyph: "wave" },
-  { name: "Logoipsum", glyph: "spark" },
-  { name: "Logoipsum", glyph: "dot-triple" },
-  { name: "Logoipsum", glyph: "wave" },
-  { name: "Logoipsum", glyph: "spark" },
-  { name: "Logoipsum", glyph: "dot-triple" },
+type ClientLogo = {
+  src: string;
+  /** natural width in px at the design's 24px logo height */
+  width: number;
+  alt: string;
+  fit?: "cover";
+  crop?: { top: string; left: string; width: string; height: string };
+};
+
+const CLIENT_LOGOS: ClientLogo[] = [
+  { src: "/img/logos/client-1.svg", width: 82, alt: "Client logo" },
+  { src: "/img/logos/client-2.svg", width: 102, alt: "Client logo" },
+  { src: "/img/logos/client-3.svg", width: 135, alt: "Client logo" },
+  { src: "/img/logos/client-4.png", width: 115, alt: "Client logo", fit: "cover" },
+  {
+    src: "/img/logos/client-5.png",
+    width: 101,
+    alt: "Client logo",
+    crop: { top: "-212.56%", left: "-15.31%", width: "130.61%", height: "525.13%" },
+  },
+  {
+    src: "/img/logos/client-6.png",
+    width: 61,
+    alt: "Client logo",
+    crop: { top: "-76.74%", left: "0%", width: "100%", height: "253.49%" },
+  },
+  {
+    src: "/img/logos/client-7.png",
+    width: 47,
+    alt: "Client logo",
+    crop: { top: "-24.19%", left: "-0.23%", width: "100.47%", height: "148.39%" },
+  },
 ];
 
-function Glyph({ kind, color }: { kind: string; color: string }) {
-  switch (kind) {
-    case "spark":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill={color}>
-          <path d="M12 2 15 9l7 3-7 3-3 7-3-7-7-3 7-3z" />
-        </svg>
-      );
-    case "wave":
-      return (
-        <svg viewBox="0 0 32 20" width="26" height="20" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round">
-          <path d="M2 10c4-8 8-8 12 0s8 8 16 0" />
-        </svg>
-      );
-    default:
-      return (
-        <svg viewBox="0 0 24 24" width="22" height="20" fill={color}>
-          <circle cx="6" cy="12" r="2.4" />
-          <circle cx="12" cy="12" r="2.4" />
-          <circle cx="18" cy="12" r="2.4" />
-        </svg>
-      );
-  }
+function LogoChip({ logo }: { logo: ClientLogo }) {
+  return (
+    <span className="flex shrink-0 items-center overflow-hidden rounded-[8px] bg-white px-2 py-1">
+      <span className="relative block h-6" style={{ width: logo.width }}>
+        {logo.crop ? (
+          <span className="absolute inset-0 overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              className="absolute max-w-none"
+              style={logo.crop}
+            />
+          </span>
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            className={`absolute inset-0 size-full ${logo.fit === "cover" ? "object-cover" : ""}`}
+          />
+        )}
+      </span>
+    </span>
+  );
 }
 
 export default function LogoSlider({ tone = "dark" }: { tone?: "dark" | "light" } = {}) {
@@ -50,8 +73,6 @@ export default function LogoSlider({ tone = "dark" }: { tone?: "dark" | "light" 
   const sectionBg = isLight ? "bg-canvas" : "bg-ink-950";
   const labelBg = isLight ? "bg-canvas" : "bg-ink-950";
   const labelText = isLight ? "text-ink-900" : "text-white";
-  const logoText = isLight ? "text-ink-500" : "text-ink-300";
-  const logoAccent = isLight ? "#7b8513" : "#c4d434";
   const fadeFrom = isLight ? "from-canvas" : "from-ink-950";
   const fadeTo = isLight ? "from-canvas" : "from-ink-950";
 
@@ -73,15 +94,13 @@ export default function LogoSlider({ tone = "dark" }: { tone?: "dark" | "light" 
           style={{ ["--marquee-duration" as string]: "34s" }}
         >
           {[0, 1].map((copy) => (
-            <div key={copy} className="flex items-center" aria-hidden={copy === 1}>
-              {CLIENTS.map((c, i) => (
-                <span
-                  key={`${copy}-${i}`}
-                  className={`flex shrink-0 items-center gap-2.5 px-8 font-display text-[18px] font-medium ${logoText}`}
-                >
-                  <Glyph kind={c.glyph} color={logoAccent} />
-                  {c.name}
-                </span>
+            <div
+              key={copy}
+              className="flex items-center gap-[21px] px-[10.5px]"
+              aria-hidden={copy === 1}
+            >
+              {CLIENT_LOGOS.map((logo, i) => (
+                <LogoChip key={`${copy}-${i}`} logo={logo} />
               ))}
             </div>
           ))}
