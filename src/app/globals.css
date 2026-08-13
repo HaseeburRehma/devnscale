@@ -311,8 +311,8 @@ body {
 
 .services-side-sticky {
   position: sticky;
-  top: calc(50vh - 250px);
-  height: 500px;
+  top: calc(50vh - min(380px, 42vh));
+  height: min(760px, 84vh);
 }
 
 .services-mask-top,

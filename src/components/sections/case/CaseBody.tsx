@@ -2,18 +2,26 @@ import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import InView from "@/components/motion/InView";
 import AnimatedGroup from "@/components/motion/AnimatedGroup";
-import { CASE_STUDY } from "@/lib/content";
+import { CASE_STUDY, type CaseStudy } from "@/lib/content";
 
-/* The big product shot directly under the hero. */
-export function CaseHeroImage() {
+/**
+ * All case-study body sections take a `study` prop so the same components
+ * render both the MCA Calculator and the OpulenceX Lend SaaS pages (and any
+ * future case). `study` defaults to the MCA export so existing call sites
+ * keep working.
+ */
+type StudyProps = { study?: CaseStudy };
+
+/* Full-width hero product shot directly under the meta strip. */
+export function CaseHeroImage({ study = CASE_STUDY }: StudyProps) {
   return (
     <section className="bg-white pt-14 sm:pt-16">
       <div className="shell">
         <InView>
           <div className="relative aspect-[2/1] w-full overflow-hidden rounded-[24px]">
             <Image
-              src={CASE_STUDY.heroImage}
-              alt={`${CASE_STUDY.title} — hero`}
+              src={study.heroImage}
+              alt={`${study.title} — hero`}
               fill
               priority
               sizes="(min-width: 1440px) 1280px, 100vw"
@@ -61,8 +69,8 @@ function StatRow({
 }
 
 /* Overview — split heading/body (white); stats live in their own canvas band. */
-export function CaseOverview() {
-  const { overview } = CASE_STUDY;
+export function CaseOverview({ study = CASE_STUDY }: StudyProps) {
+  const { overview } = study;
   return (
     <>
       <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
@@ -93,7 +101,7 @@ export function CaseOverview() {
   );
 }
 
-/* Small helper — a big rounded rectangle backed by a real product screenshot. */
+/* Rounded rectangle backed by a real product screenshot. */
 function CaseImagePanel({
   src,
   alt,
@@ -120,8 +128,8 @@ function CaseImagePanel({
 }
 
 /* THE PROBLEM — text left, image right. */
-export function CaseProblem() {
-  const { problem } = CASE_STUDY;
+export function CaseProblem({ study = CASE_STUDY }: StudyProps) {
+  const { problem } = study;
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
       <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,470px)_1fr] lg:gap-20">
@@ -145,8 +153,8 @@ export function CaseProblem() {
 }
 
 /* DESIGNED FOR REAL WORK — image left, text right. */
-export function CaseDesignedForWork() {
-  const { designSystem } = CASE_STUDY;
+export function CaseDesignedForWork({ study = CASE_STUDY }: StudyProps) {
+  const { designSystem } = study;
   return (
     <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
       <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_minmax(0,470px)] lg:gap-20">
@@ -174,8 +182,8 @@ export function CaseDesignedForWork() {
 }
 
 /* THE RESULT — text + stats beside a product shot. */
-export function CaseResults() {
-  const { results } = CASE_STUDY;
+export function CaseResults({ study = CASE_STUDY }: StudyProps) {
+  const { results } = study;
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
       <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,470px)_1fr] lg:gap-20">
@@ -204,8 +212,8 @@ export function CaseResults() {
 }
 
 /* THE EXPERIENCE — heading + two large product mocks below. */
-export function CaseExperience() {
-  const { experience } = CASE_STUDY;
+export function CaseExperience({ study = CASE_STUDY }: StudyProps) {
+  const { experience } = study;
   return (
     <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
       <div className="shell">
@@ -241,8 +249,8 @@ export function CaseExperience() {
 }
 
 /* THE FULL PICTURE — centred header + a wide gallery panel. */
-export function CaseGallery() {
-  const { gallery } = CASE_STUDY;
+export function CaseGallery({ study = CASE_STUDY }: StudyProps) {
+  const { gallery } = study;
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
       <div className="shell">

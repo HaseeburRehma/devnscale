@@ -462,7 +462,68 @@ export const CONTACT_REACH = {
    Images are empty frames in Figma → branded placeholders in the build.
    ============================================================ */
 
-export const CASE_STUDY = {
+// A single case study's shape. `CASE_STUDIES` below is a map from slug
+// to one of these; individual routes at `/case-study` (MCA, default) and
+// `/case-study/lend-saas` render the same components with different data.
+export type CaseStudy = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  meta: readonly { value: string; label: string }[];
+  heroImage: string;
+  overview: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    stats: readonly { value: string; label: string }[];
+  };
+  problem: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    image: string;
+  };
+  designSystem: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    image: string;
+  };
+  results: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    image: string;
+    stats: readonly { value: string; label: string }[];
+  };
+  experience: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    mock1: string;
+    mock2: string;
+  };
+  gallery: {
+    eyebrow: string;
+    title: string;
+    image: string;
+  };
+  selectedWork: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    cases: readonly {
+      name: string;
+      url: string;
+      year: string;
+      badge: string;
+      tags: readonly string[];
+      cover: string;
+    }[];
+  };
+};
+
+const CASE_STUDY_MCA: CaseStudy = {
   eyebrow: "CASE STUDY · MCA Calculator",
   title: "Simplifying MCA Calculations Into One Powerful Workflow.",
   subtitle:
@@ -542,7 +603,187 @@ export const CASE_STUDY = {
       },
     ],
   },
-} as const;
+};
+
+/* Lend SaaS / OpulenceX — the DeFi XRPL case study (Figma 5478:49371). */
+const CASE_STUDY_SAAS: CaseStudy = {
+  eyebrow: "CASE STUDY · OPULENCEX",
+  title: "Every DeFi Opportunity, In One Complete Ecosystem.",
+  subtitle:
+    "Swap tokens, farm yield, stake for APY, and earn from NFTs — all through one connected DeFi suite built for the XRP Ledger.",
+  meta: [
+    { value: "2024", label: "YEAR" },
+    { value: "UX/UI, Product Design", label: "SERVICES" },
+    { value: "FinTech", label: "INDUSTRY" },
+    { value: "Web", label: "PLATFORM" },
+  ],
+  heroImage: "/img/case/saas/hero.png",
+  overview: {
+    eyebrow: "THE CHALLENGE",
+    title: "Bringing every DeFi opportunity together.",
+    body: "DeFi users often have to move between different platforms to swap tokens, earn yield, stake assets, or explore NFT opportunities. OpulenceX was designed to bring these experiences together in one complete ecosystem.",
+    stats: [
+      { value: "04", label: "Core DeFi Opportunities" },
+      { value: "01", label: "Unified Ecosystem" },
+      { value: "XRPL", label: "Powered DeFi Experience" },
+    ],
+  },
+  problem: {
+    eyebrow: "THE PROBLEM",
+    title: "Making DeFi feel less fragmented.",
+    body: "With different DeFi activities spread across multiple experiences, users can struggle to navigate the opportunities available to them. The challenge was to create a clear, accessible platform that makes different ways to participate in DeFi easy to discover and understand.",
+    image: "/img/case/saas/problem.png",
+  },
+  designSystem: {
+    eyebrow: "DESIGNED FOR REAL WORK",
+    title: "Built for the way DeFi users invest and earn.",
+    body: "OpulenceX gives users direct access to multiple DeFi opportunities from one platform. Whether they want to swap tokens, farm yield, stake for APY, or earn from NFTs, each experience is designed to fit into one connected workflow.",
+    image: "/img/case/saas/system.png",
+  },
+  results: {
+    eyebrow: "THE RESULT",
+    title: "More opportunities. One connected experience.",
+    body: "By bringing core DeFi opportunities into one ecosystem, OpulenceX makes it easier for users to discover, access, and manage different ways to put their digital assets to work.",
+    image: "/img/case/saas/results.png",
+    stats: [
+      { value: "04", label: "Core DeFi Opportunities" },
+      { value: "01", label: "Unified Ecosystem" },
+      { value: "XRPL", label: "Powered DeFi Experience" },
+    ],
+  },
+  experience: {
+    eyebrow: "THE EXPERIENCE",
+    title: "Everything DeFi, within reach.",
+    body: "From token swaps and yield farming to staking and NFT earnings, OpulenceX creates a consistent experience across different DeFi activities, helping users move between opportunities with greater clarity and confidence.",
+    mock1: "/img/case/saas/mock-1.png",
+    mock2: "/img/case/saas/mock-2.png",
+  },
+  gallery: {
+    eyebrow: "THE FULL PICTURE",
+    title: "The complete DeFi suite for XRPL.",
+    image: "/img/case/saas/gallery.png",
+  },
+  selectedWork: {
+    eyebrow: "SELECTED WORK",
+    title: "Case studies we're proud of.",
+    subtitle:
+      "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
+    cases: [
+      {
+        name: "Halo Health",
+        url: "halohealth.app.com",
+        year: "2025",
+        badge: "Mobile App",
+        tags: ["iOS", "Android", "UI/UX"],
+        cover: "/img/case/cover-halo.png",
+      },
+      {
+        name: "Ledgerly",
+        url: "ledgerly.io.com",
+        year: "2025",
+        badge: "Web Platform",
+        tags: ["Web App", "Design", "QA"],
+        cover: "/img/case/cover-ledgerly.png",
+      },
+    ],
+  },
+};
+
+/* Third case: the "central hub" Lend SaaS, node 5399:40158. Copy is verbatim
+ * from Figma. Same shape/components as MCA and OpulenceX. */
+const CASE_STUDY_LEND_HUB: CaseStudy = {
+  eyebrow: "CASE STUDY · Lend SaaS",
+  title: "One Central Hub For Everything Lend SaaS.",
+  subtitle:
+    "A Centralized Platform That Brings Essential Financial Products, Protocols, Knowledge, And Powerful Calculation Tools Together In One Seamless Experience.",
+  meta: [
+    { value: "2024", label: "YEAR" },
+    { value: "UX/UI, Product Design", label: "SERVICES" },
+    { value: "FinTech", label: "INDUSTRY" },
+    { value: "Web", label: "PLATFORM" },
+  ],
+  heroImage: "/img/case/lend-hub/hero.png",
+  overview: {
+    eyebrow: "THE CHALLENGE",
+    title: "Bringing Everything Lending Into One Place.",
+    body: "Lend SaaS Needed To Serve As The Central Hub For Everything The Team Relies On—From Company Products And Protocols To Knowledge And Financial Tools. The Goal Was To Create One Accessible Platform That Could Bring These Resources Together Without Adding Complexity.",
+    stats: [
+      { value: "01", label: "Centralized Platform" },
+      { value: "04+", label: "Core Resource Categories" },
+      { value: "01", label: "Integrated Financial Calculator" },
+    ],
+  },
+  problem: {
+    eyebrow: "THE PROBLEM",
+    title: "Making Complex Financial Workflows Easier To Navigate.",
+    body: "Financial Teams Work With Multiple Resources While Handling Calculations, Financial Projections, Loan Analysis, And Underwriting Decisions. Lend SaaS Needed To Make These Resources Easier To Access While Creating A More Seamless Way To Move Between Information And Tools.",
+    image: "/img/case/lend-hub/problem.png",
+  },
+  designSystem: {
+    eyebrow: "DESIGNED FOR REAL WORK",
+    title: "Built Around The Way Financial Teams Work.",
+    body: "Lend SaaS Was Designed To Put The Right Products, Protocols, Knowledge, And Financial Tools Within Easy Reach. The Experience Helps Teams Spend Less Time Looking For Information And More Time Focusing On Analysis, Calculations, And Decision-Making.",
+    image: "/img/case/lend-hub/system.png",
+  },
+  results: {
+    eyebrow: "THE RESULT",
+    title: "Greater Accuracy. Better Decisions.",
+    body: "Lend SaaS Brings Powerful Financial Capabilities Into One Connected Experience, Helping Streamline Complex Calculations, Improve Efficiency, And Support Smarter Underwriting And Financial Decision-Making.",
+    image: "/img/case/lend-hub/results.png",
+    stats: [
+      { value: "01", label: "Centralized Platform" },
+      { value: "04+", label: "Core Resource Areas" },
+      { value: "100%", label: "Connected Experience" },
+    ],
+  },
+  experience: {
+    eyebrow: "THE EXPERIENCE",
+    title: "Powerful Tools, Seamlessly Connected.",
+    body: "From Financial Products And Protocols To Knowledge And Advanced Calculation Tools, Every Part Of Lend SaaS Works Together To Create A Clear And Efficient Experience. Users Can Access What They Need Through A Single, Consistent Platform.",
+    mock1: "/img/case/lend-hub/mock-1.png",
+    mock2: "/img/case/lend-hub/mock-2.png",
+  },
+  gallery: {
+    eyebrow: "THE FULL PICTURE",
+    title: "Built Today. Ready For What's Next.",
+    image: "/img/case/lend-hub/gallery.png",
+  },
+  selectedWork: {
+    eyebrow: "SELECTED WORK",
+    title: "Case studies we're proud of.",
+    subtitle:
+      "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
+    cases: [
+      {
+        name: "Halo Health",
+        url: "halohealth.app.com",
+        year: "2025",
+        badge: "Mobile App",
+        tags: ["iOS", "Android", "UI/UX"],
+        cover: "/img/case/cover-halo.png",
+      },
+      {
+        name: "Ledgerly",
+        url: "ledgerly.io.com",
+        year: "2025",
+        badge: "Web Platform",
+        tags: ["Web App", "Design", "QA"],
+        cover: "/img/case/cover-ledgerly.png",
+      },
+    ],
+  },
+};
+
+/** Slug → CaseStudy map. `/case-study` (default) uses `mca`; slug routes
+ *  under `/case-study/[slug]` resolve here. */
+export const CASE_STUDIES: Record<string, CaseStudy> = {
+  mca: CASE_STUDY_MCA,
+  "lend-saas": CASE_STUDY_SAAS,
+  "lend-hub": CASE_STUDY_LEND_HUB,
+};
+
+/** Kept for backward compat — the default MCA case rendered at `/case-study`. */
+export const CASE_STUDY: CaseStudy = CASE_STUDY_MCA;
 
 /* ============================================================
    Work page — copy from Figma "DEV N SCALE — Work" (4833:17865)
@@ -572,6 +813,7 @@ export const WORK = {
       badge: "Mobile App",
       tags: ["iOS", "Android", "UI/UX"],
       cover: "/img/case/cover-1.png",
+      // Mobile-first case → MCA Calculator (the only mobile case in the deck).
       href: "/case-study",
     },
     {
@@ -581,7 +823,8 @@ export const WORK = {
       badge: "Web Platform",
       tags: ["Web App", "Design", "QA"],
       cover: "/img/case/cover-2.png",
-      href: "/case-study",
+      // Ledgerly (Web Platform) → the DeFi/XRPL Lend SaaS case study.
+      href: "/case-study/lend-saas",
     },
     {
       name: "Northbeam",
@@ -590,7 +833,7 @@ export const WORK = {
       badge: "Brand + Site",
       tags: ["Branding", "Website", "SEO"],
       cover: "/img/case/cover-2.png",
-      href: "/case-study",
+      href: "/case-study/lend-hub",
     },
     {
       name: "Aster Studio",
@@ -599,7 +842,8 @@ export const WORK = {
       badge: "SaaS",
       tags: ["UI/UX", "Web App", "Motion"],
       cover: "/img/case/cover-3.png",
-      href: "/case-study",
+      // SaaS card → OpulenceX (the DeFi/XRPL SaaS case).
+      href: "/case-study/lend-saas",
     },
     {
       name: "Fieldnote",
@@ -608,6 +852,7 @@ export const WORK = {
       badge: "Logistics",
       tags: ["Mobile", "Web", "API"],
       cover: "/img/case/cover-3.png",
+      // Logistics/mobile-heavy → MCA (the mobile calculator case).
       href: "/case-study",
     },
     {
@@ -617,7 +862,7 @@ export const WORK = {
       badge: "AI Platform",
       tags: ["AI", "Backend", "QA"],
       cover: "/img/case/cover-1.png",
-      href: "/case-study",
+      href: "/case-study/lend-hub",
     },
   ],
 } as const;

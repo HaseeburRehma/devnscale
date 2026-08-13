@@ -61,6 +61,14 @@ export default function ServicesShowcase() {
     return () => observer.disconnect();
   }, []);
 
+  const goTo = (i: number) => {
+    setActive(i);
+    cardRefs.current[i]?.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "center",
+    });
+  };
+
   return (
     <section className="relative bg-white pt-16 sm:pt-20 lg:pt-[104px]">
       {/* Header */}
@@ -96,8 +104,13 @@ export default function ServicesShowcase() {
         <div className="mx-auto grid max-w-[1560px] grid-cols-[320px_minmax(0,1fr)_440px] gap-x-8 px-8 lg:px-12 xl:grid-cols-[360px_minmax(0,540px)_500px] xl:gap-x-12 xl:px-16">
           {/* Left — off-canvas circle, sticky */}
           <div className="relative">
-            <div className="services-side-sticky relative">
-              <Dial activeIndex={active} total={total} reduce={reduce ?? false} />
+            <div className="services-side-sticky relative overflow-hidden">
+              <Dial
+                activeIndex={active}
+                total={total}
+                reduce={reduce ?? false}
+                onSelect={goTo}
+              />
             </div>
           </div>
 
@@ -220,59 +233,92 @@ function ServiceBlock({
 }
 
 /**
- * Off-canvas half-dial with a **three-number window** — only the previous
- * step (top), the active step (3 o'clock, with the lime dot), and the next
- * step (bottom) are visible at any time, matching the Figma prototype.
- * Numbers cross-fade between roles when the active index changes so the
- * dial reads as a slowly turning wheel rather than a jumping list.
+ * Off-canvas dial — every service number sits on a circle at a slot
+ * 180°/(total-1) apart. The active number always sits at the 3 o'clock
+ * slot (angle 0, unrotated, dark, with the lime dot); every other number
+ * sits at `(index - active) * step` degrees — so numbers *before* the
+ * active one curve up-and-away above it, numbers after curve away below
+ * it. Each number is a stable, keyed element so Framer Motion glides it
+ * smoothly along the circle to its new slot whenever the active service
+ * changes, rather than cross-fading in place — this is what makes the
+ * dial read as a slowly turning wheel, matching the prototype.
+ *
+ * The circle is sized from the *actual* rendered box (via ResizeObserver)
+ * rather than a fixed viewBox, so it always renders at true 1:1 pixel
+ * scale — no SVG letterboxing shrinking the numbers down. The radius
+ * tracks the box height (so the full arc fits top-to-bottom) and the
+ * centre is pinned `width - R` from the left, which keeps the active
+ * number anchored at the box's right edge — the right "half" of the
+ * circle stays inside the column, the rest bleeds off-canvas to the
+ * left, at any column width.
  */
 function Dial({
   activeIndex,
   total,
   reduce,
+  onSelect,
 }: {
   activeIndex: number;
   total: number;
   reduce: boolean;
+  onSelect: (index: number) => void;
 }) {
-  const R = 360;
-  const cx = -R + 60; // circle centre 60px in from SVG left; most clips off-canvas
-  const cy = R;
-  // three fixed slots on the visible arc: top-right (60°), 3-o'clock (0°),
-  // bottom-right (-60° / 300°). The active number always lands at 0°.
-  const slots = [
-    { angle: -60, role: "prev" as const },
-    { angle: 0, role: "active" as const },
-    { angle: 60, role: "next" as const },
-  ];
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [box, setBox] = useState({ width: 400, height: 640 });
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      if (width > 0 && height > 0) setBox({ width, height });
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const R = box.height / 2;
+  const cx = box.width - R;
+  const cy = box.height / 2;
+  const step = 180 / (total - 1);
 
   return (
-    <svg
-      viewBox={`${cx - R - 20} 0 ${R * 2 + 40} ${R * 2}`}
-      className="absolute inset-0 h-full w-full overflow-visible"
-      aria-hidden="true"
-    >
-      <circle cx={cx} cy={cy} r={R} fill="none" stroke="#e5e5e5" strokeWidth={1} />
-      {slots.map((slot) => {
-        const idx =
-          slot.role === "prev"
-            ? (activeIndex - 1 + total) % total
-            : slot.role === "next"
-              ? (activeIndex + 1) % total
-              : activeIndex;
-        const rad = (slot.angle * Math.PI) / 180;
+    <div ref={containerRef} className="absolute inset-0">
+      <svg
+        viewBox={`0 0 ${box.width} ${box.height}`}
+        className="absolute inset-0 h-full w-full"
+      >
+        <circle cx={cx} cy={cy} r={R} fill="none" stroke="#e5e5e5" strokeWidth={1} />
+      {SERVICE_SHOWCASE.map((service, i) => {
+        const angle = (i - activeIndex) * step;
+        const rad = (angle * Math.PI) / 180;
         const x = cx + R * Math.cos(rad);
         const y = cy + R * Math.sin(rad);
-        const isActive = slot.role === "active";
-        const numRotation = slot.angle + 90;
+        const isActive = i === activeIndex;
         return (
           <motion.g
-            key={`${slot.role}-${idx}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={reduce ? { duration: 0 } : { duration: 0.5, ease: EASE }}
-            transform={`translate(${x} ${y})`}
+            key={service.id}
+            role="button"
+            tabIndex={0}
+            aria-label={`Jump to ${service.title}`}
+            className="cursor-pointer outline-none"
+            animate={{ x, y, rotate: isActive ? 0 : angle }}
+            transition={
+              reduce
+                ? { duration: 0 }
+                : { type: "spring", stiffness: 110, damping: 18, mass: 0.9 }
+            }
+            onClick={() => onSelect(i)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelect(i);
+              }
+            }}
           >
+            {/* invisible larger hit-area — the number glyph alone is too
+                small/thin a target to click or tap comfortably */}
+            <circle cx={10} cy={0} r={24} fill="transparent" />
             {isActive && (
               <motion.circle
                 layoutId="services-dot"
@@ -283,22 +329,23 @@ function Dial({
                 transition={reduce ? { duration: 0 } : { duration: 0.5, ease: EASE }}
               />
             )}
-            <text
+            <motion.text
               x={0}
               y={0}
               textAnchor="start"
               dominantBaseline="middle"
               fontFamily="var(--font-display), sans-serif"
               fontWeight={500}
-              fontSize={isActive ? 28 : 22}
-              fill={isActive ? "#1b1b1b" : "#d4d4d4"}
-              transform={isActive ? undefined : `rotate(${numRotation})`}
+              fontSize={24}
+              animate={{ fill: isActive ? "#1b1b1b" : "#d4d4d4" }}
+              transition={{ duration: 0.4, ease: EASE }}
             >
-              0{idx + 1}
-            </text>
+              0{i + 1}
+            </motion.text>
           </motion.g>
         );
       })}
-    </svg>
+      </svg>
+    </div>
   );
 }

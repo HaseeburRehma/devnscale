@@ -3,15 +3,22 @@ import Reveal from "@/components/ui/Reveal";
 import AnimatedGroup from "@/components/motion/AnimatedGroup";
 import Tilt from "@/components/motion/Tilt";
 import { ArrowRightIcon } from "@/components/icons";
-import { CASE_STUDY } from "@/lib/content";
+import { CASE_STUDY, type CaseStudy } from "@/lib/content";
 
 /**
  * "SELECTED WORK" — two proud-of case cards. Cover images now come from the
  * Figma export; each cover carries a category badge (top-left) and a lime
  * arrow badge (top-right), matching the design's overlay treatment.
+ *
+ * Accepts an optional `study` prop so both `/case-study` and per-slug case
+ * pages (`/case-study/lend-saas` etc.) share the same component.
  */
-export default function SelectedWork() {
-  const { selectedWork } = CASE_STUDY;
+export default function SelectedWork({
+  study = CASE_STUDY,
+}: {
+  study?: CaseStudy;
+}) {
+  const { selectedWork } = study;
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
       <div className="shell">
