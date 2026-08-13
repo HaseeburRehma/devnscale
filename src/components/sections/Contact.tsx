@@ -24,8 +24,62 @@ const fieldBase =
 const fieldClass = `${fieldBase} h-[54px]`;
 const textareaClass = `${fieldBase} h-32 resize-none py-4`;
 
+type Status = { kind: "idle" | "sending" | "ok" | "error"; message?: string };
+
 export default function Contact() {
   const [service, setService] = useState("");
+  const [status, setStatus] = useState<Status>({ kind: "idle" });
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (status.kind === "sending") return;
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      firstName: String(data.get("first") ?? ""),
+      lastName: String(data.get("last") ?? ""),
+      email: String(data.get("email") ?? ""),
+      company: String(data.get("company") ?? ""),
+      service: String(data.get("service") ?? ""),
+      details: String(data.get("details") ?? ""),
+      website: String(data.get("website") ?? ""),
+    };
+
+    setStatus({ kind: "sending" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const body = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+      };
+      if (!res.ok || !body.ok) {
+        setStatus({
+          kind: "error",
+          message:
+            body.error ??
+            "Something went wrong on our end. Please try again in a moment.",
+        });
+        return;
+      }
+      form.reset();
+      setService("");
+      setStatus({
+        kind: "ok",
+        message:
+          "Thanks — we got your message. Look out for a confirmation email in your inbox.",
+      });
+    } catch {
+      setStatus({
+        kind: "error",
+        message: "Couldn't reach the server. Check your connection and try again.",
+      });
+    }
+  }
 
   return (
     <section id="contact" className="bg-canvas section-y">
@@ -76,8 +130,25 @@ export default function Contact() {
         <Reveal delay={0.12}>
           <form
             className="rounded-[24px] bg-white p-6 shadow-[0_5px_15px_rgba(25,33,61,0.06)] sm:p-10"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
+            noValidate
           >
+            {/* Honeypot — hidden from real users, filled by bots. Server
+             *  silently drops any submission that carries a non-empty value. */}
+            <div
+              aria-hidden="true"
+              style={{ position: "absolute", left: "-9999px", height: 0, overflow: "hidden" }}
+            >
+              <label>
+                Website
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </label>
+            </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <Field label="First name" htmlFor="first">
                 <input
@@ -157,8 +228,27 @@ export default function Contact() {
             </div>
 
             <div className="mt-8">
-              <PrimaryButton as="button">Send Message</PrimaryButton>
+              <PrimaryButton as="button">
+                {status.kind === "sending" ? "Sending…" : "Send Message"}
+              </PrimaryButton>
             </div>
+
+            {status.kind === "ok" && (
+              <p
+                role="status"
+                className="mt-6 rounded-xl border border-lime-300 bg-lime-50 px-4 py-3 text-[14px] leading-5 text-lime-800"
+              >
+                {status.message}
+              </p>
+            )}
+            {status.kind === "error" && (
+              <p
+                role="alert"
+                className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-[14px] leading-5 text-red-700"
+              >
+                {status.message}
+              </p>
+            )}
 
             <p className="mt-6 text-right text-[14px] leading-5 text-text-muted">
               We&apos;ll never share your details. No spam, ever.
