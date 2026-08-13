@@ -75,7 +75,7 @@ export default function ServicesShowcase() {
   };
 
   return (
-    <section className="relative bg-white pt-16 sm:pt-20 lg:pt-[104px]">
+    <section className="relative bg-white pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-[104px] lg:pt-[104px]">
       {/* Header */}
       <div className="shell">
         <Reveal>

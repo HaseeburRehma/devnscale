@@ -10,8 +10,8 @@ import { ABOUT_STATS } from "@/lib/content";
  */
 export default function AboutStats() {
   return (
-    <section className="border-b border-border-subtle bg-white">
-      <div className="shell grid grid-cols-1 divide-y divide-border-subtle py-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+    <section className="section-y-sm border-b border-border-subtle bg-white">
+      <div className="shell grid grid-cols-1 divide-y divide-border-subtle sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         {ABOUT_STATS.map((stat) => (
           <div
             key={stat.label}

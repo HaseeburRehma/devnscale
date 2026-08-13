@@ -84,7 +84,10 @@ export default function Process() {
   const step = PROCESS_STEPS[active];
 
   return (
-    <section ref={trackRef} className="relative h-[140vh] bg-brand-900 md:h-[170vh]">
+    <section
+      ref={trackRef}
+      className="relative min-h-[calc(140vh+120px)] bg-brand-900 py-16 md:min-h-[calc(170vh+160px)] md:py-20"
+    >
       {/* On phones the stepper is only ~370px tall, so a full-height pinned
           panel would centre it in a sea of empty green. Shorter panel there,
           with top padding to clear the fixed nav. On desktop the panel pins

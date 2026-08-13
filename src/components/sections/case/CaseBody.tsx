@@ -90,7 +90,7 @@ export function CaseOverview({ study = CASE_STUDY }: StudyProps) {
           </div>
         </div>
       </section>
-      <section className="border-y border-border-subtle bg-canvas py-12 sm:py-16">
+      <section className="section-y-sm border-y border-border-subtle bg-canvas">
         <div className="shell">
           <Reveal>
             <StatRow stats={overview.stats} withDividers />

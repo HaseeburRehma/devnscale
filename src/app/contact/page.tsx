@@ -28,7 +28,11 @@ export default function ContactPage() {
           subtitle={CONTACT_HERO.subtitle}
         />
         <ContactBooking />
-        <LogoSlider tone="light" />
+        {/* Divider strip between the two contact sections. Wrap gives the
+         *  fixed-height LogoSlider (76px) breathing room from its neighbours. */}
+        <div className="bg-canvas py-8 sm:py-10">
+          <LogoSlider tone="light" />
+        </div>
         <ContactReach />
         <Testimonial />
         <Faqs />
