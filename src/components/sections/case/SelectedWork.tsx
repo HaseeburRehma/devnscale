@@ -1,11 +1,15 @@
+import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import AnimatedGroup from "@/components/motion/AnimatedGroup";
 import Tilt from "@/components/motion/Tilt";
-import MediaFrame from "@/components/ui/MediaFrame";
 import { ArrowRightIcon } from "@/components/icons";
 import { CASE_STUDY } from "@/lib/content";
 
-/** "SELECTED WORK" — two more case-study cards with cover, url, year, tags. */
+/**
+ * "SELECTED WORK" — two proud-of case cards. Cover images now come from the
+ * Figma export; each cover carries a category badge (top-left) and a lime
+ * arrow badge (top-right), matching the design's overlay treatment.
+ */
 export default function SelectedWork() {
   const { selectedWork } = CASE_STUDY;
   return (
@@ -25,9 +29,8 @@ export default function SelectedWork() {
           </p>
         </Reveal>
 
-        {/* Two-card row on desktop; on tall viewports each card also pins as
-            it scrolls past so the pair reads like the stacking case-study
-            deck on devnscale.com — same `.stack-card` mechanic Projects uses. */}
+        {/* Two-card row on md+. Sticky pin on tall viewports so the pair
+            stacks like the projects deck on the home page. */}
         <AnimatedGroup className="relative mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
           {selectedWork.cases.map((c, i) => (
             <a
@@ -37,35 +40,51 @@ export default function SelectedWork() {
               style={{ zIndex: i + 1 }}
             >
               <Tilt max={5} className="[transform-style:preserve-3d]">
-                <div className="overflow-hidden rounded-[20px] border border-border-subtle bg-white transition-[border-color,box-shadow] duration-300 group-hover:border-border-default group-hover:shadow-[0_16px_40px_rgba(25,33,61,0.1)]">
-                  <div className="relative">
-                    <MediaFrame
-                      tone={i % 2 === 0 ? "dark" : "light"}
-                      rounded="rounded-none"
-                      className="aspect-[624/368] w-full"
+                <div className="overflow-hidden rounded-[20px] border border-border-subtle bg-white shadow-[0_10px_26px_0_rgba(5,28,18,0.06)] transition-[border-color,box-shadow] duration-300 group-hover:border-border-default group-hover:shadow-[0_16px_40px_rgba(25,33,61,0.1)]">
+                  <div className="relative aspect-[624/368] w-full overflow-hidden">
+                    <Image
+                      src={c.cover}
+                      alt={c.name}
+                      fill
+                      sizes="(min-width: 768px) 624px, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                     />
-                    {/* arrow badge on the cover, lime on hover */}
-                    <span className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full bg-ink-950/70 text-white transition-colors duration-300 group-hover:bg-lime-400 group-hover:text-ink-950">
-                      <ArrowRightIcon className="size-4 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
+                    {/* dark bottom gradient (per Figma) */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/90" />
+
+                    {/* category pill top-left (dark glass) */}
+                    <span className="absolute left-6 top-6 rounded-full border border-white/25 bg-black/40 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.02em] text-white backdrop-blur-sm">
+                      {c.badge}
                     </span>
-                  </div>
-                  <div className="px-7 py-6">
-                    <h3 className="t-h5 text-ink-900 transition-colors duration-300 group-hover:text-lime-700">
+
+                    {/* lime arrow badge top-right */}
+                    <span className="absolute right-6 top-6 flex size-[42px] items-center justify-center rounded-full bg-lime-500 text-ink-950 transition-transform duration-300 group-hover:-translate-y-0.5">
+                      <ArrowRightIcon className="size-[18px] -rotate-45" />
+                    </span>
+
+                    {/* project title on the cover (per Figma) */}
+                    <h3 className="absolute bottom-6 left-6 right-6 font-display text-[32px] font-medium leading-[1.1] tracking-[-1px] text-white">
                       {c.name}
                     </h3>
-                    <div className="mt-2 flex items-center gap-3">
-                      <span className="text-[14px] text-text-secondary">{c.url}</span>
-                      <span className="text-[13px] text-ink-400">{c.year}</span>
-                    </div>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {c.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-border-default bg-white px-3 py-1 text-[12px] font-medium text-ink-700"
-                        >
-                          {t}
+                  </div>
+                  <div className="flex items-center justify-between gap-4 px-7 py-6">
+                    <div className="min-w-0">
+                      <div className="flex items-center justify-between gap-4 text-[14px]">
+                        <span className="truncate font-medium text-ink-700">
+                          {c.url}
                         </span>
-                      ))}
+                        <span className="shrink-0 text-ink-500">{c.year}</span>
+                      </div>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {c.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full border border-border-subtle bg-white px-3 py-1.5 text-[12px] font-medium text-ink-700"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>

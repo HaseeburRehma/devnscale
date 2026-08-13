@@ -6,12 +6,12 @@ import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
 import PageHero from "@/components/sections/PageHero";
 import CaseMeta from "@/components/sections/case/CaseMeta";
-import CaseDesignSystem from "@/components/sections/case/CaseDesignSystem";
 import SelectedWork from "@/components/sections/case/SelectedWork";
 import {
   CaseHeroImage,
   CaseOverview,
-  CaseProduct,
+  CaseProblem,
+  CaseDesignedForWork,
   CaseResults,
   CaseExperience,
   CaseGallery,
@@ -19,9 +19,9 @@ import {
 import { CASE_STUDY } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Fieldnote — Case Study — Dev N Scale",
+  title: "MCA Calculator — Case Study — Dev N Scale",
   description:
-    "Fieldnote: a field-operations platform for logistics. From scattered tools to one live picture across dispatch, drivers, and the warehouse.",
+    "MCA Calculator: a smarter way to calculate, manage, and structure Merchant Cash Advances — one connected FinTech workflow.",
 };
 
 export default function CaseStudyPage() {
@@ -38,8 +38,8 @@ export default function CaseStudyPage() {
         <CaseMeta />
         <CaseHeroImage />
         <CaseOverview />
-        <CaseDesignSystem />
-        <CaseProduct />
+        <CaseProblem />
+        <CaseDesignedForWork />
         <CaseResults />
         <CaseExperience />
         <CaseGallery />

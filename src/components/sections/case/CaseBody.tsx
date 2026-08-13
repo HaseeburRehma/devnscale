@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import InView from "@/components/motion/InView";
 import AnimatedGroup from "@/components/motion/AnimatedGroup";
-import MediaFrame from "@/components/ui/MediaFrame";
 import { CASE_STUDY } from "@/lib/content";
 
 /* The big product shot directly under the hero. */
@@ -10,11 +10,16 @@ export function CaseHeroImage() {
     <section className="bg-white pt-14 sm:pt-16">
       <div className="shell">
         <InView>
-          <MediaFrame
-            label="Fieldnote · Dispatch control room"
-            device="laptop"
-            className="aspect-[2/1] w-full"
-          />
+          <div className="relative aspect-[2/1] w-full overflow-hidden rounded-[24px]">
+            <Image
+              src={CASE_STUDY.heroImage}
+              alt={`${CASE_STUDY.title} — hero`}
+              fill
+              priority
+              sizes="(min-width: 1440px) 1280px, 100vw"
+              className="object-cover"
+            />
+          </div>
         </InView>
       </div>
     </section>
@@ -88,45 +93,92 @@ export function CaseOverview() {
   );
 }
 
-/* The product — heading then two device mockups. */
-export function CaseProduct() {
-  const { product } = CASE_STUDY;
+/* Small helper — a big rounded rectangle backed by a real product screenshot. */
+function CaseImagePanel({
+  src,
+  alt,
+  ratio,
+}: {
+  src: string;
+  alt: string;
+  ratio: string;
+}) {
+  return (
+    <div
+      className="relative w-full overflow-hidden rounded-[20px] bg-canvas shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]"
+      style={{ aspectRatio: ratio }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(min-width: 1024px) 730px, 100vw"
+        className="object-cover"
+      />
+    </div>
+  );
+}
+
+/* THE PROBLEM — text left, image right. */
+export function CaseProblem() {
+  const { problem } = CASE_STUDY;
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
-      <div className="shell">
-        <Reveal>
-          <p className="t-eyebrow">{product.eyebrow}</p>
-        </Reveal>
-        <Reveal delay={0.06}>
-          <h2 className="t-subsection mt-4 max-w-[760px] text-ink-900">
-            {product.title}
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="t-body-lg mt-5 max-w-[620px] text-text-secondary">
-            {product.body}
-          </p>
-        </Reveal>
-
-        <AnimatedGroup className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <MediaFrame label="Driver app" className="aspect-[624/480] w-full" />
-          <MediaFrame
-            label="Dispatch board"
-            tone="light"
-            className="aspect-[624/480] w-full"
-          />
-        </AnimatedGroup>
+      <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,470px)_1fr] lg:gap-20">
+        <div>
+          <Reveal>
+            <p className="t-eyebrow">{problem.eyebrow}</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="t-subsection mt-4 text-ink-900">{problem.title}</h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="t-body-lg mt-5 text-text-secondary">{problem.body}</p>
+          </Reveal>
+        </div>
+        <InView>
+          <CaseImagePanel src={problem.image} alt={problem.title} ratio="730 / 520" />
+        </InView>
       </div>
     </section>
   );
 }
 
-/* Results — text + stats beside a product shot. */
+/* DESIGNED FOR REAL WORK — image left, text right. */
+export function CaseDesignedForWork() {
+  const { designSystem } = CASE_STUDY;
+  return (
+    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+      <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_minmax(0,470px)] lg:gap-20">
+        <InView>
+          <CaseImagePanel
+            src={designSystem.image}
+            alt={designSystem.title}
+            ratio="730 / 520"
+          />
+        </InView>
+        <div>
+          <Reveal>
+            <p className="t-eyebrow">{designSystem.eyebrow}</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="t-subsection mt-4 text-ink-900">{designSystem.title}</h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="t-body-lg mt-5 text-text-secondary">{designSystem.body}</p>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* THE RESULT — text + stats beside a product shot. */
 export function CaseResults() {
   const { results } = CASE_STUDY;
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
-      <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,470px)_1fr] lg:gap-20">
         <div>
           <Reveal>
             <p className="t-eyebrow">{results.eyebrow}</p>
@@ -135,9 +187,7 @@ export function CaseResults() {
             <h2 className="t-subsection mt-4 text-ink-900">{results.title}</h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="t-body-lg mt-5 max-w-[460px] text-text-secondary">
-              {results.body}
-            </p>
+            <p className="t-body-lg mt-5 text-text-secondary">{results.body}</p>
           </Reveal>
           <Reveal delay={0.16}>
             <div className="mt-10">
@@ -145,41 +195,44 @@ export function CaseResults() {
             </div>
           </Reveal>
         </div>
-        <InView className="lg:order-last">
-          <MediaFrame
-            label="Live status"
-            device="laptop"
-            className="aspect-[730/470] w-full"
-          />
+        <InView>
+          <CaseImagePanel src={results.image} alt={results.title} ratio="730 / 470" />
         </InView>
       </div>
     </section>
   );
 }
 
-/* The Experience — narrative + two paired product shots. */
+/* THE EXPERIENCE — heading + two large product mocks below. */
 export function CaseExperience() {
   const { experience } = CASE_STUDY;
   return (
     <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
       <div className="shell">
-        <div className="mx-auto max-w-[720px] text-center">
-          <Reveal>
-            <p className="t-eyebrow">{experience.eyebrow}</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="t-subsection mt-4 text-ink-900">{experience.title}</h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="t-body-lg mt-5 text-text-secondary">{experience.body}</p>
-          </Reveal>
-        </div>
-        <AnimatedGroup className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <MediaFrame label="Driver — checkpoint" className="aspect-square w-full" />
-          <MediaFrame
-            label="Dispatch — live map"
-            tone="light"
-            className="aspect-square w-full"
+        <Reveal>
+          <p className="t-eyebrow">{experience.eyebrow}</p>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <h2 className="t-subsection mt-4 max-w-[760px] text-ink-900">
+            {experience.title}
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="t-body-lg mt-5 max-w-[620px] text-text-secondary">
+            {experience.body}
+          </p>
+        </Reveal>
+
+        <AnimatedGroup className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2">
+          <CaseImagePanel
+            src={experience.mock1}
+            alt={`${experience.title} — mock 1`}
+            ratio="624 / 540"
+          />
+          <CaseImagePanel
+            src={experience.mock2}
+            alt={`${experience.title} — mock 2`}
+            ratio="624 / 540"
           />
         </AnimatedGroup>
       </div>
@@ -187,11 +240,11 @@ export function CaseExperience() {
   );
 }
 
-/* Gallery — centred header + a wide collage panel. */
+/* THE FULL PICTURE — centred header + a wide gallery panel. */
 export function CaseGallery() {
   const { gallery } = CASE_STUDY;
   return (
-    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
       <div className="shell">
         <div className="mx-auto max-w-[640px] text-center">
           <Reveal>
@@ -202,7 +255,15 @@ export function CaseGallery() {
           </Reveal>
         </div>
         <InView className="mt-12">
-          <MediaFrame label="Fieldnote — every screen" className="aspect-[1280/700] w-full" />
+          <div className="relative aspect-[1280/700] w-full overflow-hidden rounded-[20px]">
+            <Image
+              src={gallery.image}
+              alt={gallery.title}
+              fill
+              sizes="(min-width: 1440px) 1280px, 100vw"
+              className="object-cover"
+            />
+          </div>
         </InView>
       </div>
     </section>

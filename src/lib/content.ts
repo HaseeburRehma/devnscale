@@ -466,54 +466,60 @@ export const CONTACT_REACH = {
    ============================================================ */
 
 export const CASE_STUDY = {
-  eyebrow: "CASE STUDY · LOGISTICS",
-  title: "Fieldnote",
+  eyebrow: "CASE STUDY · MCA Calculator",
+  title: "Simplifying MCA Calculations Into One Powerful Workflow.",
   subtitle:
-    "A field operations platform that keeps warehouse and delivery teams working from the same live picture, from first scan to final drop off.",
+    "A smarter way to calculate, manage, and structure Merchant Cash Advances.",
   meta: [
-    { value: "2023", label: "YEAR" },
+    { value: "2024", label: "YEAR" },
     { value: "UX/UI, Development", label: "SERVICES" },
-    { value: "Logistics", label: "INDUSTRY" },
-    { value: "Web, iOS", label: "PLATFORM" },
+    { value: "FinTech · Alternative Finance", label: "INDUSTRY" },
+    { value: "iOS · Android", label: "PLATFORM" },
   ],
+  heroImage: "/img/case/hero.png",
   overview: {
-    eyebrow: "OVERVIEW",
+    eyebrow: "THE CHALLENGE",
     title: "From scattered tools to one clear view.",
-    body: "Field teams were juggling paper run sheets, group chats, and three different apps, and nothing quite agreed. We designed and built one platform where dispatch, drivers, and the warehouse all see the same live status, on the web and on the phone in their pocket.",
+    body: "MCA professionals often rely on multiple tools to calculate deals, manage templates, and review previous calculations. We designed one connected experience to bring these tasks together in a faster, more organized workflow.",
     stats: [
       { value: "38+", label: "Screens Designed" },
       { value: "120+", label: "Product Components" },
       { value: "100%", label: "Mobile-First Experience" },
     ],
   },
-  designSystem: {
-    eyebrow: "DESIGN SYSTEM",
-    title: "A system the team could grow with.",
-    body: "Before a single screen, we set the foundations. A clear type scale, a calm color palette, and a component kit that keeps every new feature on brand and quick to build.",
-    tags: ["Type scale", "Color tokens", "Components", "Icons"],
+  problem: {
+    eyebrow: "THE PROBLEM",
+    title: "A system that could grow with the workflow.",
+    body: "The challenge was to simplify complex MCA calculations without removing the flexibility professionals need. The experience had to support different deal structures, reusable templates, calculations, and proposals while staying easy to navigate.",
+    image: "/img/case/system.png",
   },
-  product: {
-    eyebrow: "THE PRODUCT",
+  designSystem: {
+    eyebrow: "DESIGNED FOR REAL WORK",
     title: "Built for the field, not the boardroom.",
-    body: "Drivers get a fast, glanceable app. Dispatch gets a full control room on the web. Both stay in sync in real time.",
+    body: "Every interaction was designed around the way MCA professionals actually work — from entering deal information and running calculations to reviewing results and preparing proposals.",
+    image: "/img/case/product.png",
   },
   results: {
-    eyebrow: "RESULTS",
-    title: "Faster days, fewer missed drops.",
-    body: "Within the first quarter, dispatch was quicker, drivers stopped calling in for updates, and far fewer parcels came back to the depot.",
+    eyebrow: "THE RESULT",
+    title: "Faster deals, fewer repeated steps.",
+    body: "By bringing calculations, templates, history, and proposals into one product, the experience reduces unnecessary switching and makes repetitive tasks easier to manage.",
+    image: "/img/case/results.png",
     stats: [
-      { value: "31%", label: "fewer failed deliveries" },
-      { value: "2.4x", label: "faster dispatch" },
+      { value: "31%", label: "Fewer Workflow Steps" },
+      { value: "2.4x", label: "Faster Repeat Calculations" },
     ],
   },
   experience: {
     eyebrow: "THE EXPERIENCE",
     title: "Every screen, working together.",
-    body: "Every touch point in the field, every column on dispatch — designed to feel like one product, one team, one live picture that everyone can trust.",
+    body: "From onboarding and user profiles to calculations, templates, history, and proposals, every screen was designed as part of one connected experience with consistent navigation and components.",
+    mock1: "/img/case/mock-1.png",
+    mock2: "/img/case/mock-2.png",
   },
   gallery: {
     eyebrow: "THE FULL PICTURE",
-    title: "The full picture, at a glance.",
+    title: "Every screen, working together.",
+    image: "/img/case/gallery.png",
   },
   selectedWork: {
     eyebrow: "SELECTED WORK",
@@ -521,8 +527,22 @@ export const CASE_STUDY = {
     subtitle:
       "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
     cases: [
-      { name: "Halo Health", url: "halohealth.app.com", year: "2025", tags: ["iOS", "Android", "UI/UX"] },
-      { name: "Ledgerly", url: "ledgerly.io.com", year: "2025", tags: ["Web App", "Design", "QA"] },
+      {
+        name: "Halo Health",
+        url: "halohealth.app.com",
+        year: "2025",
+        badge: "Mobile App",
+        tags: ["iOS", "Android", "UI/UX"],
+        cover: "/img/case/cover-halo.png",
+      },
+      {
+        name: "Ledgerly",
+        url: "ledgerly.io.com",
+        year: "2025",
+        badge: "Web Platform",
+        tags: ["Web App", "Design", "QA"],
+        cover: "/img/case/cover-ledgerly.png",
+      },
     ],
   },
 } as const;
