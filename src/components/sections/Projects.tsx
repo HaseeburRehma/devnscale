@@ -59,7 +59,7 @@ export default function Projects() {
                     </div>
 
                     <div className="mt-8">
-                      <SecondaryButton variant="light">
+                      <SecondaryButton variant="light" href={project.href}>
                         View Case Study
                       </SecondaryButton>
                     </div>

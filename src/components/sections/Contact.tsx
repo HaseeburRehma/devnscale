@@ -157,7 +157,7 @@ export default function Contact() {
             </div>
 
             <div className="mt-8">
-              <PrimaryButton href="#contact" />
+              <PrimaryButton as="button">Send Message</PrimaryButton>
             </div>
 
             <p className="mt-6 text-right text-[14px] leading-5 text-text-muted">

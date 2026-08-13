@@ -72,22 +72,25 @@ export const PROJECTS = [
     metric: "38+",
     metricLabel: "Screens Designed",
     image: "/img/projects/halo-health-mca.png",
+    href: "/case-study",
   },
   {
-    pill: "Website Design",
-    title: "Skin Care Brand",
-    body: "Website design for an international skincare brand with a premium visual approach built to reflect product quality and convert visitors.",
-    metric: "3×",
-    metricLabel: "faster activation",
-    image: "/img/projects/skincare.png",
+    pill: "FinTech · Lend SaaS",
+    title: "OpulenceX — Every DeFi Opportunity, In One Ecosystem",
+    body: "Swap tokens, farm yield, stake for APY, and earn from NFTs — all through one connected DeFi suite built for the XRP Ledger.",
+    metric: "04",
+    metricLabel: "Core DeFi Opportunities",
+    image: "/img/case/saas/hero.png",
+    href: "/case-study/lend-saas",
   },
   {
-    pill: "E-commerce Mobile App",
-    title: "CSD Pakistan",
-    body: "End-to-end mobile app UI/UX design for one of Pakistan's largest retail networks, designed for scale and ease of use.",
-    metric: "2.1×",
-    metricLabel: "demo requests",
-    image: "/img/projects/csd-pakistan.png",
+    pill: "FinTech · Central Hub",
+    title: "Lend SaaS — One Central Hub For Everything Lending",
+    body: "A centralized platform that brings essential financial products, protocols, knowledge, and calculation tools into one seamless experience.",
+    metric: "01",
+    metricLabel: "Centralized Platform",
+    image: "/img/case/lend-hub/hero.png",
+    href: "/case-study/lend-hub",
   },
 ];
 
@@ -200,14 +203,9 @@ export const FOOTER_LINKS = {
     { label: "Home", href: "/", active: true },
     { label: "About Us", href: "/about" },
     { label: "Our Services", href: "/services" },
-    { label: "Careers", href: "#" },
-    { label: "Blogs", href: "#" },
+    { label: "Work", href: "/work" },
   ],
-  other: [
-    { label: "Contact Us", href: "/contact" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Term & Condition", href: "#" },
-  ],
+  other: [{ label: "Contact Us", href: "/contact" }],
   contact: ["+49 211 555 0199", "hello@devnscale.com"],
 };
 
@@ -522,15 +520,18 @@ export type CaseStudy = {
       badge: string;
       tags: readonly string[];
       cover: string;
+      href: string;
     }[];
   };
 };
 
+/* MCA Calculator — copy transcribed verbatim from Figma frame 4850:15665
+ * (title case is authored in Figma, not our style choice — preserved). */
 const CASE_STUDY_MCA: CaseStudy = {
   eyebrow: "CASE STUDY · MCA Calculator",
   title: "Simplifying MCA Calculations Into One Powerful Workflow.",
   subtitle:
-    "A smarter way to calculate, manage, and structure Merchant Cash Advances.",
+    "A Smarter Way To Calculate, Manage, And Structure Merchant Cash Advances.",
   meta: [
     { value: "2024", label: "YEAR" },
     { value: "UX/UI, Development", label: "SERVICES" },
@@ -538,11 +539,11 @@ const CASE_STUDY_MCA: CaseStudy = {
     { value: "iOS · Android", label: "PLATFORM" },
   ],
   heroBackground: "/img/case/mca/hero-bg.png",
-  heroImage: "/img/case/hero.png",
+  heroImage: "/img/case/mca/hero.png",
   overview: {
     eyebrow: "THE CHALLENGE",
-    title: "From scattered tools to one clear view.",
-    body: "MCA professionals often rely on multiple tools to calculate deals, manage templates, and review previous calculations. We designed one connected experience to bring these tasks together in a faster, more organized workflow.",
+    title: "From Scattered Tools To One Clear View.",
+    body: "MCA Professionals Often Rely On Multiple Tools To Calculate Deals, Manage Templates, And Review Previous Calculations. We Designed One Connected Experience To Bring These Tasks Together In A Faster, More Organized Workflow.",
     stats: [
       { value: "38+", label: "Screens Designed" },
       { value: "120+", label: "Product Components" },
@@ -551,21 +552,21 @@ const CASE_STUDY_MCA: CaseStudy = {
   },
   problem: {
     eyebrow: "THE PROBLEM",
-    title: "A system that could grow with the workflow.",
-    body: "The challenge was to simplify complex MCA calculations without removing the flexibility professionals need. The experience had to support different deal structures, reusable templates, calculations, and proposals while staying easy to navigate.",
-    image: "/img/case/system.png",
+    title: "A System That Could Grow With The Workflow.",
+    body: "The Challenge Was To Simplify Complex MCA Calculations Without Removing The Flexibility Professionals Need. The Experience Had To Support Different Deal Structures, Reusable Templates, Calculations, And Proposals While Staying Easy To Navigate.",
+    image: "/img/case/mca/problem.png",
   },
   designSystem: {
     eyebrow: "DESIGNED FOR REAL WORK",
-    title: "Built for the field, not the boardroom.",
-    body: "Every interaction was designed around the way MCA professionals actually work — from entering deal information and running calculations to reviewing results and preparing proposals.",
-    image: "/img/case/product.png",
+    title: "Built For The Field, Not The Boardroom.",
+    body: "Every Interaction Was Designed Around The Way MCA Professionals Actually Work—From Entering Deal Information And Running Calculations To Reviewing Results And Preparing Proposals.",
+    image: "/img/case/mca/system.png",
   },
   results: {
     eyebrow: "THE RESULT",
-    title: "Faster deals, fewer repeated steps.",
-    body: "By bringing calculations, templates, history, and proposals into one product, the experience reduces unnecessary switching and makes repetitive tasks easier to manage.",
-    image: "/img/case/results.png",
+    title: "Faster Deals, Fewer Repeated Steps.",
+    body: "By Bringing Calculations, Templates, History, And Proposals Into One Product, The Experience Reduces Unnecessary Switching And Makes Repetitive Tasks Easier To Manage.",
+    image: "/img/case/mca/results.png",
     stats: [
       { value: "31%", label: "Fewer Workflow Steps" },
       { value: "2.4x", label: "Faster Repeat Calculations" },
@@ -573,15 +574,17 @@ const CASE_STUDY_MCA: CaseStudy = {
   },
   experience: {
     eyebrow: "THE EXPERIENCE",
-    title: "Every screen, working together.",
-    body: "From onboarding and user profiles to calculations, templates, history, and proposals, every screen was designed as part of one connected experience with consistent navigation and components.",
-    mock1: "/img/case/mock-1.png",
-    mock2: "/img/case/mock-2.png",
+    title: "Every Screen, Working Together.",
+    body: "From Onboarding And User Profiles To Calculations, Templates, History, And Proposals, Every Screen Was Designed As Part Of One Connected Experience With Consistent Navigation And Components.",
+    mock1: "/img/case/mca/mock-1.png",
+    mock2: "/img/case/mca/mock-2.png",
   },
   gallery: {
     eyebrow: "THE FULL PICTURE",
+    /* Figma authors this heading in sentence case, unlike the rest of the
+     * MCA page — preserve verbatim. */
     title: "Every screen, working together.",
-    image: "/img/case/gallery.png",
+    image: "/img/case/mca/gallery.png",
   },
   selectedWork: {
     eyebrow: "SELECTED WORK",
@@ -596,6 +599,7 @@ const CASE_STUDY_MCA: CaseStudy = {
         badge: "Mobile App",
         tags: ["iOS", "Android", "UI/UX"],
         cover: "/img/case/cover-halo.png",
+        href: "/case-study/lend-saas",
       },
       {
         name: "Ledgerly",
@@ -604,6 +608,7 @@ const CASE_STUDY_MCA: CaseStudy = {
         badge: "Web Platform",
         tags: ["Web App", "Design", "QA"],
         cover: "/img/case/cover-ledgerly.png",
+        href: "/case-study/lend-hub",
       },
     ],
   },
@@ -681,6 +686,7 @@ const CASE_STUDY_SAAS: CaseStudy = {
         badge: "Mobile App",
         tags: ["iOS", "Android", "UI/UX"],
         cover: "/img/case/cover-halo.png",
+        href: "/case-study",
       },
       {
         name: "Ledgerly",
@@ -689,6 +695,7 @@ const CASE_STUDY_SAAS: CaseStudy = {
         badge: "Web Platform",
         tags: ["Web App", "Design", "QA"],
         cover: "/img/case/cover-ledgerly.png",
+        href: "/case-study/lend-hub",
       },
     ],
   },
@@ -767,6 +774,7 @@ const CASE_STUDY_LEND_HUB: CaseStudy = {
         badge: "Mobile App",
         tags: ["iOS", "Android", "UI/UX"],
         cover: "/img/case/cover-halo.png",
+        href: "/case-study",
       },
       {
         name: "Ledgerly",
@@ -775,6 +783,7 @@ const CASE_STUDY_LEND_HUB: CaseStudy = {
         badge: "Web Platform",
         tags: ["Web App", "Design", "QA"],
         cover: "/img/case/cover-ledgerly.png",
+        href: "/case-study/lend-saas",
       },
     ],
   },
@@ -811,63 +820,34 @@ export const WORK = {
   title: "Case studies we're proud of.",
   subtitle:
     "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
+  // Three real case studies live on the site; the Work grid renders exactly
+  // those. Add a new entry here when a fourth case ships.
   cases: [
     {
-      name: "Halo Health",
-      url: "halohealth.app.com",
-      year: "2025",
+      name: "MCA Calculator",
+      url: "case-study/mca",
+      year: "2024",
       badge: "Mobile App",
       tags: ["iOS", "Android", "UI/UX"],
       cover: "/img/case/work-cover-mca.jpg",
-      // Mobile-first case → MCA Calculator (the only mobile case in the deck).
       href: "/case-study",
     },
     {
-      name: "Ledgerly",
-      url: "ledgerly.io.com",
-      year: "2025",
-      badge: "Web Platform",
-      tags: ["Web App", "Design", "QA"],
-      cover: "/img/case/work-cover-ledgerly.jpg",
-      // Ledgerly (Web Platform) → the DeFi/XRPL Lend SaaS case study.
-      href: "/case-study/lend-saas",
-    },
-    {
-      name: "Northbeam",
-      url: "northbeam.co",
-      year: "2024",
-      badge: "Brand + Site",
-      tags: ["Branding", "Website", "SEO"],
-      cover: "/img/case/work-cover-northbeam.jpg",
-      href: "/case-study/lend-hub",
-    },
-    {
-      name: "Aster Studio",
-      url: "asterstudio.com",
+      name: "OpulenceX",
+      url: "case-study/lend-saas",
       year: "2024",
       badge: "SaaS",
-      tags: ["UI/UX", "Web App", "Motion"],
-      cover: "/img/case/work-cover-aster.png",
-      // SaaS card → OpulenceX (the DeFi/XRPL SaaS case).
+      tags: ["Web App", "DeFi", "XRPL"],
+      cover: "/img/case/work-cover-ledgerly.jpg",
       href: "/case-study/lend-saas",
     },
     {
-      name: "Fieldnote",
-      url: "fieldnote.app",
-      year: "2023",
-      badge: "Logistics",
-      tags: ["Mobile", "Web", "API"],
-      cover: "/img/case/work-cover-aster.png",
-      // Logistics/mobile-heavy → MCA (the mobile calculator case).
-      href: "/case-study",
-    },
-    {
-      name: "Vantage Labs",
-      url: "vantagelabs.ai",
-      year: "2023",
-      badge: "AI Platform",
-      tags: ["AI", "Backend", "QA"],
-      cover: "/img/case/work-cover-vantage.png",
+      name: "Lend SaaS — Central Hub",
+      url: "case-study/lend-hub",
+      year: "2024",
+      badge: "Web Platform",
+      tags: ["Web App", "FinTech", "UX"],
+      cover: "/img/case/work-cover-northbeam.jpg",
       href: "/case-study/lend-hub",
     },
   ],

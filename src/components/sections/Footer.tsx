@@ -12,11 +12,13 @@ import SecondaryButton from "@/components/ui/SecondaryButton";
 import Reveal from "@/components/ui/Reveal";
 import { FOOTER_LINKS } from "@/lib/content";
 
-const SOCIALS = [
-  { Icon: XIcon, label: "X" },
-  { Icon: LinkedInIcon, label: "LinkedIn" },
-  { Icon: FacebookIcon, label: "Facebook" },
-  { Icon: InstagramIcon, label: "Instagram" },
+/* Social profile URLs. When a `href` is `null` the icon is hidden from the
+ * footer bar — set it to a real URL to bring the icon back. */
+const SOCIALS: { Icon: typeof XIcon; label: string; href: string | null }[] = [
+  { Icon: XIcon, label: "X", href: null },
+  { Icon: LinkedInIcon, label: "LinkedIn", href: null },
+  { Icon: FacebookIcon, label: "Facebook", href: null },
+  { Icon: InstagramIcon, label: "Instagram", href: null },
 ];
 
 export default function Footer() {
@@ -129,11 +131,13 @@ export default function Footer() {
             2026 Dev N Scale - All Rights Reserved
           </p>
           <ul className="flex items-center gap-3">
-            {SOCIALS.map(({ Icon, label }) => (
+            {SOCIALS.filter((s) => s.href).map(({ Icon, label, href }) => (
               <li key={label}>
                 <a
-                  href="#"
+                  href={href!}
                   aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex size-8 items-center justify-center rounded-[6px] bg-lime-400 text-brand-950 transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-lime-300"
                 >
                   <Icon className="size-[18px]" />

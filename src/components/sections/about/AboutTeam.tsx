@@ -128,14 +128,18 @@ function MemberCard({
           }}
         />
 
-        {/* LinkedIn affordance */}
-        <a
-          href={member.linkedin || "#"}
-          aria-label={`${member.name} on LinkedIn`}
-          className="absolute bottom-3 right-3 flex size-9 translate-y-2 items-center justify-center rounded-full bg-lime-400 text-brand-950 opacity-0 shadow-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:bg-lime-300"
-        >
-          <LinkedInIcon className="size-[18px]" />
-        </a>
+        {/* LinkedIn affordance — hidden when no real profile URL is set. */}
+        {member.linkedin && member.linkedin !== "#" ? (
+          <a
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${member.name} on LinkedIn`}
+            className="absolute bottom-3 right-3 flex size-9 translate-y-2 items-center justify-center rounded-full bg-lime-400 text-brand-950 opacity-0 shadow-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:bg-lime-300"
+          >
+            <LinkedInIcon className="size-[18px]" />
+          </a>
+        ) : null}
       </div>
 
       <h3 className="t-h6 mt-4 text-ink-900">{member.name}</h3>

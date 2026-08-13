@@ -13,7 +13,7 @@ import DotMatrixArrow from "./DotMatrixArrow";
  */
 export default function PrimaryButton({
   children = "Start A Project",
-  href = "/#contact",
+  href = "/contact",
   className = "",
   fullWidth = false,
   as = "a",
