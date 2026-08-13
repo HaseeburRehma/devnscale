@@ -93,7 +93,7 @@ export default function ServicesShowcase() {
             from behind white) */}
         <div className="services-mask-top" aria-hidden="true" />
 
-        <div className="mx-auto grid max-w-[1440px] grid-cols-[340px_minmax(0,1fr)_380px] gap-x-8 px-8 lg:px-12 xl:grid-cols-[360px_minmax(0,520px)_440px] xl:gap-x-12 xl:px-20">
+        <div className="mx-auto grid max-w-[1560px] grid-cols-[320px_minmax(0,1fr)_440px] gap-x-8 px-8 lg:px-12 xl:grid-cols-[360px_minmax(0,540px)_500px] xl:gap-x-12 xl:px-16">
           {/* Left — off-canvas circle, sticky */}
           <div className="relative">
             <div className="services-side-sticky relative">
@@ -116,47 +116,59 @@ export default function ServicesShowcase() {
             ))}
           </div>
 
-          {/* Right — cube render, sticky */}
+          {/* Right — cube render, sticky. Bigger footprint + a soft coloured
+              backdrop so the render feels like it's floating in a lit
+              environment. Each service swap replays a scale+rotate pop,
+              and the mark continues to bob + slowly rotate. */}
           <div className="relative">
             <div className="services-side-sticky pointer-events-none">
+              {/* radial glow behind the cube — pulses gently */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-[-10%] motion-safe:animate-[glow-pulse_5s_ease-in-out_infinite]"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, rgba(196,212,52,0.16), rgba(196,212,52,0) 62%), radial-gradient(closest-side at 60% 40%, rgba(232,121,249,0.14), rgba(232,121,249,0) 55%)",
+                  filter: "blur(20px)",
+                }}
+              />
               <motion.div
                 key={active}
-                initial={{ scale: 0.94, rotate: -8, opacity: 0.6 }}
+                initial={{ scale: 0.9, rotate: -14, opacity: 0.5 }}
                 animate={
                   reduce
                     ? { scale: 1, rotate: 0, opacity: 1 }
                     : {
-                        scale: [0.94, 1.02, 1, 1.01, 1],
-                        rotate: [-8, 4, -2, 2, 0],
+                        scale: [0.9, 1.05, 0.98, 1.02, 1],
+                        rotate: [-14, 6, -3, 2, 0],
                         opacity: 1,
-                        y: [0, -8, 0, 8, 0],
                       }
                 }
                 transition={
                   reduce
                     ? { duration: 0.4 }
                     : {
-                        scale: { duration: 1.1, ease: EASE },
-                        rotate: { duration: 1.2, ease: EASE },
-                        opacity: { duration: 0.5, ease: EASE },
-                        y: {
-                          duration: 6,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: 1,
-                        },
+                        scale: { duration: 1.3, ease: EASE },
+                        rotate: { duration: 1.4, ease: EASE },
+                        opacity: { duration: 0.6, ease: EASE },
                       }
                 }
                 className="relative size-full"
               >
-                <Image
-                  src="/img/services-cubes.png"
-                  alt=""
-                  fill
-                  priority
-                  sizes="440px"
-                  className="object-contain drop-shadow-[0_28px_50px_rgba(1,42,28,0.28)] motion-safe:animate-[spin_28s_linear_infinite]"
-                />
+                {/* separate wrapper for the continuous idle motion so the
+                    key-change replay above stays clean */}
+                <div
+                  className="relative size-full motion-safe:animate-[float-sway_9s_ease-in-out_infinite]"
+                >
+                  <Image
+                    src="/img/services-cubes.png"
+                    alt=""
+                    fill
+                    priority
+                    sizes="(min-width: 1280px) 500px, 440px"
+                    className="object-contain drop-shadow-[0_36px_60px_rgba(1,42,28,0.35)] motion-safe:animate-[spin_36s_linear_infinite]"
+                  />
+                </div>
               </motion.div>
             </div>
           </div>
