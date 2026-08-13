@@ -556,17 +556,68 @@ export const WORK_HERO = {
     "Explore the digital products and solutions we've designed and built for businesses looking to improve their operations, strengthen their digital presence, and scale with confidence.",
 };
 
+// 6 case cards. Cover images pulled from the Figma Work grid (only 3
+// unique renders — Figma cycles them across the 6 cases). Category
+// badge appears top-left on the cover.
 export const WORK = {
   eyebrow: "SELECTED WORK",
   title: "Case studies we're proud of.",
   subtitle:
     "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
   cases: [
-    { name: "Halo Health", url: "halohealth.app.com", year: "2025", tags: ["iOS", "Android", "UI/UX"], href: "/case-study" },
-    { name: "Ledgerly", url: "ledgerly.io.com", year: "2025", tags: ["Web App", "Design", "QA"], href: "/case-study" },
-    { name: "Northbeam", url: "northbeam.co", year: "2024", tags: ["Branding", "Website", "SEO"], href: "/case-study" },
-    { name: "Aster Studio", url: "asterstudio.com", year: "2024", tags: ["UI/UX", "Web App", "Motion"], href: "/case-study" },
-    { name: "Fieldnote", url: "fieldnote.app", year: "2023", tags: ["Mobile", "Web", "API"], href: "/case-study" },
-    { name: "Vantage Labs", url: "vantagelabs.ai", year: "2023", tags: ["AI", "Backend", "QA"], href: "/case-study" },
+    {
+      name: "Halo Health",
+      url: "halohealth.app.com",
+      year: "2025",
+      badge: "Mobile App",
+      tags: ["iOS", "Android", "UI/UX"],
+      cover: "/img/case/cover-1.png",
+      href: "/case-study",
+    },
+    {
+      name: "Ledgerly",
+      url: "ledgerly.io.com",
+      year: "2025",
+      badge: "Web Platform",
+      tags: ["Web App", "Design", "QA"],
+      cover: "/img/case/cover-2.png",
+      href: "/case-study",
+    },
+    {
+      name: "Northbeam",
+      url: "northbeam.co",
+      year: "2024",
+      badge: "Brand + Site",
+      tags: ["Branding", "Website", "SEO"],
+      cover: "/img/case/cover-2.png",
+      href: "/case-study",
+    },
+    {
+      name: "Aster Studio",
+      url: "asterstudio.com",
+      year: "2024",
+      badge: "SaaS",
+      tags: ["UI/UX", "Web App", "Motion"],
+      cover: "/img/case/cover-3.png",
+      href: "/case-study",
+    },
+    {
+      name: "Fieldnote",
+      url: "fieldnote.app",
+      year: "2023",
+      badge: "Logistics",
+      tags: ["Mobile", "Web", "API"],
+      cover: "/img/case/cover-3.png",
+      href: "/case-study",
+    },
+    {
+      name: "Vantage Labs",
+      url: "vantagelabs.ai",
+      year: "2023",
+      badge: "AI Platform",
+      tags: ["AI", "Backend", "QA"],
+      cover: "/img/case/cover-1.png",
+      href: "/case-study",
+    },
   ],
 } as const;

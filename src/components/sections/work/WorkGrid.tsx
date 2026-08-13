@@ -1,14 +1,18 @@
+import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import AnimatedGroup from "@/components/motion/AnimatedGroup";
 import Tilt from "@/components/motion/Tilt";
-import MediaFrame from "@/components/ui/MediaFrame";
 import { ArrowRightIcon } from "@/components/icons";
 import { WORK } from "@/lib/content";
 
-/** The Work page portfolio grid — six case cards (cover, url, year, tags). */
+/**
+ * The Work page portfolio grid — six case cards, each with a real cover
+ * image from Figma, a dark-glass category badge (top-left), a lime arrow
+ * badge (top-right), and body meta (project name, url + year, tag pills).
+ */
 export default function WorkGrid() {
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-[104px]">
+    <section className="bg-canvas py-16 sm:py-20 lg:py-[104px]">
       <div className="shell">
         <Reveal>
           <p className="t-eyebrow">{WORK.eyebrow}</p>
@@ -24,43 +28,45 @@ export default function WorkGrid() {
           </p>
         </Reveal>
 
-        <AnimatedGroup className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {WORK.cases.map((c, i) => (
+        <AnimatedGroup className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
+          {WORK.cases.map((c) => (
             <a key={c.name} href={c.href} className="group block">
               <Tilt max={5} className="[transform-style:preserve-3d]">
-                <div className="overflow-hidden rounded-[20px] border border-border-subtle bg-white transition-[border-color,box-shadow] duration-300 group-hover:border-border-default group-hover:shadow-[0_16px_40px_rgba(25,33,61,0.1)]">
-                  <div className="relative">
-                    <MediaFrame
-                      tone={i % 2 === 0 ? "dark" : "light"}
-                      rounded="rounded-none"
-                      className="aspect-[16/10] w-full"
+                <div className="overflow-hidden rounded-[20px] border border-border-subtle bg-white shadow-[0_10px_26px_0_rgba(5,28,18,0.06)] transition-[border-color,box-shadow] duration-300 group-hover:border-border-default group-hover:shadow-[0_18px_42px_rgba(5,28,18,0.12)]">
+                  {/* Cover */}
+                  <div className="relative aspect-[624/368] w-full overflow-hidden">
+                    <Image
+                      src={c.cover}
+                      alt={c.name}
+                      fill
+                      sizes="(min-width: 768px) 624px, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                     />
-                    {/* category pill (top-left, dark on cover) */}
-                    <span className="absolute left-4 top-4 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.08em] text-ink-100 backdrop-blur-sm">
-                      {c.tags[0]}
+                    {/* dark-glass category pill (top-left) */}
+                    <span className="absolute left-6 top-6 rounded-full border border-white/25 bg-black/40 px-3.5 py-1.5 text-[12px] font-medium tracking-[0.02em] text-white backdrop-blur-md">
+                      {c.badge}
                     </span>
-                    {/* arrow badge (top-right, lime on hover) */}
-                    <span className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full bg-ink-950/70 text-white transition-colors duration-300 group-hover:bg-lime-400 group-hover:text-ink-950">
-                      <ArrowRightIcon className="size-4 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
+                    {/* lime arrow badge (top-right) */}
+                    <span className="absolute right-6 top-6 flex size-[42px] items-center justify-center rounded-full bg-lime-500 text-ink-950 transition-transform duration-300 group-hover:-translate-y-0.5">
+                      <ArrowRightIcon className="size-[18px] -rotate-45" />
                     </span>
                   </div>
-                  <div className="px-6 py-6">
-                    <h3 className="t-h5 text-ink-900 transition-colors duration-300 group-hover:text-lime-700">
+                  {/* Body */}
+                  <div className="px-7 py-6">
+                    <h3 className="t-h5 text-ink-950 transition-colors duration-300 group-hover:text-lime-700">
                       {c.name}
                     </h3>
-                    <div className="mt-2 flex items-center gap-3">
-                      <span className="truncate text-[14px] text-text-secondary">
+                    <div className="mt-3 flex items-center justify-between gap-4 text-[14px]">
+                      <span className="truncate font-medium text-ink-700">
                         {c.url}
                       </span>
-                      <span className="shrink-0 text-[13px] text-ink-400">
-                        {c.year}
-                      </span>
+                      <span className="shrink-0 text-ink-500">{c.year}</span>
                     </div>
                     <div className="mt-4 flex flex-wrap gap-2">
                       {c.tags.map((t) => (
                         <span
                           key={t}
-                          className="rounded-full border border-border-default bg-white px-3 py-1 text-[12px] font-medium text-ink-700"
+                          className="rounded-full border border-border-subtle bg-white px-3 py-1.5 text-[12px] font-medium text-ink-700"
                         >
                           {t}
                         </span>
