@@ -33,38 +33,51 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const VB_W = 1280;
 const VB_H = 1200;
 
-// Cubic Bézier path — hand-tuned so the line reads as a genuine serpentine
-// walking between the four milestones, complete with a loop-de-loop above 01.
+// Hand-tuned cubic Bézier path that walks between the four milestones with
+// a compact lasso loop above 01, matching the Figma. Kept smooth so the
+// line reads like a continuous ink stroke, not a stitched polyline.
 const PATH_D = [
-  "M 640 20",
-  // small loop above 01
-  "C 900 80 990 100 970 180",
-  "C 950 250 830 260 800 220",
-  "C 780 195 810 170 860 190",
-  // travel down/right to 01 dot
-  "C 900 210 930 200 940 200",
-  // 01 dot lives here — continue toward 02 (left side)
-  "C 950 210 780 400 520 440",
-  "C 420 460 380 520 460 520",
-  // 02 dot lives here — continue toward 03 (right side)
-  "C 560 520 780 620 940 800",
-  // 03 dot — continue toward 04 (left)
-  "C 1000 880 620 1000 340 1100",
-  "L 260 1150",
+  // enter from centre-top
+  "M 700 0",
+  // tight lasso above 01 — arcs right, loops back, then out to the 01 dot
+  "C 780 40 900 100 900 170",
+  "C 900 240 780 260 760 210",
+  "C 745 175 810 155 860 195",
+  // approach 01 dot
+  "C 900 225 920 215 940 210",
+  // === 01 dot (940, 210) ===
+  // clean S-curve down to 02 (left side)
+  "C 940 340 700 380 520 440",
+  "C 460 460 420 500 460 520",
+  // === 02 dot (460, 520) ===
+  // sweep down-right to 03
+  "C 560 540 720 640 900 780",
+  "C 930 800 940 800 940 800",
+  // === 03 dot (940, 800) ===
+  // sweep down-left to 04
+  "C 940 940 720 1000 460 1080",
+  "C 380 1105 340 1105 340 1100",
+  // === 04 dot (340, 1100) ===
+  // trail off toward bottom-left
+  "C 300 1105 260 1140 240 1180",
 ].join(" ");
 
 const MILESTONES_XY = [
-  { x: 940, y: 200 },
+  { x: 940, y: 210 },
   { x: 460, y: 520 },
   { x: 940, y: 800 },
   { x: 340, y: 1100 },
 ] as const;
 
-// text/card anchors — position each card next to its dot on the correct side
+// Card anchors — the card sits BESIDE its dot on the correct side.
 const CARD_POS = [
-  { left: "calc(50% + 60px)", top: "12%", side: "right" as const },
-  { left: "12%", top: "38%", side: "left" as const },
-  { left: "calc(50% + 60px)", top: "62%", side: "right" as const },
+  // 01 — top right, card to right of dot
+  { left: "62%", top: "8%", side: "right" as const },
+  // 02 — mid left, card to left of dot (right-aligned)
+  { left: "8%", top: "38%", side: "left" as const },
+  // 03 — right, card to right of dot
+  { left: "62%", top: "63%", side: "right" as const },
+  // 04 — bottom left, card to left of dot
   { left: "6%", top: "88%", side: "left" as const },
 ];
 
@@ -162,7 +175,6 @@ export default function AboutJourney() {
                 style={{
                   left: pos.left,
                   top: pos.top,
-                  transform: pos.side === "left" ? "translateX(-40%)" : "none",
                   textAlign: pos.side === "left" ? "right" : "left",
                 }}
                 initial={{ opacity: 0, x: pos.side === "right" ? 30 : -30 }}

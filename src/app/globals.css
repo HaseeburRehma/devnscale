@@ -225,6 +225,23 @@ body {
   }
 }
 
+/* Typewriter caret — blinks at the write head while text is typing in. */
+@keyframes caret-blink {
+  0%,
+  50% {
+    background: currentColor;
+  }
+  51%,
+  100% {
+    background: transparent;
+  }
+}
+
+.typewriter-caret {
+  height: 0.9em;
+  animation: caret-blink 0.85s steps(1, end) infinite;
+}
+
 /* Slow, subtle bob for the footer 3D mark. */
 @keyframes float {
   0%,
