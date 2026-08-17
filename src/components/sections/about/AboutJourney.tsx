@@ -95,7 +95,7 @@ export default function AboutJourney() {
 
   return (
     <section className="relative overflow-hidden bg-brand-900 py-20 sm:py-24 lg:py-28">
-      <PatternBackdrop opacity={0.03} />
+      <PatternBackdrop opacity={0.06} />
 
       {/* soft top glow so the path's origin looks like it's pouring out of
           the header */}

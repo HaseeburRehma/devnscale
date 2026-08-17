@@ -60,8 +60,8 @@ export default function PatternBackdrop({
                * negative space matches the airy Figma spacing. */
               transform={`translate(${(280 - 260) / 2} ${(280 - 260) / 2}) scale(${260 / MARK_WIDTH})`}
               fill="none"
-              stroke="#ffffff"
-              strokeWidth="0.55"
+              stroke="#c4d434"
+              strokeWidth="0.6"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
