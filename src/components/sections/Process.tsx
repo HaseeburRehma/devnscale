@@ -94,7 +94,20 @@ export default function Process() {
           below the 74px fixed nav (was pinning under it) so the "Our Work
           Process" heading isn't crammed against the nav bar. */}
       <div className="sticky top-0 flex h-[68svh] min-h-[480px] items-center overflow-hidden pt-[74px] md:h-[calc(100svh-100px)] md:min-h-[640px] md:pt-0 md:top-[100px]">
-        <PatternBackdrop opacity={0.09} />
+        <PatternBackdrop opacity={0.055} />
+
+        {/* Radial vignette that fades the S-mark pattern behind the ring's
+         *  interior. Keeps the pattern visible at the section edges but sits
+         *  the "We Understand Your Goals" copy on solid brand-900 so nothing
+         *  competes with it. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(closest-side at 50% 55%, #012a1c 0%, rgba(1,42,28,0.85) 32%, rgba(1,42,28,0) 62%)",
+          }}
+        />
 
         <div className="shell relative w-full">
           <h2 className="t-subsection text-center text-white">

@@ -25,7 +25,17 @@ const SOCIALS: { Icon: typeof XIcon; label: string; href: string | null }[] = [
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-brand-900 pt-16 sm:pt-24 lg:pt-28">
-      <PatternBackdrop opacity={0.08} />
+      <PatternBackdrop opacity={0.07} />
+      {/* Top fade so the 3D S mark + "FEELS LIKE COLLABORATING?" heading
+       *  read against solid brand-900, matching Figma. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
+        style={{
+          background:
+            "radial-gradient(70% 60% at 50% 30%, rgba(1,42,28,0.9) 0%, rgba(1,42,28,0) 75%)",
+        }}
+      />
 
       <div className="shell relative">
         {/* CTA */}
