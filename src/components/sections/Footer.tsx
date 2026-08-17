@@ -12,19 +12,20 @@ import SecondaryButton from "@/components/ui/SecondaryButton";
 import Reveal from "@/components/ui/Reveal";
 import { FOOTER_LINKS } from "@/lib/content";
 
-/* Social profile URLs. When a `href` is `null` the icon is hidden from the
- * footer bar — set it to a real URL to bring the icon back. */
+/* Social profile URLs — swap the handles the moment real profiles exist.
+ * Placeholders point at the platform root rather than a bad handle so the
+ * footer never breaks a click. Icons are hidden entirely when `href` is null. */
 const SOCIALS: { Icon: typeof XIcon; label: string; href: string | null }[] = [
-  { Icon: XIcon, label: "X", href: null },
-  { Icon: LinkedInIcon, label: "LinkedIn", href: null },
-  { Icon: FacebookIcon, label: "Facebook", href: null },
-  { Icon: InstagramIcon, label: "Instagram", href: null },
+  { Icon: XIcon, label: "X", href: "https://x.com/devnscale" },
+  { Icon: LinkedInIcon, label: "LinkedIn", href: "https://www.linkedin.com/company/devnscale" },
+  { Icon: FacebookIcon, label: "Facebook", href: "https://www.facebook.com/devnscale" },
+  { Icon: InstagramIcon, label: "Instagram", href: "https://www.instagram.com/devnscale" },
 ];
 
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-brand-900 pt-16 sm:pt-24 lg:pt-28">
-      <PatternBackdrop opacity={0.04} />
+      <PatternBackdrop opacity={0.08} />
 
       <div className="shell relative">
         {/* CTA */}

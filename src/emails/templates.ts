@@ -66,8 +66,8 @@ const shell = (body: string, preheader: string) => `<!doctype html>
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#5a6b64;">
-                      <strong style="color:#0e1613;">Dev N Scale</strong> · Düsseldorf, Germany<br />
-                      <a href="mailto:waseeq.aftab@devnscale.com" style="color:#5a6b64;text-decoration:none;">waseeq.aftab@devnscale.com</a> · <a href="https://devnscale.com" style="color:#5a6b64;text-decoration:none;">devnscale.com</a>
+                      <strong style="color:#0e1613;">Dev N Scale</strong> · Islamabad, Pakistan<br />
+                      <a href="mailto:info@devnscale.com" style="color:#5a6b64;text-decoration:none;">info@devnscale.com</a> · +92 339 5636702 · <a href="https://devnscale.com" style="color:#5a6b64;text-decoration:none;">devnscale.com</a>
                     </td>
                   </tr>
                 </table>

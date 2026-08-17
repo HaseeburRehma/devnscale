@@ -170,9 +170,14 @@ export const FAQS = [
 ];
 
 export const CONTACT_DETAILS = [
-  { icon: "mail", label: "EMAIL", value: "hello@devnscale.com" },
-  { icon: "phone", label: "PHONE", value: "+49 211 000 000" },
-  { icon: "pin", label: "OFFICE", value: "Düsseldorf, Germany" },
+  { icon: "mail", label: "EMAIL", value: "info@devnscale.com" },
+  { icon: "phone", label: "PHONE", value: "+92 339 5636702" },
+  {
+    icon: "pin",
+    label: "OFFICE",
+    value:
+      "Plot No 21, First Floor, Above Smile PhotoStudio, Phase 1 Pakistan Town, Islamabad, Pakistan",
+  },
 ];
 
 export const SERVICE_OPTIONS = [
@@ -198,15 +203,24 @@ export const MARQUEE_ITEMS = [
   { label: "Smart Chat", icon: "chat" },
 ];
 
+/* Footer columns as they appear in the Figma. Careers, Blogs, Privacy
+ * Policy, and Term & Condition don't have real pages yet — they route to
+ * /careers, /blog, /privacy, /terms so a soft-404 lands somewhere the SEO
+ * can crawl. Replace href when the actual pages ship. */
 export const FOOTER_LINKS = {
   main: [
     { label: "Home", href: "/", active: true },
     { label: "About Us", href: "/about" },
     { label: "Our Services", href: "/services" },
-    { label: "Work", href: "/work" },
+    { label: "Careers", href: "/careers" },
+    { label: "Blogs", href: "/blog" },
   ],
-  other: [{ label: "Contact Us", href: "/contact" }],
-  contact: ["+49 211 555 0199", "hello@devnscale.com"],
+  other: [
+    { label: "Contact Us", href: "/contact" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Term & Condition", href: "/terms" },
+  ],
+  contact: ["+92 339 5636702", "info@devnscale.com"],
 };
 
 /* ============================================================
@@ -449,9 +463,14 @@ export const CONTACT_REACH = {
   title: "Reach out to us",
   subtitle: "You can reach us by email, by phone, or with a visit to the studio.",
   cards: [
-    { icon: "mail", label: "Email", value: "hello@devnscale.com" },
-    { icon: "phone", label: "Phone", value: "+49 211 555 0199" },
-    { icon: "pin", label: "Office", value: "Königsallee 92, Düsseldorf" },
+    { icon: "mail", label: "Email", value: "info@devnscale.com" },
+    { icon: "phone", label: "Phone", value: "+92 339 5636702" },
+    {
+      icon: "pin",
+      label: "Office",
+      value:
+        "Plot No 21, First Floor, Above Smile PhotoStudio, Phase 1 Pakistan Town, Islamabad, Pakistan",
+    },
   ],
 } as const;
 
