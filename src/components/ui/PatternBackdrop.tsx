@@ -50,15 +50,15 @@ export default function PatternBackdrop({
         <defs>
           <pattern
             id="dns-mark"
-            width="240"
-            height="240"
+            width="280"
+            height="280"
             patternUnits="userSpaceOnUse"
             patternTransform="rotate(-8)"
           >
             <g
-              /* Center the 64×64 mark inside the 240 tile so the surrounding
+              /* Center the 64×64 mark inside the 280 tile so the surrounding
                * negative space matches the airy Figma spacing. */
-              transform={`translate(${(240 - 220) / 2} ${(240 - 220) / 2}) scale(${220 / MARK_WIDTH})`}
+              transform={`translate(${(280 - 260) / 2} ${(280 - 260) / 2}) scale(${260 / MARK_WIDTH})`}
               fill="none"
               stroke="#ffffff"
               strokeWidth="0.55"

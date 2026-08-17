@@ -64,33 +64,37 @@ export const SERVICES = [
   },
 ] as const;
 
+/* Home page "Outcomes we're proud of" deck — three real case studies,
+ * copy transcribed from the Figma. Pills/titles are verbatim (including
+ * "Fintech Saas Application" casing). Covers are the Work-page Figma
+ * exports so a visitor sees the exact art from the design source. */
 export const PROJECTS = [
   {
-    pill: "FinTech Mobile App Design",
+    pill: "FinTech Mobile App",
     title: "Merchant Cash Advance Calculator (MCA)",
-    body: "MCA professionals often rely on multiple tools to calculate deals, manage templates, and review previous calculations. We designed one connected experience to bring these tasks together in a faster, more organized workflow.",
+    body: "MCA Professionals Often Rely On Multiple Tools To Calculate Deals, Manage Templates, And Review Previous Calculations. We Designed One Connected Experience To Bring These Tasks Together In A Faster, More Organized Workflow.",
     metric: "38+",
     metricLabel: "Screens Designed",
-    image: "/img/projects/halo-health-mca.png",
+    image: "/img/case/work-cover-1-mca.png",
     href: "/case-study",
   },
   {
-    pill: "Website Design",
-    title: "Skin Care Brand",
-    body: "Website design for an international skincare brand with a premium visual approach built to reflect product quality and convert visitors.",
-    metric: "3×",
-    metricLabel: "faster activation",
-    image: "/img/projects/skincare.png",
-    href: "/case-study/lend-saas",
+    pill: "Fintech Saas Application",
+    title: "Lend SaaS Application",
+    body: "A Centralized Platform That Brings Essential Financial Products, Protocols, Knowledge, And Powerful Calculation Tools Together In One Seamless Experience.",
+    metric: "01",
+    metricLabel: "Centralized Platform",
+    image: "/img/case/work-cover-2-lend-saas.png",
+    href: "/case-study/lend-hub",
   },
   {
-    pill: "E-commerce Mobile App",
-    title: "CSD Pakistan",
-    body: "End-to-end mobile app UI/UX design for one of Pakistan's largest retail networks, designed for scale and ease of use.",
-    metric: "2.1×",
-    metricLabel: "demo requests",
-    image: "/img/projects/csd-pakistan.png",
-    href: "/case-study/lend-hub",
+    pill: "NFT Crypto Market",
+    title: "Opulencex",
+    body: "Swap Tokens, Farm Yield, Stake For APY, And Earn From NFTs — All Through One Connected DeFi Suite Built For The XRP Ledger.",
+    metric: "04",
+    metricLabel: "Core DeFi Opportunities",
+    image: "/img/case/work-cover-3-opulencex.png",
+    href: "/case-study/lend-saas",
   },
 ];
 
@@ -124,8 +128,8 @@ export const PROCESS_STEPS = [
   },
   {
     label: "Final Result",
-    heading: "We Launch And Scale",
-    body: "Going live with the support you need to keep growing after launch.",
+    heading: "We Deliver Excellence",
+    body: "A working product that performs, adapts, and keeps earning its place after launch.",
     image: "/img/process/step.png",
   },
 ];
