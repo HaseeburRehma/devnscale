@@ -6,17 +6,7 @@ import { TESTIMONIAL } from "@/lib/content";
 export default function Testimonial() {
   return (
     <section className="relative overflow-hidden bg-brand-900 section-y">
-      <PatternBackdrop opacity={0.055} />
-      {/* Soft radial vignette from the top-left so the quote sits on solid
-       *  green while the pattern reads at the section edges. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(65% 80% at 30% 40%, rgba(1,42,28,0.85) 0%, rgba(1,42,28,0) 70%)",
-        }}
-      />
+      <PatternBackdrop opacity={0.03} />
 
       <div className="shell relative flex flex-col items-center gap-12 lg:flex-row lg:gap-16">
         <div className="flex-1">
