@@ -1,10 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { CheckIcon } from "@/components/icons";
+import {
+  CheckIcon,
+  MailIcon,
+  MapPinIcon,
+  PhoneIcon,
+} from "@/components/icons";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import Reveal from "@/components/ui/Reveal";
-import { CONTACT_BOOKING } from "@/lib/content";
+import { CONTACT_BOOKING, CONTACT_DETAILS } from "@/lib/content";
+
+/** Icon lookup for the CONTACT_DETAILS rows. */
+const DETAIL_ICONS = {
+  mail: MailIcon,
+  phone: PhoneIcon,
+  pin: MapPinIcon,
+} as const;
 
 /**
  * "Book your Appointment" — intro column beside the dark-green enquiry card
@@ -32,9 +44,59 @@ export default function ContactBooking() {
               {body}
             </p>
           </Reveal>
-          <Reveal delay={0.12}>
-            <p className="mt-auto flex items-center gap-2.5 pt-10 text-[14px] text-text-muted">
-              <span className="size-2 rounded-full bg-lime-500" />
+
+          {/* Contact rows — email / phone / office, matching the Figma
+           *  intro column layout. Uses CONTACT_DETAILS so a single source
+           *  drives every place the address surfaces. */}
+          <div className="mt-10 flex flex-col gap-5">
+            {CONTACT_DETAILS.map((detail, i) => {
+              const Icon =
+                DETAIL_ICONS[detail.icon as keyof typeof DETAIL_ICONS];
+              const isEmail = detail.icon === "mail";
+              const isPhone = detail.icon === "phone";
+              const href = isEmail
+                ? `mailto:${detail.value}`
+                : isPhone
+                  ? `tel:${detail.value.replace(/\s/g, "")}`
+                  : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      detail.value,
+                    )}`;
+
+              const body = (
+                <div className="group flex items-start gap-4">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-[12px] bg-gradient-to-b from-ink-800 to-ink-950 shadow-[0_0_14px_1px_rgba(155,167,24,0.22)] transition-transform duration-300 group-hover:scale-105">
+                    <Icon className="size-5 text-lime-400" />
+                  </span>
+                  <span className="flex flex-col">
+                    <span className="text-[12px] uppercase leading-4 tracking-[0.06em] text-text-muted">
+                      {detail.label}
+                    </span>
+                    <span className="mt-1 text-[15px] font-medium leading-[1.35] text-ink-900">
+                      {detail.value}
+                    </span>
+                  </span>
+                </div>
+              );
+
+              return (
+                <Reveal key={detail.label} delay={0.12 + i * 0.05}>
+                  <a
+                    href={href}
+                    {...(detail.icon !== "mail" && detail.icon !== "phone"
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    className="block"
+                  >
+                    {body}
+                  </a>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          <Reveal delay={0.32}>
+            <p className="mt-10 flex items-center gap-2.5 text-[14px] text-text-muted">
+              <span className="size-2 rounded-full bg-lime-500 shadow-[0_0_0_6px_rgba(196,212,52,0.15)]" />
               {note}
             </p>
           </Reveal>

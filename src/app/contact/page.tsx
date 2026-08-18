@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
-import LogoSlider from "@/components/sections/LogoSlider";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
 import PageHero from "@/components/sections/PageHero";
 import ContactBooking from "@/components/sections/contact/ContactBooking";
-import ContactReach from "@/components/sections/contact/ContactReach";
 import { CONTACT_HERO } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -27,13 +25,10 @@ export default function ContactPage() {
           accent={CONTACT_HERO.titleAccent}
           subtitle={CONTACT_HERO.subtitle}
         />
+        {/* ContactBooking now carries the email/phone/office rows in its
+         *  intro column (per Figma), so ContactReach is no longer wired
+         *  here — kept in the codebase for reuse if needed. */}
         <ContactBooking />
-        {/* Divider strip between the two contact sections. Wrap gives the
-         *  fixed-height LogoSlider (76px) breathing room from its neighbours. */}
-        <div className="bg-canvas py-8 sm:py-10">
-          <LogoSlider tone="light" />
-        </div>
-        <ContactReach />
         <Testimonial />
         <Faqs />
       </main>
