@@ -10,7 +10,7 @@ import {
   TrendingUpIcon,
 } from "@/components/icons";
 import Reveal from "@/components/ui/Reveal";
-import { SERVICES } from "@/lib/content";
+import { SERVICES, SERVICE_DETAILS } from "@/lib/content";
 
 const ICONS = {
   code: CodeIcon,
@@ -35,7 +35,7 @@ function Card({ service, delay }: { service: Service; delay: number }) {
       className={featured ? "lg:col-span-2" : "lg:col-span-1"}
     >
       <a
-        href="/services"
+        href={`/services/${SERVICE_DETAILS[service.id]?.slug ?? ""}`}
         className={`group relative flex h-full min-h-[299px] flex-col justify-between overflow-hidden rounded-[24px] p-8 transition-[transform,box-shadow,border-color] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 ${
           featured
             ? "bg-brand-900 hover:shadow-[0_20px_44px_-14px_rgba(4,47,34,0.55)]"

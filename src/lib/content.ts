@@ -64,6 +64,487 @@ export const SERVICES = [
   },
 ] as const;
 
+/* ============================================================
+   Service detail pages — one per SERVICES entry, routed under
+   /services/[slug]. Content shape mirrors the Figma template at
+   frame 4979:40344 (Full Stack Development):
+     hero (index + title + body)
+     stats (4 short metrics)
+     included (section header + N rows, each with title + body)
+     process (5–6 timeline entries)
+   ============================================================ */
+
+export type ServiceStat = { value: string; label: string };
+
+export type ServiceIncludedRow = {
+  title: string;
+  body: string;
+};
+
+export type ServiceProcessStep = {
+  title: string;
+  body: string;
+};
+
+export type ServiceDetail = {
+  slug: string;
+  /** Numeric prefix printed above the hero title, e.g. "01". */
+  index: string;
+  /** Uppercase eyebrow like "WEB DEVELOPMENT". */
+  hero: {
+    title: string;
+    body: string;
+  };
+  stats: readonly ServiceStat[];
+  included: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    rows: readonly ServiceIncludedRow[];
+  };
+  process: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    steps: readonly ServiceProcessStep[];
+  };
+  /** SEO title/description for the page's <head>. */
+  meta: { title: string; description: string };
+};
+
+/* Every entry keyed by SERVICES[].id so `/services/[slug]` resolves
+ * from the same source that drives the home + /services grids.
+ *
+ * Web Development is transcribed verbatim from Figma frame 4979:40344.
+ * The other seven follow the same shape, with copy tailored to each
+ * service's specialty.
+ */
+export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
+  web: {
+    slug: "web-development",
+    index: "01",
+    hero: {
+      title: "Web Development",
+      body: "We deliver complete web development services from custom website development and frontend and backend development to WordPress, Framer, and full SaaS platforms. Fast, scalable, and beautifully engineered.",
+    },
+    stats: [
+      { value: "Custom Built", label: "Custom Built for Every Client" },
+      { value: "Clean", label: "Clean Scalable Code" },
+      { value: "Mobile First", label: "Mobile First Always" },
+      { value: "Figma", label: "Figma to Code Handoff" },
+    ],
+    included: {
+      eyebrow: "WHAT IS INCLUDED",
+      title: "End-to-End Web Solutions",
+      body: "We handle every layer of the stack from design system to deployment.",
+      rows: [
+        {
+          title: "Frontend Development",
+          body: "React, Next.js, Vue — pixel-perfect, responsive web development delivering fully performant interfaces that feel alive across every device and screen size.",
+        },
+        {
+          title: "Backend Development",
+          body: "Node.js, Django, Laravel — robust API services, databases, and scalable architecture built to handle growth.",
+        },
+        {
+          title: "Full Stack and SaaS Development",
+          body: "Complete SaaS development covering dashboards, portals, and ecommerce solutions built with scalable architecture from concept to launch.",
+        },
+        {
+          title: "WordPress Development",
+          body: "Custom WordPress development covering themes, plugins, WooCommerce and CMS configuration for enterprise-grade results.",
+        },
+        {
+          title: "Framer Website Design",
+          body: "Fast interactive marketing sites built with Framer featuring advanced animations, CMS, and no-code flexibility.",
+        },
+        {
+          title: "Security, Performance and Optimisation",
+          body: "SSL, CDN setup, security hardening, Core Web Vitals optimisation, and regular maintenance to keep your site fast and safe.",
+        },
+      ],
+    },
+    process: {
+      eyebrow: "OUR PROCESS",
+      title: "How We Build",
+      body: "Agile development sprints with full transparency and weekly deliverables.",
+      steps: [
+        {
+          title: "Scope and Plan",
+          body: "Technical requirements, architecture decisions, and sprint planning.",
+        },
+        {
+          title: "Design Handoff",
+          body: "Figma to code — design system setup and component architecture.",
+        },
+        {
+          title: "Development",
+          body: "Agile sprints with weekly demo calls and continuous integration.",
+        },
+        {
+          title: "QA and Testing",
+          body: "Cross-browser, device, and performance testing before anything goes live.",
+        },
+        {
+          title: "Launch",
+          body: "Staged deployments, DNS setup, CMS configuration, monitoring, and go-live checklist.",
+        },
+        {
+          title: "Support",
+          body: "Ongoing maintenance retainers, updates, and feature development.",
+        },
+      ],
+    },
+    meta: {
+      title: "Web Development — Dev N Scale",
+      description:
+        "Frontend, backend, full-stack SaaS, WordPress, and Framer development. Fast, scalable, and Figma-to-code handoff on every project.",
+    },
+  },
+
+  mobile: {
+    slug: "mobile-app-development",
+    index: "02",
+    hero: {
+      title: "Mobile App Development",
+      body: "Native iOS and Android, plus cross-platform React Native and Flutter apps engineered for performance, offline resilience, and App Store readiness on day one.",
+    },
+    stats: [
+      { value: "iOS", label: "Native Swift / SwiftUI" },
+      { value: "Android", label: "Kotlin / Jetpack Compose" },
+      { value: "Cross", label: "React Native + Flutter" },
+      { value: "Ship", label: "App Store & Play Store Ready" },
+    ],
+    included: {
+      eyebrow: "WHAT IS INCLUDED",
+      title: "Everything an app needs to ship.",
+      body: "From first Figma frame to Store listing — one team, one timeline.",
+      rows: [
+        {
+          title: "iOS Native Development",
+          body: "Swift + SwiftUI apps built for performance, ready for TestFlight and App Store review.",
+        },
+        {
+          title: "Android Native Development",
+          body: "Kotlin + Jetpack Compose apps with Material 3, Google Play policy compliance, and staged rollouts.",
+        },
+        {
+          title: "React Native & Flutter",
+          body: "Cross-platform shipped from a single codebase — for teams that need parity without doubling headcount.",
+        },
+        {
+          title: "App Backend & APIs",
+          body: "Auth, sync, push, and analytics wired against Supabase, Firebase, or a bespoke Node/Postgres stack.",
+        },
+        {
+          title: "Offline & Real-Time",
+          body: "Local-first storage, sync engines, and WebSocket / MQTT flows for apps that need to work anywhere.",
+        },
+        {
+          title: "Release, Monitoring & Ops",
+          body: "CI pipelines, Fastlane submissions, crash reporting, and monthly release trains once you're live.",
+        },
+      ],
+    },
+    process: {
+      eyebrow: "OUR PROCESS",
+      title: "How We Ship Apps",
+      body: "Weekly TestFlight/Play internal builds so you feel progress every seven days.",
+      steps: [
+        { title: "Discovery", body: "User flows, platform decisions, and native-vs-cross-platform framing." },
+        { title: "Design System", body: "Figma design system that maps 1:1 to platform-native components." },
+        { title: "Build Sprints", body: "Two-week sprints with a TestFlight / Play internal build at the end of each." },
+        { title: "Beta", body: "Public TestFlight / Open Testing round, telemetry wired, feedback loop closed." },
+        { title: "Launch", body: "Store listing copy, screenshots, review submission, staged rollout." },
+        { title: "Iterate", body: "Post-launch retainer for A/B tests, patches, and the next-quarter roadmap." },
+      ],
+    },
+    meta: {
+      title: "Mobile App Development — Dev N Scale",
+      description:
+        "Native iOS, Android, and cross-platform apps built for performance and shipped to the Store with monitoring and release ops in place.",
+    },
+  },
+
+  design: {
+    slug: "design",
+    index: "03",
+    hero: {
+      title: "Design",
+      body: "Product, brand, and marketing design that speaks before the copy does — pixel-perfect UI, motion, illustration, and identity work grounded in real research.",
+    },
+    stats: [
+      { value: "UI/UX", label: "Product Design" },
+      { value: "Brand", label: "Identity & Guidelines" },
+      { value: "Motion", label: "Interaction & Motion" },
+      { value: "System", label: "Design Systems at Scale" },
+    ],
+    included: {
+      eyebrow: "WHAT IS INCLUDED",
+      title: "Design that ships, not decks.",
+      body: "Every artefact is engineered for handoff — component tokens, states, and specs built in from the start.",
+      rows: [
+        { title: "Product & UX Design", body: "User flows, wireframes, and high-fidelity screens for web and mobile products." },
+        { title: "Design Systems", body: "Figma libraries, tokens, and Storybook parity so engineering and design speak the same language." },
+        { title: "Brand Identity", body: "Logo, type, colour, and voice — the full identity toolkit and usage guidelines." },
+        { title: "Motion & Prototype", body: "Prototype interactions, micro-animations, and Rive / Lottie assets ready for production." },
+        { title: "Marketing Design", body: "Landing pages, ad creative, decks, and social kits that stay on brand across every touchpoint." },
+        { title: "Illustration & 3D", body: "Custom illustration, iconography, and 3D renders — no generic stock, no compromise on story." },
+      ],
+    },
+    process: {
+      eyebrow: "OUR PROCESS",
+      title: "How We Design",
+      body: "Design paired with real research, delivered in Figma files engineering can actually build from.",
+      steps: [
+        { title: "Research", body: "Interviews, competitor teardowns, and problem framing before a single pixel lands." },
+        { title: "Wireframes", body: "Low-fi flows we can test cheaply before committing to a visual direction." },
+        { title: "Visual Design", body: "High-fidelity Figma frames, tokens, and states — the source of truth for build." },
+        { title: "Prototype", body: "Clickable Figma prototypes plus motion specs for the interactions." },
+        { title: "Handoff", body: "Dev-ready file, component library, and a walkthrough call for the engineering team." },
+        { title: "Iterate", body: "Design QA against the build, plus monthly design retainers as the product grows." },
+      ],
+    },
+    meta: {
+      title: "Design — Dev N Scale",
+      description: "Product, brand, and marketing design — from research to Figma handoff, built to ship, not just to present.",
+    },
+  },
+
+  ai: {
+    slug: "ai-chatbot-development",
+    index: "04",
+    hero: {
+      title: "AI Chatbot Development",
+      body: "Custom chat, voice, and workflow agents built on the latest Claude / OpenAI models, wired into your data, guardrailed for production, and observable end-to-end.",
+    },
+    stats: [
+      { value: "Claude", label: "Anthropic + OpenAI Models" },
+      { value: "RAG", label: "Retrieval Over Your Data" },
+      { value: "Tools", label: "Function Calling & MCP" },
+      { value: "Eval", label: "Prompt & Answer Evals" },
+    ],
+    included: {
+      eyebrow: "WHAT IS INCLUDED",
+      title: "Agents that do the work.",
+      body: "From a support chatbot to a full agentic workflow — designed, built, and evaluated before it faces a user.",
+      rows: [
+        { title: "Support & Sales Chatbots", body: "Site + WhatsApp bots that qualify leads, answer FAQs, and hand off cleanly to humans." },
+        { title: "Retrieval-Augmented Assistants", body: "Grounded on your docs, tickets, and knowledge base — no hallucinated answers, with citations." },
+        { title: "Agentic Workflows", body: "Multi-step agents with tools that book, refund, escalate, and reason across systems." },
+        { title: "Voice Agents", body: "Inbound and outbound voice built on Vapi / LiveKit — natural, latency-optimised, transcribed." },
+        { title: "Guardrails & Safety", body: "PII redaction, moderation, jailbreak resistance, and role-based access on every response." },
+        { title: "Observability & Evals", body: "LangSmith / Braintrust traces, offline eval sets, and quality dashboards from day one." },
+      ],
+    },
+    process: {
+      eyebrow: "OUR PROCESS",
+      title: "How We Build Agents",
+      body: "Prompt engineering + real evals, not vibes — every release is measured before it ships.",
+      steps: [
+        { title: "Discovery", body: "What conversations, what data, what handoffs — the operating manual for the agent." },
+        { title: "Data Prep", body: "Chunk, embed, and vet the knowledge base; write the golden question / answer set." },
+        { title: "Prompting & Tools", body: "System prompts, tool definitions, MCP servers, and safety layers." },
+        { title: "Evaluate", body: "Offline evals on the golden set, red-team pass, and human review before beta." },
+        { title: "Deploy", body: "Widget, API, or WhatsApp — with rate limits, cost caps, and observability." },
+        { title: "Improve", body: "Weekly review of conversations, prompt tuning, and eval regression tracking." },
+      ],
+    },
+    meta: {
+      title: "AI Chatbot Development — Dev N Scale",
+      description:
+        "Chat, voice, and agentic AI systems on Claude / OpenAI — grounded on your data, guardrailed, and observable in production.",
+    },
+  },
+
+  qa: {
+    slug: "software-quality-assurance",
+    index: "05",
+    hero: {
+      title: "Software Quality Assurance",
+      body: "Manual test discipline, automation coverage, and CI-native performance and accessibility checks — ship with the confidence users will never find the bug first.",
+    },
+    stats: [
+      { value: "Manual", label: "Exploratory & Regression" },
+      { value: "Auto", label: "Playwright / Cypress" },
+      { value: "CI", label: "Every PR, Every Merge" },
+      { value: "A11y", label: "WCAG 2.2 AA" },
+    ],
+    included: {
+      eyebrow: "WHAT IS INCLUDED",
+      title: "The full QA stack.",
+      body: "One team covering strategy, execution, and continuous quality gates — not just a report at the end.",
+      rows: [
+        { title: "Test Strategy", body: "Test plan, risk matrix, coverage targets, and entry / exit criteria." },
+        { title: "Manual QA", body: "Exploratory, regression, and cross-device passes with concise repro reports." },
+        { title: "Automation", body: "Playwright and Cypress suites integrated with your CI, gated on merges." },
+        { title: "API Testing", body: "Postman / Bruno collections plus contract tests against the OpenAPI spec." },
+        { title: "Performance & Load", body: "k6 and Lighthouse budgets — enforced on every PR, not just before launch." },
+        { title: "Accessibility", body: "WCAG 2.2 AA auditing, axe-core CI integration, and remediation walkthroughs." },
+      ],
+    },
+    process: {
+      eyebrow: "OUR PROCESS",
+      title: "How We Test",
+      body: "Quality baked in from sprint one, not tacked on the week before ship.",
+      steps: [
+        { title: "Assess", body: "Audit the current test coverage, tooling, and gaps." },
+        { title: "Plan", body: "Test strategy, coverage matrix, and the automation vs manual split." },
+        { title: "Automate", body: "Green baseline suite in CI, gated on every PR." },
+        { title: "Execute", body: "Regression + exploratory rounds each sprint, with triaged bug reports." },
+        { title: "Release", body: "Sign-off checklist, smoke pack, and post-release monitoring." },
+        { title: "Iterate", body: "Retro on escaped defects, tune the suite, and grow coverage over time." },
+      ],
+    },
+    meta: {
+      title: "Software Quality Assurance — Dev N Scale",
+      description:
+        "Manual + automated QA, performance budgets, and WCAG accessibility auditing wired into your CI pipeline.",
+    },
+  },
+
+  pitch: {
+    slug: "pitch-deck",
+    index: "06",
+    hero: {
+      title: "Pitch Deck",
+      body: "Investor-ready decks that lead with the story, not the template — narrative structure, tight data viz, and a visual system your team can actually keep on-brand.",
+    },
+    stats: [
+      { value: "Seed", label: "Pre-Seed → Series B" },
+      { value: "Story", label: "Narrative-First Structure" },
+      { value: "Viz", label: "Clean Data Visualisation" },
+      { value: "Kit", label: "Editable Figma / Keynote Kit" },
+    ],
+    included: {
+      eyebrow: "WHAT IS INCLUDED",
+      title: "Decks investors read to the end.",
+      body: "Copy, structure, and visual — the three levers of a deck that converts.",
+      rows: [
+        { title: "Narrative & Copywriting", body: "Story arc, positioning, and slide-by-slide copywriting for founders who don't want to freestyle." },
+        { title: "Visual Design", body: "Custom typography, iconography, and layout — a deck that doesn't look like every SaaS template." },
+        { title: "Data Visualisation", body: "TAM, cohort, retention, and financials rendered as charts investors can actually parse in 10 seconds." },
+        { title: "Data Room Assets", body: "One-pager, memo, financial model cover — the supporting kit that lives alongside the deck." },
+        { title: "Editable Handoff", body: "Figma + Keynote + Google Slides masters so your team can iterate without going back to the studio." },
+        { title: "Pitch Coaching", body: "One session with a former founder to rehearse delivery, Q&A, and demo pacing." },
+      ],
+    },
+    process: {
+      eyebrow: "OUR PROCESS",
+      title: "How We Build the Deck",
+      body: "A two-week sprint from raw brief to investor-ready v1 — one revision round included.",
+      steps: [
+        { title: "Discovery", body: "60-minute founder call, one round of async questions, review of prior decks and data." },
+        { title: "Narrative", body: "Slide-by-slide outline and story arc — written before a pixel is designed." },
+        { title: "Design v1", body: "First full pass in Figma with real numbers and stock-free visuals." },
+        { title: "Review", body: "One revision round on copy + visual before final polish." },
+        { title: "Handoff", body: "Delivery in Figma, Keynote, Google Slides, and PDF — plus a data-room-ready one-pager." },
+        { title: "Iterate", body: "Optional retainer for round-two updates, translated variants, and follow-on rounds." },
+      ],
+    },
+    meta: {
+      title: "Pitch Deck — Dev N Scale",
+      description: "Investor-ready pitch decks with narrative structure, clean data viz, and editable Figma/Keynote handoff.",
+    },
+  },
+
+  marketing: {
+    slug: "digital-marketing",
+    index: "07",
+    hero: {
+      title: "Digital Marketing",
+      body: "Growth engineering for founders — SEO, paid, and lifecycle campaigns run against real dashboards, not vanity slides, so every euro is traceable to pipeline.",
+    },
+    stats: [
+      { value: "SEO", label: "Technical + Content" },
+      { value: "Ads", label: "Google, Meta, LinkedIn" },
+      { value: "CRO", label: "Landing Pages & Experiments" },
+      { value: "Data", label: "GA4 + Attribution Dashboards" },
+    ],
+    included: {
+      eyebrow: "WHAT IS INCLUDED",
+      title: "Growth, measured.",
+      body: "One team for acquisition, activation, and analytics — nothing gets thrown over a fence.",
+      rows: [
+        { title: "SEO — Technical & Content", body: "Site audits, schema, internal linking, and content calendars aimed at ranking intent." },
+        { title: "Paid Media", body: "Google Ads, Meta, and LinkedIn campaigns with weekly reporting and creative iteration." },
+        { title: "Conversion & CRO", body: "Landing pages, A/B tests, and funnel analysis to lift pipeline without lifting spend." },
+        { title: "Lifecycle & Email", body: "Onboarding, activation, and win-back flows built in Klaviyo, Customer.io, or HubSpot." },
+        { title: "Analytics & Attribution", body: "GA4, PostHog, or Mixpanel wired up honestly — with dashboards you'll actually open." },
+        { title: "Content & Creative", body: "Ad creative, landing hero copy, and long-form pieces that pull weight beyond one sprint." },
+      ],
+    },
+    process: {
+      eyebrow: "OUR PROCESS",
+      title: "How We Grow It",
+      body: "A 90-day cycle: audit, ship, learn, double down on what's working.",
+      steps: [
+        { title: "Audit", body: "Current traffic, funnel, and spend — plus a competitor teardown." },
+        { title: "Plan", body: "Channel mix, campaign hypotheses, and success metrics for the next 90 days." },
+        { title: "Ship", body: "Landing pages, ad creative, sequences — launched, not just briefed." },
+        { title: "Measure", body: "Weekly reporting on real KPIs — CAC, activation, MRR — never on likes." },
+        { title: "Optimise", body: "Kill what's not working, double down on what is, keep the compounding engine alive." },
+        { title: "Report", body: "Monthly written retro with next-cycle plan — no jargon, no hand-waving." },
+      ],
+    },
+    meta: {
+      title: "Digital Marketing — Dev N Scale",
+      description:
+        "SEO, paid media, CRO, and lifecycle campaigns — with GA4/attribution dashboards so every euro maps back to pipeline.",
+    },
+  },
+
+  crypto: {
+    slug: "crypto-dashboards",
+    index: "08",
+    hero: {
+      title: "Crypto Dashboards Expert",
+      body: "Web3 UI, DeFi platforms, and CRM systems built for the decentralised world — wallet integrations, on-chain data, and interfaces investors and traders actually trust.",
+    },
+    stats: [
+      { value: "EVM", label: "Ethereum, L2s, XRPL" },
+      { value: "DeFi", label: "Swap, Stake, Farm, Lend" },
+      { value: "Wallet", label: "WalletConnect + Embedded" },
+      { value: "Chain", label: "Indexers & The Graph" },
+    ],
+    included: {
+      eyebrow: "WHAT IS INCLUDED",
+      title: "Everything a Web3 product needs.",
+      body: "Frontends and dashboards purpose-built for on-chain data, not repurposed SaaS templates.",
+      rows: [
+        { title: "DeFi Dashboards", body: "Swap, staking, yield, and lending UIs with clean quote flows and slippage guards." },
+        { title: "Wallet & Auth", body: "WalletConnect v2, embedded wallets, sign-in-with-Ethereum, and role-based access." },
+        { title: "On-Chain Data", body: "The Graph, custom indexers, and RPC caching for portfolio, position, and history views." },
+        { title: "NFT Marketplaces", body: "Listings, offers, royalties, and creator dashboards for NFT-first products." },
+        { title: "CRM & Analytics", body: "Wallet-first CRM, cohort analysis, and campaign attribution across on-chain events." },
+        { title: "Security & Audits", body: "Contract-integration reviews, replay-attack coverage, and coordinated audit remediation." },
+      ],
+    },
+    process: {
+      eyebrow: "OUR PROCESS",
+      title: "How We Build Web3",
+      body: "Web2 rigor on top of Web3 primitives — real testing, real monitoring, real UX.",
+      steps: [
+        { title: "Chain Discovery", body: "Networks, contracts, RPCs, and data providers scoped before design begins." },
+        { title: "UX Prototypes", body: "Wallet flow, transaction UX, and edge-case screens tested with real users." },
+        { title: "Build", body: "wagmi + viem stack, indexer or Graph subgraph, gas-safe transaction confirmations." },
+        { title: "Testnet Beta", body: "Deploy on Sepolia / testnet, real-money-off beta with the founding community." },
+        { title: "Mainnet Launch", body: "Staged mainnet rollout with monitoring, rate limits, and incident runbooks." },
+        { title: "Support", body: "Retainer for chain upgrades, new features, and post-audit fixes." },
+      ],
+    },
+    meta: {
+      title: "Crypto Dashboards & Web3 Development — Dev N Scale",
+      description: "Web3 UI, DeFi platforms, NFT marketplaces, and wallet-first CRM systems built for the decentralised world.",
+    },
+  },
+};
+
+/** Slug → id lookup so `/services/[slug]` can resolve to the SERVICES entry. */
+export const SERVICE_SLUGS: Record<string, string> = Object.fromEntries(
+  Object.entries(SERVICE_DETAILS).map(([id, detail]) => [detail.slug, id]),
+);
+
 /* Home page "Outcomes we're proud of" deck — three real case studies,
  * copy transcribed from the Figma. Pills/titles are verbatim (including
  * "Fintech Saas Application" casing). Covers are the Work-page Figma
