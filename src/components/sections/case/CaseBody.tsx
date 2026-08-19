@@ -254,13 +254,20 @@ export function CaseGallery({ study = CASE_STUDY }: StudyProps) {
   return (
     <section className="bg-white section-y">
       <div className="shell">
-        <div className="mx-auto max-w-[640px] text-center">
+        <div className="mx-auto max-w-[720px] text-center">
           <Reveal>
             <p className="t-eyebrow">{gallery.eyebrow}</p>
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="t-subsection mt-4 text-ink-900">{gallery.title}</h2>
           </Reveal>
+          {gallery.body && (
+            <Reveal delay={0.12}>
+              <p className="t-body-lg mt-5 text-text-secondary">
+                {gallery.body}
+              </p>
+            </Reveal>
+          )}
         </div>
         <InView className="mt-12">
           <div className="relative aspect-[1280/700] w-full overflow-hidden rounded-[20px]">

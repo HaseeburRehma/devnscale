@@ -28,7 +28,7 @@ export const SERVICES = [
   },
   {
     id: "design",
-    title: "Design",
+    title: "UI/UX Design",
     body: "Professional UI/UX and graphic design services, crafting visuals that speak before words do, from pixel-perfect interfaces to complete brand identities.",
     icon: "layout",
   },
@@ -46,7 +46,7 @@ export const SERVICES = [
   },
   {
     id: "pitch",
-    title: "Pitch Deck",
+    title: "Pitch Deck Presentations",
     body: "Professional pitch deck design and investor presentation services, startup decks, and fundraising decks designed to open doors and close deals.",
     icon: "presentation",
   },
@@ -560,7 +560,7 @@ export const SERVICE_SLUGS: Record<string, string> = Object.fromEntries(
  * exports so a visitor sees the exact art from the design source. */
 export const PROJECTS = [
   {
-    pill: "FinTech Mobile App",
+    pill: "FinTech Mobile App Design",
     title: "Merchant Cash Advance Calculator (MCA)",
     body: "MCA Professionals Often Rely On Multiple Tools To Calculate Deals, Manage Templates, And Review Previous Calculations. We Designed One Connected Experience To Bring These Tasks Together In A Faster, More Organized Workflow.",
     metric: "38+",
@@ -1020,6 +1020,9 @@ export type CaseStudy = {
   gallery: {
     eyebrow: string;
     title: string;
+    /** Optional body paragraph shown under the "Full Picture" title.
+     *  MCA doesn't have one in Figma; OpulenceX + Central Hub do. */
+    body?: string;
     image: string;
   };
   selectedWork: {
@@ -1184,6 +1187,7 @@ const CASE_STUDY_SAAS: CaseStudy = {
   gallery: {
     eyebrow: "THE FULL PICTURE",
     title: "The complete DeFi suite for XRPL.",
+    body: "OpulenceX Brings The XRP Ledger's DeFi Opportunities Together In One Place, Creating A Growing Ecosystem Where Users Can Explore New Ways To Swap, Stake, Farm, And Earn From Their Digital Assets.",
     image: "/img/case/saas/gallery.png",
   },
   selectedWork: {
@@ -1272,6 +1276,7 @@ const CASE_STUDY_LEND_HUB: CaseStudy = {
   gallery: {
     eyebrow: "THE FULL PICTURE",
     title: "Built Today. Ready For What's Next.",
+    body: "Lend SaaS Is Continuously Evolving With The Potential For More Powerful Tools, Seamless Integrations, And Valuable Knowledge-Sharing Resources. The Platform Provides A Strong Foundation For Expanding Its Capabilities And Creating Even More Value For Its Users.",
     image: "/img/case/lend-hub/gallery.png",
   },
   selectedWork: {
@@ -1342,7 +1347,7 @@ export const WORK = {
     {
       name: "Merchant Cash Advance Calculator (MCA)",
       url: "halohealth.app.com",
-      year: "2024",
+      year: "2025",
       badge: "Mobile App",
       tags: ["iOS", "Android", "UI/UX"],
       cover: "/img/case/work-cover-1-mca.png",
@@ -1351,7 +1356,7 @@ export const WORK = {
     {
       name: "Lend SaaS Application",
       url: "ledgerly.io.com",
-      year: "2024",
+      year: "2025",
       badge: "Web App",
       tags: ["Web App", "Design", "QA"],
       cover: "/img/case/work-cover-2-lend-saas.png",
@@ -1389,7 +1394,7 @@ export const WORK = {
       url: "vantagelabs.ai",
       year: "2023",
       badge: "AI Platform",
-      tags: ["AI", "Web", "Marketplace"],
+      tags: ["AI", "Backend", "QA"],
       cover: "/img/case/work-cover-6-marketplace.png",
       href: "/case-study/lend-hub",
     },
