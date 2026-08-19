@@ -1,6 +1,6 @@
 import {
   ArrowRightIcon,
-  BitcoinIcon,
+  BriefcaseIcon,
   ChatIcon,
   CodeIcon,
   LayoutIcon,
@@ -20,7 +20,7 @@ const ICONS = {
   shield: ShieldCheckIcon,
   presentation: PresentationIcon,
   trending: TrendingUpIcon,
-  bitcoin: BitcoinIcon,
+  briefcase: BriefcaseIcon,
 };
 
 type Service = (typeof SERVICES)[number];
