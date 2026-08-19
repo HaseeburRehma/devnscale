@@ -53,7 +53,7 @@ export default function Footer() {
                   alt="Dev n Scale"
                   fill
                   sizes="280px"
-                  className="relative z-10 object-contain drop-shadow-[0_28px_38px_rgba(0,0,0,0.5)] motion-safe:animate-[float-sway_7s_ease-in-out_infinite]"
+                  className="relative z-10 object-contain drop-shadow-[0_36px_52px_rgba(0,0,0,0.55)] motion-safe:animate-[float-sway_9s_ease-in-out_infinite]"
                   priority={false}
                 />
                 {/* highlight sheen sweep, gated on motion */}

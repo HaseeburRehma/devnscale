@@ -281,22 +281,23 @@ body {
   }
 }
 
-/* Richer footer-mark movement — floats up and sways side-to-side, with a
-   whisper of z-axis rotation so the 3D render feels alive rather than a
-   sticker on the page. */
+/* Footer-mark movement — a slow, smooth upward drift (with a whisper of
+   sway) matching the Figma "Monorgram - Motion" prototype: the 3D mark
+   breathes upward on the ease-in, settles at the top, and drifts back
+   down. Feels alive without pulling the eye off the CTA copy below. */
 @keyframes float-sway {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+    transform: translate3d(0, 0, 0) rotate(-0.4deg);
   }
   25% {
-    transform: translate3d(6px, -10px, 0) rotate(0.4deg);
+    transform: translate3d(2px, -12px, 0) rotate(0.2deg);
   }
   50% {
-    transform: translate3d(0, -14px, 0) rotate(0.8deg);
+    transform: translate3d(0, -22px, 0) rotate(0.6deg);
   }
   75% {
-    transform: translate3d(-6px, -10px, 0) rotate(-0.4deg);
+    transform: translate3d(-2px, -12px, 0) rotate(-0.2deg);
   }
 }
 

@@ -41,14 +41,15 @@ function ServiceHero({ detail }: { detail: ServiceDetail }) {
       id="top"
       className="relative isolate flex min-h-[500px] items-center overflow-hidden bg-brand-950 pb-12 pt-[110px] sm:min-h-[560px] sm:pb-16 sm:pt-[130px] lg:h-[653px] lg:py-0"
     >
-      <PatternBackdrop opacity={0.09} gradient={false} />
-      {/* Subtle center glow so text reads clean over the tiled marks. */}
+      <PatternBackdrop opacity={0.14} gradient={false} />
+      {/* Very light center-only vignette so text has enough contrast but
+       *  the tile grid still reads across the full hero background. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 70% at 50% 50%, rgba(1,42,28,0.85) 0%, rgba(1,42,28,0) 70%)",
+            "radial-gradient(45% 55% at 50% 50%, rgba(1,42,28,0.55) 0%, rgba(1,42,28,0) 75%)",
         }}
       />
 
