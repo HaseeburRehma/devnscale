@@ -3,7 +3,7 @@ import PrimaryButton from "@/components/ui/PrimaryButton";
 import SecondaryButton from "@/components/ui/SecondaryButton";
 import Magnetic from "@/components/motion/Magnetic";
 import PatternBackdrop from "@/components/ui/PatternBackdrop";
-import type { ServiceDetail } from "@/lib/content";
+import { SERVICES, SERVICE_DETAILS, type ServiceDetail } from "@/lib/content";
 
 /**
  * Full Service Detail page body, per the Figma template at frame
@@ -27,9 +27,43 @@ export default function ServiceDetail({ detail }: { detail: ServiceDetail }) {
     <>
       <ServiceHero detail={detail} />
       <ServiceStats detail={detail} />
+      <ServiceNav currentSlug={detail.slug} />
       <ServiceIncluded detail={detail} />
       <ServiceProcess detail={detail} />
     </>
+  );
+}
+
+/* ---------- Inline navigation between the 8 service pages ---------- */
+
+function ServiceNav({ currentSlug }: { currentSlug: string }) {
+  return (
+    <nav
+      aria-label="Services"
+      className="border-b border-border-subtle bg-white"
+    >
+      <div className="shell flex snap-x snap-mandatory gap-2 overflow-x-auto py-4">
+        {SERVICES.map((s) => {
+          const detail = SERVICE_DETAILS[s.id];
+          if (!detail) return null;
+          const active = detail.slug === currentSlug;
+          return (
+            <a
+              key={s.id}
+              href={`/services/${detail.slug}`}
+              className={`snap-start whitespace-nowrap rounded-full border px-4 py-2 text-[13px] font-medium transition-[background-color,color,border-color] duration-200 ${
+                active
+                  ? "border-lime-500 bg-lime-500 text-brand-950"
+                  : "border-border-subtle bg-white text-ink-700 hover:border-lime-400 hover:text-lime-700"
+              }`}
+              aria-current={active ? "page" : undefined}
+            >
+              {s.title}
+            </a>
+          );
+        })}
+      </div>
+    </nav>
   );
 }
 

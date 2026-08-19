@@ -53,10 +53,21 @@ export default function About() {
           </Reveal>
         </div>
 
-        {/* Right visual — the design ships this as an empty 480px rounded
-            frame ("About image"), so it renders as a neutral image slot. */}
+        {/* Right visual — 540×540 export loop from the design source,
+         *  playing muted + looped so it feels alive without hijacking
+         *  attention. Falls back to a neutral panel while loading. */}
         <Reveal delay={0.15} className="w-full lg:w-[480px] lg:shrink-0">
-          <div className="aspect-[480/560] w-full rounded-[24px] bg-ink-50 lg:aspect-auto lg:h-[560px]" />
+          <div className="relative aspect-square w-full overflow-hidden rounded-[24px] bg-brand-950 lg:h-[560px]">
+            <video
+              src="/img/about-loop.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="h-full w-full object-cover"
+            />
+          </div>
         </Reveal>
       </div>
     </section>

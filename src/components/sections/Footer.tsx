@@ -1,4 +1,8 @@
+"use client";
+
+import { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "motion/react";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -24,70 +28,15 @@ const SOCIALS: { Icon: typeof XIcon; label: string; href: string | null }[] = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-brand-900 pt-16 sm:pt-24 lg:pt-28">
+    <footer className="relative overflow-hidden bg-brand-900 pt-12 sm:pt-16 lg:pt-20">
       <PatternBackdrop />
 
       <div className="shell relative">
-        {/* CTA */}
-        <div className="flex flex-col items-center text-center">
-          <Reveal>
-            {/* Figma sizes this box 394x498 (mark hugs the top, ~27% of
-                the box height left empty below it as the gap before the
-                heading) — replicate with a square inner wrapper pinned to
-                top:-6.59%, rather than centering the mark in the box. */}
-            <div className="relative h-[240px] w-[190px] sm:h-[350px] sm:w-[280px]">
-              {/* soft pulsing lime glow, so the mark reads proud of the tiled bg */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -z-0 motion-safe:animate-[glow-pulse_4.5s_ease-in-out_infinite]"
-                style={{
-                  background:
-                    "radial-gradient(closest-side, rgba(196,212,52,0.42), rgba(196,212,52,0) 70%)",
-                  filter: "blur(32px)",
-                }}
-              />
-              <div className="absolute inset-x-0 top-[-6.59%] aspect-square">
-                {/* the mark itself — floats, drifts, and gets a subtle tilt sway */}
-                <Image
-                  src="/img/logo-3d.png"
-                  alt="Dev n Scale"
-                  fill
-                  sizes="280px"
-                  className="relative z-10 object-contain drop-shadow-[0_36px_52px_rgba(0,0,0,0.55)] motion-safe:animate-[float-sway_9s_ease-in-out_infinite]"
-                  priority={false}
-                />
-                {/* highlight sheen sweep, gated on motion */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay motion-safe:animate-[shimmer_9s_ease-in-out_infinite]"
-                  style={{
-                    background:
-                      "conic-gradient(from 210deg at 60% 40%, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 25%, rgba(255,255,255,0) 40%)",
-                    filter: "blur(2px)",
-                  }}
-                />
-              </div>
-            </div>
-          </Reveal>
+        <FooterCta />
 
-          <Reveal delay={0.08}>
-            <h2 className="font-display text-[clamp(2.25rem,1.2rem+4.7vw,4.25rem)] font-bold uppercase leading-[1.05] tracking-[-0.02em] text-white">
-              Feels Like
-              <br />
-              <span className="text-lime-400">Collaborating?</span>
-            </h2>
-          </Reveal>
-
-          <Reveal delay={0.16}>
-            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-              <PrimaryButton />
-              <SecondaryButton />
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Link columns */}
-        <div className="mt-24 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[1fr_auto_auto_auto] lg:gap-16">
+        {/* Link columns — tightened from mt-24 so the whole footer
+         *  breathes less around the 3D mark and CTA. */}
+        <div className="mt-16 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[1fr_auto_auto_auto] lg:gap-16">
           <Reveal>
             <div className="max-w-[420px]">
               <h3 className="font-display text-[26px] font-medium text-white">
@@ -149,6 +98,72 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+/**
+ * The 3D mark + "FEELS LIKE COLLABORATING?" hero of the footer.
+ *
+ * The mark slides up from just-below-the-heading as the footer scrolls
+ * into view: at the section's first entry (bottom of viewport) the
+ * mark sits at y=+120 and 60% opacity, and it settles at y=0 with
+ * full opacity by the time the section is fully in frame. Bound to
+ * scroll progress via useScroll so scroll-back rewinds it naturally.
+ */
+function FooterCta() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "center center"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [120, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.35, 1]);
+
+  return (
+    <div ref={sectionRef} className="flex flex-col items-center text-center">
+      {/* 3D mark wrapper — scroll-driven slide up from below the heading */}
+      <motion.div
+        style={{ y, opacity }}
+        className="relative h-[220px] w-[190px] sm:h-[300px] sm:w-[260px]"
+      >
+        {/* soft pulsing lime glow so the mark reads proud of the tiled bg */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-0 motion-safe:animate-[glow-pulse_4.5s_ease-in-out_infinite]"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(196,212,52,0.42), rgba(196,212,52,0) 70%)",
+            filter: "blur(32px)",
+          }}
+        />
+        <div className="absolute inset-x-0 top-0 aspect-square">
+          <Image
+            src="/img/logo-3d.png"
+            alt="Dev n Scale"
+            fill
+            sizes="260px"
+            className="relative z-10 object-contain drop-shadow-[0_28px_44px_rgba(0,0,0,0.55)] motion-safe:animate-[float-sway_9s_ease-in-out_infinite]"
+            priority={false}
+          />
+        </div>
+      </motion.div>
+
+      {/* Heading — tightened from mt-0 to sit closer under the mark */}
+      <Reveal delay={0.08}>
+        <h2 className="-mt-2 font-display text-[clamp(2.25rem,1.2rem+4.7vw,4.25rem)] font-bold uppercase leading-[1.05] tracking-[-0.02em] text-white">
+          Feels Like
+          <br />
+          <span className="text-lime-400">Collaborating?</span>
+        </h2>
+      </Reveal>
+
+      <Reveal delay={0.16}>
+        <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row">
+          <PrimaryButton />
+          <SecondaryButton />
+        </div>
+      </Reveal>
+    </div>
   );
 }
 
