@@ -79,6 +79,9 @@ export type ServiceStat = { value: string; label: string };
 export type ServiceIncludedRow = {
   title: string;
   body: string;
+  /** Optional visual paired with the row. Falls back to the lime
+   *  gradient placeholder in ServiceDetail when unset. */
+  image?: string;
 };
 
 export type ServiceProcessStep = {
@@ -141,26 +144,32 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Frontend Development",
           body: "React, Next.js, Vue — pixel-perfect, responsive web development delivering fully performant interfaces that feel alive across every device and screen size.",
+          image: "/img/services/web/frontend.png",
         },
         {
           title: "Backend Development",
           body: "Node.js, Django, Laravel — robust API services, databases, and scalable architecture built to handle growth.",
+          image: "/img/services/web/backend.png",
         },
         {
           title: "Full Stack and SaaS Development",
           body: "Complete SaaS development covering dashboards, portals, and ecommerce solutions built with scalable architecture from concept to launch.",
+          image: "/img/services/web/saas.png",
         },
         {
           title: "WordPress Development",
           body: "Custom WordPress development covering themes, plugins, WooCommerce and CMS configuration for enterprise-grade results.",
+          image: "/img/services/web/wordpress.png",
         },
         {
           title: "Framer Website Design",
           body: "Fast interactive marketing sites built with Framer featuring advanced animations, CMS, and no-code flexibility.",
+          image: "/img/services/web/framer.svg",
         },
         {
           title: "Security, Performance and Optimisation",
           body: "SSL, CDN setup, security hardening, Core Web Vitals optimisation, and regular maintenance to keep your site fast and safe.",
+          image: "/img/services/web/security.png",
         },
       ],
     },

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import SecondaryButton from "@/components/ui/SecondaryButton";
@@ -188,17 +189,29 @@ function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
                       {row.body}
                     </p>
                   </div>
-                  {/* Visual pane — reserves space for a Figma export.
-                   *  Uses a lime→brand gradient so the section reads with
-                   *  colour even before per-row images ship. */}
-                  <div
-                    aria-hidden="true"
-                    className="relative aspect-[604/380] w-full overflow-hidden rounded-[20px] bg-[linear-gradient(120deg,#f4f7ea_0%,#c4d434_45%,#c7e8d9_100%)] shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]"
-                  >
-                    <span className="absolute inset-0 flex items-center justify-center text-[13px] uppercase tracking-[0.14em] text-brand-900/40">
-                      {row.title}
-                    </span>
-                  </div>
+                  {/* Visual pane — real Figma export when the row supplies
+                   *  an image; falls back to a lime→brand gradient so
+                   *  services still under construction don't render empty. */}
+                  {row.image ? (
+                    <div className="relative aspect-[604/380] w-full overflow-hidden rounded-[20px] bg-brand-950 shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]">
+                      <Image
+                        src={row.image}
+                        alt={row.title}
+                        fill
+                        sizes="(min-width: 1024px) 604px, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      aria-hidden="true"
+                      className="relative aspect-[604/380] w-full overflow-hidden rounded-[20px] bg-[linear-gradient(120deg,#f4f7ea_0%,#c4d434_45%,#c7e8d9_100%)] shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]"
+                    >
+                      <span className="absolute inset-0 flex items-center justify-center text-[13px] uppercase tracking-[0.14em] text-brand-900/40">
+                        {row.title}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </Reveal>
             );
