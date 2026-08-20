@@ -15,12 +15,17 @@ import { CASE_STUDY, type CaseStudy } from "@/lib/content";
  */
 export default function SelectedWork({
   study = CASE_STUDY,
+  /** Section background — case-study pages want white; service pages
+   *  ask for the neutral #F4F4F5 tint that matches the rest of their
+   *  light bands. */
+  bgClass = "bg-white",
 }: {
   study?: CaseStudy;
+  bgClass?: string;
 }) {
   const { selectedWork } = study;
   return (
-    <section className="bg-white section-y">
+    <section className={`${bgClass} section-y`}>
       <div className="shell">
         <Reveal>
           <p className="t-eyebrow">{selectedWork.eyebrow}</p>

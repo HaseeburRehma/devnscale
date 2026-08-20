@@ -97,7 +97,7 @@ function ServiceHero({ detail }: { detail: ServiceDetail }) {
 
 function ServiceStats({ detail }: { detail: ServiceDetail }) {
   return (
-    <section className="border-y border-border-subtle bg-white">
+    <section className="border-y border-border-subtle bg-[#F4F4F5]">
       <div className="shell grid grid-cols-2 gap-y-8 py-8 sm:grid-cols-4 sm:divide-x sm:divide-border-subtle sm:py-10">
         {detail.stats.map((stat, i) => (
           <Reveal
@@ -123,7 +123,7 @@ function ServiceStats({ detail }: { detail: ServiceDetail }) {
 function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
   const { included } = detail;
   return (
-    <section className="bg-white section-y">
+    <section className="bg-[#F4F4F5] section-y">
       <div className="shell">
         {/* Header */}
         <div className="mb-14 max-w-[820px]">
@@ -208,10 +208,12 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
     target: sectionRef,
     offset: ["start 0.85", "end 0.15"],
   });
+  // Softer spring settings — more damping + less stiffness so the rail
+  // and marker fills glide with the wheel instead of snapping.
   const progress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 24,
-    mass: 0.35,
+    stiffness: 60,
+    damping: 30,
+    mass: 0.4,
   });
 
   const total = process.steps.length;

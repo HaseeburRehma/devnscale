@@ -44,7 +44,7 @@ export default async function ServicePage({ params }: PageProps) {
       <Navbar />
       <main>
         <ServiceDetail detail={detail} />
-        <SelectedWork study={study} />
+        <SelectedWork study={study} bgClass="bg-[#F4F4F5]" />
         <Testimonial />
         <Faqs />
       </main>

@@ -252,6 +252,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "In App Purchases and Subscriptions",
           body: "Monetisation setup covering subscriptions, one-time purchases, freemium models, and payment gateway integration.",
+          image: "/img/services/mobile/row-4.jpg",
         },
         {
           title: "App Store Launch and ASO",
@@ -320,6 +321,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Design Systems",
           body: "Scalable design systems with component libraries and design tokens that keep your product consistent as it grows.",
+          image: "/img/services/design/row-4.jpg",
         },
         {
           title: "Interaction Design and Prototyping",
@@ -388,6 +390,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Multi-Platform Deployment",
           body: "Deploy on your website, WhatsApp, Telegram, Slack, and any platform your customers use.",
+          image: "/img/services/ai/row-4.png",
         },
         {
           title: "Analytics and Optimisation",
@@ -456,6 +459,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Security Testing",
           body: "OWASP based vulnerability assessments, penetration testing, and security audit reports.",
+          image: "/img/services/qa/row-4.jpg",
         },
         {
           title: "QA Documentation and Bug Tracking",
@@ -524,6 +528,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "SaaS Pitch and Product Launch Decks",
           body: "SaaS pitch decks, sales decks, and partnership presentations designed to drive action at every stage of growth.",
+          image: "/img/services/pitch/row-4.png",
         },
         {
           title: "Speaker Notes and Prep",
@@ -592,6 +597,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Email Marketing",
           body: "Automated drip campaigns, newsletters, and lifecycle emails that nurture leads into loyal customers.",
+          image: "/img/services/marketing/row-4.png",
         },
         {
           title: "Analytics and Reporting",
@@ -660,6 +666,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "DevOps Engineers",
           body: "CI/CD, cloud infrastructure, and deployment pipelines handled by engineers who keep your systems stable while your product evolves.",
+          image: "/img/services/staff/row-4.png",
         },
         {
           title: "Security, Performance and Optimisation",
