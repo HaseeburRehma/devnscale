@@ -1,4 +1,8 @@
+"use client";
+
+import { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import Reveal from "@/components/ui/Reveal";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import SecondaryButton from "@/components/ui/SecondaryButton";
@@ -159,7 +163,10 @@ function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
                    *  an image; falls back to a lime→brand gradient so
                    *  services still under construction don't render empty. */}
                   {row.image ? (
-                    <div className="relative aspect-[604/380] w-full overflow-hidden rounded-[20px] bg-brand-950 shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]">
+                    /* Light cream card behind the image (matches Figma —
+                     *  each row visual sits on a warm off-white pane, not
+                     *  the pure white section bg or a dark card). */
+                    <div className="relative aspect-[604/380] w-full overflow-hidden rounded-[20px] bg-ink-50 shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]">
                       <Image
                         src={row.image}
                         alt={row.title}
@@ -192,8 +199,28 @@ function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
 
 function ServiceProcess({ detail }: { detail: ServiceDetail }) {
   const { process } = detail;
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Scroll progress across the whole Process section — used to draw the
+  // vertical rail on the timeline and to phase each step's marker fill
+  // as it comes into view. Spring-smoothed so scrubbing feels buttery.
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 0.85", "end 0.15"],
+  });
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 24,
+    mass: 0.35,
+  });
+
+  const total = process.steps.length;
+
   return (
-    <section className="relative overflow-hidden bg-brand-900 section-y">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-brand-900 section-y"
+    >
       <PatternBackdrop />
       <div className="shell relative grid grid-cols-1 gap-12 lg:grid-cols-[400px_1fr] lg:gap-24">
         {/* Sidebar header */}
@@ -222,39 +249,91 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
           </Reveal>
         </div>
 
-        {/* Numbered timeline */}
+        {/* Numbered timeline — rail scaleY driven by scroll, each step
+         *  fades + slides in on its own slice of the section's progress. */}
         <ol className="relative">
-          {process.steps.map((step, i) => {
-            const isLast = i === process.steps.length - 1;
-            const n = String(i + 1).padStart(2, "0");
-            return (
-              <li key={step.title} className="relative flex gap-6 pb-8 last:pb-0">
-                {/* Marker column */}
-                <div className="relative flex flex-col items-center">
-                  <span className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border border-lime-400/40 bg-brand-950 text-[13px] font-medium text-lime-400">
-                    {n}
-                  </span>
-                  {!isLast && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-1/2 top-10 h-[calc(100%-40px+32px)] w-px -translate-x-1/2 bg-white/15"
-                    />
-                  )}
-                </div>
-                {/* Body */}
-                <Reveal delay={i * 0.05} className="pb-3 pt-1">
-                  <h3 className="font-display text-[20px] font-medium leading-[1.3] text-white">
-                    {step.title}
-                  </h3>
-                  <p className="t-body mt-2 max-w-[520px] text-ink-300">
-                    {step.body}
-                  </p>
-                </Reveal>
-              </li>
-            );
-          })}
+          {/* dim rail track behind everything (always visible) */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-5 top-5 h-[calc(100%-40px)] w-px -translate-x-1/2 bg-white/10"
+          />
+          {/* lime rail on top — grows from 0 → 100% of that same track */}
+          <motion.span
+            aria-hidden="true"
+            style={{ scaleY: progress, transformOrigin: "top" }}
+            className="pointer-events-none absolute left-5 top-5 h-[calc(100%-40px)] w-px -translate-x-1/2 bg-gradient-to-b from-lime-400 via-lime-400/60 to-lime-400/0"
+          />
+          {process.steps.map((step, i) => (
+            <TimelineStep
+              key={step.title}
+              step={step}
+              index={i}
+              total={total}
+              progress={progress}
+            />
+          ))}
         </ol>
       </div>
     </section>
+  );
+}
+
+/** One numbered step in the Our Process timeline. Its marker "fills"
+ *  with lime and its body fades up as the scroll progress crosses this
+ *  step's slice of the section — creates a continuous flowing reveal
+ *  down the column rather than a staircase of individual pop-ins. */
+function TimelineStep({
+  step,
+  index,
+  total,
+  progress,
+}: {
+  step: { title: string; body: string };
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+}) {
+  // Each step owns a slice of [0..1] scroll progress. Reveals overlap so
+  // adjacent steps ease into each other instead of snapping.
+  const start = index / total;
+  const end = Math.min(1, (index + 1) / total + 0.15);
+  const bodyOpacity = useTransform(progress, [start, end], [0.35, 1]);
+  const bodyY = useTransform(progress, [start, end], [12, 0]);
+  const markerFill = useTransform(progress, [start, end], [0, 1]);
+  const markerScale = useTransform(progress, [start, end], [0.85, 1]);
+  const n = String(index + 1).padStart(2, "0");
+
+  return (
+    <li className="relative flex gap-6 pb-10 last:pb-0">
+      {/* Marker column */}
+      <motion.div
+        style={{ scale: markerScale }}
+        className="relative flex flex-col items-center"
+      >
+        <span className="relative z-10 flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-lime-400/50 bg-brand-950 text-[13px] font-medium text-white">
+          {/* lime fill wipes in behind the number as the step activates */}
+          <motion.span
+            aria-hidden="true"
+            style={{ scaleY: markerFill, transformOrigin: "bottom" }}
+            className="absolute inset-0 -z-0 bg-lime-400"
+          />
+          <motion.span
+            style={{ color: useTransform(markerFill, [0, 0.6, 1], ["#facc15", "#facc15", "#012a1c"]) }}
+            className="relative z-10 font-display"
+          >
+            {n}
+          </motion.span>
+        </span>
+      </motion.div>
+      {/* Body */}
+      <motion.div style={{ opacity: bodyOpacity, y: bodyY }} className="pb-3 pt-1">
+        <h3 className="font-display text-[20px] font-medium leading-[1.3] text-white">
+          {step.title}
+        </h3>
+        <p className="t-body mt-2 max-w-[520px] text-ink-300">
+          {step.body}
+        </p>
+      </motion.div>
+    </li>
   );
 }
