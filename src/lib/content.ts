@@ -232,18 +232,22 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "iOS Development",
           body: "Native Swift development for seamless iPhone and iPad experiences with full Apple ecosystem integration.",
+          image: "/img/services/mobile/row-0.jpg",
         },
         {
           title: "Android Development",
           body: "Kotlin-based Android apps optimised for the full range of Android devices and screen sizes.",
+          image: "/img/services/mobile/row-1.jpg",
         },
         {
           title: "Cross-Platform Apps — React Native and Flutter",
           body: "Cross-platform apps that share code efficiently while delivering native level performance on both iOS and Android.",
+          image: "/img/services/mobile/row-2.jpg",
         },
         {
           title: "API and Backend Integration",
           body: "RESTful and GraphQL API development, third-party integrations, push notifications, and cloud backends.",
+          image: "/img/services/mobile/row-3.jpg",
         },
         {
           title: "In App Purchases and Subscriptions",
@@ -252,6 +256,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "App Store Launch and ASO",
           body: "Complete App Store and Play Store submission, optimisation, and post-launch support.",
+          image: "/img/services/mobile/row-5.jpg",
         },
       ],
     },
@@ -295,18 +300,22 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "UI Design",
           body: "Clean, conversion-focused interfaces designed in Figma with atomic design systems and developer-ready handoffs — built for SaaS UI UX, dashboard UX, and mobile UI.",
+          image: "/img/services/design/row-0.png",
         },
         {
           title: "UX Research and Strategy",
           body: "In-depth UX research — user interviews, journey mapping, wireframes, and usability testing to validate every design decision before a pixel is placed.",
+          image: "/img/services/design/row-1.jpg",
         },
         {
           title: "Graphic Design",
           body: "Logos, brand guidelines, marketing collateral, social media visuals, and everything in between — graphic design services for every touchpoint.",
+          image: "/img/services/design/row-2.png",
         },
         {
           title: "Brand Identity",
           body: "Full brand development — from naming to visual language — that positions you as a premium player in your market.",
+          image: "/img/services/design/row-3.png",
         },
         {
           title: "Design Systems",
@@ -315,6 +324,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Interaction Design and Prototyping",
           body: "Interaction design and interactive prototypes for stakeholder buy-in, investor demos, and user testing — before a single line of code.",
+          image: "/img/services/design/row-5.png",
         },
       ],
     },
@@ -358,18 +368,22 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "AI Support Bots",
           body: "Bots that handle FAQs, tickets, order tracking, and escalation — reducing support load with expert conversational design.",
+          image: "/img/services/ai/row-0.png",
         },
         {
           title: "Lead Generation Bots",
           body: "Qualify, capture, and route leads around the clock — synced with your CRM and sales pipeline automatically.",
+          image: "/img/services/ai/row-1.png",
         },
         {
           title: "Internal HR and Operations Bots",
           body: "Employee onboarding, IT helpdesk, policy Q&A, and internal knowledge base chatbots.",
+          image: "/img/services/ai/row-2.png",
         },
         {
           title: "E-commerce Assistants",
           body: "Product recommendation engines, cart recovery bots, and post-purchase support integrated directly into your store.",
+          image: "/img/services/ai/row-3.png",
         },
         {
           title: "Multi-Platform Deployment",
@@ -378,6 +392,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Analytics and Optimisation",
           body: "Conversation analytics, fallback rate monitoring, and continuous fine-tuning to keep bots sharp and relevant.",
+          image: "/img/services/ai/row-5.png",
         },
       ],
     },
@@ -421,18 +436,22 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Manual Testing",
           body: "Exploratory, regression, smoke, and acceptance testing by experienced QA engineers who think like your users.",
+          image: "/img/services/qa/row-0.png",
         },
         {
           title: "Automation Testing",
           body: "Selenium, Cypress, Playwright — automation suites that catch regressions with every code push.",
+          image: "/img/services/qa/row-1.png",
         },
         {
           title: "Mobile QA",
           body: "Real device testing across iOS and Android versions, screen sizes, and OS combinations.",
+          image: "/img/services/qa/row-2.png",
         },
         {
           title: "Performance Testing",
           body: "Load testing, stress testing, and bottleneck analysis to ensure your app holds up under real traffic.",
+          image: "/img/services/qa/row-3.png",
         },
         {
           title: "Security Testing",
@@ -441,6 +460,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "QA Documentation and Bug Tracking",
           body: "Detailed test plans, bug tracking reports, test cases, and traceability matrices delivered with every engagement.",
+          image: "/img/services/qa/row-5.png",
         },
       ],
     },
@@ -484,18 +504,22 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Story and Narrative",
           body: "We help you find the through line — the storytelling that makes investors lean in and feel the problem before they see the solution.",
+          image: "/img/services/pitch/row-0.png",
         },
         {
           title: "Data Visualisation",
           body: "Complex market data, financials, and metrics turned into clear, compelling slides that tell the full picture at a glance.",
+          image: "/img/services/pitch/row-1.png",
         },
         {
           title: "Visual Slide Design",
           body: "Premium slide design that reflects your brand — professional and polished slides that command attention in any room.",
+          image: "/img/services/pitch/row-2.png",
         },
         {
           title: "Investor Deck — Series A/B/C",
           body: "Structured investor presentations for fundraising rounds covering problem, solution, market, traction, team, and ask.",
+          image: "/img/services/pitch/row-3.png",
         },
         {
           title: "SaaS Pitch and Product Launch Decks",
@@ -504,6 +528,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Speaker Notes and Prep",
           body: "We don't just design — we prepare you to deliver. Full speaker notes included with every deck.",
+          image: "/img/services/pitch/row-5.png",
         },
       ],
     },
@@ -547,18 +572,22 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "SEO Services",
           body: "Technical audits, on-page optimisation, keyword research, content strategy, and link building that earn lasting organic rankings.",
+          image: "/img/services/marketing/row-0.png",
         },
         {
           title: "Paid Ads — PPC and Google Ads",
           body: "Google Ads, Meta, LinkedIn, and TikTok campaigns built for conversions, not just clicks. Includes conversion optimisation on every campaign.",
+          image: "/img/services/marketing/row-1.png",
         },
         {
           title: "Social Media Marketing",
           body: "Content calendars, community management, influencer outreach, and growth strategies for every platform.",
+          image: "/img/services/marketing/row-2.jpg",
         },
         {
           title: "Search Engine Advertising",
           body: "Precision targeted campaigns with smart bidding strategies, continuous A/B testing, and conversion optimisation for maximum ROI.",
+          image: "/img/services/marketing/row-3.jpg",
         },
         {
           title: "Email Marketing",
@@ -567,6 +596,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Analytics and Reporting",
           body: "Custom dashboards, monthly reports, and actionable insights so you always know what's working and what to do next.",
+          image: "/img/services/marketing/row-5.png",
         },
       ],
     },
@@ -610,18 +640,22 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Frontend and Backend Developers",
           body: "React, Next.js, Node, Python, Laravel and more. Engineers who write clean code and ship on time, embedded in your sprints from week one.",
+          image: "/img/services/staff/row-0.png",
         },
         {
           title: "UI/UX Designers",
           body: "Product designers and visual designers who understand your brand and your users. Figma natives who collaborate, not just decorate.",
+          image: "/img/services/staff/row-1.png",
         },
         {
           title: "QA Engineers",
           body: "Manual and automation testers who catch what others miss. They integrate into your pipeline and hold the quality bar so your team can move faster.",
+          image: "/img/services/staff/row-2.png",
         },
         {
           title: "Project Managers",
           body: "PMs who keep scope tight, communication clear, and timelines honest. They bridge the gap between your vision and the team executing it.",
+          image: "/img/services/staff/row-3.png",
         },
         {
           title: "DevOps Engineers",
@@ -630,6 +664,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Security, Performance and Optimisation",
           body: "SSL, CDN setup, security hardening, Core Web Vitals optimisation, and regular maintenance to keep your site fast and safe.",
+          image: "/img/services/staff/row-5.png",
         },
       ],
     },
