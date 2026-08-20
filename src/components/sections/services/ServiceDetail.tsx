@@ -97,7 +97,7 @@ function ServiceHero({ detail }: { detail: ServiceDetail }) {
 
 function ServiceStats({ detail }: { detail: ServiceDetail }) {
   return (
-    <section className="border-y border-border-subtle bg-[#F4F4F5]">
+    <section className="border-y border-border-subtle bg-ink-100">
       <div className="shell grid grid-cols-2 gap-y-8 py-8 sm:grid-cols-4 sm:divide-x sm:divide-border-subtle sm:py-10">
         {detail.stats.map((stat, i) => (
           <Reveal
@@ -123,7 +123,7 @@ function ServiceStats({ detail }: { detail: ServiceDetail }) {
 function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
   const { included } = detail;
   return (
-    <section className="bg-[#F4F4F5] section-y">
+    <section className="bg-ink-100 section-y">
       <div className="shell">
         {/* Header */}
         <div className="mb-14 max-w-[820px]">
