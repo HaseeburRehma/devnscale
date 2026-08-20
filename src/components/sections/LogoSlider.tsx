@@ -41,9 +41,18 @@ const CLIENT_LOGOS: ClientLogo[] = [
   },
 ];
 
-function LogoChip({ logo }: { logo: ClientLogo }) {
+function LogoChip({
+  logo,
+  ariaHidden = false,
+}: {
+  logo: ClientLogo;
+  ariaHidden?: boolean;
+}) {
   return (
-    <span className="flex shrink-0 items-center overflow-hidden rounded-[8px] bg-white px-2 py-1">
+    <span
+      aria-hidden={ariaHidden || undefined}
+      className="flex shrink-0 items-center overflow-hidden rounded-[8px] bg-white px-2 py-1"
+    >
       <span className="relative block h-6" style={{ width: logo.width }}>
         {logo.crop ? (
           <span className="absolute inset-0 overflow-hidden">
@@ -87,22 +96,22 @@ export default function LogoSlider({ tone = "dark" }: { tone?: "dark" | "light" 
         </span>
       </div>
 
-      {/* scrolling track — duplicated once so the -50% loop is seamless */}
+      {/* Scrolling track — one flat flex row of TWO copies of the logo
+       *  set with a uniform gap. The animation shifts -50% (the width
+       *  of one copy including its trailing gap), so the seam between
+       *  copies uses the same 21px gap as between logos, keeping the
+       *  loop perfectly continuous with no dead space at the wrap. */}
       <div className="marquee-host relative h-full flex-1 overflow-hidden">
         <div
-          className="marquee-track marquee-left h-full items-center"
+          className="marquee-track marquee-left h-full items-center gap-[21px] pl-[21px]"
           style={{ ["--marquee-duration" as string]: "34s" }}
         >
-          {[0, 1].map((copy) => (
-            <div
-              key={copy}
-              className="flex items-center gap-[21px] px-[10.5px]"
-              aria-hidden={copy === 1}
-            >
-              {CLIENT_LOGOS.map((logo, i) => (
-                <LogoChip key={`${copy}-${i}`} logo={logo} />
-              ))}
-            </div>
+          {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((logo, i) => (
+            <LogoChip
+              key={i}
+              logo={logo}
+              ariaHidden={i >= CLIENT_LOGOS.length}
+            />
           ))}
         </div>
 
