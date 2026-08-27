@@ -132,29 +132,35 @@ function ServiceStats({ detail }: { detail: ServiceDetail }) {
 function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
   const { included } = detail;
   return (
-    <section className="bg-white section-y">
-      <div className="shell">
-        {/* Header */}
-        <div className="mb-14 max-w-[820px]">
-          <Reveal>
-            <p className="t-eyebrow">{included.eyebrow}</p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h2 className="t-subsection mt-4 text-ink-900">{included.title}</h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="t-body-lg mt-5 max-w-[620px] text-text-secondary">
-              {included.body}
-            </p>
-          </Reveal>
+    <>
+      {/* Header band — white */}
+      <section className="bg-white pt-[clamp(3rem,1.75rem+3.6vw,5rem)] pb-10 sm:pb-14">
+        <div className="shell">
+          <div className="max-w-[820px]">
+            <Reveal>
+              <p className="t-eyebrow">{included.eyebrow}</p>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <h2 className="t-subsection mt-4 text-ink-900">{included.title}</h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p className="t-body-lg mt-5 max-w-[620px] text-text-secondary">
+                {included.body}
+              </p>
+            </Reveal>
+          </div>
         </div>
+      </section>
 
-        {/* Rows — alternating text / visual layout */}
-        <div className="flex flex-col gap-16 sm:gap-20">
-          {included.rows.map((row, i) => {
-            const flipped = i % 2 === 1;
-            return (
-              <Reveal key={row.title} delay={i * 0.04}>
+      {/* Rows — full-width bands with alternating backgrounds.
+       *  Odd rows (1,3,5) = white; even rows (2,4,6) = #F4F4F5. */}
+      {included.rows.map((row, i) => {
+        const flipped = i % 2 === 1;
+        const bandBg = flipped ? "bg-ink-100" : "bg-white";
+        return (
+          <section key={row.title} className={`${bandBg} py-10 sm:py-14`}>
+            <div className="shell">
+              <Reveal delay={0.04}>
                 <div
                   className={`grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 ${
                     flipped ? "lg:[&>*:first-child]:order-2" : ""
@@ -168,13 +174,7 @@ function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
                       {row.body}
                     </p>
                   </div>
-                  {/* Visual pane — real Figma export when the row supplies
-                   *  an image; falls back to a lime→brand gradient so
-                   *  services still under construction don't render empty. */}
                   {row.image ? (
-                    /* Light cream card behind the image (matches Figma —
-                     *  each row visual sits on a warm off-white pane, not
-                     *  the pure white section bg or a dark card). */
                     <div className="relative aspect-[604/380] w-full overflow-hidden rounded-[20px] bg-ink-50 shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]">
                       <Image
                         src={row.image}
@@ -196,11 +196,11 @@ function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
                   )}
                 </div>
               </Reveal>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+            </div>
+          </section>
+        );
+      })}
+    </>
   );
 }
 
