@@ -132,7 +132,7 @@ function ServiceStats({ detail }: { detail: ServiceDetail }) {
 function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
   const { included } = detail;
   return (
-    <section className="bg-ink-100 section-y">
+    <section className="bg-white section-y">
       <div className="shell">
         {/* Header */}
         <div className="mb-14 max-w-[820px]">
