@@ -46,21 +46,66 @@ function ServiceHero({ detail }: { detail: ServiceDetail }) {
       id="top"
       className="relative isolate flex min-h-[500px] items-center overflow-hidden bg-brand-950 pb-12 pt-[110px] sm:min-h-[560px] sm:pb-16 sm:pt-[130px] lg:h-[653px] lg:py-0"
     >
-      {/* Tiled S-mark pattern behind the hero — same backdrop as the
-       *  dark Process/Testimonial/Footer bands, per Figma frame
+      {/* Grid lattice — same 72.8×72.8 square grid as the home Hero,
+       *  layered UNDER the S-mark tiles so the hero reads as textured
+       *  brand-950 rather than flat green. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-20"
+        style={{
+          backgroundColor: "#02150e",
+          backgroundImage:
+            "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
+          backgroundSize: "72.8px 72.8px",
+          backgroundPosition: "28px 4px",
+        }}
+      />
+
+      {/* Tiled S-mark pattern on top of the grid — per Figma frame
        *  4979:40344's hero treatment for every service detail page.
        *  `gradient={false}` keeps the pattern edge-to-edge (no
        *  vertical fade band across the middle). */}
-      <PatternBackdrop opacity={0.14} gradient={false} />
+      <PatternBackdrop opacity={0.18} gradient={false} />
 
-      {/* Light center vignette so the eyebrow + title still read clearly
-       *  over the tiled marks. */}
+      {/* Drifting lime + brand-500 glows carry the same "alive" hero
+       *  feel from the home Hero. */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
+        <div
+          className="absolute"
+          style={{
+            right: "-14%",
+            top: "-26%",
+            width: "60%",
+            height: "82%",
+            background:
+              "radial-gradient(closest-side, rgba(196,212,52,0.28), rgba(196,212,52,0) 70%)",
+            filter: "blur(48px)",
+            animation: "glow-drift 14s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            left: "-8%",
+            bottom: "-30%",
+            width: "44%",
+            height: "60%",
+            background:
+              "radial-gradient(closest-side, rgba(30,140,114,0.35), rgba(30,140,114,0) 70%)",
+            filter: "blur(40px)",
+            animation: "glow-drift 14s ease-in-out infinite 1.2s",
+          }}
+        />
+      </div>
+
+      {/* Light center vignette so the eyebrow + title read clearly over
+       *  the tiled marks. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(45% 55% at 50% 50%, rgba(1,42,28,0.55) 0%, rgba(1,42,28,0) 75%)",
+            "radial-gradient(45% 55% at 50% 50%, rgba(1,42,28,0.5) 0%, rgba(1,42,28,0) 75%)",
         }}
       />
 
