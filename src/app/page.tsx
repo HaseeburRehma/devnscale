@@ -2,6 +2,7 @@ import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import LogoSlider from "@/components/sections/LogoSlider";
 import About from "@/components/sections/About";
+import DiagonalMarquees from "@/components/sections/DiagonalMarquees";
 import Services from "@/components/sections/Services";
 import Projects from "@/components/sections/Projects";
 import Process from "@/components/sections/Process";
@@ -19,6 +20,7 @@ export default function Home() {
         <Hero />
         <LogoSlider />
         <About />
+        <DiagonalMarquees />
         <Services />
         <Projects />
         <Process />

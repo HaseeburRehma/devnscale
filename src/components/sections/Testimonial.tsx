@@ -5,7 +5,7 @@ import { TESTIMONIAL } from "@/lib/content";
 
 export default function Testimonial() {
   return (
-    <section className="relative overflow-hidden bg-brand-900 section-y">
+    <section className="relative overflow-hidden bg-brand-950 section-y">
       <PatternBackdrop />
 
       <div className="shell relative flex flex-col items-center gap-12 lg:flex-row lg:gap-16">

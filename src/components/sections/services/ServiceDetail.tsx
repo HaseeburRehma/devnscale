@@ -230,7 +230,7 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-brand-900 section-y"
+      className="relative overflow-hidden bg-brand-950 section-y"
     >
       <PatternBackdrop />
       <div className="shell relative grid grid-cols-1 gap-12 lg:grid-cols-[400px_1fr] lg:gap-24">

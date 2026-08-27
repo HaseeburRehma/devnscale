@@ -28,7 +28,7 @@ const SOCIALS: { Icon: typeof XIcon; label: string; href: string | null }[] = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-brand-900 pt-12 sm:pt-16 lg:pt-20">
+    <footer className="relative overflow-hidden bg-brand-950 pt-12 sm:pt-16 lg:pt-20">
       <PatternBackdrop />
 
       <div className="shell relative">
