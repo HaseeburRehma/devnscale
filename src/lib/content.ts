@@ -15,7 +15,7 @@ export const HERO_STATS =
 export const SERVICES = [
   {
     id: "web",
-    title: "Web Development",
+    title: "Full Stack Development",
     body: "Full web development services covering frontend and backend development, custom websites, WordPress, and Framer. Fast, scalable, and built to last.",
     icon: "code",
     featured: true,
@@ -124,10 +124,10 @@ export type ServiceDetail = {
  */
 export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
   web: {
-    slug: "web-development",
+    slug: "full-stack-development",
     index: "01",
     hero: {
-      title: "Web Development",
+      title: "Full Stack Development",
       body: "We deliver complete web development services from custom website development and frontend and backend development to WordPress, Framer, and full SaaS platforms. Fast, scalable, and beautifully engineered.",
     },
     stats: [
@@ -205,7 +205,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       ],
     },
     meta: {
-      title: "Web Development — Dev N Scale",
+      title: "Full Stack Development — Dev N Scale",
       description:
         "Frontend, backend, full-stack SaaS, WordPress, and Framer development. Fast, scalable, and Figma-to-code handoff on every project.",
     },
@@ -822,7 +822,7 @@ export const CONTACT_DETAILS = [
 ];
 
 export const SERVICE_OPTIONS = [
-  "Web Development",
+  "Full Stack Development",
   "Mobile App Development",
   "Design",
   "AI Chatbot Development",
@@ -1022,7 +1022,7 @@ export const SERVICES_INTRO = {
 export const SERVICE_SHOWCASE = [
   {
     id: "web",
-    title: "Web Development",
+    title: "Full Stack Development",
     body: "High-performance websites and web apps on modern stacks. Fast, accessible, and ready to scale from a first MVP to enterprise traffic.",
     icon: "code",
     tags: ["Design systems", "Frontend + backend", "SEO ready"],
@@ -1090,7 +1090,7 @@ export const CONTACT_BOOKING = {
   formTitle: "We're just a message away",
   services: [
     "UI/UX Design",
-    "Web Development",
+    "Full Stack Development",
     "Mobile Development",
     "AI Chatbot",
     "QA & Testing",
