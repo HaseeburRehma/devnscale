@@ -46,16 +46,28 @@ function ServiceHero({ detail }: { detail: ServiceDetail }) {
       id="top"
       className="relative isolate flex min-h-[500px] items-center overflow-hidden bg-brand-950 pb-12 pt-[110px] sm:min-h-[560px] sm:pb-16 sm:pt-[130px] lg:h-[653px] lg:py-0"
     >
+      {/* Tiled S-mark pattern behind the hero — same backdrop as the
+       *  dark Process/Testimonial/Footer bands, per Figma frame
+       *  4979:40344's hero treatment for every service detail page.
+       *  `gradient={false}` keeps the pattern edge-to-edge (no
+       *  vertical fade band across the middle). */}
       <PatternBackdrop opacity={0.14} gradient={false} />
-      {/* Very light center-only vignette so text has enough contrast but
-       *  the tile grid still reads across the full hero background. */}
+
+      {/* Light center vignette so the eyebrow + title still read clearly
+       *  over the tiled marks. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
             "radial-gradient(45% 55% at 50% 50%, rgba(1,42,28,0.55) 0%, rgba(1,42,28,0) 75%)",
         }}
+      />
+
+      {/* Bottom fade so the hero settles into the light Stats band below. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,transparent_55%,rgba(2,14,9,0.55)_100%)]"
       />
 
       <div className="shell relative w-full">
