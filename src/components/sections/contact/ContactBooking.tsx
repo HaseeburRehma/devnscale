@@ -18,18 +18,68 @@ const DETAIL_ICONS = {
   pin: MapPinIcon,
 } as const;
 
-/**
- * "Book your Appointment" — intro column beside the dark-green enquiry card
- * from the Figma contact page. Service chips toggle, and there's an NDA
- * checkbox; the form is inert (no backend) and just previews the interaction.
- */
+type Status = { kind: "idle" | "sending" | "ok" | "error"; message?: string };
+
 export default function ContactBooking() {
   const { title, body, note, formTitle, services } = CONTACT_BOOKING;
-  const [picked, setPicked] = useState<string[]>(["Web Development"]);
+  const [picked, setPicked] = useState<string[]>([]);
   const [nda, setNda] = useState(false);
+  const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   const toggle = (s: string) =>
     setPicked((p) => (p.includes(s) ? p.filter((x) => x !== s) : [...p, s]));
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (status.kind === "sending") return;
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      firstName: String(data.get("name") ?? "").split(" ")[0] || "Contact",
+      lastName: String(data.get("name") ?? "").split(" ").slice(1).join(" ") || "Page",
+      email: String(data.get("email") ?? ""),
+      service: picked.join(", ") + (nda ? " (NDA required)" : ""),
+      details: String(data.get("details") ?? ""),
+    };
+
+    if (!payload.email) {
+      setStatus({ kind: "error", message: "Please enter your email address." });
+      return;
+    }
+
+    setStatus({ kind: "sending" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const body = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+      };
+      if (!res.ok || !body.ok) {
+        setStatus({
+          kind: "error",
+          message: body.error ?? "Something went wrong. Please try again.",
+        });
+        return;
+      }
+      form.reset();
+      setPicked([]);
+      setNda(false);
+      setStatus({
+        kind: "ok",
+        message: "Thanks — we got your message. We'll be in touch soon.",
+      });
+    } catch {
+      setStatus({
+        kind: "error",
+        message: "Couldn't reach the server. Check your connection and try again.",
+      });
+    }
+  }
 
   return (
     <section className="bg-white section-y">
@@ -105,7 +155,7 @@ export default function ContactBooking() {
         {/* Enquiry card */}
         <Reveal delay={0.1}>
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
             className="rounded-[24px] bg-brand-900 p-6 sm:p-11"
           >
             <h3 className="font-display text-[clamp(1.5rem,1.2rem+1.2vw,1.875rem)] font-medium text-white">
@@ -139,13 +189,27 @@ export default function ContactBooking() {
               </div>
             </div>
 
-            {/* Email */}
+            {/* Name */}
             <div className="mt-7">
+              <label htmlFor="c-name" className="text-[14px] font-medium text-ink-200">
+                Full Name <span className="text-lime-400">*</span>
+              </label>
+              <input
+                id="c-name"
+                name="name"
+                placeholder="Jane Doe"
+                className="mt-3 h-[52px] w-full rounded-xl border border-white/15 bg-white/[0.04] px-4 text-[15px] text-white outline-none transition-colors duration-200 placeholder:text-ink-400 focus:border-lime-400 focus:bg-white/[0.06]"
+              />
+            </div>
+
+            {/* Email */}
+            <div className="mt-6">
               <label htmlFor="c-email" className="text-[14px] font-medium text-ink-200">
                 Email <span className="text-lime-400">*</span>
               </label>
               <input
                 id="c-email"
+                name="email"
                 type="email"
                 placeholder="you@company.com"
                 className="mt-3 h-[52px] w-full rounded-xl border border-white/15 bg-white/[0.04] px-4 text-[15px] text-white outline-none transition-colors duration-200 placeholder:text-ink-400 focus:border-lime-400 focus:bg-white/[0.06]"
@@ -159,6 +223,7 @@ export default function ContactBooking() {
               </label>
               <textarea
                 id="c-details"
+                name="details"
                 rows={4}
                 placeholder="Project details"
                 className="mt-3 w-full resize-none rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3.5 text-[15px] text-white outline-none transition-colors duration-200 placeholder:text-ink-400 focus:border-lime-400 focus:bg-white/[0.06]"
@@ -186,9 +251,16 @@ export default function ContactBooking() {
 
             <div className="mt-8">
               <PrimaryButton as="button" fullWidth>
-                Start A Project
+                {status.kind === "sending" ? "Sending…" : "Start A Project"}
               </PrimaryButton>
             </div>
+
+            {status.kind === "ok" && (
+              <p className="mt-4 text-[14px] text-lime-400">{status.message}</p>
+            )}
+            {status.kind === "error" && (
+              <p className="mt-4 text-[14px] text-red-400">{status.message}</p>
+            )}
           </form>
         </Reveal>
       </div>

@@ -3,9 +3,11 @@
 // Hrefs are page-relative (`/#…`) so they resolve from any route, not just
 // the home page — About Us is now its own page.
 export const NAV_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
   { label: "Our Services", href: "/services" },
   { label: "Work", href: "/work" },
-  { label: "About Us", href: "/about" },
+  { label: "Our Team", href: "/about#team" },
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -829,7 +831,7 @@ export const SERVICE_OPTIONS = [
   "Software Quality Assurance",
   "Pitch Deck",
   "Digital Marketing",
-  "Crypto Dashboards",
+  "Staff Augmentation",
 ];
 
 /** The two crossing diagonal marquees between About and Services. */
@@ -1068,6 +1070,13 @@ export const SERVICE_SHOWCASE = [
     body: "SEO, paid, and content that turns your launch into a real pipeline. Measured, not guessed.",
     icon: "trending",
     tags: ["SEO + content", "Paid media", "Analytics"],
+  },
+  {
+    id: "staff",
+    title: "Staff Augmentation",
+    body: "Senior developers, designers, and QA engineers placed directly into your workflow so you can scale without the overhead.",
+    icon: "briefcase",
+    tags: ["Embedded teams", "Flexible scale", "Senior talent"],
   },
 ] as const;
 
