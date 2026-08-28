@@ -1004,7 +1004,6 @@ export const ABOUT_TEAM: {
   title: string;
   subtitle: string;
   members: TeamMember[];
-  hiring: { title: string; body: string };
 } = {
   eyebrow: "OUR TEAM",
   title: "The people behind the work.",
@@ -1016,10 +1015,6 @@ export const ABOUT_TEAM: {
     { name: "Abdul Basit", role: "UI/UX Designer", initials: "AB", photo: "/img/team/abdul-basit.png", linkedin: "#" },
     { name: "Mehroz Waseem", role: "UI/UX Designer", initials: "MW", photo: "/img/team/mehroz-waseem.png", linkedin: "#" },
   ],
-  hiring: {
-    title: "We're hiring.",
-    body: "Join a small, senior team building products people actually use. We're always open to great engineers and designers.",
-  },
 };
 
 /* ============================================================
