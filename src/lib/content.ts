@@ -7,7 +7,7 @@ export const NAV_LINKS = [
   { label: "About Us", href: "/about" },
   { label: "Our Services", href: "/services" },
   { label: "Work", href: "/work" },
-  { label: "Our Team", href: "/about#team" },
+  { label: "Our Team", href: "/team" },
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -798,14 +798,14 @@ export const TESTIMONIALS = [
       "From day one they understood our vision better than teams we had worked with for years. The quality of code and speed of delivery was genuinely impressive.",
     name: "Jonas Vogel",
     role: "CTO, NovaBridge",
-    image: "/img/team/jonas-vogel.png",
+    image: "/img/testimonial-lukas.png",
   },
   {
     quote:
       "They turned our rough wireframes into a production-ready platform in under six weeks. Communication was seamless and the result exceeded every expectation.",
     name: "Omar Haddad",
     role: "Founder, Paylinq",
-    image: "/img/team/omar-haddad.png",
+    image: "/img/testimonial-lukas.png",
   },
 ];
 
@@ -890,6 +890,14 @@ export const FOOTER_LINKS = {
    frame. Placeholder headings in the source are replaced with brand copy
    in the same voice as the rest of the site.
    ============================================================ */
+
+export const TEAM_HERO = {
+  eyebrow: "TEAM",
+  titleLead: "The People Behind The",
+  titleAccent: "Products.",
+  subtitle:
+    "We're A Team Of Designers, Developers, Strategists, And Problem-Solvers Who Work Together To Turn Ideas Into Meaningful Digital Experiences. Different Skills, One Goal: Building Better Products That Create Real Value.",
+};
 
 export const ABOUT_HERO = {
   eyebrow: "WHO WE ARE",
@@ -981,8 +989,8 @@ export const ABOUT_VALUES = [
   },
 ] as const;
 
-// `photo`: set to a path under /public (e.g. "/img/team/elias-brandt.jpg") to
-// swap the branded monogram tile for a real portrait. `linkedin`: profile URL.
+// `photo`: path under /public for the member's portrait.
+// `linkedin`: profile URL (set to "#" when no real profile exists yet).
 type TeamMember = {
   name: string;
   role: string;

@@ -1,36 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import { LinkedInIcon } from "@/components/icons";
 import Reveal from "@/components/ui/Reveal";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import { ABOUT_TEAM } from "@/lib/content";
 
-/** A distinct brand-tinted portrait wash per member, cycled by index. */
-const TINTS = [
-  "from-brand-700 to-brand-950",
-  "from-ink-700 to-ink-950",
-  "from-brand-800 to-brand-950",
-  "from-lime-700 to-brand-950",
-];
-
 /**
- * "OUR TEAM" — a horizontal marquee of member cards, matching the Figma
- * Teams frame where the six-member set repeats so it reads as an endless
- * roster of "the people you meet are the people who build".
+ * "OUR TEAM" — a 4-column grid of member cards with staggered reveal
+ * animations. Each card shows name + role on top, then the portrait
+ * inside a decorative concentric-circle frame (matching the Figma
+ * Teams frame 5746:54789).
  *
- * The track duplicates the members once and slides at 45 s per full loop.
- * Hovering the track pauses the animation; individual cards keep their
- * hover lift + LinkedIn reveal.
+ * No marquee — the grid stays still, each card fades + slides up on
+ * scroll with a staggered delay so the row reads left-to-right.
  */
 export default function AboutTeam() {
   const { eyebrow, title, subtitle, members, hiring } = ABOUT_TEAM;
-  // Duplicate the member list so a full 50% translate loops seamlessly.
-  const roster = [...members, ...members];
 
   return (
     <section id="team" className="overflow-hidden bg-white section-y">
       <div className="shell">
+        {/* Header row */}
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <Reveal>
@@ -46,31 +36,17 @@ export default function AboutTeam() {
             </p>
           </Reveal>
         </div>
-      </div>
 
-      {/* Marquee — sits outside `.shell` so it bleeds full width */}
-      <div className="marquee-host relative mt-12 overflow-hidden">
-        {/* edge fades to soften the wrap */}
-        <span className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent" />
-        <span className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent" />
-
-        <div
-          className="marquee-track marquee-left flex gap-6"
-          style={{ ["--marquee-duration" as string]: "45s" }}
-        >
-          {roster.map((member, i) => (
-            <MemberCard
-              key={`${member.name}-${i}`}
-              member={member}
-              tintIndex={i % members.length}
-              ariaHidden={i >= members.length}
-            />
+        {/* Member grid */}
+        <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          {members.map((member, i) => (
+            <Reveal key={member.name} delay={i * 0.08}>
+              <MemberCard member={member} />
+            </Reveal>
           ))}
         </div>
-      </div>
 
-      <div className="shell">
-        {/* hiring card */}
+        {/* Hiring card */}
         <Reveal delay={0.1}>
           <div className="mt-14 flex flex-col items-start justify-between gap-6 rounded-[20px] bg-brand-900 p-8 sm:flex-row sm:items-center sm:p-10">
             <div className="max-w-[560px]">
@@ -85,65 +61,61 @@ export default function AboutTeam() {
   );
 }
 
+/** Concentric ring sizes (% of container width) — matching Figma Group 1
+ *  with four ellipses that create the decorative circular frame. */
+const RINGS = [100, 76, 53.5, 32.2];
+
 function MemberCard({
   member,
-  tintIndex,
-  ariaHidden,
 }: {
   member: (typeof ABOUT_TEAM)["members"][number];
-  tintIndex: number;
-  ariaHidden: boolean;
 }) {
   return (
-    <div
-      aria-hidden={ariaHidden || undefined}
-      className="group w-[280px] shrink-0 sm:w-[320px]"
-    >
-      <div
-        className={`relative aspect-[4/5] w-full overflow-hidden rounded-[20px] bg-gradient-to-br ${
-          TINTS[tintIndex % TINTS.length]
-        } transition-transform duration-300 group-hover:-translate-y-1`}
-      >
+    <div className="group w-full">
+      {/* Name + Role — above the photo, matching Figma */}
+      <div className="mb-3 pl-2">
+        <h3 className="font-display text-[clamp(1.125rem,0.9rem+0.8vw,1.375rem)] font-semibold uppercase tracking-[-0.01em] text-ink-900">
+          {member.name}
+        </h3>
+        <p className="mt-0.5 text-[14px] leading-5 text-text-muted">
+          {member.role}
+        </p>
+      </div>
+
+      {/* Photo with concentric circle decoration */}
+      <div className="relative aspect-[285/378] w-full overflow-hidden">
+        {/* Concentric rings — decorative */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          {RINGS.map((size, i) => (
+            <span
+              key={i}
+              aria-hidden="true"
+              className="absolute rounded-full border border-ink-200/30"
+              style={{
+                width: `${size}%`,
+                height: `${size}%`,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Portrait image */}
         {member.photo ? (
-          <Image
-            src={member.photo}
-            alt={member.name}
-            fill
-            sizes="320px"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <div className="absolute inset-0 overflow-hidden">
+            <Image
+              src={member.photo}
+              alt={member.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 310px"
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+          </div>
         ) : (
-          <span className="absolute inset-0 flex items-center justify-center font-display text-[64px] font-bold tracking-[-0.03em] text-white/90 transition-transform duration-500 group-hover:scale-105">
+          <span className="absolute inset-0 flex items-center justify-center font-display text-[64px] font-bold tracking-[-0.03em] text-ink-300">
             {member.initials}
           </span>
         )}
-
-        {/* subtle sheen */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(120% 80% at 80% 0%, rgba(196,212,52,0.22), rgba(196,212,52,0) 55%)",
-          }}
-        />
-
-        {/* LinkedIn affordance — hidden when no real profile URL is set. */}
-        {member.linkedin && member.linkedin !== "#" ? (
-          <a
-            href={member.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${member.name} on LinkedIn`}
-            className="absolute bottom-3 right-3 flex size-9 translate-y-2 items-center justify-center rounded-full bg-lime-400 text-brand-950 opacity-0 shadow-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:bg-lime-300"
-          >
-            <LinkedInIcon className="size-[18px]" />
-          </a>
-        ) : null}
       </div>
-
-      <h3 className="t-h6 mt-4 text-ink-900">{member.name}</h3>
-      <p className="t-body-sm mt-0.5 text-text-muted">{member.role}</p>
     </div>
   );
 }
