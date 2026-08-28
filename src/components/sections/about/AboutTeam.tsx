@@ -7,8 +7,8 @@ import { ABOUT_TEAM } from "@/lib/content";
 /**
  * "OUR TEAM" — 4-column grid of member cards matching the Figma Teams
  * frame (5746:54789). Each card is a white rounded container with name +
- * role on top, then the portrait over a dark-green background with
- * blurred concentric gradient rings (dark → brand-950 → lime → cream).
+ * role on top, then the Figma-exported portrait (pre-composited with
+ * the dark-green background and blurred concentric gradient rings).
  */
 export default function AboutTeam() {
   const { eyebrow, title, subtitle, members } = ABOUT_TEAM;
@@ -63,27 +63,18 @@ function MemberCard({
         </p>
       </div>
 
-      {/* Photo container — dark green bg with gradient concentric rings */}
-      <div className="relative h-[320px] overflow-hidden bg-brand-950 sm:h-[378px]">
-        {/* Concentric gradient rings SVG */}
-        <img
-          aria-hidden="true"
-          src="/img/team/rings.svg"
-          alt=""
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[110%] w-[110%] -translate-x-1/2 -translate-y-1/2 object-contain"
-        />
-
-        {/* Portrait */}
-        {member.photo && (
+      {/* Pre-composited Figma export: person + gradient rings + green bg */}
+      {member.photo && (
+        <div className="relative aspect-[285/378] w-full overflow-hidden">
           <Image
             src={member.photo}
             alt={member.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 310px"
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
