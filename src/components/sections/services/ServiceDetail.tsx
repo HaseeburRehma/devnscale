@@ -215,14 +215,17 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
   // as it comes into view. Spring-smoothed so scrubbing feels buttery.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 0.85", "end 0.15"],
+    // Start tracking when the section's top crosses 85% of the viewport
+    // and finish when its bottom crosses 55% — this gives the last step
+    // enough scroll room to fill completely before the section exits.
+    offset: ["start 0.85", "end 0.55"],
   });
-  // Softer spring settings — more damping + less stiffness so the rail
-  // and marker fills glide with the wheel instead of snapping.
+  // Snappier spring so the rail and marker fills track the scroll
+  // closely and reach 1.0 without lagging.
   const progress = useSpring(scrollYProgress, {
-    stiffness: 60,
-    damping: 30,
-    mass: 0.4,
+    stiffness: 120,
+    damping: 28,
+    mass: 0.25,
   });
 
   const total = process.steps.length;
@@ -272,7 +275,7 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
           <motion.span
             aria-hidden="true"
             style={{ scaleY: progress, transformOrigin: "top" }}
-            className="pointer-events-none absolute left-5 top-5 h-[calc(100%-40px)] w-px -translate-x-1/2 bg-gradient-to-b from-lime-400 via-lime-400/60 to-lime-400/0"
+            className="pointer-events-none absolute left-5 top-5 h-[calc(100%-40px)] w-px -translate-x-1/2 bg-lime-400"
           />
           {process.steps.map((step, i) => (
             <TimelineStep
@@ -304,10 +307,12 @@ function TimelineStep({
   total: number;
   progress: MotionValue<number>;
 }) {
-  // Each step owns a slice of [0..1] scroll progress. Reveals overlap so
-  // adjacent steps ease into each other instead of snapping.
-  const start = index / total;
-  const end = Math.min(1, (index + 1) / total + 0.15);
+  // Each step owns a slice of [0..1] scroll progress. The step fills
+  // within the first 70% of its slice so the last step finishes well
+  // before progress needs to hit 1.0.
+  const sliceSize = 1 / total;
+  const start = index * sliceSize;
+  const end = start + sliceSize * 0.7;
   const bodyOpacity = useTransform(progress, [start, end], [0.35, 1]);
   const bodyY = useTransform(progress, [start, end], [12, 0]);
   const markerFill = useTransform(progress, [start, end], [0, 1]);
