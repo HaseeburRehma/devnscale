@@ -6,10 +6,10 @@
  * with S-mark logo pattern tiles and a radial vignette that fades
  * the pattern toward the centre, keeping the focus area clean.
  *
- * The image covers the section absolutely and is purely decorative.
+ * Rendered as a CSS background-image (not next/image) because this
+ * is a purely decorative layer that must load eagerly and cover
+ * the section regardless of IntersectionObserver / lazy-load state.
  */
-
-import Image from "next/image";
 
 export default function PatternBackdrop({
   className = "",
@@ -23,17 +23,13 @@ export default function PatternBackdrop({
     <div
       aria-hidden="true"
       className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
-      style={{ opacity }}
-    >
-      <Image
-        src="/Footer.jpg"
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover"
-        quality={85}
-        priority={false}
-      />
-    </div>
+      style={{
+        opacity,
+        backgroundImage: "url(/Footer.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    />
   );
 }
