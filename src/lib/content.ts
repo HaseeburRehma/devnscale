@@ -785,13 +785,29 @@ export const WHY_STATS = [
   { value: "90%+", lines: ["International", "Client"] },
 ];
 
-export const TESTIMONIAL = {
-  quote:
-    "“DEV N SCALE felt less like an agency and more like the most senior people on our team — they shipped exactly what we needed, on time, and pushed back when it mattered.”",
-  name: "Lukas Meyer",
-  role: "VP Product, Ledgerly",
-  image: "/img/testimonial-lukas.png",
-};
+export const TESTIMONIALS = [
+  {
+    quote:
+      `DEV N SCALE felt less like an agency and more like the most senior people on our team — they shipped exactly what we needed, on time, and pushed back when it mattered.`,
+    name: "Lukas Meyer",
+    role: "VP Product, Ledgerly",
+    image: "/img/testimonial-lukas.png",
+  },
+  {
+    quote:
+      "From day one they understood our vision better than teams we had worked with for years. The quality of code and speed of delivery was genuinely impressive.",
+    name: "Jonas Vogel",
+    role: "CTO, NovaBridge",
+    image: "/img/team/jonas-vogel.png",
+  },
+  {
+    quote:
+      "They turned our rough wireframes into a production-ready platform in under six weeks. Communication was seamless and the result exceeded every expectation.",
+    name: "Omar Haddad",
+    role: "Founder, Paylinq",
+    image: "/img/team/omar-haddad.png",
+  },
+];
 
 export const FAQS = [
   {
@@ -863,7 +879,10 @@ export const FOOTER_LINKS = {
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Term & Condition", href: "/terms" },
   ],
-  contact: ["+92 339 5636702", "info@devnscale.com"],
+  contact: [
+    { label: "+92 339 5636702", href: "tel:+923395636702" },
+    { label: "info@devnscale.com", href: "mailto:info@devnscale.com" },
+  ],
 };
 
 /* ============================================================

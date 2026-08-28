@@ -66,8 +66,13 @@ export default function Footer() {
               </h4>
               <ul className="mt-5 flex flex-col gap-4">
                 {FOOTER_LINKS.contact.map((item) => (
-                  <li key={item} className="text-[16px] text-ink-200">
-                    {item}
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      className="text-[16px] text-ink-200 transition-colors duration-200 hover:text-lime-400"
+                    >
+                      {item.label}
+                    </a>
                   </li>
                 ))}
               </ul>
