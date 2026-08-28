@@ -81,9 +81,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 mb-10 flex flex-col items-center justify-between gap-6 rounded-[16px] bg-white/[0.04] px-6 py-6 sm:flex-row sm:px-8">
-          <p className="text-[16px] text-ink-300">
-            2026 Dev N Scale - All Rights Reserved
+        <div className="mt-16 mb-10 flex flex-col items-center justify-between gap-4 rounded-full border border-white/10 bg-white/[0.06] px-8 py-4 sm:flex-row">
+          <p className="text-[14px] text-ink-300 sm:text-[15px]">
+            &copy; 2026 Dev N Scale - All Rights Reserved
           </p>
           <ul className="flex items-center gap-3">
             {SOCIALS.filter((s) => s.href).map(({ Icon, label, href }) => (
@@ -93,9 +93,9 @@ export default function Footer() {
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex size-8 items-center justify-center rounded-[6px] bg-lime-400 text-brand-950 transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-lime-300"
+                  className="flex size-8 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-lime-400/50 hover:text-lime-400"
                 >
-                  <Icon className="size-[18px]" />
+                  <Icon className="size-[16px]" />
                 </a>
               </li>
             ))}

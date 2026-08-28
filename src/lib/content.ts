@@ -1003,12 +1003,10 @@ export const ABOUT_TEAM: {
   subtitle:
     "A small, senior team — the people you meet are the people who build.",
   members: [
-    { name: "Elias Brandt", role: "Founder & Principal Eng.", initials: "EB", photo: "/img/team/elias-brandt.png", linkedin: "#" },
-    { name: "Omar Haddad", role: "Head of Engineering", initials: "OH", photo: "/img/team/omar-haddad.png", linkedin: "#" },
-    { name: "Daniyal Khan", role: "Lead Product Designer", initials: "DK", photo: "/img/team/daniyal-khan.png", linkedin: "#" },
-    { name: "Yusuf Raza", role: "Mobile Lead", initials: "YR", photo: "/img/team/yusuf-raza.png", linkedin: "#" },
-    { name: "Marco Adler", role: "QA & Automation Lead", initials: "MA", photo: "/img/team/marco-adler.png", linkedin: "#" },
-    { name: "Jonas Vogel", role: "AI & Backend Engineer", initials: "JV", photo: "/img/team/jonas-vogel.png", linkedin: "#" },
+    { name: "Haseeb ur Rehman", role: "WordPress Developer", initials: "HR", photo: "/img/team/haseeb-ur-rehman.png", linkedin: "#" },
+    { name: "Hassan Tahir", role: "Front End Developer", initials: "HT", photo: "/img/team/hassan-tahir.png", linkedin: "#" },
+    { name: "Abdul Basit", role: "UI/UX Designer", initials: "AB", photo: "/img/team/abdul-basit.png", linkedin: "#" },
+    { name: "Mehroz Waseem", role: "UI/UX Designer", initials: "MW", photo: "/img/team/mehroz-waseem.png", linkedin: "#" },
   ],
   hiring: {
     title: "We're hiring.",
