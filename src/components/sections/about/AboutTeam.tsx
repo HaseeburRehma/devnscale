@@ -65,7 +65,7 @@ function MemberCard({
 
       {/* Pre-composited Figma export: person + gradient rings + green bg */}
       {member.photo && (
-        <div className="relative aspect-[285/378] w-full overflow-hidden">
+        <div className="relative aspect-[285/378] w-full overflow-hidden rounded-[12px]">
           <Image
             src={member.photo}
             alt={member.name}

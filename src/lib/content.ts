@@ -166,7 +166,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         {
           title: "Framer Website Design",
           body: "Fast interactive marketing sites built with Framer featuring advanced animations, CMS, and no-code flexibility.",
-          image: "/img/services/web/framer.svg",
+          image: "/img/services/web/framer.png",
         },
         {
           title: "Security, Performance and Optimisation",
@@ -403,7 +403,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     },
     process: {
       eyebrow: "OUR PROCESS",
-      title: "From Prompt to Production",
+      title: "Our Work Process",
       body: "A rigorous development process built for bots that work in the real world.",
       steps: [
         { title: "Use Case Mapping", body: "Define conversational flows, edge cases, and success metrics." },
@@ -669,11 +669,6 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
           title: "DevOps Engineers",
           body: "CI/CD, cloud infrastructure, and deployment pipelines handled by engineers who keep your systems stable while your product evolves.",
           image: "/img/services/staff/row-4.png",
-        },
-        {
-          title: "Security, Performance and Optimisation",
-          body: "SSL, CDN setup, security hardening, Core Web Vitals optimisation, and regular maintenance to keep your site fast and safe.",
-          image: "/img/services/staff/row-5.png",
         },
       ],
     },

@@ -6,6 +6,7 @@ import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
 import PageHero from "@/components/sections/PageHero";
 import ContactBooking from "@/components/sections/contact/ContactBooking";
+import ContactReach from "@/components/sections/contact/ContactReach";
 import { CONTACT_HERO } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -25,10 +26,8 @@ export default function ContactPage() {
           accent={CONTACT_HERO.titleAccent}
           subtitle={CONTACT_HERO.subtitle}
         />
-        {/* ContactBooking now carries the email/phone/office rows in its
-         *  intro column (per Figma), so ContactReach is no longer wired
-         *  here — kept in the codebase for reuse if needed. */}
         <ContactBooking />
+        <ContactReach />
         <Testimonial />
         <Faqs />
       </main>

@@ -98,7 +98,7 @@ export default function Process() {
 
         <div className="shell relative w-full">
           <h2 className="t-subsection text-center text-white">
-            From Prompt to <span className="text-lime-400">Production</span>
+            Our Work <span className="text-lime-400">Process</span>
           </h2>
 
           {/* ---------- Ring (md and up) ---------- */}

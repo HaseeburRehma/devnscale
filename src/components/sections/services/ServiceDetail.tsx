@@ -158,7 +158,7 @@ function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
         const flipped = i % 2 === 1;
         const bandBg = flipped ? "bg-ink-100" : "bg-white";
         return (
-          <section key={row.title} className={`${bandBg} py-10 sm:py-14`}>
+          <section key={row.title} className={`${bandBg} py-10 sm:py-12`}>
             <div className="shell">
               <Reveal delay={0.04}>
                 <div
