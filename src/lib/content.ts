@@ -1177,41 +1177,41 @@ export type CaseStudy = {
 const CASE_STUDY_OPULENCEX: CaseStudy = {
   slug: "opulencex",
   name: "OpulenceX",
-  title: "A DeFi protocol designed so every action earns, and every number is clear.",
+  title: "One DeFi suite for everything you earn on the XRP Ledger.",
   subtitle:
-    "OpulenceX is a decentralised finance protocol on the BNB Chain. Users swap tokens, provide liquidity, stake in yield farms and earn holder rewards, all inside one product.",
+    "OpulenceX brings token swaps, liquidity pools, yield farming, soft staking and NFT rewards into one product for XRPL holders and the projects that build on it.",
   meta: {
-    industry: "DeFi and Web3",
+    industry: "DeFi and Crypto",
     platform: "Web app",
-    scope: "Full protocol interface",
-    services: "UI/UX Design",
+    scope: "Marketing site, DeFi suite, user dashboard",
+    services: "UI/UX Design, Design System",
   },
-  heroGradient: "linear-gradient(135deg, #1a0e2e 0%, #0a0a0a 100%)",
+  heroGradient: "linear-gradient(263.67deg, #f2c632 7.95%, #2acc5c 51.09%, #1e92f4 110.13%)",
   heroImage: "/img/case/opulencex/hero-bg.png",
   coverImage: "/img/case/opulencex/cover.png",
   overview: {
-    lead: "Every DeFi product fights the same problem: too many numbers, too many steps and no clear next action. OpulenceX puts the numbers people actually need on every screen and removes the rest.",
+    lead: "XRPL holders had to move between separate tools to swap, provide liquidity, farm and stake. We designed OpulenceX so every one of those paths lives in one connected product.",
     challenge:
-      "The protocol covers swaps, liquidity pools, yield farms, staking, NFT staking and a faucet. Each feature has its own data, its own flow and its own risk. Designing one coherent product out of that is the hard part.",
+      "Each earning path had its own numbers, rules and reward timing. Users could not compare a farm, a pool and a staking plan side by side, and new projects had no clear way to list their own pool.",
     approach:
-      "We gave every feature the same layout logic: a summary card at the top, the action in the middle, and the detail below. Users learn the pattern once and apply it everywhere, from swapping a token to staking an NFT.",
+      "We gave every product the same structure: TVL, APR and rewards always in the same place, one wallet session across the suite, and a guided listing flow for projects. Complex DeFi steps became short, readable screens.",
   },
   features: {
-    subtitle: "Six products in one shell, each following the same layout logic.",
+    subtitle: "Three parts of the product carry most of the daily use.",
     items: [
       {
         title: "Swap and liquidity",
-        body: "Swap any token pair with visible rates, fees and slippage, or provide liquidity and track your pool share.",
+        body: "Live rate, price impact, slippage and fees before confirming, with pools in a grid or table view.",
         image: "/img/case/opulencex/feature-1.png",
       },
       {
-        title: "Yield farms and staking",
-        body: "Compare APR across farms and staking pools, deposit in one step and harvest rewards from a single dashboard.",
+        title: "Farming and soft staking",
+        body: "Seed, Growth and Harvest plans with clear lock periods and APY, plus farm tables sorted by TVL and APR.",
         image: "/img/case/opulencex/feature-2.png",
       },
       {
-        title: "Portfolio and community",
-        body: "A portfolio dashboard for holdings and history, and community pages with ranks, achievements and the Opulent Art Society.",
+        title: "Portfolio dashboard",
+        body: "Portfolio value, performance, asset allocation and a full transaction history with CSV export.",
         image: "/img/case/opulencex/feature-3.png",
       },
     ],
@@ -1221,7 +1221,7 @@ const CASE_STUDY_OPULENCEX: CaseStudy = {
   seo: {
     title: "OpulenceX — Case Study — Dev N Scale",
     description:
-      "OpulenceX: a DeFi protocol on BNB Chain for swaps, yield farming, staking and holder rewards in one product.",
+      "OpulenceX: a DeFi suite on the XRP Ledger for token swaps, liquidity pools, yield farming, soft staking and NFT rewards in one product.",
   },
 };
 const CASE_STUDY_STRIVE: CaseStudy = {
@@ -1236,7 +1236,7 @@ const CASE_STUDY_STRIVE: CaseStudy = {
     scope: "Marketing site, creator dashboard",
     services: "UI/UX Design",
   },
-  heroGradient: "linear-gradient(135deg, #2a2563 0%, #01050e 100%)",
+  heroGradient: "linear-gradient(180deg, #2a2563 0%, #01050e 100%)",
   heroImage: "/img/case/strive/hero-bg.png",
   coverImage: "/img/case/strive/cover.png",
   overview: {
@@ -1287,7 +1287,7 @@ const CASE_STUDY_CSD: CaseStudy = {
     scope: "Customer ordering app",
     services: "UI/UX Design",
   },
-  heroGradient: "linear-gradient(135deg, #2e8f85 0%, #0c2b28 100%)",
+  heroGradient: "linear-gradient(180deg, #2e8f85 0%, #0c2b28 100%)",
   heroImage: "/img/case/csd-pakistan/hero-bg.png",
   coverImage: "/img/case/csd-pakistan/cover.png",
   overview: {
@@ -1339,7 +1339,7 @@ const CASE_STUDY_NK: CaseStudy = {
     scope: "Website, mobile views",
     services: "UI/UX Design",
   },
-  heroGradient: "linear-gradient(135deg, #a83a40 0%, #1c0d0e 100%)",
+  heroGradient: "linear-gradient(180deg, #a83a40 0%, #1c0d0e 100%)",
   heroImage: "/img/case/nk-associate/hero-bg.png",
   coverImage: "/img/case/nk-associate/cover.png",
   overview: {
@@ -1390,7 +1390,7 @@ const CASE_STUDY_TRILLIONER: CaseStudy = {
     scope: "Landing page",
     services: "UI/UX Design",
   },
-  heroGradient: "linear-gradient(135deg, #6e5a22 0%, #16120a 100%)",
+  heroGradient: "linear-gradient(180deg, #6e5a22 0%, #16120a 100%)",
   heroImage: "/img/case/trillioner/hero-bg.png",
   coverImage: "/img/case/trillioner/cover.png",
   overview: {
@@ -1442,7 +1442,7 @@ const CASE_STUDY_PARROT: CaseStudy = {
     scope: "Trading dashboard, beta onboarding",
     services: "UI/UX Design",
   },
-  heroGradient: "linear-gradient(135deg, #34430f 0%, #191919 100%)",
+  heroGradient: "linear-gradient(180deg, #34430f 0%, #191919 100%)",
   heroImage: "/img/case/parrot-bot/hero-bg.png",
   coverImage: "/img/case/parrot-bot/cover.png",
   overview: {
@@ -1493,7 +1493,7 @@ const CASE_STUDY_YCHARTER: CaseStudy = {
     scope: "Marketing website",
     services: "UI/UX Design",
   },
-  heroGradient: "linear-gradient(135deg, #22345a 0%, #121c31 100%)",
+  heroGradient: "linear-gradient(180deg, #22345a 0%, #121c31 100%)",
   heroImage: "/img/case/y-charter/hero-bg.png",
   coverImage: "/img/case/y-charter/cover.png",
   overview: {
@@ -1545,7 +1545,7 @@ const CASE_STUDY_HUMAIN: CaseStudy = {
     scope: "Marketing website, school dashboard",
     services: "UI/UX Design, Design System",
   },
-  heroGradient: "linear-gradient(135deg, #4f6b3d 0%, #011813 100%)",
+  heroGradient: "linear-gradient(180deg, #4f6b3d 0%, #011813 100%)",
   heroImage: "/img/case/humain-learning/hero-bg.png",
   coverImage: "/img/case/humain-learning/cover.png",
   overview: {

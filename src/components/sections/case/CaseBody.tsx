@@ -22,20 +22,7 @@ export function CaseHero({ study }: { study: CaseStudy }) {
         style={{ background: study.heroGradient }}
       />
 
-      {/* Hero overlay image */}
-      {study.heroImage && (
-        <Image
-          src={study.heroImage}
-          alt=""
-          fill
-          priority
-          aria-hidden="true"
-          sizes="100vw"
-          className="-z-10 object-cover mix-blend-soft-light opacity-40"
-        />
-      )}
-
-      {/* Subtle darkening at bottom */}
+      {/* Subtle darkening at bottom for text contrast */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-[5] bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.25)_100%)]"
@@ -107,17 +94,25 @@ export function CaseHero({ study }: { study: CaseStudy }) {
 
 export function CaseCover({ study }: { study: CaseStudy }) {
   return (
-    <section className="bg-white pt-0">
+    <section className="relative pt-0">
+      {/* Top band continues the hero gradient */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-1/2"
+        style={{ background: study.heroGradient }}
+      />
       <InView>
-        <div className="relative aspect-[1440/720] w-full overflow-hidden">
-          <Image
-            src={study.coverImage}
-            alt={`${study.name} — cover`}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
+        <div className="shell relative">
+          <div className="relative aspect-[1280/720] w-full overflow-hidden rounded-[20px]">
+            <Image
+              src={study.coverImage}
+              alt={`${study.name} — cover`}
+              fill
+              priority
+              sizes="(min-width: 1440px) 1280px, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       </InView>
     </section>
