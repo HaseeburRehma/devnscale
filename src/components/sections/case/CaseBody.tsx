@@ -58,11 +58,30 @@ export function CaseHero({ study }: { study: CaseStudy }) {
           >
             {study.subtitle}
           </p>
+
+          {study.liveUrl && (
+            <a
+              href={study.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rise-in mx-auto mt-8 inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-3.5 text-[14px] font-medium uppercase tracking-[0.08em] text-white transition-colors hover:border-white/40 hover:bg-white/10"
+              style={{ animationDelay: "240ms" }}
+            >
+              Visit Live Site
+            </a>
+          )}
         </div>
+
+        {/* Divider line */}
+        <div
+          aria-hidden="true"
+          className="rise-in mt-auto h-px w-full bg-white/20"
+          style={{ animationDelay: "280ms" }}
+        />
 
         {/* Meta strip — embedded in hero */}
         <div
-          className="rise-in mt-auto grid grid-cols-2 gap-y-6 pt-12 sm:grid-cols-4 sm:gap-x-8"
+          className="rise-in grid grid-cols-2 gap-y-6 pt-8 sm:grid-cols-4 sm:gap-x-8"
           style={{ animationDelay: "300ms" }}
         >
           {(

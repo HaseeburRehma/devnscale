@@ -1152,6 +1152,7 @@ export type CaseStudy = {
   };
   heroGradient: string;
   heroImage?: string;
+  liveUrl?: string;
   coverImage: string;
   overview: {
     lead: string;
@@ -1546,6 +1547,7 @@ const CASE_STUDY_HUMAIN: CaseStudy = {
     services: "UI/UX Design, Design System",
   },
   heroGradient: "linear-gradient(180deg, #4f6b3d 0%, #011813 100%)",
+  liveUrl: "https://humainlearning.com",
   heroImage: "/img/case/humain-learning/hero-bg.png",
   coverImage: "/img/case/humain-learning/cover.png",
   overview: {
