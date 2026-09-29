@@ -698,37 +698,33 @@ export const SERVICE_SLUGS: Record<string, string> = Object.fromEntries(
   Object.entries(SERVICE_DETAILS).map(([id, detail]) => [detail.slug, id]),
 );
 
-/* Home page "Outcomes we're proud of" deck — three real case studies,
- * copy transcribed from the Figma. Pills/titles are verbatim (including
- * "Fintech Saas Application" casing). Covers are the Work-page Figma
- * exports so a visitor sees the exact art from the design source. */
 export const PROJECTS = [
   {
-    pill: "FinTech Mobile App Design",
-    title: "Merchant Cash Advance Calculator (MCA)",
-    body: "MCA Professionals Often Rely On Multiple Tools To Calculate Deals, Manage Templates, And Review Previous Calculations. We Designed One Connected Experience To Bring These Tasks Together In A Faster, More Organized Workflow.",
-    metric: "38+",
+    pill: "DeFi and Web3",
+    title: "OpulenceX",
+    body: "OpulenceX is a decentralised finance protocol on the BNB Chain. Users swap tokens, provide liquidity, stake in yield farms and earn holder rewards, all inside one product.",
+    metric: "16",
     metricLabel: "Screens Designed",
-    image: "/img/case/work-cover-1-mca.png",
-    href: "/case-study",
+    image: "/img/case/opulencex/cover.png",
+    href: "/case-study/opulencex",
   },
   {
-    pill: "Fintech Saas Application",
-    title: "Lend SaaS Application",
-    body: "A Centralized Platform That Brings Essential Financial Products, Protocols, Knowledge, And Powerful Calculation Tools Together In One Seamless Experience.",
-    metric: "01",
-    metricLabel: "Centralized Platform",
-    image: "/img/case/work-cover-2-lend-saas.png",
-    href: "/case-study/lend-hub",
+    pill: "Web3 and Creator Economy",
+    title: "StriVe",
+    body: "StriVe is a Web3 creator platform. Creators launch campaigns and raise money for their projects, while fans discover them, invest in them and trade creator tokens.",
+    metric: "12",
+    metricLabel: "Screens Designed",
+    image: "/img/case/strive/cover.png",
+    href: "/case-study/strive",
   },
   {
-    pill: "NFT Crypto Market",
-    title: "Opulencex",
-    body: "Swap Tokens, Farm Yield, Stake For APY, And Earn From NFTs — All Through One Connected DeFi Suite Built For The XRP Ledger.",
-    metric: "04",
-    metricLabel: "Core DeFi Opportunities",
-    image: "/img/case/work-cover-3-opulencex.png",
-    href: "/case-study/lend-saas",
+    pill: "Retail and Grocery",
+    title: "CSD Pakistan",
+    body: "CSD Pakistan, The Caring Store, is a grocery ordering app for iOS. Customers set a delivery location, shop from the CSD store that serves it and track the order to their door.",
+    metric: "16",
+    metricLabel: "Screens Designed",
+    image: "/img/case/csd-pakistan/cover.png",
+    href: "/case-study/csd-pakistan",
   },
 ];
 
@@ -1140,354 +1136,467 @@ export const CONTACT_REACH = {
 } as const;
 
 /* ============================================================
-   Case Study page — copy from Figma "DEV N SCALE — Case Study" (4850:15665)
-   Images are empty frames in Figma → branded placeholders in the build.
+   Case Study pages — new structure from Figma (5892:54950)
    ============================================================ */
 
-// A single case study's shape. `CASE_STUDIES` below is a map from slug
-// to one of these; individual routes at `/case-study` (MCA, default) and
-// `/case-study/lend-saas` render the same components with different data.
 export type CaseStudy = {
-  eyebrow: string;
+  slug: string;
+  name: string;
   title: string;
   subtitle: string;
-  meta: readonly { value: string; label: string }[];
-  /** Full-bleed hero background exported from Figma (replaces the default
-   *  site grid+glow behind the PageHero title). */
-  heroBackground: string;
-  heroImage: string;
+  meta: {
+    industry: string;
+    platform: string;
+    scope: string;
+    services: string;
+  };
+  heroGradient: string;
+  heroImage?: string;
+  coverImage: string;
   overview: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    stats: readonly { value: string; label: string }[];
+    lead: string;
+    challenge: string;
+    approach: string;
   };
-  problem: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    image: string;
-  };
-  designSystem: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    image: string;
-  };
-  results: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    image: string;
-    stats: readonly { value: string; label: string }[];
-  };
-  experience: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    mock1: string;
-    mock2: string;
-  };
-  gallery: {
-    eyebrow: string;
-    title: string;
-    /** Optional body paragraph shown under the "Full Picture" title.
-     *  MCA doesn't have one in Figma; OpulenceX + Central Hub do. */
-    body?: string;
-    image: string;
-  };
-  selectedWork: {
-    eyebrow: string;
-    title: string;
+  features: {
     subtitle: string;
-    cases: readonly {
-      name: string;
-      url: string;
-      year: string;
-      badge: string;
-      tags: readonly string[];
-      cover: string;
-      href: string;
+    items: readonly {
+      title: string;
+      body: string;
+      image: string;
     }[];
   };
+  screensImage: string;
+  selectedWork: readonly string[];
+  seo: {
+    title: string;
+    description: string;
+  };
 };
 
-/* MCA Calculator — copy transcribed verbatim from Figma frame 4850:15665
- * (title case is authored in Figma, not our style choice — preserved). */
-const CASE_STUDY_MCA: CaseStudy = {
-  eyebrow: "CASE STUDY · MCA Calculator",
-  title: "Simplifying MCA Calculations Into One Powerful Workflow.",
+const CASE_STUDY_OPULENCEX: CaseStudy = {
+  slug: "opulencex",
+  name: "OpulenceX",
+  title: "A DeFi protocol designed so every action earns, and every number is clear.",
   subtitle:
-    "A Smarter Way To Calculate, Manage, And Structure Merchant Cash Advances.",
-  meta: [
-    { value: "2024", label: "YEAR" },
-    { value: "UX/UI, Development", label: "SERVICES" },
-    { value: "FinTech · Alternative Finance", label: "INDUSTRY" },
-    { value: "iOS · Android", label: "PLATFORM" },
-  ],
-  heroBackground: "/img/case/mca/hero-bg.png",
-  heroImage: "/img/case/mca/hero.png",
+    "OpulenceX is a decentralised finance protocol on the BNB Chain. Users swap tokens, provide liquidity, stake in yield farms and earn holder rewards, all inside one product.",
+  meta: {
+    industry: "DeFi and Web3",
+    platform: "Web app",
+    scope: "Full protocol interface",
+    services: "UI/UX Design",
+  },
+  heroGradient: "linear-gradient(135deg, #1a0e2e 0%, #0a0a0a 100%)",
+  heroImage: "/img/case/opulencex/hero-bg.png",
+  coverImage: "/img/case/opulencex/cover.png",
   overview: {
-    eyebrow: "THE CHALLENGE",
-    title: "From Scattered Tools To One Clear View.",
-    body: "MCA Professionals Often Rely On Multiple Tools To Calculate Deals, Manage Templates, And Review Previous Calculations. We Designed One Connected Experience To Bring These Tasks Together In A Faster, More Organized Workflow.",
-    stats: [
-      { value: "38+", label: "Screens Designed" },
-      { value: "120+", label: "Product Components" },
-      { value: "100%", label: "Mobile-First Experience" },
-    ],
+    lead: "Every DeFi product fights the same problem: too many numbers, too many steps and no clear next action. OpulenceX puts the numbers people actually need on every screen and removes the rest.",
+    challenge:
+      "The protocol covers swaps, liquidity pools, yield farms, staking, NFT staking and a faucet. Each feature has its own data, its own flow and its own risk. Designing one coherent product out of that is the hard part.",
+    approach:
+      "We gave every feature the same layout logic: a summary card at the top, the action in the middle, and the detail below. Users learn the pattern once and apply it everywhere, from swapping a token to staking an NFT.",
   },
-  problem: {
-    eyebrow: "THE PROBLEM",
-    title: "A System That Could Grow With The Workflow.",
-    body: "The Challenge Was To Simplify Complex MCA Calculations Without Removing The Flexibility Professionals Need. The Experience Had To Support Different Deal Structures, Reusable Templates, Calculations, And Proposals While Staying Easy To Navigate.",
-    image: "/img/case/mca/problem.png",
-  },
-  designSystem: {
-    eyebrow: "DESIGNED FOR REAL WORK",
-    title: "Built For The Field, Not The Boardroom.",
-    body: "Every Interaction Was Designed Around The Way MCA Professionals Actually Work—From Entering Deal Information And Running Calculations To Reviewing Results And Preparing Proposals.",
-    image: "/img/case/mca/system.png",
-  },
-  results: {
-    eyebrow: "THE RESULT",
-    title: "Faster Deals, Fewer Repeated Steps.",
-    body: "By Bringing Calculations, Templates, History, And Proposals Into One Product, The Experience Reduces Unnecessary Switching And Makes Repetitive Tasks Easier To Manage.",
-    image: "/img/case/mca/results.png",
-    stats: [
-      { value: "31%", label: "Fewer Workflow Steps" },
-      { value: "2.4x", label: "Faster Repeat Calculations" },
-    ],
-  },
-  experience: {
-    eyebrow: "THE EXPERIENCE",
-    title: "Every Screen, Working Together.",
-    body: "From Onboarding And User Profiles To Calculations, Templates, History, And Proposals, Every Screen Was Designed As Part Of One Connected Experience With Consistent Navigation And Components.",
-    mock1: "/img/case/mca/mock-1.png",
-    mock2: "/img/case/mca/mock-2.png",
-  },
-  gallery: {
-    eyebrow: "THE FULL PICTURE",
-    /* Figma authors this heading in sentence case, unlike the rest of the
-     * MCA page — preserve verbatim. */
-    title: "Every screen, working together.",
-    image: "/img/case/mca/gallery.png",
-  },
-  selectedWork: {
-    eyebrow: "SELECTED WORK",
-    title: "Case studies we're proud of.",
-    subtitle:
-      "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
-    cases: [
+  features: {
+    subtitle: "Six products in one shell, each following the same layout logic.",
+    items: [
       {
-        name: "Halo Health",
-        url: "halohealth.app.com",
-        year: "2025",
-        badge: "Mobile App",
-        tags: ["iOS", "Android", "UI/UX"],
-        cover: "/img/case/cover-halo.png",
-        href: "/case-study/lend-saas",
+        title: "Swap and liquidity",
+        body: "Swap any token pair with visible rates, fees and slippage, or provide liquidity and track your pool share.",
+        image: "/img/case/opulencex/feature-1.png",
       },
       {
-        name: "Ledgerly",
-        url: "ledgerly.io.com",
-        year: "2025",
-        badge: "Web Platform",
-        tags: ["Web App", "Design", "QA"],
-        cover: "/img/case/cover-ledgerly.png",
-        href: "/case-study/lend-hub",
+        title: "Yield farms and staking",
+        body: "Compare APR across farms and staking pools, deposit in one step and harvest rewards from a single dashboard.",
+        image: "/img/case/opulencex/feature-2.png",
+      },
+      {
+        title: "Portfolio and community",
+        body: "A portfolio dashboard for holdings and history, and community pages with ranks, achievements and the Opulent Art Society.",
+        image: "/img/case/opulencex/feature-3.png",
       },
     ],
+  },
+  screensImage: "/img/case/opulencex/screens.png",
+  selectedWork: ["strive", "trillioner"],
+  seo: {
+    title: "OpulenceX — Case Study — Dev N Scale",
+    description:
+      "OpulenceX: a DeFi protocol on BNB Chain for swaps, yield farming, staking and holder rewards in one product.",
   },
 };
-
-/* Lend SaaS / OpulenceX — the DeFi XRPL case study (Figma 5478:49371). */
-const CASE_STUDY_SAAS: CaseStudy = {
-  eyebrow: "CASE STUDY · OPULENCEX",
-  title: "Every DeFi Opportunity, In One Complete Ecosystem.",
+const CASE_STUDY_STRIVE: CaseStudy = {
+  slug: "strive",
+  name: "StriVe",
+  title: "A launchpad where creators raise funds and fans back them early.",
   subtitle:
-    "Swap tokens, farm yield, stake for APY, and earn from NFTs — all through one connected DeFi suite built for the XRP Ledger.",
-  meta: [
-    { value: "2024", label: "YEAR" },
-    { value: "UX/UI, Product Design", label: "SERVICES" },
-    { value: "FinTech", label: "INDUSTRY" },
-    { value: "Web", label: "PLATFORM" },
-  ],
-  heroBackground: "/img/case/saas/hero-bg.png",
-  heroImage: "/img/case/saas/hero.png",
+    "StriVe is a Web3 creator platform. Creators launch campaigns and raise money for their projects, while fans discover them, invest in them and trade creator tokens.",
+  meta: {
+    industry: "Web3 and Creator Economy",
+    platform: "Website and web app",
+    scope: "Marketing site, creator dashboard",
+    services: "UI/UX Design",
+  },
+  heroGradient: "linear-gradient(135deg, #2a2563 0%, #01050e 100%)",
+  heroImage: "/img/case/strive/hero-bg.png",
+  coverImage: "/img/case/strive/cover.png",
   overview: {
-    eyebrow: "THE CHALLENGE",
-    title: "Bringing every DeFi opportunity together.",
-    body: "DeFi users often have to move between different platforms to swap tokens, earn yield, stake assets, or explore NFT opportunities. OpulenceX was designed to bring these experiences together in one complete ecosystem.",
-    stats: [
-      { value: "04", label: "Core DeFi Opportunities" },
-      { value: "01", label: "Unified Ecosystem" },
-      { value: "XRPL", label: "Powered DeFi Experience" },
-    ],
+    lead: "Creators had audiences but no simple way to turn them into funding. StriVe gives them a place to launch a campaign, and gives fans a reason to back them early.",
+    challenge:
+      "The product had to explain launchpads, creator tokens and fundraising to people who are fans first and investors second, without losing the energy of a creator brand.",
+    approach:
+      "We led with the idea before the mechanics: a bold landing page, a four-part feature story and a three-step how it works. Behind it sits a dashboard built around exploring projects and uploading your own.",
   },
-  problem: {
-    eyebrow: "THE PROBLEM",
-    title: "Making DeFi feel less fragmented.",
-    body: "With different DeFi activities spread across multiple experiences, users can struggle to navigate the opportunities available to them. The challenge was to create a clear, accessible platform that makes different ways to participate in DeFi easy to discover and understand.",
-    image: "/img/case/saas/problem.png",
-  },
-  designSystem: {
-    eyebrow: "DESIGNED FOR REAL WORK",
-    title: "Built for the way DeFi users invest and earn.",
-    body: "OpulenceX gives users direct access to multiple DeFi opportunities from one platform. Whether they want to swap tokens, farm yield, stake for APY, or earn from NFTs, each experience is designed to fit into one connected workflow.",
-    image: "/img/case/saas/system.png",
-  },
-  results: {
-    eyebrow: "THE RESULT",
-    title: "More opportunities. One connected experience.",
-    body: "By bringing core DeFi opportunities into one ecosystem, OpulenceX makes it easier for users to discover, access, and manage different ways to put their digital assets to work.",
-    image: "/img/case/saas/results.png",
-    stats: [
-      { value: "04", label: "Core DeFi Opportunities" },
-      { value: "01", label: "Unified Ecosystem" },
-      { value: "XRPL", label: "Powered DeFi Experience" },
-    ],
-  },
-  experience: {
-    eyebrow: "THE EXPERIENCE",
-    title: "Everything DeFi, within reach.",
-    body: "From token swaps and yield farming to staking and NFT earnings, OpulenceX creates a consistent experience across different DeFi activities, helping users move between opportunities with greater clarity and confidence.",
-    mock1: "/img/case/saas/mock-1.png",
-    mock2: "/img/case/saas/mock-2.png",
-  },
-  gallery: {
-    eyebrow: "THE FULL PICTURE",
-    title: "The complete DeFi suite for XRPL.",
-    body: "OpulenceX Brings The XRP Ledger's DeFi Opportunities Together In One Place, Creating A Growing Ecosystem Where Users Can Explore New Ways To Swap, Stake, Farm, And Earn From Their Digital Assets.",
-    image: "/img/case/saas/gallery.png",
-  },
-  selectedWork: {
-    eyebrow: "SELECTED WORK",
-    title: "Case studies we're proud of.",
-    subtitle:
-      "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
-    cases: [
+  features: {
+    subtitle: "The website sells the idea. The dashboard runs it.",
+    items: [
       {
-        name: "Halo Health",
-        url: "halohealth.app.com",
-        year: "2025",
-        badge: "Mobile App",
-        tags: ["iOS", "Android", "UI/UX"],
-        cover: "/img/case/cover-halo.png",
-        href: "/case-study",
+        title: "Creator launchpad",
+        body: "Creator-led campaigns where fans invest in a creator and follow the project as it grows.",
+        image: "/img/case/strive/feature-1.png",
       },
       {
-        name: "Ledgerly",
-        url: "ledgerly.io.com",
-        year: "2025",
-        badge: "Web Platform",
-        tags: ["Web App", "Design", "QA"],
-        cover: "/img/case/cover-ledgerly.png",
-        href: "/case-study/lend-hub",
+        title: "Explore and project pages",
+        body: "A browsable grid of creator projects, each with its own page and story.",
+        image: "/img/case/strive/feature-2.png",
+      },
+      {
+        title: "Upload and portfolio",
+        body: "A guided upload flow for new projects and a portfolio view for tracking holdings.",
+        image: "/img/case/strive/feature-3.png",
       },
     ],
+  },
+  screensImage: "/img/case/strive/screens.png",
+  selectedWork: ["csd-pakistan", "parrot-bot"],
+  seo: {
+    title: "StriVe — Case Study — Dev N Scale",
+    description:
+      "StriVe: a Web3 creator launchpad where fans back projects early and trade creator tokens.",
   },
 };
 
-/* Third case: the "central hub" Lend SaaS, node 5399:40158. Copy is verbatim
- * from Figma. Same shape/components as MCA and OpulenceX. */
-const CASE_STUDY_LEND_HUB: CaseStudy = {
-  eyebrow: "CASE STUDY · Lend SaaS",
-  title: "One Central Hub For Everything Lend SaaS.",
+const CASE_STUDY_CSD: CaseStudy = {
+  slug: "csd-pakistan",
+  name: "CSD Pakistan",
+  title: "Grocery shopping from your nearest CSD store, in a few taps.",
   subtitle:
-    "A Centralized Platform That Brings Essential Financial Products, Protocols, Knowledge, And Powerful Calculation Tools Together In One Seamless Experience.",
-  meta: [
-    { value: "2024", label: "YEAR" },
-    { value: "UX/UI, Product Design", label: "SERVICES" },
-    { value: "FinTech", label: "INDUSTRY" },
-    { value: "Web", label: "PLATFORM" },
-  ],
-  heroBackground: "/img/case/lend-hub/hero-bg.png",
-  heroImage: "/img/case/lend-hub/hero.png",
+    "CSD Pakistan, The Caring Store, is a grocery ordering app for iOS. Customers set a delivery location, shop from the CSD store that serves it and track the order to their door.",
+  meta: {
+    industry: "Retail and Grocery",
+    platform: "iOS app",
+    scope: "Customer ordering app",
+    services: "UI/UX Design",
+  },
+  heroGradient: "linear-gradient(135deg, #2e8f85 0%, #0c2b28 100%)",
+  heroImage: "/img/case/csd-pakistan/hero-bg.png",
+  coverImage: "/img/case/csd-pakistan/cover.png",
   overview: {
-    eyebrow: "THE CHALLENGE",
-    title: "Bringing Everything Lending Into One Place.",
-    body: "Lend SaaS Needed To Serve As The Central Hub For Everything The Team Relies On—From Company Products And Protocols To Knowledge And Financial Tools. The Goal Was To Create One Accessible Platform That Could Bring These Resources Together Without Adding Complexity.",
-    stats: [
-      { value: "01", label: "Centralized Platform" },
-      { value: "04+", label: "Core Resource Categories" },
-      { value: "01", label: "Integrated Financial Calculator" },
-    ],
+    lead: "We followed the design thinking process from persona to tested prototype, and mapped the full order journey before designing a single screen.",
+    challenge:
+      "Ordering depends on where the customer is. The app had to find the right store from a delivery location, then keep browsing, cart, payment and tracking simple for everyday shoppers.",
+    approach:
+      "We mapped one flow from sign in to reorder: location, store, categories, product, cart, delivery slot and payment, confirmation, live tracking and feedback. Each step became one focused screen.",
   },
-  problem: {
-    eyebrow: "THE PROBLEM",
-    title: "Making Complex Financial Workflows Easier To Navigate.",
-    body: "Financial Teams Work With Multiple Resources While Handling Calculations, Financial Projections, Loan Analysis, And Underwriting Decisions. Lend SaaS Needed To Make These Resources Easier To Access While Creating A More Seamless Way To Move Between Information And Tools.",
-    image: "/img/case/lend-hub/problem.png",
-  },
-  designSystem: {
-    eyebrow: "DESIGNED FOR REAL WORK",
-    title: "Built Around The Way Financial Teams Work.",
-    body: "Lend SaaS Was Designed To Put The Right Products, Protocols, Knowledge, And Financial Tools Within Easy Reach. The Experience Helps Teams Spend Less Time Looking For Information And More Time Focusing On Analysis, Calculations, And Decision-Making.",
-    image: "/img/case/lend-hub/system.png",
-  },
-  results: {
-    eyebrow: "THE RESULT",
-    title: "Greater Accuracy. Better Decisions.",
-    body: "Lend SaaS Brings Powerful Financial Capabilities Into One Connected Experience, Helping Streamline Complex Calculations, Improve Efficiency, And Support Smarter Underwriting And Financial Decision-Making.",
-    image: "/img/case/lend-hub/results.png",
-    stats: [
-      { value: "01", label: "Centralized Platform" },
-      { value: "04+", label: "Core Resource Areas" },
-      { value: "100%", label: "Connected Experience" },
-    ],
-  },
-  experience: {
-    eyebrow: "THE EXPERIENCE",
-    title: "Powerful Tools, Seamlessly Connected.",
-    body: "From Financial Products And Protocols To Knowledge And Advanced Calculation Tools, Every Part Of Lend SaaS Works Together To Create A Clear And Efficient Experience. Users Can Access What They Need Through A Single, Consistent Platform.",
-    mock1: "/img/case/lend-hub/mock-1.png",
-    mock2: "/img/case/lend-hub/mock-2.png",
-  },
-  gallery: {
-    eyebrow: "THE FULL PICTURE",
-    title: "Built Today. Ready For What's Next.",
-    body: "Lend SaaS Is Continuously Evolving With The Potential For More Powerful Tools, Seamless Integrations, And Valuable Knowledge-Sharing Resources. The Platform Provides A Strong Foundation For Expanding Its Capabilities And Creating Even More Value For Its Users.",
-    image: "/img/case/lend-hub/gallery.png",
-  },
-  selectedWork: {
-    eyebrow: "SELECTED WORK",
-    title: "Case studies we're proud of.",
+  features: {
     subtitle:
-      "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
-    cases: [
+      "The order journey, from choosing a store to the bag at the door.",
+    items: [
       {
-        name: "Halo Health",
-        url: "halohealth.app.com",
-        year: "2025",
-        badge: "Mobile App",
-        tags: ["iOS", "Android", "UI/UX"],
-        cover: "/img/case/cover-halo.png",
-        href: "/case-study",
+        title: "Location and store",
+        body: "Set a delivery address and the app detects the CSD store that serves it, or lets you pick one.",
+        image: "/img/case/csd-pakistan/feature-1.png",
       },
       {
-        name: "Ledgerly",
-        url: "ledgerly.io.com",
-        year: "2025",
-        badge: "Web Platform",
-        tags: ["Web App", "Design", "QA"],
-        cover: "/img/case/cover-ledgerly.png",
-        href: "/case-study/lend-saas",
+        title: "Browse, search and cart",
+        body: "Categories, top sellers, search and a cart you can edit before checkout.",
+        image: "/img/case/csd-pakistan/feature-2.png",
+      },
+      {
+        title: "Checkout and tracking",
+        body: "Pick a delivery time slot and payment method, then track the order until it arrives.",
+        image: "/img/case/csd-pakistan/feature-3.png",
       },
     ],
+  },
+  screensImage: "/img/case/csd-pakistan/screens.png",
+  selectedWork: ["nk-associate", "y-charter"],
+  seo: {
+    title: "CSD Pakistan — Case Study — Dev N Scale",
+    description:
+      "CSD Pakistan: a grocery ordering iOS app with location-based store selection and live order tracking.",
   },
 };
 
-/** Slug → CaseStudy map. `/case-study` (default) uses `mca`; slug routes
- *  under `/case-study/[slug]` resolve here. */
+const CASE_STUDY_NK: CaseStudy = {
+  slug: "nk-associate",
+  name: "NK Associate",
+  title: "Find a property, a project or an investment in one search.",
+  subtitle:
+    "NK Associate is a real estate company that sells, rents and develops property. We designed its website around property search, clear listings and the company’s own development projects.",
+  meta: {
+    industry: "Real Estate",
+    platform: "Website",
+    scope: "Website, mobile views",
+    services: "UI/UX Design",
+  },
+  heroGradient: "linear-gradient(135deg, #a83a40 0%, #1c0d0e 100%)",
+  heroImage: "/img/case/nk-associate/hero-bg.png",
+  coverImage: "/img/case/nk-associate/cover.png",
+  overview: {
+    lead: "People come to a real estate site with one question: what is available, where, and at what price. The homepage answers it with search before anything else.",
+    challenge:
+      "The company sells, rents and develops property, and also offers services and events. All of it had to live in one site without burying the listings people come for.",
+    approach:
+      "Search sits at the top of the homepage with property type, price range, project, location and purpose. Listings, projects and services each got an index page and a detail page with the same structure.",
+  },
+  features: {
+    subtitle: "Three routes into the business, all starting from search.",
+    items: [
+      {
+        title: "Property search",
+        body: "Filter by property type, price range, project, location and sale or rent, with a map view.",
+        image: "/img/case/nk-associate/feature-1.png",
+      },
+      {
+        title: "Listings and projects",
+        body: "Sale, rent and inventory listings, plus project pages for the company’s own developments.",
+        image: "/img/case/nk-associate/feature-2.png",
+      },
+      {
+        title: "Services, events and careers",
+        body: "Service detail pages, an events page and a careers page, with contact always one step away.",
+        image: "/img/case/nk-associate/feature-3.png",
+      },
+    ],
+  },
+  screensImage: "/img/case/nk-associate/screens.png",
+  selectedWork: ["trillioner", "humain-learning"],
+  seo: {
+    title: "NK Associate — Case Study — Dev N Scale",
+    description:
+      "NK Associate: a real estate website with property search, listings, project pages and development projects.",
+  },
+};
+
+const CASE_STUDY_TRILLIONER: CaseStudy = {
+  slug: "trillioner",
+  name: "Trillioner",
+  title: "A crypto banking coin, explained and proven on one page.",
+  subtitle:
+    "Trillioner is the landing page for Trillioner Coin (TLC), a crypto banking project with a wallet app, instant token swap and listings on major exchanges.",
+  meta: {
+    industry: "Crypto and Web3",
+    platform: "Website",
+    scope: "Landing page",
+    services: "UI/UX Design",
+  },
+  heroGradient: "linear-gradient(135deg, #6e5a22 0%, #16120a 100%)",
+  heroImage: "/img/case/trillioner/hero-bg.png",
+  coverImage: "/img/case/trillioner/cover.png",
+  overview: {
+    lead: "A token project has one page to earn trust. The Trillioner landing page takes a visitor from the promise to the proof: roadmap, wallet, partners, listings and a legal opinion.",
+    challenge:
+      "Visitors arrive sceptical. The page had to explain what the coin is for, show that it is real and listed, and lead to the whitepaper without reading like hype.",
+    approach:
+      "We ordered the page like an argument. Vision and core services come first, then the roadmap and wallet app, then live price, swap, partners, exchange listings, a legal opinion and ratings as proof.",
+  },
+  features: {
+    subtitle:
+      "Every section answers the next question a careful investor would ask.",
+    items: [
+      {
+        title: "Services and roadmap",
+        body: "Crypto banking and the wider service set, with a quarter by quarter roadmap.",
+        image: "/img/case/trillioner/feature-1.png",
+      },
+      {
+        title: "Wallet and swap",
+        body: "The Trillioner Wallet app and an instant TLC swap block, each with one clear next step.",
+        image: "/img/case/trillioner/feature-2.png",
+      },
+      {
+        title: "Proof of trust",
+        body: "Partners, exchange listings, a legal opinion by Legal Kornet USA and project ratings.",
+        image: "/img/case/trillioner/feature-3.png",
+      },
+    ],
+  },
+  screensImage: "/img/case/trillioner/screens.png",
+  selectedWork: ["parrot-bot", "opulencex"],
+  seo: {
+    title: "Trillioner — Case Study — Dev N Scale",
+    description:
+      "Trillioner: a crypto banking coin landing page with wallet app, token swap and exchange listings.",
+  },
+};
+
+const CASE_STUDY_PARROT: CaseStudy = {
+  slug: "parrot-bot",
+  name: "Parrot Bot",
+  title: "Copy the wallets that win on Solana, and see every trade.",
+  subtitle:
+    "Parrot Bot is a copy trading dashboard for Solana. Traders research wallets, copy the ones they trust and track positions, trades and profit in one place.",
+  meta: {
+    industry: "Crypto Trading",
+    platform: "Web app",
+    scope: "Trading dashboard, beta onboarding",
+    services: "UI/UX Design",
+  },
+  heroGradient: "linear-gradient(135deg, #34430f 0%, #191919 100%)",
+  heroImage: "/img/case/parrot-bot/hero-bg.png",
+  coverImage: "/img/case/parrot-bot/cover.png",
+  overview: {
+    lead: "Copy traders live in the numbers. We designed Parrot Bot so net worth, PnL and open positions read at a glance, even on a dense screen.",
+    challenge:
+      "Every copied wallet produces positions, trades and results. Traders needed to research a wallet, decide to copy it and set their risk rules without switching tools.",
+    approach:
+      "One dashboard shows net worth, realized and unrealized PnL, open positions, copied wallets and trade history. Wallet pages add a 7 day PnL chart, win rate and trade counts, with Copy Wallet as the main action.",
+  },
+  features: {
+    subtitle: "Research a wallet, copy it, then manage the risk.",
+    items: [
+      {
+        title: "Dashboard",
+        body: "Net worth, realized and unrealized PnL, open positions, wallets copying and full trade history.",
+        image: "/img/case/parrot-bot/feature-1.png",
+      },
+      {
+        title: "Wallet research",
+        body: "Search any SOL wallet, see its PnL, win rate and trades, then copy it in one click.",
+        image: "/img/case/parrot-bot/feature-2.png",
+      },
+      {
+        title: "Wallet manager",
+        body: "Deposit, withdraw and set buy amount, slippage, take profit and stop loss per wallet.",
+        image: "/img/case/parrot-bot/feature-3.png",
+      },
+    ],
+  },
+  screensImage: "/img/case/parrot-bot/screens.png",
+  selectedWork: ["y-charter", "strive"],
+  seo: {
+    title: "Parrot Bot — Case Study — Dev N Scale",
+    description:
+      "Parrot Bot: a Solana copy trading dashboard for wallet research, position tracking and risk management.",
+  },
+};
+
+const CASE_STUDY_YCHARTER: CaseStudy = {
+  slug: "y-charter",
+  name: "Y Charter",
+  title: "Private yacht charters, sold on the feeling of a week at sea.",
+  subtitle:
+    "Y Charter is a luxury crewed yacht charter brokerage with a curated fleet across the Mediterranean, Caribbean, Middle East and Asia. We designed its marketing website.",
+  meta: {
+    industry: "Luxury Travel",
+    platform: "Website",
+    scope: "Marketing website",
+    services: "UI/UX Design",
+  },
+  heroGradient: "linear-gradient(135deg, #22345a 0%, #121c31 100%)",
+  heroImage: "/img/case/y-charter/hero-bg.png",
+  coverImage: "/img/case/y-charter/cover.png",
+  overview: {
+    lead: "Charter guests are not comparing engine sizes. They are picturing a week at sea. The site leads with that week and lets the fleet, the advisor and the membership follow.",
+    challenge:
+      "The brand had to feel exclusive and personal while still showing a real fleet, a membership offer and a simple way to start an enquiry.",
+    approach:
+      "Large imagery and a restrained palette carry the mood. Every section ends in one clear action: discover the fleet, join the Y Club waiting list or speak with an advisor.",
+  },
+  features: {
+    subtitle:
+      "Mood first, then the three things a guest actually needs.",
+    items: [
+      {
+        title: "Fleet",
+        body: "A curated yacht carousel with size and key details on every card, and a path to the full fleet.",
+        image: "/img/case/y-charter/feature-1.png",
+      },
+      {
+        title: "Y Club membership",
+        body: "Priority booking, a dedicated concierge, sale and purchase advisory and member gatherings.",
+        image: "/img/case/y-charter/feature-2.png",
+      },
+      {
+        title: "Enquiry",
+        body: "A short enquiry form so a single advisor can shortlist yachts to the guest’s brief.",
+        image: "/img/case/y-charter/feature-3.png",
+      },
+    ],
+  },
+  screensImage: "/img/case/y-charter/screens.png",
+  selectedWork: ["humain-learning", "csd-pakistan"],
+  seo: {
+    title: "Y Charter — Case Study — Dev N Scale",
+    description:
+      "Y Charter: a luxury yacht charter brokerage website with curated fleet, Y Club membership and advisor enquiry.",
+  },
+};
+
+const CASE_STUDY_HUMAIN: CaseStudy = {
+  slug: "humain-learning",
+  name: "Humain Learning",
+  title: "AI literacy for schools, from the first visit to the classroom dashboard.",
+  subtitle:
+    "Humain Learning teaches AI literacy to students aged 13 to 18 and their teachers. We designed the website that explains the programme and the IAAT dashboard schools use to assess and improve teaching.",
+  meta: {
+    industry: "EdTech",
+    platform: "Website and web app",
+    scope: "Marketing website, school dashboard",
+    services: "UI/UX Design, Design System",
+  },
+  heroGradient: "linear-gradient(135deg, #4f6b3d 0%, #011813 100%)",
+  heroImage: "/img/case/humain-learning/hero-bg.png",
+  coverImage: "/img/case/humain-learning/cover.png",
+  overview: {
+    lead: "Humain Learning serves two audiences: families deciding whether to enrol, and schools that need to see how teaching is going. We designed one brand across both, a website that earns trust and a dashboard that turns assessment data into action.",
+    challenge:
+      "The website had to explain AI literacy, a six-pillar framework and a course to parents and students without turning into a wall of text. The dashboard had to give teachers, department heads and principals different answers from the same data.",
+    approach:
+      "On the website, every section answers one question in order: why AI, why Humain, who teaches it and what the course looks like. In the dashboard, one shared layout adapts to each role, with self assessments, evaluations and comparisons one click away.",
+  },
+  features: {
+    subtitle:
+      "One brand, two products, and the three parts people use most.",
+    items: [
+      {
+        title: "Website and framework",
+        body: "A calm, human-first site that sets out the promise, the IIT Delhi partnership and the six-pillar AI literacy framework.",
+        image: "/img/case/humain-learning/feature-1.png",
+      },
+      {
+        title: "Course page",
+        body: "A course detail page with an overview, tabbed details and a step-by-step AI journey through each module.",
+        image: "/img/case/humain-learning/feature-2.png",
+      },
+      {
+        title: "School dashboard",
+        body: "Role-based views for teachers, department heads and principals, with self assessments and comparisons.",
+        image: "/img/case/humain-learning/feature-3.png",
+      },
+    ],
+  },
+  screensImage: "/img/case/humain-learning/screens.png",
+  selectedWork: ["opulencex", "nk-associate"],
+  seo: {
+    title: "Humain Learning — Case Study — Dev N Scale",
+    description:
+      "Humain Learning: AI literacy for schools with a marketing website and role-based classroom dashboard.",
+  },
+};
+
 export const CASE_STUDIES: Record<string, CaseStudy> = {
-  mca: CASE_STUDY_MCA,
-  "lend-saas": CASE_STUDY_SAAS,
-  "lend-hub": CASE_STUDY_LEND_HUB,
+  opulencex: CASE_STUDY_OPULENCEX,
+  strive: CASE_STUDY_STRIVE,
+  "csd-pakistan": CASE_STUDY_CSD,
+  "nk-associate": CASE_STUDY_NK,
+  trillioner: CASE_STUDY_TRILLIONER,
+  "parrot-bot": CASE_STUDY_PARROT,
+  "y-charter": CASE_STUDY_YCHARTER,
+  "humain-learning": CASE_STUDY_HUMAIN,
 };
 
-/** Kept for backward compat — the default MCA case rendered at `/case-study`. */
-export const CASE_STUDY: CaseStudy = CASE_STUDY_MCA;
+export const CASE_STUDIES_LIST: CaseStudy[] = Object.values(CASE_STUDIES);
 
 /* ============================================================
    Work page — copy from Figma "DEV N SCALE — Work" (4833:17865)
@@ -1501,73 +1610,16 @@ export const WORK_HERO = {
     "Explore the digital products and solutions we've designed and built for businesses looking to improve their operations, strengthen their digital presence, and scale with confidence.",
 };
 
-// 6 case cards. Cover images exported straight from the Figma Work grid
-// (node 4835:15593) — Aster Studio and Fieldnote intentionally share one
-// render there, everything else has its own unique cover.
 export const WORK = {
   eyebrow: "SELECTED WORK",
-  title: "Case studies we're proud of.",
+  title: "Case studies we’re proud of.",
   subtitle:
     "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
-  /* Six cards, mirroring the Figma Work-page grid (frame 4833:17865). Covers
-   * are exported from Figma with the category pill + lime arrow baked into
-   * the image, so WorkGrid renders the cover as-is. Only three case-study
-   * pages exist today; the other three cards route to the closest match so
-   * users never land on a wrong page. */
-  cases: [
-    {
-      name: "Merchant Cash Advance Calculator (MCA)",
-      url: "halohealth.app.com",
-      year: "2025",
-      badge: "Mobile App",
-      tags: ["iOS", "Android", "UI/UX"],
-      cover: "/img/case/work-cover-1-mca.png",
-      href: "/case-study",
-    },
-    {
-      name: "Lend SaaS Application",
-      url: "ledgerly.io.com",
-      year: "2025",
-      badge: "Web App",
-      tags: ["Web App", "Design", "QA"],
-      cover: "/img/case/work-cover-2-lend-saas.png",
-      href: "/case-study/lend-hub",
-    },
-    {
-      name: "OpulenceX — DeFi Suite",
-      url: "opulencex.xyz",
-      year: "2024",
-      badge: "Brand + Site",
-      tags: ["Web App", "DeFi", "XRPL"],
-      cover: "/img/case/work-cover-3-opulencex.png",
-      href: "/case-study/lend-saas",
-    },
-    {
-      name: "Aster Studio",
-      url: "asterstudio.com",
-      year: "2024",
-      badge: "SaaS",
-      tags: ["UI/UX", "Web App", "Motion"],
-      cover: "/img/case/work-cover-4-aster.png",
-      href: "/case-study/lend-saas",
-    },
-    {
-      name: "Fieldnote",
-      url: "fieldnote.app",
-      year: "2023",
-      badge: "Logistics",
-      tags: ["Mobile", "Web", "API"],
-      cover: "/img/case/work-cover-5-fieldnote.png",
-      href: "/case-study",
-    },
-    {
-      name: "AI Marketplace",
-      url: "vantagelabs.ai",
-      year: "2023",
-      badge: "AI Platform",
-      tags: ["AI", "Backend", "QA"],
-      cover: "/img/case/work-cover-6-marketplace.png",
-      href: "/case-study/lend-hub",
-    },
-  ],
+  cases: CASE_STUDIES_LIST.map((cs) => ({
+    name: cs.name,
+    industry: cs.meta.industry,
+    tags: cs.meta.services.split(" / ").concat(cs.meta.platform.split(" and ")),
+    cover: cs.coverImage,
+    href: `/case-study/${cs.slug}`,
+  })),
 } as const;

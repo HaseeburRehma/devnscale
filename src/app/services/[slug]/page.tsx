@@ -35,9 +35,7 @@ export default async function ServicePage({ params }: PageProps) {
   const detail = id ? SERVICE_DETAILS[id] : undefined;
   if (!detail) notFound();
 
-  // Reuse the MCA case for the "Selected Work" tail card set — every
-  // service page shares the same two proud-of-cards row from Figma.
-  const study = CASE_STUDIES.mca;
+  const study = CASE_STUDIES.opulencex;
 
   return (
     <>

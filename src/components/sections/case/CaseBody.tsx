@@ -1,279 +1,265 @@
 import Image from "next/image";
+import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
 import InView from "@/components/motion/InView";
 import AnimatedGroup from "@/components/motion/AnimatedGroup";
-import { CASE_STUDY, type CaseStudy } from "@/lib/content";
+import type { CaseStudy } from "@/lib/content";
 
-/**
- * All case-study body sections take a `study` prop so the same components
- * render both the MCA Calculator and the OpulenceX Lend SaaS pages (and any
- * future case). `study` defaults to the MCA export so existing call sites
- * keep working.
- */
-type StudyProps = { study?: CaseStudy };
+/* ------------------------------------------------------------------ */
+/*  CS · Hero                                                          */
+/* ------------------------------------------------------------------ */
 
-/* Full-width hero product shot directly under the meta strip. */
-export function CaseHeroImage({ study = CASE_STUDY }: StudyProps) {
+export function CaseHero({ study }: { study: CaseStudy }) {
   return (
-    <section className="bg-white pt-14 sm:pt-16">
-      <div className="shell">
-        <InView>
-          <div className="relative aspect-[2/1] w-full overflow-hidden rounded-[24px]">
-            <Image
-              src={study.heroImage}
-              alt={`${study.title} — hero`}
-              fill
-              priority
-              sizes="(min-width: 1440px) 1280px, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </InView>
+    <section
+      id="top"
+      className="relative isolate flex min-h-[560px] flex-col items-center overflow-hidden pb-14 pt-[120px] sm:min-h-[640px] sm:pt-[140px] lg:min-h-[720px] lg:pt-[160px]"
+    >
+      {/* Gradient background */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-20"
+        style={{ background: study.heroGradient }}
+      />
+
+      {/* Hero overlay image */}
+      {study.heroImage && (
+        <Image
+          src={study.heroImage}
+          alt=""
+          fill
+          priority
+          aria-hidden="true"
+          sizes="100vw"
+          className="-z-10 object-cover mix-blend-soft-light opacity-40"
+        />
+      )}
+
+      {/* Subtle darkening at bottom */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-[5] bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.25)_100%)]"
+      />
+
+      <div className="shell relative flex w-full flex-1 flex-col">
+        {/* Breadcrumb */}
+        <nav className="rise-in mb-8">
+          <ol className="flex items-center gap-2 text-[13px] text-white/70">
+            <li>
+              <Link href="/work" className="transition-colors hover:text-white">
+                Our Work
+              </Link>
+            </li>
+            <li aria-hidden="true" className="text-white/40">
+              &gt;
+            </li>
+            <li className="text-white">{study.name}</li>
+          </ol>
+        </nav>
+
+        {/* Title + subtitle */}
+        <div className="mx-auto max-w-[900px] text-center">
+          <h1
+            className="rise-in font-display text-[clamp(1.75rem,1rem+3.2vw,3.25rem)] font-medium leading-[1.12] tracking-[-0.02em] text-white"
+            style={{ animationDelay: "80ms" }}
+          >
+            {study.title}
+          </h1>
+          <p
+            className="rise-in mx-auto mt-6 max-w-[680px] text-[clamp(0.938rem,0.85rem+0.4vw,1.125rem)] leading-[1.6] text-white/80"
+            style={{ animationDelay: "180ms" }}
+          >
+            {study.subtitle}
+          </p>
+        </div>
+
+        {/* Meta strip — embedded in hero */}
+        <div
+          className="rise-in mt-auto grid grid-cols-2 gap-y-6 pt-12 sm:grid-cols-4 sm:gap-x-8"
+          style={{ animationDelay: "300ms" }}
+        >
+          {(
+            [
+              ["Industry", study.meta.industry],
+              ["Platform", study.meta.platform],
+              ["Scope", study.meta.scope],
+              ["Services", study.meta.services],
+            ] as const
+          ).map(([label, value]) => (
+            <div key={label}>
+              <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-white/50">
+                {label}
+              </p>
+              <p className="mt-2 text-[14px] leading-[1.4] text-white/90">
+                {value}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-function StatRow({
-  stats,
-  withDividers = false,
-}: {
-  stats: readonly { value: string; label: string }[];
-  withDividers?: boolean;
-}) {
+/* ------------------------------------------------------------------ */
+/*  CS · Cover                                                         */
+/* ------------------------------------------------------------------ */
+
+export function CaseCover({ study }: { study: CaseStudy }) {
   return (
-    <div
-      className={
-        withDividers
-          ? "flex flex-wrap items-center justify-center gap-y-10 divide-x divide-border-subtle sm:flex-nowrap"
-          : "flex flex-wrap items-start gap-x-16 gap-y-8"
-      }
-    >
-      {stats.map((s) => (
-        <div
-          key={s.label}
-          className={
-            withDividers
-              ? "flex flex-1 flex-col items-center px-8 text-center first:pl-0 last:pr-0"
-              : ""
-          }
-        >
-          <p className="font-display text-[clamp(2.25rem,1.8rem+2vw,3rem)] font-bold leading-none tracking-[-0.03em] text-ink-900">
-            {s.value}
-          </p>
-          <p className="mt-3 t-body-sm text-text-muted">{s.label}</p>
+    <section className="bg-white pt-0">
+      <InView>
+        <div className="relative aspect-[1440/720] w-full overflow-hidden">
+          <Image
+            src={study.coverImage}
+            alt={`${study.name} — cover`}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
         </div>
-      ))}
-    </div>
+      </InView>
+    </section>
   );
 }
 
-/* Overview — split heading/body (white); stats live in their own canvas band. */
-export function CaseOverview({ study = CASE_STUDY }: StudyProps) {
+/* ------------------------------------------------------------------ */
+/*  CS · Overview                                                      */
+/* ------------------------------------------------------------------ */
+
+export function CaseOverview({ study }: { study: CaseStudy }) {
   const { overview } = study;
   return (
-    <>
-      <section className="bg-white section-y">
-        <div className="shell">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
-            <div>
-              <Reveal>
-                <p className="t-eyebrow">{overview.eyebrow}</p>
+    <section className="bg-white section-y">
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[280px_1fr] lg:gap-20">
+          {/* Left — heading */}
+          <Reveal>
+            <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2rem)] font-medium leading-[1.15] tracking-[-0.5px] text-ink-900">
+              Overview
+            </h2>
+          </Reveal>
+
+          {/* Right — lead + challenge/approach */}
+          <div>
+            <Reveal delay={0.06}>
+              <p className="text-[clamp(1rem,0.9rem+0.5vw,1.25rem)] leading-[1.6] text-text-secondary">
+                {overview.lead}
+              </p>
+            </Reveal>
+
+            <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-12">
+              <Reveal delay={0.12}>
+                <div>
+                  <h3 className="font-display text-[18px] font-medium leading-[1.3] text-ink-900">
+                    The Challenge
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-[1.6] text-text-secondary">
+                    {overview.challenge}
+                  </p>
+                </div>
               </Reveal>
-              <Reveal delay={0.06}>
-                <h2 className="t-subsection mt-4 text-ink-900">{overview.title}</h2>
+              <Reveal delay={0.18}>
+                <div>
+                  <h3 className="font-display text-[18px] font-medium leading-[1.3] text-ink-900">
+                    Our Approach
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-[1.6] text-text-secondary">
+                    {overview.approach}
+                  </p>
+                </div>
               </Reveal>
             </div>
-            <Reveal delay={0.1}>
-              <p className="t-body-lg text-text-secondary lg:pt-2">{overview.body}</p>
-            </Reveal>
           </div>
         </div>
-      </section>
-      <section className="section-y-sm border-y border-border-subtle bg-canvas">
-        <div className="shell">
-          <Reveal>
-            <StatRow stats={overview.stats} withDividers />
-          </Reveal>
-        </div>
-      </section>
-    </>
-  );
-}
-
-/* Rounded rectangle backed by a real product screenshot. */
-function CaseImagePanel({
-  src,
-  alt,
-  ratio,
-}: {
-  src: string;
-  alt: string;
-  ratio: string;
-}) {
-  return (
-    <div
-      className="relative w-full overflow-hidden rounded-[20px] bg-canvas shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]"
-      style={{ aspectRatio: ratio }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="(min-width: 1024px) 730px, 100vw"
-        className="object-cover"
-      />
-    </div>
-  );
-}
-
-/* THE PROBLEM — text left, image right. */
-export function CaseProblem({ study = CASE_STUDY }: StudyProps) {
-  const { problem } = study;
-  return (
-    <section className="bg-white section-y">
-      <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,470px)_1fr] lg:gap-20">
-        <div>
-          <Reveal>
-            <p className="t-eyebrow">{problem.eyebrow}</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="t-subsection mt-4 text-ink-900">{problem.title}</h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="t-body-lg mt-5 text-text-secondary">{problem.body}</p>
-          </Reveal>
-        </div>
-        <InView>
-          <CaseImagePanel src={problem.image} alt={problem.title} ratio="730 / 520" />
-        </InView>
       </div>
     </section>
   );
 }
 
-/* DESIGNED FOR REAL WORK — image left, text right. */
-export function CaseDesignedForWork({ study = CASE_STUDY }: StudyProps) {
-  const { designSystem } = study;
-  return (
-    <section className="bg-canvas section-y">
-      <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_minmax(0,470px)] lg:gap-20">
-        <InView>
-          <CaseImagePanel
-            src={designSystem.image}
-            alt={designSystem.title}
-            ratio="730 / 520"
-          />
-        </InView>
-        <div>
-          <Reveal>
-            <p className="t-eyebrow">{designSystem.eyebrow}</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="t-subsection mt-4 text-ink-900">{designSystem.title}</h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="t-body-lg mt-5 text-text-secondary">{designSystem.body}</p>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
+/* ------------------------------------------------------------------ */
+/*  CS · What we designed                                              */
+/* ------------------------------------------------------------------ */
 
-/* THE RESULT — text + stats beside a product shot. */
-export function CaseResults({ study = CASE_STUDY }: StudyProps) {
-  const { results } = study;
-  return (
-    <section className="bg-white section-y">
-      <div className="shell grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,470px)_1fr] lg:gap-20">
-        <div>
-          <Reveal>
-            <p className="t-eyebrow">{results.eyebrow}</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="t-subsection mt-4 text-ink-900">{results.title}</h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="t-body-lg mt-5 text-text-secondary">{results.body}</p>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <div className="mt-10">
-              <StatRow stats={results.stats} />
-            </div>
-          </Reveal>
-        </div>
-        <InView>
-          <CaseImagePanel src={results.image} alt={results.title} ratio="730 / 470" />
-        </InView>
-      </div>
-    </section>
-  );
-}
-
-/* THE EXPERIENCE — heading + two large product mocks below. */
-export function CaseExperience({ study = CASE_STUDY }: StudyProps) {
-  const { experience } = study;
+export function CaseFeatures({ study }: { study: CaseStudy }) {
+  const { features } = study;
   return (
     <section className="bg-canvas section-y">
       <div className="shell">
-        <Reveal>
-          <p className="t-eyebrow">{experience.eyebrow}</p>
-        </Reveal>
-        <Reveal delay={0.06}>
-          <h2 className="t-subsection mt-4 max-w-[760px] text-ink-900">
-            {experience.title}
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="t-body-lg mt-5 max-w-[620px] text-text-secondary">
-            {experience.body}
-          </p>
-        </Reveal>
+        {/* Header — split layout */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr] lg:gap-20">
+          <Reveal>
+            <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2rem)] font-medium leading-[1.15] tracking-[-0.5px] text-ink-900">
+              What we designed
+            </h2>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <p className="max-w-[560px] text-[clamp(1rem,0.9rem+0.5vw,1.25rem)] leading-[1.6] text-text-secondary">
+              {features.subtitle}
+            </p>
+          </Reveal>
+        </div>
 
-        <AnimatedGroup className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2">
-          <CaseImagePanel
-            src={experience.mock1}
-            alt={`${experience.title} — mock 1`}
-            ratio="624 / 540"
-          />
-          <CaseImagePanel
-            src={experience.mock2}
-            alt={`${experience.title} — mock 2`}
-            ratio="624 / 540"
-          />
+        {/* Feature cards */}
+        <AnimatedGroup className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
+          {features.items.map((item) => (
+            <div
+              key={item.title}
+              className="overflow-hidden rounded-[20px] border border-border-subtle bg-white"
+            >
+              {/* Image */}
+              <div className="relative aspect-[400/300] w-full overflow-hidden bg-ink-50">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              {/* Body */}
+              <div className="p-6">
+                <h3 className="font-display text-[18px] font-medium leading-[1.3] text-ink-900">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-[14px] leading-[1.6] text-text-secondary">
+                  {item.body}
+                </p>
+              </div>
+            </div>
+          ))}
         </AnimatedGroup>
       </div>
     </section>
   );
 }
 
-/* THE FULL PICTURE — centred header + a wide gallery panel. */
-export function CaseGallery({ study = CASE_STUDY }: StudyProps) {
-  const { gallery } = study;
+/* ------------------------------------------------------------------ */
+/*  CS · Screens                                                       */
+/* ------------------------------------------------------------------ */
+
+export function CaseScreens({ study }: { study: CaseStudy }) {
   return (
     <section className="bg-white section-y">
       <div className="shell">
-        <div className="mx-auto max-w-[720px] text-center">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr] lg:gap-20">
           <Reveal>
-            <p className="t-eyebrow">{gallery.eyebrow}</p>
+            <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2rem)] font-medium leading-[1.15] tracking-[-0.5px] text-ink-900">
+              Screens
+            </h2>
           </Reveal>
           <Reveal delay={0.06}>
-            <h2 className="t-subsection mt-4 text-ink-900">{gallery.title}</h2>
+            <p className="max-w-[560px] text-[clamp(1rem,0.9rem+0.5vw,1.25rem)] leading-[1.6] text-text-secondary">
+              A closer look at the key screens and flows we designed.
+            </p>
           </Reveal>
-          {gallery.body && (
-            <Reveal delay={0.12}>
-              <p className="t-body-lg mt-5 text-text-secondary">
-                {gallery.body}
-              </p>
-            </Reveal>
-          )}
         </div>
         <InView className="mt-12">
-          <div className="relative aspect-[1280/700] w-full overflow-hidden rounded-[20px]">
+          <div className="relative aspect-[1280/900] w-full overflow-hidden rounded-[20px]">
             <Image
-              src={gallery.image}
-              alt={gallery.title}
+              src={study.screensImage}
+              alt={`${study.name} — screens`}
               fill
               sizes="(min-width: 1440px) 1280px, 100vw"
               className="object-cover"
