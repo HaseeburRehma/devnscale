@@ -101,7 +101,7 @@ export function CaseHero({ study }: { study: CaseStudy }) {
             ] as const
           ).map(([label, value]) => (
             <div key={label}>
-              <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-white/50">
+              <p className="text-[13px] font-medium text-white/50">
                 {label}
               </p>
               <p className="mt-2 font-display text-[18px] leading-[1.4] text-white/90">
