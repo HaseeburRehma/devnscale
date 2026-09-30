@@ -11,6 +11,7 @@ import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import CaseMarquee from "@/components/sections/case/CaseMarquee";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
         <Testimonial />
         <Faqs />
         <Contact />
+        <CaseMarquee />
       </main>
       <Footer />
     </>

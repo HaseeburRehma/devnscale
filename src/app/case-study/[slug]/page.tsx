@@ -43,10 +43,10 @@ export default async function CaseStudyPage({ params }: Props) {
         <CaseOverview study={study} />
         <CaseFeatures study={study} />
         <CaseScreens study={study} />
-        <CaseMarquee />
         <SelectedWork study={study} />
         <Testimonial />
         <Faqs />
+        <CaseMarquee />
       </main>
       <Footer />
     </>

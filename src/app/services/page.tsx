@@ -6,6 +6,7 @@ import DiagonalMarquees from "@/components/sections/DiagonalMarquees";
 import WhyUs from "@/components/sections/WhyUs";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
+import CaseMarquee from "@/components/sections/case/CaseMarquee";
 import PageHero from "@/components/sections/PageHero";
 import ServicesShowcase from "@/components/sections/services/ServicesShowcase";
 import { SERVICES_HERO } from "@/lib/content";
@@ -32,6 +33,7 @@ export default function ServicesPage() {
         <WhyUs />
         <Testimonial />
         <Faqs />
+        <CaseMarquee />
       </main>
       <Footer />
     </>

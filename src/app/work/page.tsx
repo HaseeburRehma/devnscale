@@ -6,6 +6,7 @@ import WhyUs from "@/components/sections/WhyUs";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
 import DiagonalMarquees from "@/components/sections/DiagonalMarquees";
+import CaseMarquee from "@/components/sections/case/CaseMarquee";
 import PageHero from "@/components/sections/PageHero";
 import WorkGrid from "@/components/sections/work/WorkGrid";
 import AboutValues from "@/components/sections/about/AboutValues";
@@ -35,6 +36,7 @@ export default function WorkPage() {
         <Testimonial />
         <Faqs />
         <DiagonalMarquees />
+        <CaseMarquee />
       </main>
       <Footer />
     </>

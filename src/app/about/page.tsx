@@ -6,6 +6,7 @@ import WhyUs from "@/components/sections/WhyUs";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
 import DiagonalMarquees from "@/components/sections/DiagonalMarquees";
+import CaseMarquee from "@/components/sections/case/CaseMarquee";
 
 import PageHero from "@/components/sections/PageHero";
 import { ABOUT_HERO } from "@/lib/content";
@@ -41,6 +42,7 @@ export default function AboutPage() {
         <Testimonial />
         <Faqs />
         <DiagonalMarquees />
+        <CaseMarquee />
       </main>
       <Footer />
     </>

@@ -4,6 +4,7 @@ import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
+import CaseMarquee from "@/components/sections/case/CaseMarquee";
 import PageHero from "@/components/sections/PageHero";
 import ContactBooking from "@/components/sections/contact/ContactBooking";
 import ContactReach from "@/components/sections/contact/ContactReach";
@@ -30,6 +31,7 @@ export default function ContactPage() {
         <ContactReach />
         <Testimonial />
         <Faqs />
+        <CaseMarquee />
       </main>
       <Footer />
     </>

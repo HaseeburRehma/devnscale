@@ -38,8 +38,8 @@ export function CaseHero({ study }: { study: CaseStudy }) {
 
       <div className="shell relative flex w-full flex-1 flex-col">
         {/* Breadcrumb */}
-        <nav className="rise-in mb-8">
-          <ol className="flex items-center gap-2 text-[13px] text-white/70">
+        <nav className="rise-in mb-8 text-center">
+          <ol className="inline-flex items-center gap-2 text-[13px] text-white/70">
             <li>
               <Link href="/work" className="transition-colors hover:text-white">
                 Our Work
