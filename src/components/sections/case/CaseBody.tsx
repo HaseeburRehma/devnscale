@@ -328,16 +328,16 @@ export function CaseScreens({ study }: { study: CaseStudy }) {
               </div>
             </Reveal>
 
-            {/* Screen grid — 2 columns */}
-            <AnimatedGroup className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2">
+            {/* Screen grid — 4 columns */}
+            <AnimatedGroup className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
               {cat.screens.map((screen) => (
                 <div key={screen.caption} className="flex flex-col gap-4">
-                  <div className="relative aspect-[628/393] w-full overflow-hidden rounded-[20px] border border-border-subtle">
+                  <div className="relative aspect-[302/654] w-full overflow-hidden rounded-[20px] border border-border-subtle">
                     <Image
                       src={screen.image}
                       alt={screen.caption}
                       fill
-                      sizes="(min-width: 640px) 50vw, 100vw"
+                      sizes="(min-width: 640px) 25vw, 50vw"
                       className="object-cover"
                     />
                   </div>
