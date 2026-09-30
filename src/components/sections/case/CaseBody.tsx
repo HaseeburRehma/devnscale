@@ -33,12 +33,6 @@ export function CaseHero({ study }: { study: CaseStudy }) {
         }}
       />
 
-      {/* Subtle darkening at bottom for text contrast */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-[5] bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.25)_100%)]"
-      />
-
       <div className="shell relative flex w-full flex-1 flex-col">
         {/* Breadcrumb */}
         <nav className="rise-in mb-8">
@@ -58,7 +52,7 @@ export function CaseHero({ study }: { study: CaseStudy }) {
         {/* Title + subtitle */}
         <div className="mx-auto max-w-[900px] text-center">
           <h1
-            className="rise-in font-display text-[clamp(1.75rem,1rem+3.2vw,3.25rem)] font-medium leading-[1.12] tracking-[-0.02em] text-white"
+            className="rise-in font-display text-[clamp(1.75rem,1rem+3.2vw,3.25rem)] font-bold leading-[1.12] tracking-[-0.04em] text-white"
             style={{ animationDelay: "80ms" }}
           >
             {study.title}
@@ -75,7 +69,7 @@ export function CaseHero({ study }: { study: CaseStudy }) {
               href={study.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="rise-in mx-auto mt-8 inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-3.5 text-[14px] font-medium uppercase tracking-[0.08em] text-white transition-colors hover:border-white/40 hover:bg-white/10"
+              className="rise-in mx-auto mt-8 inline-flex items-center justify-center rounded-[12px] border border-[#eef3bc] bg-[#012a1c] px-8 py-3.5 font-display text-[15px] font-medium uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#013d28]"
               style={{ animationDelay: "240ms" }}
             >
               Visit Live Site
@@ -104,10 +98,10 @@ export function CaseHero({ study }: { study: CaseStudy }) {
             ] as const
           ).map(([label, value]) => (
             <div key={label}>
-              <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-white/50">
+              <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-white/50">
                 {label}
               </p>
-              <p className="mt-2 text-[14px] leading-[1.4] text-white/90">
+              <p className="mt-2 font-display text-[18px] leading-[1.4] text-white/90">
                 {value}
               </p>
             </div>
@@ -158,39 +152,39 @@ export function CaseOverview({ study }: { study: CaseStudy }) {
   return (
     <section className="bg-white section-y">
       <div className="shell">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[280px_1fr] lg:gap-20">
+        <div className="flex flex-col gap-10 lg:flex-row lg:gap-20">
           {/* Left — heading */}
           <Reveal>
-            <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2rem)] font-medium leading-[1.15] tracking-[-0.5px] text-ink-900">
+            <h2 className="font-display text-[clamp(1.75rem,1.2rem+2.4vw,2.5rem)] font-medium leading-[1.2] tracking-[-1px] text-ink-900 lg:w-[400px] lg:shrink-0">
               Overview
             </h2>
           </Reveal>
 
           {/* Right — lead + challenge/approach */}
-          <div>
+          <div className="min-w-0 flex-1">
             <Reveal delay={0.06}>
-              <p className="text-[clamp(1rem,0.9rem+0.5vw,1.25rem)] leading-[1.6] text-text-secondary">
+              <p className="font-display text-[clamp(1.25rem,1rem+1.2vw,1.75rem)] font-medium leading-[1.3] tracking-[-0.5px] text-ink-900">
                 {overview.lead}
               </p>
             </Reveal>
 
-            <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-12">
+            <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-12">
               <Reveal delay={0.12}>
-                <div>
+                <div className="border-t border-border-subtle pt-6">
                   <h3 className="font-display text-[18px] font-medium leading-[1.3] text-ink-900">
-                    The Challenge
+                    The challenge
                   </h3>
-                  <p className="mt-4 text-[15px] leading-[1.6] text-text-secondary">
+                  <p className="mt-3 text-[16px] leading-[1.5] text-text-secondary">
                     {overview.challenge}
                   </p>
                 </div>
               </Reveal>
               <Reveal delay={0.18}>
-                <div>
+                <div className="border-t border-border-subtle pt-6">
                   <h3 className="font-display text-[18px] font-medium leading-[1.3] text-ink-900">
-                    Our Approach
+                    Our approach
                   </h3>
-                  <p className="mt-4 text-[15px] leading-[1.6] text-text-secondary">
+                  <p className="mt-3 text-[16px] leading-[1.5] text-text-secondary">
                     {overview.approach}
                   </p>
                 </div>
@@ -213,28 +207,28 @@ export function CaseFeatures({ study }: { study: CaseStudy }) {
     <section className="bg-canvas section-y">
       <div className="shell">
         {/* Header — split layout */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr] lg:gap-20">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-20">
           <Reveal>
-            <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2rem)] font-medium leading-[1.15] tracking-[-0.5px] text-ink-900">
+            <h2 className="font-display text-[clamp(1.75rem,1.2rem+2.4vw,3rem)] font-bold leading-[1.17] tracking-[-1.5px] text-ink-900 lg:w-[620px] lg:shrink-0">
               What we designed
             </h2>
           </Reveal>
           <Reveal delay={0.06}>
-            <p className="max-w-[560px] text-[clamp(1rem,0.9rem+0.5vw,1.25rem)] leading-[1.6] text-text-secondary">
+            <p className="text-[18px] leading-[1.55] text-text-secondary">
               {features.subtitle}
             </p>
           </Reveal>
         </div>
 
         {/* Feature cards */}
-        <AnimatedGroup className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
+        <AnimatedGroup className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
           {features.items.map((item) => (
             <div
               key={item.title}
-              className="overflow-hidden rounded-[20px] border border-border-subtle bg-white"
+              className="flex h-full flex-col overflow-hidden rounded-[20px] border border-border-subtle bg-white pb-7 pt-3 px-3"
             >
               {/* Image */}
-              <div className="relative aspect-[400/300] w-full overflow-hidden bg-ink-50">
+              <div className="relative aspect-[384/300] w-full overflow-hidden rounded-[12px] bg-ink-50">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -244,11 +238,11 @@ export function CaseFeatures({ study }: { study: CaseStudy }) {
                 />
               </div>
               {/* Body */}
-              <div className="p-6">
-                <h3 className="font-display text-[18px] font-medium leading-[1.3] text-ink-900">
+              <div className="px-3 pt-6">
+                <h3 className="font-display text-[20px] font-medium leading-[1.4] text-ink-900">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-[14px] leading-[1.6] text-text-secondary">
+                <p className="mt-2 text-[14px] leading-[1.43] text-text-secondary">
                   {item.body}
                 </p>
               </div>
@@ -271,14 +265,14 @@ export function CaseScreens({ study }: { study: CaseStudy }) {
     return (
       <section className="bg-white section-y">
         <div className="shell">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr] lg:gap-20">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-20">
             <Reveal>
-              <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2rem)] font-medium leading-[1.15] tracking-[-0.5px] text-ink-900">
+              <h2 className="font-display text-[clamp(1.75rem,1.2rem+2.4vw,3rem)] font-bold leading-[1.17] tracking-[-1.5px] text-ink-900 lg:w-[900px] lg:shrink-0">
                 Screens
               </h2>
             </Reveal>
             <Reveal delay={0.06}>
-              <p className="max-w-[560px] text-[clamp(1rem,0.9rem+0.5vw,1.25rem)] leading-[1.6] text-text-secondary">
+              <p className="max-w-[300px] text-[18px] leading-[1.55] text-text-secondary">
                 A closer look at the key screens and flows we designed.
               </p>
             </Reveal>
@@ -305,7 +299,7 @@ export function CaseScreens({ study }: { study: CaseStudy }) {
         {/* Section header */}
         <Reveal>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-20">
-            <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2.5rem)] font-bold leading-[1.15] tracking-[-1.5px] text-ink-900 lg:w-[700px] lg:shrink-0">
+            <h2 className="font-display text-[clamp(1.75rem,1.2rem+2.4vw,3rem)] font-bold leading-[1.17] tracking-[-1.5px] text-ink-900 lg:w-[900px] lg:shrink-0">
               {s.title}
             </h2>
             <p className="max-w-[300px] text-[18px] leading-[1.55] text-text-secondary">
@@ -321,10 +315,10 @@ export function CaseScreens({ study }: { study: CaseStudy }) {
             <Reveal delay={ci * 0.06}>
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-20">
                 <div className="lg:w-[520px] lg:shrink-0">
-                  <h3 className="font-display text-[clamp(1.25rem,1rem+1vw,2rem)] font-medium leading-[1.25] tracking-[-1px] text-ink-900">
+                  <h3 className="font-display text-[clamp(1.25rem,1rem+1.2vw,2rem)] font-medium leading-[1.25] tracking-[-1px] text-ink-900">
                     {cat.title}
                   </h3>
-                  <p className="mt-2 text-[14px] text-text-tertiary">
+                  <p className="mt-2 text-[14px] leading-[1.43] text-text-tertiary">
                     {cat.screens.length} screens
                   </p>
                 </div>
