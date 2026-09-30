@@ -13,6 +13,7 @@ import {
   CaseFeatures,
   CaseScreens,
 } from "@/components/sections/case/CaseBody";
+import CaseMarquee from "@/components/sections/case/CaseMarquee";
 import { CASE_STUDIES } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -42,6 +43,7 @@ export default async function CaseStudyPage({ params }: Props) {
         <CaseOverview study={study} />
         <CaseFeatures study={study} />
         <CaseScreens study={study} />
+        <CaseMarquee />
         <SelectedWork study={study} />
         <Testimonial />
         <Faqs />
