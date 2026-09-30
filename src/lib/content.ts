@@ -1139,6 +1139,12 @@ export const CONTACT_REACH = {
    Case Study pages — new structure from Figma (5892:54950)
    ============================================================ */
 
+export type ScreenCategory = {
+  title: string;
+  description: string;
+  screens: readonly { caption: string; image: string }[];
+};
+
 export type CaseStudy = {
   slug: string;
   name: string;
@@ -1168,6 +1174,11 @@ export type CaseStudy = {
     }[];
   };
   screensImage: string;
+  screens?: {
+    title: string;
+    description: string;
+    categories: readonly ScreenCategory[];
+  };
   selectedWork: readonly string[];
   seo: {
     title: string;
@@ -1218,6 +1229,52 @@ const CASE_STUDY_OPULENCEX: CaseStudy = {
     ],
   },
   screensImage: "/img/case/opulencex/screens.png",
+  screens: {
+    title: "OpulenceX screens and flows",
+    description: "16 screens from the final design, grouped by the job each part of the product does.",
+    categories: [
+      {
+        title: "Trading and liquidity",
+        description: "Swap tokens and manage liquidity with every rate, fee and pool share visible before you confirm.",
+        screens: [
+          { caption: "Swap", image: "/img/case/opulencex/screens/swap.png" },
+          { caption: "Liquidity pools", image: "/img/case/opulencex/screens/liquidity-pools.png" },
+          { caption: "Add liquidity", image: "/img/case/opulencex/screens/add-liquidity.png" },
+          { caption: "Pool detail", image: "/img/case/opulencex/screens/pool-detail.png" },
+        ],
+      },
+      {
+        title: "Earning",
+        description: "Yield farms, soft staking, NFT staking and holder rewards, compared on the same numbers.",
+        screens: [
+          { caption: "Yield farming", image: "/img/case/opulencex/screens/yield-farming.png" },
+          { caption: "OpulEarn staking", image: "/img/case/opulencex/screens/opulearn-staking.png" },
+          { caption: "Opul Faucet", image: "/img/case/opulencex/screens/opul-faucet.png" },
+          { caption: "HoneyComb NFT staking", image: "/img/case/opulencex/screens/honeycomb-nft-staking.png" },
+        ],
+      },
+      {
+        title: "Portfolio and account",
+        description: "One place to follow holdings, performance and every transaction.",
+        screens: [
+          { caption: "Portfolio dashboard", image: "/img/case/opulencex/screens/portfolio-dashboard.png" },
+          { caption: "Transaction history", image: "/img/case/opulencex/screens/transaction-history.png" },
+          { caption: "Settings", image: "/img/case/opulencex/screens/settings.png" },
+          { caption: "Profile", image: "/img/case/opulencex/screens/profile.png" },
+        ],
+      },
+      {
+        title: "Community",
+        description: "The public face of the protocol, plus ranks and achievements that reward active members.",
+        screens: [
+          { caption: "Landing page", image: "/img/case/opulencex/screens/landing-page.png" },
+          { caption: "Collector ranks", image: "/img/case/opulencex/screens/collector-ranks.png" },
+          { caption: "Creator achievements", image: "/img/case/opulencex/screens/creator-achievements.png" },
+          { caption: "Opulent Art Society", image: "/img/case/opulencex/screens/opulent-art-society.png" },
+        ],
+      },
+    ],
+  },
   selectedWork: ["strive", "trillioner"],
   seo: {
     title: "OpulenceX — Case Study — Dev N Scale",
@@ -1268,6 +1325,48 @@ const CASE_STUDY_STRIVE: CaseStudy = {
     ],
   },
   screensImage: "/img/case/strive/screens.png",
+  screens: {
+    title: "StriVe screens and flows",
+    description: "12 screens from the final design, grouped by the job each part of the product does.",
+    categories: [
+      {
+        title: "Marketing website",
+        description: "Explains the launchpad to creators and fans before anyone signs up.",
+        screens: [
+          { caption: "Home page hero", image: "/img/case/strive/screens/home-page-hero.png" },
+          { caption: "Creator-led campaigns", image: "/img/case/strive/screens/creator-led-campaigns.png" },
+          { caption: "Features and how it works", image: "/img/case/strive/screens/features-and-how-it-works.png" },
+          { caption: "FAQ and footer", image: "/img/case/strive/screens/faq-and-footer.png" },
+        ],
+      },
+      {
+        title: "Onboarding",
+        description: "Short sign up and log in screens that get creators and fans inside quickly.",
+        screens: [
+          { caption: "Sign up", image: "/img/case/strive/screens/sign-up.png" },
+          { caption: "Log in", image: "/img/case/strive/screens/log-in.png" },
+        ],
+      },
+      {
+        title: "Discover",
+        description: "Browse creator projects and open each one on its own page.",
+        screens: [
+          { caption: "Explore", image: "/img/case/strive/screens/explore.png" },
+          { caption: "Project page", image: "/img/case/strive/screens/project-page.png" },
+        ],
+      },
+      {
+        title: "Create and manage",
+        description: "Upload a project in guided steps, set up a creator profile, then manage your profile and holdings.",
+        screens: [
+          { caption: "Upload project", image: "/img/case/strive/screens/upload-project.png" },
+          { caption: "Profile setup", image: "/img/case/strive/screens/profile-setup.png" },
+          { caption: "Profile", image: "/img/case/strive/screens/profile.png" },
+          { caption: "Portfolio", image: "/img/case/strive/screens/portfolio.png" },
+        ],
+      },
+    ],
+  },
   selectedWork: ["csd-pakistan", "parrot-bot"],
   seo: {
     title: "StriVe — Case Study — Dev N Scale",
@@ -1320,6 +1419,52 @@ const CASE_STUDY_CSD: CaseStudy = {
     ],
   },
   screensImage: "/img/case/csd-pakistan/screens.png",
+  screens: {
+    title: "CSD Pakistan screens and flows",
+    description: "16 screens from the final design, grouped by the job each part of the product does.",
+    categories: [
+      {
+        title: "Getting started",
+        description: "Sign in with a one-time code and set a delivery location so the right store is found.",
+        screens: [
+          { caption: "Splash screen", image: "/img/case/csd-pakistan/screens/splash-screen.png" },
+          { caption: "Set your location", image: "/img/case/csd-pakistan/screens/set-your-location.png" },
+          { caption: "Sign in", image: "/img/case/csd-pakistan/screens/sign-in.png" },
+          { caption: "OTP verification", image: "/img/case/csd-pakistan/screens/otp-verification.png" },
+        ],
+      },
+      {
+        title: "Browsing",
+        description: "Home, categories and search, built for quick grocery runs.",
+        screens: [
+          { caption: "Home", image: "/img/case/csd-pakistan/screens/home.png" },
+          { caption: "Menu", image: "/img/case/csd-pakistan/screens/menu.png" },
+          { caption: "All categories", image: "/img/case/csd-pakistan/screens/all-categories.png" },
+          { caption: "Search", image: "/img/case/csd-pakistan/screens/search.png" },
+        ],
+      },
+      {
+        title: "Cart and checkout",
+        description: "Review the cart, choose a delivery slot and pay in as few steps as possible.",
+        screens: [
+          { caption: "Product details", image: "/img/case/csd-pakistan/screens/product-details.png" },
+          { caption: "My cart", image: "/img/case/csd-pakistan/screens/my-cart.png" },
+          { caption: "Checkout", image: "/img/case/csd-pakistan/screens/checkout.png" },
+          { caption: "Payment method", image: "/img/case/csd-pakistan/screens/payment-method.png" },
+        ],
+      },
+      {
+        title: "After the order",
+        description: "Track the delivery, reorder from history and keep favourites close.",
+        screens: [
+          { caption: "Track my order", image: "/img/case/csd-pakistan/screens/track-my-order.png" },
+          { caption: "Order history", image: "/img/case/csd-pakistan/screens/order-history.png" },
+          { caption: "Notifications", image: "/img/case/csd-pakistan/screens/notifications.png" },
+          { caption: "Wishlist", image: "/img/case/csd-pakistan/screens/wishlist.png" },
+        ],
+      },
+    ],
+  },
   selectedWork: ["nk-associate", "y-charter"],
   seo: {
     title: "CSD Pakistan — Case Study — Dev N Scale",
@@ -1371,6 +1516,58 @@ const CASE_STUDY_NK: CaseStudy = {
     ],
   },
   screensImage: "/img/case/nk-associate/screens.png",
+  screens: {
+    title: "NK Associate screens and flows",
+    description: "16 screens from the final design, grouped by the job each part of the product does.",
+    categories: [
+      {
+        title: "Home and search",
+        description: "Search leads the homepage, with a map view for browsing by area.",
+        screens: [
+          { caption: "Home page", image: "/img/case/nk-associate/screens/home-page.png" },
+          { caption: "Map search", image: "/img/case/nk-associate/screens/map-search.png" },
+        ],
+      },
+      {
+        title: "Properties",
+        description: "Listings for sale, rent and inventory, each with a full detail page and an enquiry form.",
+        screens: [
+          { caption: "Property for sale or rent", image: "/img/case/nk-associate/screens/property-for-sale-or-rent.png" },
+          { caption: "Property inventory", image: "/img/case/nk-associate/screens/property-inventory.png" },
+          { caption: "Property detail", image: "/img/case/nk-associate/screens/property-detail.png" },
+          { caption: "Get in touch form", image: "/img/case/nk-associate/screens/get-in-touch-form.png" },
+        ],
+      },
+      {
+        title: "Projects",
+        description: "The company's own developments, each with its own project page.",
+        screens: [
+          { caption: "Projects", image: "/img/case/nk-associate/screens/projects.png" },
+          { caption: "Project detail", image: "/img/case/nk-associate/screens/project-detail.png" },
+        ],
+      },
+      {
+        title: "Services, events and careers",
+        description: "Everything beyond listings, from services to events and open roles.",
+        screens: [
+          { caption: "Services", image: "/img/case/nk-associate/screens/services.png" },
+          { caption: "Service detail", image: "/img/case/nk-associate/screens/service-detail.png" },
+          { caption: "Events", image: "/img/case/nk-associate/screens/events.png" },
+          { caption: "Careers", image: "/img/case/nk-associate/screens/careers.png" },
+        ],
+      },
+      {
+        title: "Company and system pages",
+        description: "The pages that build trust, and the states that keep the site feeling solid.",
+        screens: [
+          { caption: "About us", image: "/img/case/nk-associate/screens/about-us.png" },
+          { caption: "Contact us", image: "/img/case/nk-associate/screens/contact-us.png" },
+          { caption: "Loading skeletons", image: "/img/case/nk-associate/screens/loading-skeletons.png" },
+          { caption: "404 page", image: "/img/case/nk-associate/screens/404-page.png" },
+        ],
+      },
+    ],
+  },
   selectedWork: ["trillioner", "humain-learning"],
   seo: {
     title: "NK Associate — Case Study — Dev N Scale",
@@ -1423,6 +1620,40 @@ const CASE_STUDY_TRILLIONER: CaseStudy = {
     ],
   },
   screensImage: "/img/case/trillioner/screens.png",
+  screens: {
+    title: "Trillioner screens and flows",
+    description: "10 screens from the final design, grouped by the job each part of the product does.",
+    categories: [
+      {
+        title: "The promise",
+        description: "What Trillioner Coin is and why it exists, before any numbers.",
+        screens: [
+          { caption: "Hero", image: "/img/case/trillioner/screens/hero.png" },
+          { caption: "About Trillioner", image: "/img/case/trillioner/screens/about-trillioner.png" },
+        ],
+      },
+      {
+        title: "The product",
+        description: "Core services, the roadmap, and the wallet and swap tools that make the coin usable.",
+        screens: [
+          { caption: "Core services", image: "/img/case/trillioner/screens/core-services.png" },
+          { caption: "Roadmap", image: "/img/case/trillioner/screens/roadmap.png" },
+          { caption: "Trillioner Wallet", image: "/img/case/trillioner/screens/trillioner-wallet.png" },
+          { caption: "Instant swap", image: "/img/case/trillioner/screens/instant-swap.png" },
+        ],
+      },
+      {
+        title: "The proof",
+        description: "Live price, partners, exchange listings, a legal opinion and media coverage.",
+        screens: [
+          { caption: "TLC price", image: "/img/case/trillioner/screens/tlc-price.png" },
+          { caption: "Partners and exchanges", image: "/img/case/trillioner/screens/partners-and-exchanges.png" },
+          { caption: "Legal opinion and ratings", image: "/img/case/trillioner/screens/legal-opinion-and-ratings.png" },
+          { caption: "Founder in media", image: "/img/case/trillioner/screens/founder-in-media.png" },
+        ],
+      },
+    ],
+  },
   selectedWork: ["parrot-bot", "opulencex"],
   seo: {
     title: "Trillioner — Case Study — Dev N Scale",
@@ -1474,6 +1705,48 @@ const CASE_STUDY_PARROT: CaseStudy = {
     ],
   },
   screensImage: "/img/case/parrot-bot/screens.png",
+  screens: {
+    title: "Parrot Bot screens and flows",
+    description: "12 screens from the final design, grouped by the job each part of the product does.",
+    categories: [
+      {
+        title: "Overview",
+        description: "Net worth, positions and trade history, plus the cards traders check and share most.",
+        screens: [
+          { caption: "Dashboard", image: "/img/case/parrot-bot/screens/dashboard.png" },
+          { caption: "Trending card", image: "/img/case/parrot-bot/screens/trending-card.png" },
+          { caption: "PnL share card", image: "/img/case/parrot-bot/screens/pnl-share-card.png" },
+          { caption: "Profile", image: "/img/case/parrot-bot/screens/profile.png" },
+        ],
+      },
+      {
+        title: "Wallet research",
+        description: "Find a wallet, read its record and decide whether to copy it.",
+        screens: [
+          { caption: "Wallet research", image: "/img/case/parrot-bot/screens/wallet-research.png" },
+          { caption: "Wallet details", image: "/img/case/parrot-bot/screens/wallet-details.png" },
+        ],
+      },
+      {
+        title: "Wallet manager",
+        description: "Fund each wallet and set buy size, slippage, take profit and stop loss.",
+        screens: [
+          { caption: "Deposit", image: "/img/case/parrot-bot/screens/deposit.png" },
+          { caption: "Withdraw", image: "/img/case/parrot-bot/screens/withdraw.png" },
+          { caption: "Wallet settings", image: "/img/case/parrot-bot/screens/wallet-settings.png" },
+          { caption: "Settings", image: "/img/case/parrot-bot/screens/settings.png" },
+        ],
+      },
+      {
+        title: "Beta access",
+        description: "A short invite flow for the closed beta.",
+        screens: [
+          { caption: "Beta sign up", image: "/img/case/parrot-bot/screens/beta-sign-up.png" },
+          { caption: "Beta access code", image: "/img/case/parrot-bot/screens/beta-access-code.png" },
+        ],
+      },
+    ],
+  },
   selectedWork: ["y-charter", "strive"],
   seo: {
     title: "Parrot Bot — Case Study — Dev N Scale",
@@ -1526,6 +1799,40 @@ const CASE_STUDY_YCHARTER: CaseStudy = {
     ],
   },
   screensImage: "/img/case/y-charter/screens.png",
+  screens: {
+    title: "Y Charter screens and flows",
+    description: "10 screens from the final design, grouped by the job each part of the product does.",
+    categories: [
+      {
+        title: "First impression",
+        description: "The promise of a week at sea, and why the brokerage works differently.",
+        screens: [
+          { caption: "Hero", image: "/img/case/y-charter/screens/hero.png" },
+          { caption: "Brand story", image: "/img/case/y-charter/screens/brand-story.png" },
+        ],
+      },
+      {
+        title: "Fleet and experience",
+        description: "The yachts, the mood on board and the membership for repeat guests.",
+        screens: [
+          { caption: "Fleet", image: "/img/case/y-charter/screens/fleet.png" },
+          { caption: "Aerial film", image: "/img/case/y-charter/screens/aerial-film.png" },
+          { caption: "Sanctuary", image: "/img/case/y-charter/screens/sanctuary.png" },
+          { caption: "Y Club membership", image: "/img/case/y-charter/screens/y-club-membership.png" },
+        ],
+      },
+      {
+        title: "Trust and enquiry",
+        description: "Press and a guest quote, then one short form to reach an advisor.",
+        screens: [
+          { caption: "Testimonial and press", image: "/img/case/y-charter/screens/testimonial-and-press.png" },
+          { caption: "Enquiry form", image: "/img/case/y-charter/screens/enquiry-form.png" },
+          { caption: "Call to action", image: "/img/case/y-charter/screens/call-to-action.png" },
+          { caption: "Footer", image: "/img/case/y-charter/screens/footer.png" },
+        ],
+      },
+    ],
+  },
   selectedWork: ["humain-learning", "csd-pakistan"],
   seo: {
     title: "Y Charter — Case Study — Dev N Scale",
@@ -1579,6 +1886,60 @@ const CASE_STUDY_HUMAIN: CaseStudy = {
     ],
   },
   screensImage: "/img/case/humain-learning/screens.png",
+  screens: {
+    title: "Humain Learning screens and flows",
+    description: "18 screens from the website and the school dashboard, grouped by the job each part does.",
+    categories: [
+      {
+        title: "Website: the promise",
+        description: "The first screens a parent or student sees, and the first step of the AI journey.",
+        screens: [
+          { caption: "Hero", image: "/img/case/humain-learning/screens/hero.png" },
+          { caption: "AI foundations", image: "/img/case/humain-learning/screens/ai-foundations.png" },
+        ],
+      },
+      {
+        title: "Website: why Humain",
+        description: "The toolkit, the IIT Delhi partnership, the guiding principles and the six-pillar framework.",
+        screens: [
+          { caption: "AI toolkit", image: "/img/case/humain-learning/screens/ai-toolkit.png" },
+          { caption: "IIT Delhi partnership", image: "/img/case/humain-learning/screens/iit-delhi-partnership.png" },
+          { caption: "Guiding principles", image: "/img/case/humain-learning/screens/guiding-principles.png" },
+          { caption: "AI literacy framework", image: "/img/case/humain-learning/screens/ai-literacy-framework.png" },
+        ],
+      },
+      {
+        title: "Website: people and the course",
+        description: "Why families choose Humain, the team behind it, and the course page with its AI journey.",
+        screens: [
+          { caption: "Why Humain Learning", image: "/img/case/humain-learning/screens/why-humain-learning.png" },
+          { caption: "Expert team", image: "/img/case/humain-learning/screens/expert-team.png" },
+          { caption: "Course overview", image: "/img/case/humain-learning/screens/course-overview.png" },
+          { caption: "Your AI journey", image: "/img/case/humain-learning/screens/your-ai-journey.png" },
+        ],
+      },
+      {
+        title: "Dashboard: role views",
+        description: "Teachers, department heads and principals each open to their own view in one shared layout.",
+        screens: [
+          { caption: "Teacher dashboard", image: "/img/case/humain-learning/screens/teacher-dashboard.png" },
+          { caption: "Department head dashboard", image: "/img/case/humain-learning/screens/department-head-dashboard.png" },
+          { caption: "Principal dashboard", image: "/img/case/humain-learning/screens/principal-dashboard.png" },
+          { caption: "Analytics comparisons", image: "/img/case/humain-learning/screens/analytics-comparisons.png" },
+        ],
+      },
+      {
+        title: "Dashboard: access and assessment",
+        description: "Sign in, a role-first sign up, the self assessment flow and the style guide behind every screen.",
+        screens: [
+          { caption: "Sign in", image: "/img/case/humain-learning/screens/sign-in.png" },
+          { caption: "Sign up by role", image: "/img/case/humain-learning/screens/sign-up-by-role.png" },
+          { caption: "Self assessment test", image: "/img/case/humain-learning/screens/self-assessment-test.png" },
+          { caption: "Style guide", image: "/img/case/humain-learning/screens/style-guide.png" },
+        ],
+      },
+    ],
+  },
   selectedWork: ["opulencex", "nk-associate"],
   seo: {
     title: "Humain Learning — Case Study — Dev N Scale",

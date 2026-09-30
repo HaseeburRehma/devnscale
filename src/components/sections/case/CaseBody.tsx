@@ -22,6 +22,17 @@ export function CaseHero({ study }: { study: CaseStudy }) {
         style={{ background: study.heroGradient }}
       />
 
+      {/* Grid overlay */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)," +
+            "repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)",
+        }}
+      />
+
       {/* Subtle darkening at bottom for text contrast */}
       <div
         aria-hidden="true"
@@ -254,32 +265,96 @@ export function CaseFeatures({ study }: { study: CaseStudy }) {
 /* ------------------------------------------------------------------ */
 
 export function CaseScreens({ study }: { study: CaseStudy }) {
+  const s = study.screens;
+
+  if (!s) {
+    return (
+      <section className="bg-white section-y">
+        <div className="shell">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr] lg:gap-20">
+            <Reveal>
+              <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2rem)] font-medium leading-[1.15] tracking-[-0.5px] text-ink-900">
+                Screens
+              </h2>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <p className="max-w-[560px] text-[clamp(1rem,0.9rem+0.5vw,1.25rem)] leading-[1.6] text-text-secondary">
+                A closer look at the key screens and flows we designed.
+              </p>
+            </Reveal>
+          </div>
+          <InView className="mt-12">
+            <div className="relative aspect-[1280/900] w-full overflow-hidden rounded-[20px]">
+              <Image
+                src={study.screensImage}
+                alt={`${study.name} — screens`}
+                fill
+                sizes="(min-width: 1440px) 1280px, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </InView>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="bg-white section-y">
-      <div className="shell">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr] lg:gap-20">
-          <Reveal>
-            <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2rem)] font-medium leading-[1.15] tracking-[-0.5px] text-ink-900">
-              Screens
+      <div className="shell flex flex-col gap-20">
+        {/* Section header */}
+        <Reveal>
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-20">
+            <h2 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2.5rem)] font-bold leading-[1.15] tracking-[-1.5px] text-ink-900 lg:w-[700px] lg:shrink-0">
+              {s.title}
             </h2>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <p className="max-w-[560px] text-[clamp(1rem,0.9rem+0.5vw,1.25rem)] leading-[1.6] text-text-secondary">
-              A closer look at the key screens and flows we designed.
+            <p className="max-w-[300px] text-[18px] leading-[1.55] text-text-secondary">
+              {s.description}
             </p>
-          </Reveal>
-        </div>
-        <InView className="mt-12">
-          <div className="relative aspect-[1280/900] w-full overflow-hidden rounded-[20px]">
-            <Image
-              src={study.screensImage}
-              alt={`${study.name} — screens`}
-              fill
-              sizes="(min-width: 1440px) 1280px, 100vw"
-              className="object-cover"
-            />
           </div>
-        </InView>
+        </Reveal>
+
+        {/* Categories */}
+        {s.categories.map((cat, ci) => (
+          <div key={cat.title} className="flex flex-col gap-10 border-t border-border-subtle pt-10">
+            {/* Category header */}
+            <Reveal delay={ci * 0.06}>
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-20">
+                <div className="lg:w-[520px] lg:shrink-0">
+                  <h3 className="font-display text-[clamp(1.25rem,1rem+1vw,2rem)] font-medium leading-[1.25] tracking-[-1px] text-ink-900">
+                    {cat.title}
+                  </h3>
+                  <p className="mt-2 text-[14px] text-text-tertiary">
+                    {cat.screens.length} screens
+                  </p>
+                </div>
+                <p className="text-[18px] leading-[1.55] text-text-secondary">
+                  {cat.description}
+                </p>
+              </div>
+            </Reveal>
+
+            {/* Screen grid — 2 columns */}
+            <AnimatedGroup className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2">
+              {cat.screens.map((screen) => (
+                <div key={screen.caption} className="flex flex-col gap-4">
+                  <div className="relative aspect-[628/393] w-full overflow-hidden rounded-[20px] border border-border-subtle">
+                    <Image
+                      src={screen.image}
+                      alt={screen.caption}
+                      fill
+                      sizes="(min-width: 640px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-[13px] font-medium text-ink-800">
+                    {screen.caption}
+                  </p>
+                </div>
+              ))}
+            </AnimatedGroup>
+          </div>
+        ))}
       </div>
     </section>
   );
