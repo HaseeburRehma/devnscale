@@ -22,7 +22,8 @@ export function CaseHero({ study }: { study: CaseStudy }) {
         style={{ background: study.heroGradient }}
       />
 
-      {/* Grid overlay */}
+      {/* Grid overlay — fades out toward the bottom so the transition
+           into the cover section is seamless, not a hard line */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10"
@@ -30,6 +31,8 @@ export function CaseHero({ study }: { study: CaseStudy }) {
           backgroundImage:
             "repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)," +
             "repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)",
+          maskImage: "linear-gradient(to bottom, black 50%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 50%, transparent 100%)",
         }}
       />
 
@@ -118,13 +121,36 @@ export function CaseHero({ study }: { study: CaseStudy }) {
 
 export function CaseCover({ study }: { study: CaseStudy }) {
   return (
-    <section className="relative pt-0">
+    <section className="relative overflow-hidden pt-0">
       {/* Top band continues the hero gradient */}
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-1/2"
         style={{ background: study.heroGradient }}
       />
+
+      {/* Fade the gradient band to white so there's no hard line */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-1/2"
+        style={{
+          background: "linear-gradient(to bottom, transparent 30%, white 100%)",
+        }}
+      />
+
+      {/* Grid overlay continues from hero, fading out */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-1/2"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)," +
+            "repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)",
+          maskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
+        }}
+      />
+
       <InView>
         <div className="shell relative">
           <div className="relative aspect-[1280/720] w-full overflow-hidden rounded-[20px]">
