@@ -1177,6 +1177,7 @@ export type CaseStudy = {
   screens?: {
     title: string;
     description: string;
+    mobile?: boolean;
     categories: readonly ScreenCategory[];
   };
   selectedWork: readonly string[];
@@ -1422,6 +1423,7 @@ const CASE_STUDY_CSD: CaseStudy = {
   screens: {
     title: "CSD Pakistan screens and flows",
     description: "16 screens from the final design, grouped by the job each part of the product does.",
+    mobile: true,
     categories: [
       {
         title: "Getting started",

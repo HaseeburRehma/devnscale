@@ -328,16 +328,26 @@ export function CaseScreens({ study }: { study: CaseStudy }) {
               </div>
             </Reveal>
 
-            {/* Screen grid — 4 columns */}
-            <AnimatedGroup className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
+            {/* Screen grid */}
+            <AnimatedGroup
+              className={
+                s.mobile
+                  ? "grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4"
+                  : "grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2"
+              }
+            >
               {cat.screens.map((screen) => (
                 <div key={screen.caption} className="flex flex-col gap-4">
-                  <div className="relative aspect-[302/654] w-full overflow-hidden rounded-[20px] border border-border-subtle">
+                  <div
+                    className={`relative w-full overflow-hidden rounded-[20px] border border-border-subtle ${
+                      s.mobile ? "aspect-[302/654]" : "aspect-[628/393]"
+                    }`}
+                  >
                     <Image
                       src={screen.image}
                       alt={screen.caption}
                       fill
-                      sizes="(min-width: 640px) 25vw, 50vw"
+                      sizes={s.mobile ? "(min-width: 640px) 25vw, 50vw" : "(min-width: 640px) 50vw, 100vw"}
                       className="object-cover"
                     />
                   </div>
