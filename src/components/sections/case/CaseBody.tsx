@@ -129,16 +129,16 @@ export function CaseCover({ study }: { study: CaseStudy }) {
         style={{ background: study.heroGradient }}
       />
 
-      {/* Fade the gradient band to white so there's no hard line */}
+      {/* Fade the gradient band to white at the bottom edge */}
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-1/2"
         style={{
-          background: "linear-gradient(to bottom, transparent 30%, white 100%)",
+          background: "linear-gradient(to bottom, transparent 80%, white 100%)",
         }}
       />
 
-      {/* Grid overlay continues from hero, fading out */}
+      {/* Grid overlay continues from hero, fading out toward center */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-1/2"
@@ -146,8 +146,8 @@ export function CaseCover({ study }: { study: CaseStudy }) {
           backgroundImage:
             "repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)," +
             "repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)",
-          maskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
+          maskImage: "linear-gradient(to bottom, black 0%, transparent 90%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 90%)",
         }}
       />
 
