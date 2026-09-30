@@ -13,26 +13,38 @@ export function CaseHero({ study }: { study: CaseStudy }) {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[560px] flex-col items-center overflow-hidden pb-14 pt-[120px] sm:min-h-[640px] sm:pt-[140px] lg:min-h-[720px] lg:pt-[160px]"
+      className="relative isolate flex min-h-[560px] flex-col items-center pb-14 pt-[120px] sm:min-h-[640px] sm:pt-[140px] lg:min-h-[720px] lg:pt-[160px]"
     >
-      {/* Gradient background */}
+      {/* Gradient background — extends below the hero into the cover band */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-20"
-        style={{ background: study.heroGradient }}
+        className="absolute inset-x-0 top-0 -z-20"
+        style={{
+          bottom: "max(-28vw, -360px)",
+          backgroundImage: study.heroGradient,
+          ...(study.bandColor
+            ? {
+                backgroundColor: study.bandColor,
+                backgroundSize: "100% calc(100% - min(28vw, 360px))",
+                backgroundRepeat: "no-repeat",
+              }
+            : {}),
+        }}
       />
 
-      {/* Grid overlay — fades out toward the bottom so the transition
-           into the cover section is seamless, not a hard line */}
+      {/* Grid overlay — extends into cover band, fading out */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10"
         style={{
+          bottom: "max(-28vw, -360px)",
           backgroundImage:
             "repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)," +
             "repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)",
-          maskImage: "linear-gradient(to bottom, black 50%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 50%, transparent 100%)",
+          maskImage:
+            "linear-gradient(to bottom, black 40%, transparent 70%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 40%, transparent 70%)",
         }}
       />
 
@@ -121,36 +133,7 @@ export function CaseHero({ study }: { study: CaseStudy }) {
 
 export function CaseCover({ study }: { study: CaseStudy }) {
   return (
-    <section className="relative overflow-hidden pt-0">
-      {/* Top band continues the hero gradient */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-1/2"
-        style={{ background: study.heroGradient }}
-      />
-
-      {/* Fade the gradient band to white at the bottom edge */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-1/2"
-        style={{
-          background: "linear-gradient(to bottom, transparent 80%, white 100%)",
-        }}
-      />
-
-      {/* Grid overlay continues from hero, fading out toward center */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-1/2"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)," +
-            "repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 1px,transparent 1px 80px)",
-          maskImage: "linear-gradient(to bottom, black 0%, transparent 90%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 90%)",
-        }}
-      />
-
+    <section className="relative pt-0">
       <InView>
         <div className="shell relative">
           <div className="relative aspect-[1280/720] w-full overflow-hidden rounded-[20px]">

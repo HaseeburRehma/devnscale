@@ -1157,6 +1157,7 @@ export type CaseStudy = {
     services: string;
   };
   heroGradient: string;
+  bandColor?: string;
   heroImage?: string;
   liveUrl?: string;
   coverImage: string;
@@ -1296,6 +1297,7 @@ const CASE_STUDY_STRIVE: CaseStudy = {
     services: "UI/UX Design",
   },
   heroGradient: "linear-gradient(180deg, #2a2563 0%, #01050e 100%)",
+  bandColor: "#01050e",
   heroImage: "/img/case/strive/hero-bg.png",
   coverImage: "/img/case/strive/cover.png",
   overview: {
@@ -1389,6 +1391,7 @@ const CASE_STUDY_CSD: CaseStudy = {
     services: "UI/UX Design",
   },
   heroGradient: "linear-gradient(180deg, #2e8f85 0%, #0c2b28 100%)",
+  bandColor: "#0c2b28",
   heroImage: "/img/case/csd-pakistan/hero-bg.png",
   coverImage: "/img/case/csd-pakistan/cover.png",
   overview: {
@@ -1488,6 +1491,7 @@ const CASE_STUDY_NK: CaseStudy = {
     services: "UI/UX Design",
   },
   heroGradient: "linear-gradient(180deg, #a83a40 0%, #1c0d0e 100%)",
+  bandColor: "#1c0d0e",
   heroImage: "/img/case/nk-associate/hero-bg.png",
   coverImage: "/img/case/nk-associate/cover.png",
   overview: {
@@ -1591,6 +1595,7 @@ const CASE_STUDY_TRILLIONER: CaseStudy = {
     services: "UI/UX Design",
   },
   heroGradient: "linear-gradient(180deg, #6e5a22 0%, #16120a 100%)",
+  bandColor: "#16120a",
   heroImage: "/img/case/trillioner/hero-bg.png",
   coverImage: "/img/case/trillioner/cover.png",
   overview: {
@@ -1677,6 +1682,7 @@ const CASE_STUDY_PARROT: CaseStudy = {
     services: "UI/UX Design",
   },
   heroGradient: "linear-gradient(180deg, #34430f 0%, #191919 100%)",
+  bandColor: "#191919",
   heroImage: "/img/case/parrot-bot/hero-bg.png",
   coverImage: "/img/case/parrot-bot/cover.png",
   overview: {
@@ -1770,6 +1776,7 @@ const CASE_STUDY_YCHARTER: CaseStudy = {
     services: "UI/UX Design",
   },
   heroGradient: "linear-gradient(180deg, #22345a 0%, #121c31 100%)",
+  bandColor: "#121c31",
   heroImage: "/img/case/y-charter/hero-bg.png",
   coverImage: "/img/case/y-charter/cover.png",
   overview: {
@@ -1856,6 +1863,7 @@ const CASE_STUDY_HUMAIN: CaseStudy = {
     services: "UI/UX Design, Design System",
   },
   heroGradient: "linear-gradient(180deg, #4f6b3d 0%, #011813 100%)",
+  bandColor: "#011813",
   liveUrl: "https://humainlearning.com",
   heroImage: "/img/case/humain-learning/hero-bg.png",
   coverImage: "/img/case/humain-learning/cover.png",
