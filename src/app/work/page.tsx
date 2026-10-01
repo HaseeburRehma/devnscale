@@ -5,7 +5,6 @@ import Footer from "@/components/sections/Footer";
 import WhyUs from "@/components/sections/WhyUs";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
-import DiagonalMarquees from "@/components/sections/DiagonalMarquees";
 import CaseMarquee from "@/components/sections/case/CaseMarquee";
 import PageHero from "@/components/sections/PageHero";
 import WorkGrid from "@/components/sections/work/WorkGrid";
@@ -29,13 +28,12 @@ export default function WorkPage() {
           accent={WORK_HERO.titleAccent}
           subtitle={WORK_HERO.subtitle}
         />
-        <DiagonalMarquees />
+        <CaseMarquee />
         <WorkGrid />
         <WhyUs />
         <AboutValues />
         <Testimonial />
         <Faqs />
-        <DiagonalMarquees />
         <CaseMarquee />
       </main>
       <Footer />

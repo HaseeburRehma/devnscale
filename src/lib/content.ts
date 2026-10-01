@@ -1988,11 +1988,16 @@ export const WORK = {
   title: "Case studies we’re proud of.",
   subtitle:
     "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
-  cases: CASE_STUDIES_LIST.map((cs) => ({
-    name: cs.name,
-    industry: cs.meta.industry,
-    tags: cs.meta.services.split(" / ").concat(cs.meta.platform.split(" and ")),
-    cover: cs.coverImage,
-    href: `/case-study/${cs.slug}`,
-  })),
-} as const;
+  cases: [
+    { name: "Merchant Cash Advance Calculator (MCA)", category: "FinTech Mobile App Design", tags: ["iOS", "Android", "UI/UX"], year: "2025", cover: "/img/work/mca.jpg" },
+    { name: "Lend SaaS Application", category: "FinTech SaaS Application", tags: ["Web App", "Design", "QA"], year: "2025", cover: "/img/work/lend-saas.jpg" },
+    { name: "Opulencex", category: "NFT Crypto Market", tags: ["Branding", "Website", "SEO"], year: "2026", cover: "/img/work/opulencex.jpg", href: "/case-study/opulencex" },
+    { name: "StriVe", category: "Web3 Creator Platform", tags: ["Website", "Web App", "UI/UX"], cover: "/img/work/strive.jpg", href: "/case-study/strive" },
+    { name: "NK Associate", category: "Real Estate Website", tags: ["Website", "Mobile", "UI/UX"], cover: "/img/work/nk-associate.jpg", href: "/case-study/nk-associate" },
+    { name: "Trillioner", category: "Crypto Landing Page", tags: ["Landing Page", "Web3", "UI/UX"], cover: "/img/work/trillioner.jpg", href: "/case-study/trillioner" },
+    { name: "Parrot Bot", category: "Crypto Trading Dashboard", tags: ["Web App", "Dashboard", "UI/UX"], cover: "/img/work/parrot-bot.jpg", href: "/case-study/parrot-bot" },
+    { name: "Y Charter", category: "Luxury Travel Website", tags: ["Website", "Travel", "UI/UX"], cover: "/img/work/y-charter.jpg", href: "/case-study/y-charter" },
+    { name: "Humain Learning", category: "EdTech Website and Dashboard", tags: ["Website", "Web App", "UI/UX"], cover: "/img/work/humain-learning.jpg", href: "/case-study/humain-learning" },
+    { name: "CSD Pakistan", category: "Grocery iOS App", tags: ["iOS", "Mobile App", "UI/UX"], cover: "/img/work/csd-pakistan.jpg", href: "/case-study/csd-pakistan" },
+  ] as { name: string; category: string; tags: string[]; year?: string; cover: string; href?: string }[],
+};

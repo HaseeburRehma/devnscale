@@ -5,7 +5,6 @@ import Footer from "@/components/sections/Footer";
 import WhyUs from "@/components/sections/WhyUs";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
-import DiagonalMarquees from "@/components/sections/DiagonalMarquees";
 import CaseMarquee from "@/components/sections/case/CaseMarquee";
 
 import PageHero from "@/components/sections/PageHero";
@@ -41,7 +40,6 @@ export default function AboutPage() {
         <AboutTeam />
         <Testimonial />
         <Faqs />
-        <DiagonalMarquees />
         <CaseMarquee />
       </main>
       <Footer />

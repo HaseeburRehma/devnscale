@@ -4,7 +4,7 @@ import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
-import DiagonalMarquees from "@/components/sections/DiagonalMarquees";
+import CaseMarquee from "@/components/sections/case/CaseMarquee";
 
 import PageHero from "@/components/sections/PageHero";
 import { TEAM_HERO } from "@/lib/content";
@@ -32,7 +32,7 @@ export default function TeamPage() {
         <AboutValues />
         <Testimonial />
         <Faqs />
-        <DiagonalMarquees />
+        <CaseMarquee />
       </main>
       <Footer />
     </>
