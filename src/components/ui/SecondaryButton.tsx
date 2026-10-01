@@ -29,7 +29,7 @@ export default function SecondaryButton({
       className={`group relative inline-flex h-[54px] items-center gap-[6.429px] overflow-hidden rounded-xl border-[0.643px] px-[16.714px] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400 active:translate-y-0 ${
         isDark
           ? "border-lime-100 bg-[#08120e]"
-          : "border-border-default bg-white"
+          : "justify-center border-ink-950 bg-white"
       } ${className}`}
     >
       {/* wipe fill */}

@@ -700,31 +700,25 @@ export const SERVICE_SLUGS: Record<string, string> = Object.fromEntries(
 
 export const PROJECTS = [
   {
-    pill: "DeFi and Web3",
-    title: "OpulenceX",
-    body: "OpulenceX is a decentralised finance protocol on the BNB Chain. Users swap tokens, provide liquidity, stake in yield farms and earn holder rewards, all inside one product.",
-    metric: "16",
-    metricLabel: "Screens Designed",
-    image: "/img/case/opulencex/cover.png",
+    pill: "FinTech Mobile App Design",
+    title: "Merchant Cash Advance Calculator (MCA)",
+    body: "MCA Professionals Often Rely On Multiple Tools To Calculate Deals, Manage Templates, And Review Previous Calculations. We Designed One Connected Experience To Bring These Tasks Together In A Faster, More Organized Workflow.",
+    image: "/img/projects/mca.jpg",
+    href: "/work",
+  },
+  {
+    pill: "Fintech Saas Application",
+    title: "Lend SaaS Application",
+    body: "A Centralized Platform That Brings Essential Financial Products, Protocols, Knowledge, And Powerful Calculation Tools Together In One Seamless Experience.",
+    image: "/img/projects/lend-saas.jpg",
+    href: "/work",
+  },
+  {
+    pill: "NFT Crypto Market",
+    title: "Opulencex",
+    body: "Swap Tokens, Farm Yield, Stake For APY, And Earn From NFTs—All Through One Connected DeFi Suite Built For The XRP Ledger.",
+    image: "/img/projects/opulencex.jpg",
     href: "/case-study/opulencex",
-  },
-  {
-    pill: "Web3 and Creator Economy",
-    title: "StriVe",
-    body: "StriVe is a Web3 creator platform. Creators launch campaigns and raise money for their projects, while fans discover them, invest in them and trade creator tokens.",
-    metric: "12",
-    metricLabel: "Screens Designed",
-    image: "/img/case/strive/cover.png",
-    href: "/case-study/strive",
-  },
-  {
-    pill: "Retail and Grocery",
-    title: "CSD Pakistan",
-    body: "CSD Pakistan, The Caring Store, is a grocery ordering app for iOS. Customers set a delivery location, shop from the CSD store that serves it and track the order to their door.",
-    metric: "16",
-    metricLabel: "Screens Designed",
-    image: "/img/case/csd-pakistan/cover.png",
-    href: "/case-study/csd-pakistan",
   },
 ];
 

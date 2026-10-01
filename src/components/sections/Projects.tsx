@@ -4,10 +4,9 @@ import SecondaryButton from "@/components/ui/SecondaryButton";
 import { PROJECTS } from "@/lib/content";
 
 /**
- * Figma card metrics at full width (1280 x 418):
- *   padding-left 56 · text 556 · gap 48 · visual 580x320 · padding-right 40
- *   the visual is inset 49px top and bottom — (418 - 320) / 2
- * Below `xl` the two columns hold that 556:580 ratio fluidly; below `md` the
+ * Figma card metrics at full width (1280 x 438, node 4541:446):
+ *   padding 40 / left 56 / right 40 · text fluid · gap 48 · visual 580x358
+ * Below `xl` the two columns stay side by side fluidly; below `md` the
  * image moves under the text.
  *
  * The scroll stacking is the `.stack-card` rule in globals.css: every card
@@ -33,39 +32,30 @@ export default function Projects() {
           {PROJECTS.map((project, i) => (
             <div
               key={project.title}
-              className="stack-card mb-8 last:mb-0 md:mb-20"
+              className="stack-card mb-8 last:mb-0"
               style={{ zIndex: i + 1 }}
             >
-              <div className="rounded-[24px] bg-[linear-gradient(103deg,#c4d434_0%,#9cd6bc_45%,#7fb8d4_100%)] p-px shadow-[0_18px_40px_-24px_rgba(1,42,28,0.35)]">
-                <article className="group grid grid-cols-1 items-center gap-8 rounded-[23px] bg-white p-6 sm:p-8 md:grid-cols-[1fr_1.043fr] xl:grid-cols-[556px_580px] xl:gap-12 xl:p-0 xl:pl-14 xl:pr-10">
-                  <div className="xl:py-10">
-                    <span className="inline-flex h-8 items-center rounded-full border border-border-subtle bg-white px-3.5 text-[12px] leading-4 text-text-secondary">
+              <div className="rounded-[24px] bg-[linear-gradient(90deg,#c4d434_0%,#7eb863_50%,#59a773_75%,#2f9580_100%)] p-[1.5px] shadow-[0_10px_30px_0_rgba(5,28,18,0.06)]">
+                <article className="group grid grid-cols-1 items-center gap-8 rounded-[22.5px] bg-white p-6 sm:p-8 md:grid-cols-[1fr_1.043fr] xl:grid-cols-[1fr_580px] xl:gap-12 xl:py-10 xl:pl-14 xl:pr-10">
+                  <div className="flex flex-col items-start gap-6">
+                    <span className="rounded-full border border-[#e5e5e5] bg-white px-3.5 py-2 text-[13px] font-medium text-[#525252]">
                       {project.pill}
                     </span>
 
-                    <h3 className="t-h1 mt-6 text-ink-900">{project.title}</h3>
+                    <h3 className="max-w-[460px] font-display text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] font-medium leading-[1.2] tracking-[-1px] text-[#1b1b1b]">
+                      {project.title}
+                    </h3>
 
-                    <p className="t-body-sm mt-6 max-w-[540px] text-text-secondary">
+                    <p className="max-w-[540px] text-[clamp(0.938rem,0.85rem+0.3vw,1.0625rem)] leading-[1.55] text-[#525252]">
                       {project.body}
                     </p>
 
-                    <div className="mt-6 flex items-center gap-2.5">
-                      <span className="font-display text-[26px] font-bold leading-none tracking-[-0.5px] text-lime-700">
-                        {project.metric}
-                      </span>
-                      <span className="t-body-sm text-text-secondary">
-                        {project.metricLabel}
-                      </span>
-                    </div>
-
-                    <div className="mt-8">
-                      <SecondaryButton variant="light" href={project.href}>
-                        View Case Study
-                      </SecondaryButton>
-                    </div>
+                    <SecondaryButton variant="light" href={project.href} className="w-[220px]">
+                      View Case Study
+                    </SecondaryButton>
                   </div>
 
-                  <div className="relative aspect-[580/320] w-full overflow-hidden rounded-[16px] xl:my-[49px]">
+                  <div className="relative aspect-[580/358] w-full overflow-hidden rounded-[20px]">
                     <Image
                       src={project.image}
                       alt={`${project.title} — project preview`}
