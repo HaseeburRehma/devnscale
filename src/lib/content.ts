@@ -3,7 +3,6 @@
 // Hrefs are page-relative (`/#…`) so they resolve from any route, not just
 // the home page — About Us is now its own page.
 export const NAV_LINKS = [
-  { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Our Services", href: "/services" },
   { label: "Work", href: "/work" },
@@ -814,13 +813,13 @@ export const FAQS = [
 ];
 
 export const CONTACT_DETAILS = [
-  { icon: "mail", label: "EMAIL", value: "info@devnscale.com" },
+  { icon: "mail", label: "EMAIL", value: "waseeqaftab@devnscale.com" },
   { icon: "phone", label: "PHONE", value: "+92 339 5636702" },
   {
     icon: "pin",
     label: "OFFICE",
     value:
-      "Plot No 21, First Floor, Above Smile PhotoStudio, Phase 1 Pakistan Town, Islamabad, Pakistan",
+      "Plot No 21, First Floor, Phase 1 Pakistan Town, Islamabad, Pakistan",
   },
 ];
 
@@ -866,7 +865,7 @@ export const FOOTER_LINKS = {
   ],
   contact: [
     { label: "+92 339 5636702", href: "tel:+923395636702" },
-    { label: "info@devnscale.com", href: "mailto:info@devnscale.com" },
+    { label: "waseeqaftab@devnscale.com", href: "mailto:waseeqaftab@devnscale.com" },
   ],
 };
 
@@ -1104,7 +1103,7 @@ export const CONTACT_BOOKING = {
   formTitle: "We're just a message away",
   services: [
     "UI/UX Design",
-    "Full Stack Development",
+    "Web Development",
     "Mobile Development",
     "AI Chatbot",
     "QA & Testing",
@@ -1118,13 +1117,13 @@ export const CONTACT_REACH = {
   title: "Reach out to us",
   subtitle: "You can reach us by email, by phone, or with a visit to the studio.",
   cards: [
-    { icon: "mail", label: "Email", value: "info@devnscale.com" },
+    { icon: "mail", label: "Email", value: "waseeqaftab@devnscale.com" },
     { icon: "phone", label: "Phone", value: "+92 339 5636702" },
     {
       icon: "pin",
       label: "Office",
       value:
-        "Plot No 21, First Floor, Above Smile PhotoStudio, Phase 1 Pakistan Town, Islamabad, Pakistan",
+        "Plot No 21, First Floor, Phase 1 Pakistan Town, Islamabad, Pakistan",
     },
   ],
 } as const;

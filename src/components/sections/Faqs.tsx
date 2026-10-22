@@ -31,10 +31,10 @@ export default function Faqs() {
           </Reveal>
           <Reveal delay={0.15}>
             <a
-              href="mailto:hello@devnscale.com"
+              href="mailto:waseeqaftab@devnscale.com"
               className="group mt-6 inline-flex items-center gap-2 text-[14px] text-lime-700 transition-colors hover:text-lime-600"
             >
-              hello@devnscale.com
+              waseeqaftab@devnscale.com
               <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-1.5" />
             </a>
           </Reveal>

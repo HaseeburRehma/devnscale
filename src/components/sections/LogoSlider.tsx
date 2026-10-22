@@ -41,6 +41,12 @@ const CLIENT_LOGOS: ClientLogo[] = [
   },
 ];
 
+/* One "half" of the track repeats the set enough times to stay wider than
+ * the widest viewport (~750px per set), so the -50% loop never exposes an
+ * empty stretch at the end of the row. */
+const SET_REPEATS = 4;
+const HALF = Array.from({ length: SET_REPEATS }, () => CLIENT_LOGOS).flat();
+
 function LogoChip({
   logo,
   ariaHidden = false,
@@ -96,17 +102,17 @@ export default function LogoSlider({ tone = "dark" }: { tone?: "dark" | "light" 
         </span>
       </div>
 
-      {/* Scrolling track — one flat flex row of TWO copies of the logo
-       *  set with a uniform gap. The animation shifts -50% (the width
+      {/* Scrolling track — one flat flex row of TWO copies of HALF
+       *  with a uniform gap. The animation shifts -50% (the width
        *  of one copy including its trailing gap), so the seam between
        *  copies uses the same 21px gap as between logos, keeping the
        *  loop perfectly continuous with no dead space at the wrap. */}
       <div className="marquee-host relative h-full flex-1 overflow-hidden">
         <div
           className="marquee-track marquee-left h-full items-center gap-[21px] pl-[21px]"
-          style={{ ["--marquee-duration" as string]: "34s" }}
+          style={{ ["--marquee-duration" as string]: `${34 * SET_REPEATS}s` }}
         >
-          {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((logo, i) => (
+          {[...HALF, ...HALF].map((logo, i) => (
             <LogoChip
               key={i}
               logo={logo}
