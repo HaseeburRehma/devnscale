@@ -347,18 +347,21 @@ export function CaseScreens({ study }: { study: CaseStudy }) {
             >
               {cat.screens.map((screen) => (
                 <div key={screen.caption} className="flex flex-col gap-4">
+                  {/* Screens Figma hasn't filled yet keep its #ededed slot. */}
                   <div
-                    className={`relative w-full overflow-hidden rounded-[20px] border border-border-subtle ${
+                    className={`relative w-full overflow-hidden rounded-[20px] border border-border-subtle bg-[#ededed] ${
                       s.mobile ? "aspect-[302/654]" : "aspect-[628/393]"
                     }`}
                   >
-                    <Image
-                      src={screen.image}
-                      alt={screen.caption}
-                      fill
-                      sizes={s.mobile ? "(min-width: 640px) 25vw, 50vw" : "(min-width: 640px) 50vw, 100vw"}
-                      className="object-cover"
-                    />
+                    {screen.image && (
+                      <Image
+                        src={screen.image}
+                        alt={screen.caption}
+                        fill
+                        sizes={s.mobile ? "(min-width: 640px) 25vw, 50vw" : "(min-width: 640px) 50vw, 100vw"}
+                        className="object-cover"
+                      />
+                    )}
                   </div>
                   <p className="text-[13px] font-medium text-ink-800">
                     {screen.caption}

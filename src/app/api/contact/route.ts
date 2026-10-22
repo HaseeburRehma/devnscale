@@ -12,7 +12,7 @@ import {
  *
  * Reads the JSON payload from `Contact.tsx`, validates it, then fires two
  * emails via Resend:
- *   1. Owner notification → `CONTACT_INBOX` (waseeqaftab@devnscale.com by
+ *   1. Owner notification → `CONTACT_INBOX` (waseeq.aftab@devnscale.com by
  *      default) with `Reply-To` set to the sender so replies land in the
  *      right inbox.
  *   2. User confirmation → the sender, so they know the message landed.
@@ -25,7 +25,7 @@ import {
 export const runtime = "nodejs";
 
 const OWNER_EMAIL =
-  process.env.CONTACT_INBOX ?? "waseeqaftab@devnscale.com";
+  process.env.CONTACT_INBOX ?? "waseeq.aftab@devnscale.com";
 
 /**
  * Sender address. Must be on a domain verified in your Resend workspace.

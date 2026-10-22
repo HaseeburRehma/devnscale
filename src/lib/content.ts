@@ -703,14 +703,14 @@ export const PROJECTS = [
     title: "Merchant Cash Advance Calculator (MCA)",
     body: "MCA Professionals Often Rely On Multiple Tools To Calculate Deals, Manage Templates, And Review Previous Calculations. We Designed One Connected Experience To Bring These Tasks Together In A Faster, More Organized Workflow.",
     image: "/img/projects/mca.jpg",
-    href: "/work",
+    href: "/case-study/mca",
   },
   {
     pill: "Fintech Saas Application",
     title: "Lend SaaS Application",
     body: "A Centralized Platform That Brings Essential Financial Products, Protocols, Knowledge, And Powerful Calculation Tools Together In One Seamless Experience.",
     image: "/img/projects/lend-saas.jpg",
-    href: "/work",
+    href: "/case-study/lend-saas",
   },
   {
     pill: "NFT Crypto Market",
@@ -1135,7 +1135,7 @@ export const CONTACT_REACH = {
 export type ScreenCategory = {
   title: string;
   description: string;
-  screens: readonly { caption: string; image: string }[];
+  screens: readonly { caption: string; image?: string }[];
 };
 
 export type CaseStudy = {
@@ -1951,6 +1951,337 @@ const CASE_STUDY_HUMAIN: CaseStudy = {
   },
 };
 
+/* ------------------------------------------------------------------
+ * MCA and Lend SaaS have no frame in the current Figma case-study set;
+ * copy comes from their earlier Figma frames (4850:15665, 5399:40158),
+ * set in sentence case to match the other studies.
+ * ------------------------------------------------------------------ */
+
+const CASE_STUDY_MCA: CaseStudy = {
+  slug: "mca",
+  name: "MCA Calculator",
+  title: "Simplifying MCA calculations into one powerful workflow.",
+  subtitle:
+    "A smarter way to calculate, manage, and structure merchant cash advances, with deals, templates, history and proposals in one mobile app.",
+  meta: {
+    industry: "FinTech, Alternative Finance",
+    platform: "iOS and Android",
+    scope: "Mobile app",
+    services: "UI/UX Design, Development",
+  },
+  heroGradient: "linear-gradient(180deg, #171c4b 0%, #080a1a 100%)",
+  bandColor: "#080a1a",
+  coverImage: "/img/case/mca/hero.png",
+  overview: {
+    lead: "MCA professionals often rely on multiple tools to calculate deals, manage templates, and review previous calculations. We designed one connected experience to bring these tasks together in a faster, more organized workflow.",
+    challenge:
+      "The challenge was to simplify complex MCA calculations without removing the flexibility professionals need. The experience had to support different deal structures, reusable templates, calculations, and proposals while staying easy to navigate.",
+    approach:
+      "Every interaction was designed around the way MCA professionals actually work, from entering deal information and running calculations to reviewing results and preparing proposals.",
+  },
+  features: {
+    subtitle: "Every screen designed as part of one connected experience.",
+    items: [
+      {
+        title: "From scattered tools to one view",
+        body: "Calculations, templates, history, and proposals live in one product, so professionals stop switching between apps.",
+        image: "/img/case/mca/problem.png",
+      },
+      {
+        title: "Built for the field",
+        body: "Fast onboarding, secure sign-in and recovery, and inputs sized for entering deal details on the move.",
+        image: "/img/case/mca/system.png",
+      },
+      {
+        title: "Faster deals, fewer steps",
+        body: "31% fewer workflow steps and 2.4x faster repeat calculations through reusable templates and saved history.",
+        image: "/img/case/mca/results.png",
+      },
+    ],
+  },
+  screensImage: "/img/case/mca/gallery.png",
+  selectedWork: ["lend-saas", "opulencex"],
+  seo: {
+    title: "MCA Calculator — Case Study — Dev N Scale",
+    description:
+      "MCA Calculator: a mobile app that brings merchant cash advance calculations, templates, history and proposals into one workflow.",
+  },
+};
+
+const CASE_STUDY_LEND_SAAS: CaseStudy = {
+  slug: "lend-saas",
+  name: "Lend SaaS",
+  title: "One central hub for everything Lend SaaS.",
+  subtitle:
+    "A centralized platform that brings essential financial products, protocols, knowledge, and powerful calculation tools together in one seamless experience.",
+  meta: {
+    industry: "FinTech",
+    platform: "Web app",
+    scope: "SaaS platform, financial calculator",
+    services: "UI/UX Design, Product Design, QA",
+  },
+  heroGradient: "linear-gradient(180deg, #282495 0%, #09081b 100%)",
+  bandColor: "#09081b",
+  coverImage: "/img/case/lend-hub/hero.png",
+  overview: {
+    lead: "Lend SaaS needed to serve as the central hub for everything the team relies on, from company products and protocols to knowledge and financial tools, in one accessible platform that adds no complexity.",
+    challenge:
+      "Financial teams work with multiple resources while handling calculations, financial projections, loan analysis, and underwriting decisions. Those resources had to be easier to reach, with a smoother way to move between information and tools.",
+    approach:
+      "We put the right products, protocols, knowledge, and financial tools within easy reach, so teams spend less time looking for information and more time on analysis, calculations, and decision-making.",
+  },
+  features: {
+    subtitle: "Powerful tools, seamlessly connected in one platform.",
+    items: [
+      {
+        title: "One central hub",
+        body: "Products, protocols, knowledge, and calculation tools in a single, consistent platform.",
+        image: "/img/case/lend-hub/mock-1.png",
+      },
+      {
+        title: "Proposals and offers",
+        body: "Create client proposals and track offers, revenue, and top producers from one dashboard.",
+        image: "/img/case/lend-hub/mock-2.png",
+      },
+      {
+        title: "Smarter underwriting",
+        body: "An integrated financial calculator that streamlines complex calculations and supports better decisions.",
+        image: "/img/case/lend-hub/problem.png",
+      },
+    ],
+  },
+  screensImage: "/img/case/lend-hub/gallery.png",
+  selectedWork: ["mca", "opulencex"],
+  seo: {
+    title: "Lend SaaS — Case Study — Dev N Scale",
+    description:
+      "Lend SaaS: a central hub for financial products, protocols, knowledge and calculation tools.",
+  },
+};
+
+/* ------------------------------------------------------------------
+ * Enterprise AI Search, Multi-Tenant SaaS and Bilingual Voice Agent —
+ * Figma frames 6121:2, 6121:218, 6121:434. Their screen slots are still
+ * empty placeholders in Figma, so screens carry captions without images.
+ * ------------------------------------------------------------------ */
+
+const CASE_STUDY_ENTERPRISE_AI: CaseStudy = {
+  slug: "enterprise-ai-search",
+  name: "Enterprise AI Search",
+  title: "Enterprise AI search that engineers can actually trust.",
+  subtitle:
+    "Enterprise needed its engineering teams to find answers inside 75,000+ petroleum documents. We built an agentic RAG platform that hits a 90%+ retrieval rate and returns every answer with citations down to the page.",
+  meta: {
+    industry: "Energy / Oil & Gas",
+    platform: "Web app, on-premises",
+    scope: "Agentic RAG search and chatbot",
+    services: "AI Architecture, RAG Design",
+  },
+  heroGradient: "linear-gradient(180deg, #4f6b3d 0%, #011813 100%)",
+  bandColor: "#011813",
+  coverImage: "/img/case/enterprise-ai-search/cover.jpg",
+  overview: {
+    lead: "Enterprise holds more than 75,000 technical documents, including manuals that run up to 6,000 pages, SAP exports, and scanned drawings. Engineers needed answers from all of it in seconds, scoped to what each team is allowed to see, and verifiable enough to act on safely.",
+    challenge:
+      "Dense retrieval alone topped out at 65 to 75%. Engineers search in shorthand like 'PID', which embeddings don't link to 'Piping and Instrumentation Diagram', and generic parsers flattened tables and lost section hierarchy. A wrong answer could become a safety problem.",
+    approach:
+      "We paired hybrid dense and sparse retrieval with index-time synonym expansion, built layout-aware ingestion that keeps tables and structure intact, and bound every answer to its source chunks so each response opens to the exact page and paragraph.",
+  },
+  features: {
+    subtitle: "One platform across ingestion, retrieval, and verified answers.",
+    items: [
+      {
+        title: "Layout-aware ingestion",
+        body: "Multi-parser extraction keeps tables and section hierarchy intact across PDFs, Office files, and SAP exports, with 90%+ of documents parsed into usable structure.",
+        image: "/img/case/enterprise-ai-search/feature-1.jpg",
+      },
+      {
+        title: "Hybrid retrieval",
+        body: "Dense and sparse retrieval with synonym expansion lifts the top-k hit rate from the 65 to 75% range up to 90%+ on an SME-built evaluation set.",
+        image: "/img/case/enterprise-ai-search/feature-2.jpg",
+      },
+      {
+        title: "Citation-grounded answers",
+        body: "Every response shows its source chunks, scoped to the user's authorized knowledge bases, with under 2 seconds P95 latency in production.",
+        image: "/img/case/enterprise-ai-search/feature-3.jpg",
+      },
+    ],
+  },
+  screensImage: "/img/case/enterprise-ai-search/cover.jpg",
+  screens: {
+    title: "Inside the platform",
+    description: "Built for verification, access control, and scale.",
+    categories: [
+      {
+        title: "Search and answers",
+        description: "Ask in engineering shorthand, get an answer grounded in the exact source.",
+        screens: [{ caption: "Search home" }, { caption: "Grounded answer with citations" }],
+      },
+      {
+        title: "Access, ingestion and insight",
+        description:
+          "Scoped knowledge bases, layout-aware ingestion, and an offline query loop that keeps retrieval improving.",
+        screens: [
+          { caption: "Source chunk viewer" },
+          { caption: "Knowledge base and access control" },
+          { caption: "Ingestion and parsing monitor" },
+          { caption: "Query intelligence clusters" },
+        ],
+      },
+    ],
+  },
+  selectedWork: ["mca", "opulencex"],
+  seo: {
+    title: "Enterprise AI Search — Case Study — Dev N Scale",
+    description:
+      "Enterprise AI Search: an agentic RAG platform over 75,000+ technical documents with 90%+ retrieval and page-level citations.",
+  },
+};
+
+const CASE_STUDY_MULTI_TENANT: CaseStudy = {
+  slug: "multi-tenant-saas",
+  name: "Multi-Tenant SaaS",
+  title: "Document intelligence any business can deploy, no build required.",
+  subtitle:
+    "Any organization can stand up AI-powered document search on this platform, with every tenant's data isolated at the database level and a clean 32-endpoint API handling the rest.",
+  meta: {
+    industry: "SaaS / AI",
+    platform: "Web app and API",
+    scope: "Multi-tenant RAG platform",
+    services: "Lead Development, Architecture",
+  },
+  heroGradient: "linear-gradient(180deg, #4f6b3d 0%, #011813 100%)",
+  bandColor: "#011813",
+  coverImage: "/img/case/multi-tenant-saas/cover.jpg",
+  overview: {
+    lead: "Businesses want AI document intelligence, but building a RAG system from scratch is slow and expensive. This platform lets any organization deploy document search without code, while keeping every tenant's documents, embeddings, and query history isolated and access-controlled.",
+    challenge:
+      "Serving many organizations from one system means isolation can't be an afterthought. Each tenant's data had to be separated at the database level, not just in the application, and admins needed fine-grained control over who can upload, query, and manage each collection.",
+    approach:
+      "PostgreSQL Row-Level Security isolates every tenant at the database, role-based access controls each action, and hybrid retrieval over Qdrant combines vector and keyword search. PydanticAI keeps orchestration type-safe, with Claude Sonnet generating answers and OpenAI handling embeddings.",
+  },
+  features: {
+    subtitle: "A platform other teams can stand up and run themselves.",
+    items: [
+      {
+        title: "Multi-tenant isolation",
+        body: "PostgreSQL Row-Level Security separates each organization's documents, embeddings, and query history at the database level, not just the application.",
+        image: "/img/case/multi-tenant-saas/feature-1.jpg",
+      },
+      {
+        title: "Role-based control",
+        body: "Tenant admins decide who can upload documents, run queries, and manage each knowledgebase and collection.",
+        image: "/img/case/multi-tenant-saas/feature-2.jpg",
+      },
+      {
+        title: "Hybrid retrieval and a clean API",
+        body: "Qdrant vector search plus keyword retrieval, exposed through a 32-endpoint API for frontends and third-party integrations.",
+        image: "/img/case/multi-tenant-saas/feature-3.jpg",
+      },
+    ],
+  },
+  screensImage: "/img/case/multi-tenant-saas/cover.jpg",
+  screens: {
+    title: "Inside the platform",
+    description: "The workspace tenants use, and the controls admins rely on.",
+    categories: [
+      {
+        title: "Tenant workspace",
+        description: "Upload, search, and manage knowledgebases without touching code.",
+        screens: [{ caption: "Tenant dashboard" }, { caption: "Query console" }],
+      },
+      {
+        title: "Admin and access",
+        description: "Granular permissions and full data isolation for every organization.",
+        screens: [
+          { caption: "Knowledgebase manager" },
+          { caption: "Members and roles" },
+          { caption: "Document permissions" },
+          { caption: "API and usage" },
+        ],
+      },
+    ],
+  },
+  selectedWork: ["mca", "opulencex"],
+  seo: {
+    title: "Multi-Tenant SaaS — Case Study — Dev N Scale",
+    description:
+      "Multi-Tenant SaaS: a no-code RAG platform with database-level tenant isolation and a 32-endpoint API.",
+  },
+};
+
+const CASE_STUDY_VOICE_AGENT: CaseStudy = {
+  slug: "voice-agent",
+  name: "Bilingual Voice Agent",
+  title: "A bilingual voice agent that answers in English or Urdu, on CPU alone.",
+  subtitle:
+    "A real-time reception kiosk for a datacenter inauguration, running the full speech-to-speech stack on CPU-only compute. Sentence-level streaming cut first-audio delay from over 7 seconds to a sub-second budget.",
+  meta: {
+    industry: "Datacenter / Telecom",
+    platform: "Voice agent, kiosk",
+    scope: "Real-time bilingual voice AI",
+    services: "Voice AI, Latency Engineering",
+  },
+  heroGradient: "linear-gradient(180deg, #4f6b3d 0%, #011813 100%)",
+  bandColor: "#011813",
+  coverImage: "/img/case/voice-agent/cover.jpg",
+  overview: {
+    lead: "The client needed a reception kiosk that answers questions in English or Urdu from one internal reference document, running entirely on CPU with no GPU available. Two text-to-speech pipelines run inside a single conversation loop, one for each language.",
+    challenge:
+      "The first version waited for the full LLM response before speaking, so the first audio took between 7 and 12 seconds. Scarce CPU cycles, not model quality, were the bottleneck, which ruled out simply adding parallel compute.",
+    approach:
+      "We switched to sentence-level streaming so speech starts on the first sentence, dropped the TTS frame size from 200ms to 20ms, and used Silero VAD for accurate turn-taking. Stage-level tracing in Langfuse showed where the time was actually going.",
+  },
+  features: {
+    subtitle: "A speech-to-speech loop tuned for a CPU-only deployment.",
+    items: [
+      {
+        title: "Bilingual speech loop",
+        body: "LiveKit Agents, Whisper transcription, and Qwen over vLLM, with Kokoro for English and MMS-TTS for Urdu synthesis in one conversation.",
+        image: "/img/case/voice-agent/feature-1.jpg",
+      },
+      {
+        title: "Sentence-level streaming",
+        body: "Synthesis starts on the first sentence instead of the full response, cutting first-audio delay from 7 to 12 seconds down to a sub-second budget.",
+        image: "/img/case/voice-agent/feature-2.jpg",
+      },
+      {
+        title: "Stage-level observability",
+        body: "Langfuse spans split VAD, STT, retrieval, generation, and TTS, surfacing tts_first_frame as the metric that mattered.",
+        image: "/img/case/voice-agent/feature-3.jpg",
+      },
+    ],
+  },
+  screensImage: "/img/case/voice-agent/cover.jpg",
+  screens: {
+    title: "Inside the kiosk",
+    description: "The conversation people see, and the traces that made it fast.",
+    categories: [
+      {
+        title: "Kiosk experience",
+        description: "A bilingual welcome that answers from a single reference document.",
+        screens: [{ caption: "Welcome screen" }, { caption: "Live bilingual conversation" }],
+      },
+      {
+        title: "Pipeline and tracing",
+        description: "The CPU-only stack and the observability that tuned it.",
+        screens: [
+          { caption: "Language routing" },
+          { caption: "Grounded answer with source" },
+          { caption: "Langfuse latency trace" },
+          { caption: "Pipeline observability" },
+        ],
+      },
+    ],
+  },
+  selectedWork: ["mca", "opulencex"],
+  seo: {
+    title: "Bilingual Voice Agent — Case Study — Dev N Scale",
+    description:
+      "Bilingual Voice Agent: a CPU-only English and Urdu reception kiosk with sub-second first audio.",
+  },
+};
+
 export const CASE_STUDIES: Record<string, CaseStudy> = {
   opulencex: CASE_STUDY_OPULENCEX,
   strive: CASE_STUDY_STRIVE,
@@ -1960,6 +2291,11 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
   "parrot-bot": CASE_STUDY_PARROT,
   "y-charter": CASE_STUDY_YCHARTER,
   "humain-learning": CASE_STUDY_HUMAIN,
+  mca: CASE_STUDY_MCA,
+  "lend-saas": CASE_STUDY_LEND_SAAS,
+  "enterprise-ai-search": CASE_STUDY_ENTERPRISE_AI,
+  "multi-tenant-saas": CASE_STUDY_MULTI_TENANT,
+  "voice-agent": CASE_STUDY_VOICE_AGENT,
 };
 
 export const CASE_STUDIES_LIST: CaseStudy[] = Object.values(CASE_STUDIES);
@@ -1982,8 +2318,8 @@ export const WORK = {
   subtitle:
     "A look at products we designed, built, and shipped with teams who trusted us to get it right.",
   cases: [
-    { name: "Merchant Cash Advance Calculator (MCA)", category: "FinTech Mobile App Design", tags: ["iOS", "Android", "UI/UX"], year: "2025", cover: "/img/work/mca.jpg" },
-    { name: "Lend SaaS Application", category: "FinTech SaaS Application", tags: ["Web App", "Design", "QA"], year: "2025", cover: "/img/work/lend-saas.jpg" },
+    { name: "Merchant Cash Advance Calculator (MCA)", category: "FinTech Mobile App Design", tags: ["iOS", "Android", "UI/UX"], year: "2025", cover: "/img/work/mca.jpg", href: "/case-study/mca" },
+    { name: "Lend SaaS Application", category: "FinTech SaaS Application", tags: ["Web App", "Design", "QA"], year: "2025", cover: "/img/work/lend-saas.jpg", href: "/case-study/lend-saas" },
     { name: "Opulencex", category: "NFT Crypto Market", tags: ["Branding", "Website", "SEO"], year: "2026", cover: "/img/work/opulencex.jpg", href: "/case-study/opulencex" },
     { name: "StriVe", category: "Web3 Creator Platform", tags: ["Website", "Web App", "UI/UX"], cover: "/img/work/strive.jpg", href: "/case-study/strive" },
     { name: "NK Associate", category: "Real Estate Website", tags: ["Website", "Mobile", "UI/UX"], cover: "/img/work/nk-associate.jpg", href: "/case-study/nk-associate" },
@@ -1992,5 +2328,8 @@ export const WORK = {
     { name: "Y Charter", category: "Luxury Travel Website", tags: ["Website", "Travel", "UI/UX"], cover: "/img/work/y-charter.jpg", href: "/case-study/y-charter" },
     { name: "Humain Learning", category: "EdTech Website and Dashboard", tags: ["Website", "Web App", "UI/UX"], cover: "/img/work/humain-learning.jpg", href: "/case-study/humain-learning" },
     { name: "CSD Pakistan", category: "Grocery iOS App", tags: ["iOS", "Mobile App", "UI/UX"], cover: "/img/work/csd-pakistan.jpg", href: "/case-study/csd-pakistan" },
+    { name: "Enterprise AI Search", category: "Agentic RAG Platform", tags: ["AI", "RAG", "Web App"], cover: "/img/case/enterprise-ai-search/cover.jpg", href: "/case-study/enterprise-ai-search" },
+    { name: "Multi-Tenant SaaS", category: "Multi-Tenant RAG Platform", tags: ["SaaS", "AI", "API"], cover: "/img/case/multi-tenant-saas/cover.jpg", href: "/case-study/multi-tenant-saas" },
+    { name: "Bilingual Voice Agent", category: "Real-time Voice AI", tags: ["Voice AI", "Kiosk", "LLM"], cover: "/img/case/voice-agent/cover.jpg", href: "/case-study/voice-agent" },
   ] as { name: string; category: string; tags: string[]; year?: string; cover: string; href?: string }[],
 };
