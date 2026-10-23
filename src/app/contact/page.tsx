@@ -11,6 +11,7 @@ import ContactReach from "@/components/sections/contact/ContactReach";
 import { CONTACT_HERO } from "@/lib/content";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact — Dev N Scale",
   description:
     "Book an appointment with Dev N Scale. Senior people who design and ship — reply within one business day.",

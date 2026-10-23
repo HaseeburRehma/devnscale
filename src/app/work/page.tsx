@@ -12,6 +12,7 @@ import AboutValues from "@/components/sections/about/AboutValues";
 import { WORK_HERO } from "@/lib/content";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/work" },
   title: "Work — Dev N Scale",
   description:
     "Selected work: digital products and platforms we've designed, built, and shipped across health, fintech, logistics, and AI.",

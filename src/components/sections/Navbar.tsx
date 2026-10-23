@@ -47,7 +47,7 @@ export default function Navbar() {
           <Logo scrolled={scrolled} />
 
           {/* Centred links */}
-          <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-[38px] min-[900px]:flex">
+          <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-[38px] min-[1280px]:flex">
             {NAV_LINKS.map((link) => {
               if (link.label === "Our Services") {
                 return <ServicesDropdown key={link.label} />;
@@ -56,7 +56,7 @@ export default function Navbar() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="group relative text-[16px] text-ink-200 transition-colors duration-200 hover:text-white"
+                  className="group relative whitespace-nowrap text-[16px] text-ink-200 transition-colors duration-200 hover:text-white"
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 h-px w-0 bg-lime-400 transition-all duration-300 group-hover:w-full" />
@@ -65,7 +65,7 @@ export default function Navbar() {
             })}
           </nav>
 
-          <div className="hidden shrink-0 min-[900px]:block">
+          <div className="hidden shrink-0 min-[1280px]:block">
             <PrimaryButton />
           </div>
 
@@ -75,7 +75,7 @@ export default function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="flex size-10 items-center justify-center rounded-lg border border-white/20 text-white transition-colors hover:border-lime-400 hover:text-lime-400 min-[900px]:hidden"
+            className="flex size-10 items-center justify-center rounded-lg border border-white/20 text-white transition-colors hover:border-lime-400 hover:text-lime-400 min-[1280px]:hidden"
           >
             {open ? (
               <CloseIcon className="size-5" />
@@ -88,7 +88,7 @@ export default function Navbar() {
 
       {/* Mobile sheet */}
       <div
-        className={`overflow-hidden border-b border-white/10 bg-[#03150f]/95 backdrop-blur-md transition-[max-height,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] min-[900px]:hidden ${
+        className={`overflow-hidden border-b border-white/10 bg-[#03150f]/95 backdrop-blur-md transition-[max-height,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] min-[1280px]:hidden ${
           open ? "max-h-[720px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
@@ -167,7 +167,7 @@ function ServicesDropdown() {
         href="/services"
         aria-haspopup="menu"
         aria-expanded={open}
-        className="group relative flex items-center gap-1.5 text-[16px] text-ink-200 transition-colors duration-200 hover:text-white"
+        className="group relative flex items-center gap-1.5 whitespace-nowrap text-[16px] text-ink-200 transition-colors duration-200 hover:text-white"
       >
         Our Services
         <svg

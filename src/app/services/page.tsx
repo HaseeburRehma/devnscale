@@ -12,6 +12,7 @@ import ServicesShowcase from "@/components/sections/services/ServicesShowcase";
 import { SERVICES_HERO } from "@/lib/content";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/services" },
   title: "Services — Dev N Scale",
   description:
     "Web, mobile, design, AI, QA, and growth — one senior team for the whole product journey, from first sketch to launch.",

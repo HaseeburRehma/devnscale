@@ -26,7 +26,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const study = CASE_STUDIES[slug];
   if (!study) return {};
-  return { title: study.seo.title, description: study.seo.description };
+  return {
+    title: study.seo.title,
+    description: study.seo.description,
+    alternates: { canonical: `/case-study/${slug}` },
+    openGraph: { images: [study.coverImage] },
+  };
 }
 
 export default async function CaseStudyPage({ params }: Props) {

@@ -16,6 +16,7 @@ import AboutValues from "@/components/sections/about/AboutValues";
 import AboutTeam from "@/components/sections/about/AboutTeam";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About Us — Dev N Scale",
   description:
     "A senior, design-led software studio. Small teams, close to the work, building products from first idea to production — and accountable for how they perform.",
