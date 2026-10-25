@@ -1,3 +1,4 @@
+import Link from "next/link";
 import DotMatrixArrow from "./DotMatrixArrow";
 
 /**
@@ -24,25 +25,33 @@ export default function PrimaryButton({
   fullWidth?: boolean;
   as?: "a" | "button";
 }) {
-  const Tag = as;
-  return (
-    <Tag
-      {...(as === "a" ? { href } : { type: "submit" as const })}
-      className={`group inline-flex h-[54px] ${
+  const classes = `group inline-flex h-[54px] ${
         fullWidth ? "w-full" : "w-[232px]"
-      } max-w-full flex-col items-center overflow-hidden rounded-xl border border-ink-950 bg-gradient-to-b from-ink-800 to-ink-950 p-1.5 shadow-[0px_0px_12px_0.5px_rgba(10,10,10,0.4)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0px_6px_20px_1px_rgba(189,198,29,0.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400 active:translate-y-0 ${className}`}
-    >
-      <span className="flex w-full flex-col gap-2.5 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-[52px]">
-        <Face>{children}</Face>
-        <Face>{children}</Face>
-      </span>
-    </Tag>
+      } max-w-full flex-col items-center overflow-hidden rounded-xl border border-ink-950 bg-gradient-to-b from-ink-800 to-ink-950 p-1.5 shadow-[0px_0px_12px_0.5px_rgba(10,10,10,0.4)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0px_6px_20px_1px_rgba(189,198,29,0.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400 active:translate-y-0 ${className}`;
+  const faces = (
+    <span className="flex w-full flex-col gap-2.5 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-[52px]">
+      <Face>{children}</Face>
+      <Face hidden>{children}</Face>
+    </span>
+  );
+
+  return as === "a" ? (
+    <Link href={href} className={classes}>
+      {faces}
+    </Link>
+  ) : (
+    <button type="submit" className={classes}>
+      {faces}
+    </button>
   );
 }
 
-function Face({ children }: { children: React.ReactNode }) {
+function Face({ children, hidden = false }: { children: React.ReactNode; hidden?: boolean }) {
   return (
-    <span className="relative block h-[42px] w-full shrink-0 overflow-hidden rounded-xl bg-lime-500 shadow-[0px_1px_5px_0.5px_rgba(238,243,188,0.25)]">
+    <span
+      aria-hidden={hidden || undefined}
+      className="relative block h-[42px] w-full shrink-0 overflow-hidden rounded-xl bg-lime-500 shadow-[0px_1px_5px_0.5px_rgba(238,243,188,0.25)]"
+    >
       {/* inner lime glow ring */}
       <span
         aria-hidden="true"

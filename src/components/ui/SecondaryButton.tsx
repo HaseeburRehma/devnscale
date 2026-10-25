@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRightIcon, CalendarIcon } from "@/components/icons";
 
 /**
@@ -30,7 +31,7 @@ export default function SecondaryButton({
       : ArrowRightIcon;
 
   return (
-    <a
+    <Link
       href={href}
       className={`group relative inline-flex h-[54px] items-center gap-[6.429px] overflow-hidden rounded-xl border-[0.643px] px-[16.714px] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-400 active:translate-y-0 ${
         isDark
@@ -61,6 +62,6 @@ export default function SecondaryButton({
             : "text-ink-950 group-hover:text-lime-400"
         }`}
       />
-    </a>
+    </Link>
   );
 }

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
 import AnimatedGroup from "@/components/motion/AnimatedGroup";
 import Tilt from "@/components/motion/Tilt";
@@ -74,9 +75,9 @@ export default function WorkGrid() {
               </Tilt>
             );
             return c.href ? (
-              <a key={c.name} href={c.href} className="group block h-full">
+              <Link key={c.name} href={c.href} className="group block h-full">
                 {card}
-              </a>
+              </Link>
             ) : (
               <div key={c.name} className="group h-full">
                 {card}

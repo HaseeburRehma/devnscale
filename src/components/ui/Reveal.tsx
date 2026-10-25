@@ -5,9 +5,8 @@ import { useEffect, useRef } from "react";
 /**
  * Fades + lifts its children into view the first time they're scrolled to.
  *
- * The hidden state is applied by CSS that is scoped to `html.js`, and the `js`
- * class is only set by the inline script in the layout. So if scripts never
- * run the content simply renders visible instead of being stuck at opacity 0.
+ * A `@media (scripting: none)` rule in globals.css keeps content visible when
+ * scripts never run, instead of leaving it stuck at opacity 0.
  */
 export default function Reveal({
   children,

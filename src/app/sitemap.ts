@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.7 },
     { path: "/team", priority: 0.6 },
     { path: "/contact", priority: 0.8 },
+    { path: "/privacy", priority: 0.3 },
+    { path: "/terms", priority: 0.3 },
   ];
   const services = Object.values(SERVICE_DETAILS).map((d) => ({
     path: `/services/${d.slug}`,

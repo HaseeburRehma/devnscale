@@ -2,6 +2,8 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "motion/react";
 import {
   FacebookIcon,
@@ -177,22 +179,24 @@ function LinkColumn({
   links,
 }: {
   title: string;
-  links: { label: string; href: string; active?: boolean }[];
+  links: { label: string; href: string }[];
 }) {
+  const pathname = usePathname();
   return (
     <div>
       <h4 className="font-display text-[15px] font-bold text-white">{title}</h4>
       <ul className="mt-5 flex flex-col gap-4">
         {links.map((link) => (
           <li key={link.label}>
-            <a
+            <Link
               href={link.href}
+              aria-current={pathname === link.href ? "page" : undefined}
               className={`text-[16px] transition-colors duration-200 hover:text-lime-400 ${
-                link.active ? "text-lime-400" : "text-ink-200"
+                pathname === link.href ? "text-lime-400" : "text-ink-200"
               }`}
             >
               {link.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

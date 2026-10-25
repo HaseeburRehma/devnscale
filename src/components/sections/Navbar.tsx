@@ -24,11 +24,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll while the mobile sheet is open.
+  // Lock body scroll while the mobile sheet is open; Escape closes it.
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
     };
   }, [open]);
 
@@ -53,14 +59,14 @@ export default function Navbar() {
                 return <ServicesDropdown key={link.label} />;
               }
               return (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   className="group relative whitespace-nowrap text-[16px] text-ink-200 transition-colors duration-200 hover:text-white"
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 h-px w-0 bg-lime-400 transition-all duration-300 group-hover:w-full" />
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -88,13 +94,14 @@ export default function Navbar() {
 
       {/* Mobile sheet */}
       <div
+        inert={!open}
         className={`overflow-hidden border-b border-white/10 bg-[#03150f]/95 backdrop-blur-md transition-[max-height,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] min-[1280px]:hidden ${
           open ? "max-h-[720px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <nav className="shell flex flex-col gap-1 py-6">
           {NAV_LINKS.map((link, i) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               onClick={() => setOpen(false)}
@@ -104,7 +111,7 @@ export default function Navbar() {
               }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           {/* Nested service links so mobile users can jump to any of the 8. */}
           <div className="mt-3 border-t border-white/5 pt-3">
@@ -112,7 +119,7 @@ export default function Navbar() {
               Services
             </p>
             {SERVICE_NAV.map((s, i) => (
-              <a
+              <Link
                 key={s.href}
                 href={s.href}
                 onClick={() => setOpen(false)}
@@ -124,7 +131,7 @@ export default function Navbar() {
                 }`}
               >
                 {s.label}
-              </a>
+              </Link>
             ))}
           </div>
           <div className="mt-4 px-3">
@@ -199,13 +206,13 @@ function ServicesDropdown() {
           <ul className="grid grid-cols-2 gap-x-1 gap-y-0 p-2">
             {SERVICE_NAV.map((s) => (
               <li key={s.href}>
-                <a
+                <Link
                   href={s.href}
                   role="menuitem"
                   className="block rounded-lg px-3 py-2.5 text-[14px] text-ink-200 transition-colors duration-200 hover:bg-white/5 hover:text-lime-400"
                 >
                   {s.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -11,6 +11,15 @@ const CHAR_MS = 24;
 const PAUSE_AFTER = 3500;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
 function charDelay(ch: string) {
   if (ch === "." || ch === "!" || ch === "?") return CHAR_MS * 6;
   if (ch === "," || ch === ";") return CHAR_MS * 3;
@@ -43,11 +52,6 @@ export default function Testimonial() {
 
   const startTyping = useCallback(
     (text: string) => {
-      charRef.current = 0;
-      setDisplayedText("");
-      setPhase("typing");
-      setProgress(0);
-
       const tick = () => {
         charRef.current++;
         const slice = text.slice(0, charRef.current);
@@ -63,7 +67,12 @@ export default function Testimonial() {
           }, PAUSE_AFTER);
         }
       };
-      timerRef.current = setTimeout(tick, 300);
+      // Reset inside the timer: the previous quote is already faded out.
+      timerRef.current = setTimeout(() => {
+        charRef.current = 0;
+        setPhase("typing");
+        tick();
+      }, 300);
     },
     [advance],
   );
@@ -116,7 +125,10 @@ export default function Testimonial() {
             animate={{ opacity: isFading ? 0 : 1 }}
             transition={{ duration: 0.35, ease: EASE }}
           >
-            <blockquote className="max-w-[788px] font-display text-[clamp(1.25rem,0.9rem+1.56vw,2rem)] font-medium leading-[1.3] tracking-[-0.4px] text-white">
+            <p className="sr-only" aria-live="polite">
+              {`${current.quote} — ${current.name}, ${current.role}`}
+            </p>
+            <blockquote aria-hidden="true" className="max-w-[788px] font-display text-[clamp(1.25rem,0.9rem+1.56vw,2rem)] font-medium leading-[1.3] tracking-[-0.4px] text-white">
               {"“"}
               {displayedText}
               {phase === "typing" && (
@@ -148,16 +160,20 @@ export default function Testimonial() {
                 transition={{ duration: 0.45, ease: EASE }}
                 className="mt-8 flex items-center gap-4"
               >
-                <span className="relative size-[48px] shrink-0 overflow-hidden rounded-full ring-2 ring-white/15 sm:size-[52px]">
-                  <Image
-                    src={current.image}
-                    alt={current.name}
-                    fill
-                    sizes="52px"
-                    className="object-cover"
-                  />
+                <span className="relative flex size-[48px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-ink-800 to-ink-950 font-display text-[16px] font-medium text-lime-400 ring-2 ring-white/15 sm:size-[52px]">
+                  {current.image ? (
+                    <Image
+                      src={current.image}
+                      alt=""
+                      fill
+                      sizes="52px"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <span aria-hidden="true">{initials(current.name)}</span>
+                  )}
                 </span>
-                <span className="flex flex-col gap-0.5">
+                <span aria-hidden="true" className="flex flex-col gap-0.5">
                   <span className="font-display text-[16px] font-medium text-white sm:text-[17px]">
                     {current.name}
                   </span>
@@ -213,14 +229,25 @@ export default function Testimonial() {
               transition={{ duration: 0.5, ease: EASE }}
               className="relative aspect-[420/500] w-full overflow-hidden rounded-[20px] sm:rounded-[24px]"
             >
-              <Image
-                src={current.image}
-                alt={current.name}
-                fill
-                sizes="(max-width: 1024px) 360px, 420px"
-                className="object-cover"
-                priority={activeIdx === 0}
-              />
+              {current.image ? (
+                <Image
+                  src={current.image}
+                  alt={current.name}
+                  fill
+                  sizes="(max-width: 1024px) 360px, 420px"
+                  className="object-cover"
+                  priority={activeIdx === 0}
+                />
+              ) : (
+                <div
+                  aria-hidden="true"
+                  className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#0b2a1d] via-[#06180f] to-[#02150e] ring-1 ring-inset ring-white/10"
+                >
+                  <span className="font-display text-[clamp(4rem,3rem+4vw,7rem)] font-bold tracking-[-0.04em] text-lime-400/90">
+                    {initials(current.name)}
+                  </span>
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

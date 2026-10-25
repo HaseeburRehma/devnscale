@@ -769,7 +769,7 @@ export const WHY_STATS = [
   { value: "90%+", lines: ["International", "Client"] },
 ];
 
-export const TESTIMONIALS = [
+export const TESTIMONIALS: { quote: string; name: string; role: string; image?: string }[] = [
   {
     quote:
       `DEV N SCALE felt less like an agency and more like the most senior people on our team — they shipped exactly what we needed, on time, and pushed back when it mattered.`,
@@ -782,14 +782,12 @@ export const TESTIMONIALS = [
       "From day one they understood our vision better than teams we had worked with for years. The quality of code and speed of delivery was genuinely impressive.",
     name: "Jonas Vogel",
     role: "CTO, NovaBridge",
-    image: "/img/testimonial-lukas.png",
   },
   {
     quote:
       "They turned our rough wireframes into a production-ready platform in under six weeks. Communication was seamless and the result exceeded every expectation.",
     name: "Omar Haddad",
     role: "Founder, Paylinq",
-    image: "/img/testimonial-lukas.png",
   },
 ];
 
@@ -852,16 +850,16 @@ export const MARQUEE_ITEMS = [
  * can crawl. Replace href when the actual pages ship. */
 export const FOOTER_LINKS = {
   main: [
-    { label: "Home", href: "/", active: true },
+    { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
     { label: "Our Services", href: "/services" },
-    { label: "Careers", href: "/careers" },
-    { label: "Blogs", href: "/blog" },
+    { label: "Our Work", href: "/work" },
+    { label: "Our Team", href: "/team" },
   ],
   other: [
     { label: "Contact Us", href: "/contact" },
     { label: "Privacy Policy", href: "/privacy" },
-    { label: "Term & Condition", href: "/terms" },
+    { label: "Terms & Conditions", href: "/terms" },
   ],
   contact: [
     { label: "+92 339 5636702", href: "tel:+923395636702" },

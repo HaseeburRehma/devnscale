@@ -1,88 +1,46 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 
 import {
   ownerNotificationEmail,
   userConfirmationEmail,
   type ContactSubmission,
 } from "@/emails/templates";
+import { clean, fail, isValidEmail, readFormJson } from "@/lib/form-guard";
+import { FROM_EMAIL, OWNER_EMAIL, getResend } from "@/lib/mailer";
 
 /**
- * Contact-form endpoint.
- *
- * Reads the JSON payload from `Contact.tsx`, validates it, then fires two
- * emails via Resend:
- *   1. Owner notification → `CONTACT_INBOX` (waseeq.aftab@devnscale.com by
- *      default) with `Reply-To` set to the sender so replies land in the
- *      right inbox.
- *   2. User confirmation → the sender, so they know the message landed.
- *
- * Both sends are attempted; if one fails we still return success as long as
- * the owner email went through — the user is never left in the dark about
- * whether their inquiry actually reached us.
+ * Contact-form endpoint. Sends the enquiry to the owner inbox (Reply-To the
+ * sender) and a best-effort confirmation to the sender.
  */
 
-export const runtime = "nodejs";
-
-const OWNER_EMAIL =
-  process.env.CONTACT_INBOX ?? "waseeq.aftab@devnscale.com";
-
-/**
- * Sender address. Must be on a domain verified in your Resend workspace.
- * Falls back to Resend's shared onboarding address so local dev still sends
- * — swap CONTACT_FROM to a real address on the verified domain in prod.
- */
-const FROM_EMAIL =
-  process.env.CONTACT_FROM ?? "Dev N Scale <onboarding@resend.dev>";
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function badRequest(message: string) {
-  return NextResponse.json({ ok: false, error: message }, { status: 400 });
-}
+const LIMIT = { max: 5, globalMax: 40, windowMs: 10 * 60_000 };
 
 export async function POST(req: Request) {
-  if (!process.env.RESEND_API_KEY) {
+  const resend = getResend();
+  if (!resend) {
     console.error("[contact] RESEND_API_KEY is not set");
-    return NextResponse.json(
-      { ok: false, error: "Email service is not configured. Please try again later." },
-      { status: 503 },
-    );
+    return fail("Email service is not configured. Please try again later.", 503);
   }
 
-  let raw: unknown;
-  try {
-    raw = await req.json();
-  } catch {
-    return badRequest("Invalid JSON payload.");
-  }
-
-  if (typeof raw !== "object" || raw === null) {
-    return badRequest("Invalid payload shape.");
-  }
-
-  const body = raw as Record<string, unknown>;
-  const firstName = String(body.firstName ?? "").trim();
-  const lastName = String(body.lastName ?? "").trim();
-  const email = String(body.email ?? "").trim();
-  const company = String(body.company ?? "").trim();
-  const service = String(body.service ?? "").trim();
-  const details = String(body.details ?? "").trim();
-  const honeypot = String(body.website ?? "").trim();
+  const gate = await readFormJson(req, "contact", LIMIT);
+  if (!gate.ok) return gate.res;
+  const body = gate.body;
 
   // Honeypot — real users leave this hidden field blank.
-  if (honeypot) {
-    return NextResponse.json({ ok: true });
-  }
+  if (clean(body.website, 200)) return NextResponse.json({ ok: true });
 
-  if (!firstName) return badRequest("Please tell us your first name.");
-  if (!lastName) return badRequest("Please tell us your last name.");
-  if (!email || !EMAIL_REGEX.test(email))
-    return badRequest("Please enter a valid email address.");
-  if (!details || details.length < 10)
-    return badRequest("Please share a few sentences about your project.");
-  if (details.length > 5000)
-    return badRequest("Please keep the message under 5,000 characters.");
+  const firstName = clean(body.firstName, 60);
+  const lastName = clean(body.lastName, 60);
+  const email = clean(body.email, 254);
+  const company = clean(body.company, 120);
+  const service = clean(body.service, 80);
+  const details = clean(body.details, 5001, true);
+
+  if (!firstName) return fail("Please tell us your first name.");
+  if (!lastName) return fail("Please tell us your last name.");
+  if (!isValidEmail(email)) return fail("Please enter a valid email address.");
+  if (details.length < 10) return fail("Please share a few sentences about your project.");
+  if (details.length > 5000) return fail("Please keep the message under 5,000 characters.");
 
   const submission: ContactSubmission = {
     firstName,
@@ -92,8 +50,6 @@ export async function POST(req: Request) {
     service: service || undefined,
     details,
   };
-
-  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const owner = ownerNotificationEmail(submission);
   const user = userConfirmationEmail(submission);
@@ -109,14 +65,10 @@ export async function POST(req: Request) {
 
   if (ownerResult.error) {
     console.error("[contact] owner email failed", ownerResult.error);
-    return NextResponse.json(
-      { ok: false, error: "We couldn't send your message right now. Please try again in a moment." },
-      { status: 502 },
-    );
+    return fail("We couldn't send your message right now. Please try again in a moment.", 502);
   }
 
-  // User confirmation is best-effort — if this fails we still ack success
-  // to the visitor because the owner inbox has their message.
+  // Best-effort: the owner inbox already has the message.
   const userResult = await resend.emails.send({
     from: FROM_EMAIL,
     to: [email],
@@ -125,9 +77,7 @@ export async function POST(req: Request) {
     html: user.html,
     text: user.text,
   });
-  if (userResult.error) {
-    console.error("[contact] user confirmation failed", userResult.error);
-  }
+  if (userResult.error) console.error("[contact] user confirmation failed", userResult.error);
 
   return NextResponse.json({ ok: true });
 }

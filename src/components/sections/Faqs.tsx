@@ -54,8 +54,10 @@ export default function Faqs() {
                 >
                   <button
                     type="button"
+                    id={`faq-q-${i}`}
                     onClick={() => setOpen(isOpen ? -1 : i)}
                     aria-expanded={isOpen}
+                    aria-controls={`faq-a-${i}`}
                     className="flex w-full items-center justify-between gap-6 px-6 py-6 text-left sm:px-8"
                   >
                     <span className="t-h6 text-ink-900">{faq.q}</span>
@@ -78,6 +80,9 @@ export default function Faqs() {
                     {isOpen && (
                       <motion.div
                         key="body"
+                        id={`faq-a-${i}`}
+                        role="region"
+                        aria-labelledby={`faq-q-${i}`}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
