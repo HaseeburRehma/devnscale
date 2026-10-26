@@ -11,7 +11,7 @@ const ICONS = {
 
 export default function TeamValues() {
   return (
-    <section className="bg-ink-50 py-[clamp(4rem,2rem+5vw,6.875rem)]">
+    <section className="bg-ink-50 py-[clamp(4rem,1.5rem+6vw,6.875rem)]">
       <div className="shell">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <Reveal>

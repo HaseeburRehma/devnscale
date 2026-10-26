@@ -101,9 +101,9 @@ body {
 .t-page-hero {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2rem, 0.9rem + 3.8vw, 3.375rem); /* 32 → 54 */
-  line-height: 1.1;
-  letter-spacing: -0.032em;
+  font-size: clamp(2.25rem, 1.1rem + 3.9vw, 4rem); /* 36 → 64 */
+  line-height: 1.125;
+  letter-spacing: -0.039em;
 }
 
 .t-subsection {

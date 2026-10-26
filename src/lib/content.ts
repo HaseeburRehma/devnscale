@@ -325,7 +325,6 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         { title: "Onboard", body: "Your chosen resource gets access to your tools, joins your standups, and starts contributing from the first week." },
         { title: "Deliver", body: "They work as part of your team, not ours. Daily syncs, sprint participation, and full accountability." },
         { title: "Scale", body: "Need more people? Need to wind down? Adjust the engagement anytime with no long term lock ins." },
-        { title: "Support", body: "Ongoing maintenance retainers, updates, and feature development." },
       ],
     },
     meta: {

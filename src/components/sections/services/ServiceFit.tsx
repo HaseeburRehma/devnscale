@@ -3,7 +3,7 @@ import type { ServiceFit as Fit } from "@/lib/service-explorer";
 
 export default function ServiceFit({ fit }: { fit: Fit }) {
   return (
-    <section className="bg-ink-50 py-[clamp(4rem,2rem+5vw,6.875rem)]">
+    <section className="bg-ink-50 py-[clamp(4rem,1.5rem+6vw,6.875rem)]">
       <div className="shell">
         <SectionHeader title={fit.title} body={fit.body} />
 

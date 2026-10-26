@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import Reveal from "@/components/ui/Reveal";
 import PrimaryButton from "@/components/ui/PrimaryButton";
@@ -42,49 +43,38 @@ function ServiceHero({ detail }: { detail: ServiceDetail }) {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[500px] items-center overflow-hidden bg-brand-950 pb-12 pt-[110px] sm:min-h-[560px] sm:pb-16 sm:pt-[130px] lg:h-[653px] lg:py-0"
+      className="relative isolate flex min-h-[500px] items-center overflow-hidden bg-brand-950 pb-12 pt-[110px] sm:min-h-[560px] sm:pb-16 sm:pt-[130px] lg:h-[653px] lg:items-start lg:pb-0 lg:pt-[170px]"
     >
-      {/* Grid lattice — same 72.8×72.8 square grid as the home Hero,
-       *  layered UNDER the S-mark tiles so the hero reads as textured
-       *  brand-950 rather than flat green. */}
-      <div
+      <Image
+        src="/img/hero-grid.png"
+        alt=""
+        fill
+        priority
         aria-hidden="true"
-        className="absolute inset-0 -z-20"
-        style={{
-          backgroundColor: "#02150e",
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
-          backgroundSize: "72.8px 72.8px",
-          backgroundPosition: "28px 4px",
-        }}
-      />
-
-      {/* Subtle bottom fade so the hero settles into the Stats band. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,transparent_60%,rgba(2,14,9,0.45)_100%)]"
+        sizes="100vw"
+        className="-z-20 object-cover object-top"
       />
 
       <div className="shell relative w-full">
         <div className="mx-auto flex max-w-[920px] flex-col items-center text-center">
-          <p className="rise-in text-[12px] leading-4 tracking-[0.16em] text-lime-400">
+          <p className="rise-in text-[12px] font-medium leading-4 tracking-[1.5px] text-lime-300">
             {detail.index}
           </p>
           <h1
-            className="rise-in t-page-hero mt-4 max-w-[1000px] uppercase text-white"
+            className="rise-in t-page-hero mt-7 uppercase text-white"
             style={{ animationDelay: "80ms" }}
           >
             {detail.hero.title}
           </h1>
           <p
-            className="rise-in t-body-lg mt-6 max-w-[620px] text-ink-300"
+            className="rise-in mt-7 max-w-[620px] text-[18px] leading-[1.55] text-ink-300"
             style={{ animationDelay: "200ms" }}
           >
             {detail.hero.body}
           </p>
 
           <div
-            className="rise-in mt-10 flex flex-col items-center gap-4 sm:flex-row"
+            className="rise-in mt-7 flex flex-col items-center gap-4 sm:flex-row"
             style={{ animationDelay: "320ms" }}
           >
             <Magnetic>
@@ -129,7 +119,7 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-brand-950 py-[clamp(4rem,2rem+5vw,6.875rem)]"
+      className="relative overflow-hidden bg-brand-950 py-[clamp(4rem,1.5rem+6vw,6.875rem)]"
     >
       <PatternBackdrop />
       <div className="shell relative grid grid-cols-1 gap-12 lg:grid-cols-[400px_1fr] lg:gap-24">
@@ -184,6 +174,8 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
           ))}
         </ol>
       </div>
+      {/* Figma stacks its pattern layer over this section, dimming everything ~22%. */}
+      <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-brand-950/[0.22]" />
     </section>
   );
 }
@@ -212,10 +204,11 @@ function TimelineStep({
   const fill = useTransform(progress, [start, end], [0, 1]);
   const numberColor = useTransform(fill, [0, 0.5, 1], ["#737373", "#737373", "#012a1c"]);
   const titleColor = useTransform(fill, [0, 1], ["#a3a3a3", "#c4d434"]);
+  const entryOpacity = useTransform(fill, [0, 1], [0.85, 1]);
   const n = String(index + 1).padStart(2, "0");
 
   return (
-    <li className="relative flex gap-7">
+    <motion.li style={{ opacity: entryOpacity }} className="relative flex gap-7">
       <div className="relative flex w-10 shrink-0 flex-col items-center">
         <span className="relative z-10 flex size-10 items-center justify-center overflow-hidden rounded-full border-[1.5px] border-ink-400 bg-ink-200">
           <motion.span
@@ -235,8 +228,8 @@ function TimelineStep({
         >
           {step.title}
         </motion.h3>
-        <p className="max-w-[520px] text-[15.5px] leading-[1.56] text-ink-400">{step.body}</p>
+        <p className="max-w-[560px] text-[15.5px] leading-[1.56] text-ink-400">{step.body}</p>
       </div>
-    </li>
+    </motion.li>
   );
 }

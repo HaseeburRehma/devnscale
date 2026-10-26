@@ -5,14 +5,23 @@ import type { WORK } from "@/lib/content";
 
 type WorkItem = (typeof WORK)["cases"][number];
 
-export default function WorkCard({ item: c }: { item: WorkItem }) {
+export default function WorkCard({
+  item: c,
+  cover,
+  tall = false,
+}: {
+  item: WorkItem;
+  cover?: string;
+  /** Service pages use Figma's 177px body with tags pinned to the bottom. */
+  tall?: boolean;
+}) {
   const year = "year" in c ? c.year : undefined;
   const card = (
     <Tilt max={5} className="h-full [transform-style:preserve-3d]">
       <div className="flex h-full flex-col overflow-hidden rounded-[20px] border border-[#e5e5e5] bg-white shadow-[0_10px_26px_0_rgba(5,28,18,0.06)] transition-[border-color,box-shadow] duration-300 group-hover:border-border-default group-hover:shadow-[0_18px_42px_rgba(5,28,18,0.12)]">
         <div className="relative flex aspect-[624/368] w-full items-start justify-between gap-3 overflow-hidden px-5 pt-5 sm:px-7 sm:pt-6">
           <Image
-            src={c.cover}
+            src={cover ?? c.cover}
             alt={c.name}
             fill
             sizes="(min-width: 768px) 624px, 100vw"
@@ -33,7 +42,7 @@ export default function WorkCard({ item: c }: { item: WorkItem }) {
             </svg>
           </span>
         </div>
-        <div className="flex flex-col gap-4 px-5 pb-7 pt-[26px] sm:px-7">
+        <div className={`flex flex-col gap-4 px-5 pb-7 pt-[26px] sm:px-7 ${tall ? "md:min-h-[177px] md:flex-1 md:justify-between" : ""}`}>
           <h3 className="font-display text-[clamp(1.5rem,1.1rem+1.2vw,2rem)] font-medium leading-[1.25] tracking-[-1px] text-[#0a0a0a] transition-colors duration-300 group-hover:text-lime-700">
             {c.name}
           </h3>

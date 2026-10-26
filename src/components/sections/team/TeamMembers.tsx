@@ -11,7 +11,7 @@ export default function TeamMembers() {
   const { title, body, members } = TEAM_MEMBERS;
 
   return (
-    <section className="bg-white py-[clamp(4rem,2rem+5vw,6.875rem)]">
+    <section className="bg-white py-[clamp(4rem,1.5rem+6vw,6.875rem)]">
       <div className="shell">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <Reveal>
@@ -24,7 +24,7 @@ export default function TeamMembers() {
           </Reveal>
         </div>
 
-        <AnimatedGroup stagger={0.04} amount={0.05} className="mt-14 grid grid-cols-1 gap-x-6 gap-y-12 min-[480px]:grid-cols-2 lg:grid-cols-4">
+        <AnimatedGroup stagger={0.04} amount={0.05} className="mt-14 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
           {members.map((m) => (
             <MemberCard key={`${m.name}-${m.role}`} member={m} />
           ))}
@@ -40,14 +40,14 @@ function MemberCard({ member }: { member: TeamPageMember }) {
   const own = Boolean(member.linkedin || member.instagram);
 
   return (
-    <article className="group flex flex-col gap-[18px]">
+    <article className="group flex flex-col gap-3 sm:gap-[18px]">
       <div className="relative aspect-[302/354] w-full overflow-hidden rounded-[16px] bg-brand-900">
         {member.photo ? (
           <Image
             src={member.photo}
             alt={`${member.name}, ${member.role}`}
             fill
-            sizes="(min-width: 1024px) 302px, (min-width: 480px) 50vw, 100vw"
+            sizes="(min-width: 1024px) 302px, 50vw"
             className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.04]"
           />
         ) : (
@@ -69,10 +69,10 @@ function MemberCard({ member }: { member: TeamPageMember }) {
         />
       </div>
 
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <h3 className="font-display text-[20px] font-medium leading-7 text-ink-900">{member.name}</h3>
-          <p className="text-[14px] leading-5 text-text-secondary">{member.role}</p>
+          <h3 className="font-display text-[17px] font-medium leading-6 text-ink-900 sm:text-[20px] sm:leading-7">{member.name}</h3>
+          <p className="text-[13px] leading-5 text-text-secondary sm:text-[14px]">{member.role}</p>
         </div>
         <div className="flex shrink-0 gap-2">
           <SocialLink

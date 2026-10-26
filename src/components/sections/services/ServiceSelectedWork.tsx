@@ -3,15 +3,19 @@ import AnimatedGroup from "@/components/motion/AnimatedGroup";
 import WorkCard from "@/components/sections/work/WorkCard";
 import { WORK } from "@/lib/content";
 
-const PICKS = ["/case-study/lend-saas", "/case-study/opulencex"];
+const PICKS = [
+  { href: "/case-study/lend-saas" },
+  { href: "/case-study/opulencex", cover: "/img/work/opulencex-service.jpg" },
+];
 
 export default function ServiceSelectedWork() {
-  const items = PICKS.map((href) => WORK.cases.find((c) => c.href === href)).filter(
-    (c): c is (typeof WORK)["cases"][number] => Boolean(c),
-  );
+  const items = PICKS.flatMap((p) => {
+    const item = WORK.cases.find((c) => c.href === p.href);
+    return item ? [{ item, cover: p.cover }] : [];
+  });
 
   return (
-    <section className="bg-ink-50 py-[clamp(4rem,2rem+5vw,6.5rem)]">
+    <section className="bg-ink-50 py-[clamp(4rem,1.5rem+5.55vw,6.5rem)]">
       <div className="shell">
         <Reveal>
           <p className="text-[12px] font-medium tracking-[1.5px] text-lime-700">{WORK.eyebrow}</p>
@@ -26,8 +30,8 @@ export default function ServiceSelectedWork() {
         </Reveal>
 
         <AnimatedGroup className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2">
-          {items.map((c) => (
-            <WorkCard key={c.name} item={c} />
+          {items.map(({ item, cover }) => (
+            <WorkCard key={item.name} item={item} cover={cover} tall />
           ))}
         </AnimatedGroup>
       </div>
