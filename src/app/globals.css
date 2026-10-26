@@ -444,3 +444,9 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Capability explorer: the active tab's bar fills before auto-advancing. */
+@keyframes capability-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}

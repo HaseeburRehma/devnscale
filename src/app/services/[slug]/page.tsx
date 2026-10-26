@@ -5,9 +5,10 @@ import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
-import SelectedWork from "@/components/sections/case/SelectedWork";
+import ServiceSelectedWork from "@/components/sections/services/ServiceSelectedWork";
 import ServiceDetail from "@/components/sections/services/ServiceDetail";
-import { CASE_STUDIES, SERVICE_DETAILS, SERVICE_SLUGS } from "@/lib/content";
+import { SERVICE_DETAILS, SERVICE_SLUGS } from "@/lib/content";
+import { SERVICE_CAPABILITIES, SERVICE_FIT } from "@/lib/service-explorer";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -36,14 +37,12 @@ export default async function ServicePage({ params }: PageProps) {
   const detail = id ? SERVICE_DETAILS[id] : undefined;
   if (!detail) notFound();
 
-  const study = CASE_STUDIES.opulencex;
-
   return (
     <>
       <Navbar />
       <main>
-        <ServiceDetail detail={detail} />
-        <SelectedWork study={study} />
+        <ServiceDetail detail={detail} fit={SERVICE_FIT[id]} caps={SERVICE_CAPABILITIES[id]} />
+        <ServiceSelectedWork />
         <Testimonial />
         <Faqs />
       </main>

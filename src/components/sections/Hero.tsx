@@ -123,13 +123,10 @@ export default function Hero() {
           </p>
 
           <div
-            className="rise-in mt-10 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center"
+            className="rise-in mt-10 flex flex-col items-center gap-4 sm:flex-row sm:gap-4"
             style={{ animationDelay: "320ms" }}
           >
             <PrimaryButton />
-            <SecondaryButton href="/services" icon="arrow">
-              Our Services
-            </SecondaryButton>
             <SecondaryButton />
           </div>
 

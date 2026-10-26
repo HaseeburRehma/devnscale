@@ -4,12 +4,11 @@ import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import Testimonial from "@/components/sections/Testimonial";
 import Faqs from "@/components/sections/Faqs";
-import CaseMarquee from "@/components/sections/case/CaseMarquee";
-
 import PageHero from "@/components/sections/PageHero";
+import TeamFounder from "@/components/sections/team/TeamFounder";
+import TeamMembers from "@/components/sections/team/TeamMembers";
+import TeamValues from "@/components/sections/team/TeamValues";
 import { TEAM_HERO } from "@/lib/content";
-import AboutTeam from "@/components/sections/about/AboutTeam";
-import AboutValues from "@/components/sections/about/AboutValues";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/team" },
@@ -29,11 +28,11 @@ export default function TeamPage() {
           accent={TEAM_HERO.titleAccent}
           subtitle={TEAM_HERO.subtitle}
         />
-        <AboutTeam />
-        <AboutValues />
+        <TeamFounder />
+        <TeamMembers />
+        <TeamValues />
         <Testimonial />
         <Faqs />
-        <CaseMarquee />
       </main>
       <Footer />
     </>

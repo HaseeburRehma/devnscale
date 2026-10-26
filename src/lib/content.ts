@@ -70,20 +70,10 @@ export const SERVICES = [
    /services/[slug]. Content shape mirrors the Figma template at
    frame 4979:40344 (Full Stack Development):
      hero (index + title + body)
-     stats (4 short metrics)
-     included (section header + N rows, each with title + body)
      process (5–6 timeline entries)
+   Who-it's-for and capability copy lives in service-explorer.ts.
    ============================================================ */
 
-export type ServiceStat = { value: string; label: string };
-
-export type ServiceIncludedRow = {
-  title: string;
-  body: string;
-  /** Optional visual paired with the row. Falls back to the lime
-   *  gradient placeholder in ServiceDetail when unset. */
-  image?: string;
-};
 
 export type ServiceProcessStep = {
   title: string;
@@ -98,13 +88,6 @@ export type ServiceDetail = {
   hero: {
     title: string;
     body: string;
-  };
-  stats: readonly ServiceStat[];
-  included: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    rows: readonly ServiceIncludedRow[];
   };
   process: {
     eyebrow: string;
@@ -130,49 +113,6 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     hero: {
       title: "Full Stack Development",
       body: "We deliver complete web development services from custom website development and frontend and backend development to WordPress, Framer, and full SaaS platforms. Fast, scalable, and beautifully engineered.",
-    },
-    stats: [
-      { value: "Custom Built", label: "Custom Built for Every Client" },
-      { value: "Clean", label: "Clean Scalable Code" },
-      { value: "Mobile First", label: "Mobile First Always" },
-      { value: "Figma", label: "Figma to Code Handoff" },
-    ],
-    included: {
-      eyebrow: "WHAT IS INCLUDED",
-      title: "End-to-End Web Solutions",
-      body: "We handle every layer of the stack from design system to deployment.",
-      rows: [
-        {
-          title: "Frontend Development",
-          body: "React, Next.js, Vue — pixel-perfect, responsive web development delivering fully performant interfaces that feel alive across every device and screen size.",
-          image: "/img/services/web/frontend.png",
-        },
-        {
-          title: "Backend Development",
-          body: "Node.js, Django, Laravel — robust API services, databases, and scalable architecture built to handle growth.",
-          image: "/img/services/web/backend.png",
-        },
-        {
-          title: "Full Stack and SaaS Development",
-          body: "Complete SaaS development covering dashboards, portals, and ecommerce solutions built with scalable architecture from concept to launch.",
-          image: "/img/services/web/saas.png",
-        },
-        {
-          title: "WordPress Development",
-          body: "Custom WordPress development covering themes, plugins, WooCommerce and CMS configuration for enterprise-grade results.",
-          image: "/img/services/web/wordpress.png",
-        },
-        {
-          title: "Framer Website Design",
-          body: "Fast interactive marketing sites built with Framer featuring advanced animations, CMS, and no-code flexibility.",
-          image: "/img/services/web/framer.png",
-        },
-        {
-          title: "Security, Performance and Optimisation",
-          body: "SSL, CDN setup, security hardening, Core Web Vitals optimisation, and regular maintenance to keep your site fast and safe.",
-          image: "/img/services/web/security.png",
-        },
-      ],
     },
     process: {
       eyebrow: "OUR PROCESS",
@@ -219,49 +159,6 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       title: "Mobile app development",
       body: "We specialise in end-to-end mobile app development, building iOS, Android, and cross-platform apps that users actually love. From startup MVPs to enterprise scale — smooth, fast and intuitive.",
     },
-    stats: [
-      { value: "iOS and Android", label: "iOS and Android Covered" },
-      { value: "Cross-Platform", label: "Cross-Platform Capable" },
-      { value: "Delivery", label: "End-to-End Delivery" },
-      { value: "Performance", label: "Built for Performance" },
-    ],
-    included: {
-      eyebrow: "WHAT IS INCLUDED",
-      title: "Apps That Stand Out",
-      body: "Everything from UI/UX to deployment is handled under one roof.",
-      rows: [
-        {
-          title: "iOS Development",
-          body: "Native Swift development for seamless iPhone and iPad experiences with full Apple ecosystem integration.",
-          image: "/img/services/mobile/row-0.jpg",
-        },
-        {
-          title: "Android Development",
-          body: "Kotlin-based Android apps optimised for the full range of Android devices and screen sizes.",
-          image: "/img/services/mobile/row-1.jpg",
-        },
-        {
-          title: "Cross-Platform Apps — React Native and Flutter",
-          body: "Cross-platform apps that share code efficiently while delivering native level performance on both iOS and Android.",
-          image: "/img/services/mobile/row-2.jpg",
-        },
-        {
-          title: "API and Backend Integration",
-          body: "RESTful and GraphQL API development, third-party integrations, push notifications, and cloud backends.",
-          image: "/img/services/mobile/row-3.jpg",
-        },
-        {
-          title: "In App Purchases and Subscriptions",
-          body: "Monetisation setup covering subscriptions, one-time purchases, freemium models, and payment gateway integration.",
-          image: "/img/services/mobile/row-4.jpg",
-        },
-        {
-          title: "App Store Launch and ASO",
-          body: "Complete App Store and Play Store submission, optimisation, and post-launch support.",
-          image: "/img/services/mobile/row-5.jpg",
-        },
-      ],
-    },
     process: {
       eyebrow: "OUR PROCESS",
       title: "From Wireframe to App Store",
@@ -288,49 +185,6 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       title: "Ui/ux design",
       body: "As a dedicated design agency, we turn complex ideas into elegant, intuitive experiences. Our team delivers full UI/UX and graphic design services — bridging creativity and strategy to produce visuals that don't just look great but drive real results.",
     },
-    stats: [
-      { value: "10+ Years", label: "10+ Years of Design Experience" },
-      { value: "90%+", label: "90%+ International Clients" },
-      { value: "6+ Industries", label: "6+ Industries Served" },
-      { value: "Craft First", label: "Founded on Craft and Strategy" },
-    ],
-    included: {
-      eyebrow: "WHAT IS INCLUDED",
-      title: "Everything Design — Under One Roof",
-      body: "Whether it's a full product or a brand identity, we handle every pixel.",
-      rows: [
-        {
-          title: "UI Design",
-          body: "Clean, conversion-focused interfaces designed in Figma with atomic design systems and developer-ready handoffs — built for SaaS UI UX, dashboard UX, and mobile UI.",
-          image: "/img/services/design/row-0.png",
-        },
-        {
-          title: "UX Research and Strategy",
-          body: "In-depth UX research — user interviews, journey mapping, wireframes, and usability testing to validate every design decision before a pixel is placed.",
-          image: "/img/services/design/row-1.jpg",
-        },
-        {
-          title: "Graphic Design",
-          body: "Logos, brand guidelines, marketing collateral, social media visuals, and everything in between — graphic design services for every touchpoint.",
-          image: "/img/services/design/row-2.png",
-        },
-        {
-          title: "Brand Identity",
-          body: "Full brand development — from naming to visual language — that positions you as a premium player in your market.",
-          image: "/img/services/design/row-3.png",
-        },
-        {
-          title: "Design Systems",
-          body: "Scalable design systems with component libraries and design tokens that keep your product consistent as it grows.",
-          image: "/img/services/design/row-4.jpg",
-        },
-        {
-          title: "Interaction Design and Prototyping",
-          body: "Interaction design and interactive prototypes for stakeholder buy-in, investor demos, and user testing — before a single line of code.",
-          image: "/img/services/design/row-5.png",
-        },
-      ],
-    },
     process: {
       eyebrow: "OUR PROCESS",
       title: "How We Bring Your Vision to Life",
@@ -354,55 +208,12 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     slug: "ai-chatbot-development",
     index: "04",
     hero: {
-      title: "Ai chatbot development",
+      title: "AI chatbot development",
       body: "Always on and always smart. We deliver end-to-end AI chatbot development — building intelligent conversational interfaces and AI support bots that automate support, qualify leads, and create seamless user experiences at scale.",
-    },
-    stats: [
-      { value: "GPT Powered", label: "GPT Powered Development" },
-      { value: "Multi-Platform", label: "Multi-Platform Deployment" },
-      { value: "CRM Ready", label: "CRM and Helpdesk Integration" },
-      { value: "Real Use", label: "Built and Tested for Real Use" },
-    ],
-    included: {
-      eyebrow: "WHAT IS INCLUDED",
-      title: "Intelligent Bots — Real Business Results",
-      body: "Every chatbot we build is trained on your data, tested on real scenarios, and tuned for your use case.",
-      rows: [
-        {
-          title: "AI Support Bots",
-          body: "Bots that handle FAQs, tickets, order tracking, and escalation — reducing support load with expert conversational design.",
-          image: "/img/services/ai/row-0.png",
-        },
-        {
-          title: "Lead Generation Bots",
-          body: "Qualify, capture, and route leads around the clock — synced with your CRM and sales pipeline automatically.",
-          image: "/img/services/ai/row-1.png",
-        },
-        {
-          title: "Internal HR and Operations Bots",
-          body: "Employee onboarding, IT helpdesk, policy Q&A, and internal knowledge base chatbots.",
-          image: "/img/services/ai/row-2.png",
-        },
-        {
-          title: "E-commerce Assistants",
-          body: "Product recommendation engines, cart recovery bots, and post-purchase support integrated directly into your store.",
-          image: "/img/services/ai/row-3.png",
-        },
-        {
-          title: "Multi-Platform Deployment",
-          body: "Deploy on your website, WhatsApp, Telegram, Slack, and any platform your customers use.",
-          image: "/img/services/ai/row-4.png",
-        },
-        {
-          title: "Analytics and Optimisation",
-          body: "Conversation analytics, fallback rate monitoring, and continuous fine-tuning to keep bots sharp and relevant.",
-          image: "/img/services/ai/row-5.png",
-        },
-      ],
     },
     process: {
       eyebrow: "OUR PROCESS",
-      title: "Our Work Process",
+      title: "From Prompt to Production",
       body: "A rigorous development process built for bots that work in the real world.",
       steps: [
         { title: "Use Case Mapping", body: "Define conversational flows, edge cases, and success metrics." },
@@ -425,49 +236,6 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     hero: {
       title: "Software quality assurance",
       body: "Ship with confidence. Our QA testing services cover everything from manual testing and automation testing to performance testing and mobile QA. Our engineers find the bugs before your users do.",
-    },
-    stats: [
-      { value: "Functional QA", label: "Functional and Regression Testing" },
-      { value: "Manual + Auto", label: "Manual and Automation Coverage" },
-      { value: "Cross Device", label: "Cross Device and Cross Browser" },
-      { value: "Bug Tracking", label: "Detailed Bug Tracking Reports" },
-    ],
-    included: {
-      eyebrow: "WHAT IS INCLUDED",
-      title: "Comprehensive Quality — Every Layer",
-      body: "From functional to security — our QA covers everything.",
-      rows: [
-        {
-          title: "Manual Testing",
-          body: "Exploratory, regression, smoke, and acceptance testing by experienced QA engineers who think like your users.",
-          image: "/img/services/qa/row-0.png",
-        },
-        {
-          title: "Automation Testing",
-          body: "Selenium, Cypress, Playwright — automation suites that catch regressions with every code push.",
-          image: "/img/services/qa/row-1.png",
-        },
-        {
-          title: "Mobile QA",
-          body: "Real device testing across iOS and Android versions, screen sizes, and OS combinations.",
-          image: "/img/services/qa/row-2.png",
-        },
-        {
-          title: "Performance Testing",
-          body: "Load testing, stress testing, and bottleneck analysis to ensure your app holds up under real traffic.",
-          image: "/img/services/qa/row-3.png",
-        },
-        {
-          title: "Security Testing",
-          body: "OWASP based vulnerability assessments, penetration testing, and security audit reports.",
-          image: "/img/services/qa/row-4.jpg",
-        },
-        {
-          title: "QA Documentation and Bug Tracking",
-          body: "Detailed test plans, bug tracking reports, test cases, and traceability matrices delivered with every engagement.",
-          image: "/img/services/qa/row-5.png",
-        },
-      ],
     },
     process: {
       eyebrow: "OUR PROCESS",
@@ -495,49 +263,6 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       title: "Pitch deck presentation",
       body: "Your idea deserves a pitch deck that gets funded. We craft startup pitch decks and fundraising decks that work as professional investor presentations, balancing narrative, data, and design to open doors and close deals.",
     },
-    stats: [
-      { value: "Story Led", label: "Story Led Always" },
-      { value: "Investor Ready", label: "Investor Ready Decks" },
-      { value: "Design Led", label: "Design Made Visual" },
-      { value: "Figma + PPT", label: "Delivered in Figma and PowerPoint" },
-    ],
-    included: {
-      eyebrow: "WHAT IS INCLUDED",
-      title: "Decks That Investors Remember",
-      body: "Strategy meets design — every slide earns its place.",
-      rows: [
-        {
-          title: "Story and Narrative",
-          body: "We help you find the through line — the storytelling that makes investors lean in and feel the problem before they see the solution.",
-          image: "/img/services/pitch/row-0.png",
-        },
-        {
-          title: "Data Visualisation",
-          body: "Complex market data, financials, and metrics turned into clear, compelling slides that tell the full picture at a glance.",
-          image: "/img/services/pitch/row-1.png",
-        },
-        {
-          title: "Visual Slide Design",
-          body: "Premium slide design that reflects your brand — professional and polished slides that command attention in any room.",
-          image: "/img/services/pitch/row-2.png",
-        },
-        {
-          title: "Investor Deck — Series A/B/C",
-          body: "Structured investor presentations for fundraising rounds covering problem, solution, market, traction, team, and ask.",
-          image: "/img/services/pitch/row-3.png",
-        },
-        {
-          title: "SaaS Pitch and Product Launch Decks",
-          body: "SaaS pitch decks, sales decks, and partnership presentations designed to drive action at every stage of growth.",
-          image: "/img/services/pitch/row-4.png",
-        },
-        {
-          title: "Speaker Notes and Prep",
-          body: "We don't just design — we prepare you to deliver. Full speaker notes included with every deck.",
-          image: "/img/services/pitch/row-5.png",
-        },
-      ],
-    },
     process: {
       eyebrow: "OUR PROCESS",
       title: "From Brief to Board Room",
@@ -564,49 +289,6 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
       title: "Digital marketing",
       body: "We are a results-driven digital marketing agency that doesn't just run campaigns — we engineer growth. Our team specialises in performance marketing, combining creative strategy with data analysis to deliver results that matter.",
     },
-    stats: [
-      { value: "Performance Driven", label: "Performance Driven Approach" },
-      { value: "Certified", label: "Google Ads and Meta Certified" },
-      { value: "Full Funnel", label: "Full Funnel Coverage" },
-      { value: "GTM Tracking", label: "GTM and Conversion Tracking Included" },
-    ],
-    included: {
-      eyebrow: "WHAT IS INCLUDED",
-      title: "Full Funnel Growth — Every Channel",
-      body: "We cover every touchpoint of your customer's digital journey.",
-      rows: [
-        {
-          title: "SEO Services",
-          body: "Technical audits, on-page optimisation, keyword research, content strategy, and link building that earn lasting organic rankings.",
-          image: "/img/services/marketing/row-0.png",
-        },
-        {
-          title: "Paid Ads — PPC and Google Ads",
-          body: "Google Ads, Meta, LinkedIn, and TikTok campaigns built for conversions, not just clicks. Includes conversion optimisation on every campaign.",
-          image: "/img/services/marketing/row-1.png",
-        },
-        {
-          title: "Social Media Marketing",
-          body: "Content calendars, community management, influencer outreach, and growth strategies for every platform.",
-          image: "/img/services/marketing/row-2.jpg",
-        },
-        {
-          title: "Search Engine Advertising",
-          body: "Precision targeted campaigns with smart bidding strategies, continuous A/B testing, and conversion optimisation for maximum ROI.",
-          image: "/img/services/marketing/row-3.jpg",
-        },
-        {
-          title: "Email Marketing",
-          body: "Automated drip campaigns, newsletters, and lifecycle emails that nurture leads into loyal customers.",
-          image: "/img/services/marketing/row-4.png",
-        },
-        {
-          title: "Analytics and Reporting",
-          body: "Custom dashboards, monthly reports, and actionable insights so you always know what's working and what to do next.",
-          image: "/img/services/marketing/row-5.png",
-        },
-      ],
-    },
     process: {
       eyebrow: "OUR PROCESS",
       title: "From Audit to Accelerated Growth",
@@ -632,44 +314,6 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     hero: {
       title: "Staff augmentation",
       body: "Your team shouldn't slow down because you can't hire fast enough. We place senior developers, designers, QA engineers, and project managers directly into your workflow so you can scale without the overhead of traditional hiring.",
-    },
-    stats: [
-      { value: "Plug and Play", label: "Plug and Play Talent" },
-      { value: "48 Hours", label: "Vetted in 48 Hours" },
-      { value: "Flexible", label: "Flexible Engagements" },
-      { value: "Timezone Aligned", label: "Timezone Aligned Teams" },
-    ],
-    included: {
-      eyebrow: "WHAT IS INCLUDED",
-      title: "Your Team, Extended",
-      body: "The right people in the right seats. No recruitment headaches, no onboarding delays.",
-      rows: [
-        {
-          title: "Frontend and Backend Developers",
-          body: "React, Next.js, Node, Python, Laravel and more. Engineers who write clean code and ship on time, embedded in your sprints from week one.",
-          image: "/img/services/staff/row-0.png",
-        },
-        {
-          title: "UI/UX Designers",
-          body: "Product designers and visual designers who understand your brand and your users. Figma natives who collaborate, not just decorate.",
-          image: "/img/services/staff/row-1.png",
-        },
-        {
-          title: "QA Engineers",
-          body: "Manual and automation testers who catch what others miss. They integrate into your pipeline and hold the quality bar so your team can move faster.",
-          image: "/img/services/staff/row-2.png",
-        },
-        {
-          title: "Project Managers",
-          body: "PMs who keep scope tight, communication clear, and timelines honest. They bridge the gap between your vision and the team executing it.",
-          image: "/img/services/staff/row-3.png",
-        },
-        {
-          title: "DevOps Engineers",
-          body: "CI/CD, cloud infrastructure, and deployment pipelines handled by engineers who keep your systems stable while your product evolves.",
-          image: "/img/services/staff/row-4.png",
-        },
-      ],
     },
     process: {
       eyebrow: "OUR PROCESS",
@@ -881,6 +525,60 @@ export const TEAM_HERO = {
     "We're A Team Of Designers, Developers, Strategists, And Problem-Solvers Who Work Together To Turn Ideas Into Meaningful Digital Experiences. Different Skills, One Goal: Building Better Products That Create Real Value.",
 };
 
+/* Teams page (Figma 6181:82025). Members without a portrait render the
+ * Figma placeholder tile. Social links fall back to the company profiles
+ * until personal handles are added. */
+export const TEAM_FOUNDER = {
+  eyebrow: "MEET THE FOUNDER",
+  title: "Hey, I’m Waseeq.",
+  body: "I founded Dev N Scale and lead it as CEO and Art Director. I set the creative direction for our brand, our products and every client launch.",
+  photo: "/img/team/waseeq.png",
+  tags: ["Founder", "CEO", "Art Director"],
+};
+
+export const TEAM_SOCIAL_FALLBACK = {
+  linkedin: "https://www.linkedin.com/company/devnscale",
+  instagram: "https://www.instagram.com/devnscale",
+};
+
+export type TeamPageMember = {
+  name: string;
+  role: string;
+  photo?: string;
+  linkedin?: string;
+  instagram?: string;
+};
+
+export const TEAM_MEMBERS = {
+  title: "Meet the team.",
+  body: "Designers, engineers, analysts and strategists. The people you meet are the people who build.",
+  members: [
+    { name: "Faisal", role: "Technical Partner", photo: "/img/team/faisal.jpg" },
+    { name: "Anas", role: "Frontend Developer", photo: "/img/team/anas.jpg" },
+    { name: "Usama", role: "Product Designer", photo: "/img/team/usama.jpg" },
+    { name: "Mehroz", role: "Product Designer", photo: "/img/team/mehroz.jpg" },
+    { name: "Basit", role: "Graphic and UI/UX Designer", photo: "/img/team/basit.jpg" },
+    { name: "Qazi Ubaid", role: "Frontend Developer", photo: "/img/team/qazi-ubaid.jpg" },
+    { name: "Hassan Tahir", role: "Frontend Developer", photo: "/img/team/hassan-tahir.jpg" },
+    { name: "Abdul", role: "SEO and Digital Marketing", photo: "/img/team/abdul.jpg" },
+    { name: "Uzair", role: "SQA Engineer", photo: "/img/team/uzair.jpg" },
+    { name: "Rohan", role: "Product Analyst", photo: "/img/team/rohan.jpg" },
+    { name: "Haseeb", role: "AI and ML Developer", photo: "/img/team/haseeb-ai.jpg" },
+    { name: "Saad", role: "HR and Project Manager", photo: "/img/team/saad.jpg" },
+    { name: "Abdullah", role: "Business Development" },
+    { name: "Dawood", role: "UI/UX and Graphic Designer" },
+    { name: "Junaid", role: "WordPress Developer", photo: "/img/team/junaid.jpg" },
+    { name: "Haseeb", role: "WordPress and Frontend Developer", photo: "/img/team/haseeb-wp.jpg" },
+    { name: "Mubashir", role: "WordPress Developer", photo: "/img/team/mubashir.jpg" },
+    { name: "Saadi", role: "3D Designer", photo: "/img/team/saadi.jpg" },
+  ] satisfies TeamPageMember[] as TeamPageMember[],
+};
+
+export const TEAM_VALUES = {
+  title: "What we care about.",
+  body: "Four habits that shape how we work with each other and with every team we join.",
+};
+
 export const ABOUT_HERO = {
   eyebrow: "WHO WE ARE",
   // The lime span is highlighted in the headline.
@@ -952,7 +650,7 @@ export const ABOUT_VALUES = [
   {
     icon: "eye",
     title: "Clarity",
-    body: "Plain answers, honest timelines, and work you can follow at every step.",
+    body: "Plain answers, honest timelines and work you can follow at every step.",
   },
   {
     icon: "pencil",

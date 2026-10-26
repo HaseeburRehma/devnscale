@@ -15,20 +15,14 @@ export default function SecondaryButton({
   href = "/contact",
   variant = "dark",
   className = "",
-  icon,
 }: {
   children?: React.ReactNode;
   href?: string;
   variant?: "dark" | "light";
   className?: string;
-  /** Overrides the variant's default icon. */
-  icon?: "calendar" | "arrow";
 }) {
   const isDark = variant === "dark";
-  const Icon =
-    (icon ?? (isDark ? "calendar" : "arrow")) === "calendar"
-      ? CalendarIcon
-      : ArrowRightIcon;
+  const Icon = isDark ? CalendarIcon : ArrowRightIcon;
 
   return (
     <Link

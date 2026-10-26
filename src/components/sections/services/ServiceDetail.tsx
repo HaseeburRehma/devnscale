@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { motion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import Reveal from "@/components/ui/Reveal";
 import PrimaryButton from "@/components/ui/PrimaryButton";
@@ -9,30 +8,29 @@ import SecondaryButton from "@/components/ui/SecondaryButton";
 import Magnetic from "@/components/motion/Magnetic";
 import PatternBackdrop from "@/components/ui/PatternBackdrop";
 import type { ServiceDetail } from "@/lib/content";
+import type { ServiceCapabilities as Caps, ServiceFit as Fit } from "@/lib/service-explorer";
+import ServiceFit from "./ServiceFit";
+import ServiceCapabilities from "./ServiceCapabilities";
 
 /**
- * Full Service Detail page body, per the Figma template at frame
- * 4979:40344 (Full Stack Development). One component drives all eight
- * service pages — every piece of copy is pulled from SERVICE_DETAILS.
- *
- * Sections, top to bottom:
- *   1. Hero              — dark green, index + title + body + 2 CTAs
- *   2. Stats strip       — 4 short metrics (Custom Built / Clean / …)
- *   3. What Is Included  — eyebrow + title + body + N alternating rows,
- *                          each row: title + body, with a visual pane
- *                          that reserves space for a Figma export.
- *   4. Our Process       — sidebar header + numbered timeline, over the
- *                          shared S-mark pattern backdrop.
- *
- * Testimonial / FAQs / SelectedWork / Footer are composed at the page
- * level so each service page can decide what tail sections to include.
+ * Service detail body, per the Figma service frames: hero, who it's for,
+ * capability explorer and process. Selected work, testimonial and FAQs are
+ * composed by the page.
  */
-export default function ServiceDetail({ detail }: { detail: ServiceDetail }) {
+export default function ServiceDetail({
+  detail,
+  fit,
+  caps,
+}: {
+  detail: ServiceDetail;
+  fit: Fit;
+  caps: Caps;
+}) {
   return (
     <>
       <ServiceHero detail={detail} />
-      <ServiceStats detail={detail} />
-      <ServiceIncluded detail={detail} />
+      <ServiceFit fit={fit} />
+      <ServiceCapabilities caps={caps} />
       <ServiceProcess detail={detail} />
     </>
   );
@@ -102,108 +100,6 @@ function ServiceHero({ detail }: { detail: ServiceDetail }) {
   );
 }
 
-/* ---------- 2. Stats strip ---------- */
-
-function ServiceStats({ detail }: { detail: ServiceDetail }) {
-  return (
-    <section className="border-y border-border-subtle bg-ink-100">
-      <div className="shell grid grid-cols-2 gap-y-8 py-8 sm:grid-cols-4 sm:divide-x sm:divide-border-subtle sm:py-10">
-        {detail.stats.map((stat, i) => (
-          <Reveal
-            key={stat.label}
-            delay={i * 0.05}
-            className="sm:px-8 sm:first:pl-0"
-          >
-            <p className="font-display text-[clamp(1.5rem,1.2rem+1.2vw,2rem)] font-medium leading-tight text-ink-900">
-              {stat.value}
-            </p>
-            <p className="mt-2 text-[13px] leading-[1.3] text-text-muted">
-              {stat.label}
-            </p>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ---------- 3. What Is Included ---------- */
-
-function ServiceIncluded({ detail }: { detail: ServiceDetail }) {
-  const { included } = detail;
-  return (
-    <>
-      {/* Header band — white */}
-      <section className="bg-white pt-[clamp(3rem,1.75rem+3.6vw,5rem)] pb-10 sm:pb-14">
-        <div className="shell">
-          <div className="max-w-[820px]">
-            <Reveal>
-              <p className="t-eyebrow">{included.eyebrow}</p>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="t-subsection mt-4 text-ink-900">{included.title}</h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="t-body-lg mt-5 max-w-[620px] text-text-secondary">
-                {included.body}
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Rows — full-width bands with alternating backgrounds.
-       *  Odd rows (1,3,5) = white; even rows (2,4,6) = #F4F4F5. */}
-      {included.rows.map((row, i) => {
-        const flipped = i % 2 === 1;
-        const bandBg = flipped ? "bg-ink-100" : "bg-white";
-        return (
-          <section key={row.title} className={`${bandBg} py-10 sm:py-12`}>
-            <div className="shell">
-              <Reveal delay={0.04}>
-                <div
-                  className={`grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 ${
-                    flipped ? "lg:[&>*:first-child]:order-2" : ""
-                  }`}
-                >
-                  <div className="max-w-[500px]">
-                    <h3 className="font-display text-[clamp(1.5rem,1.1rem+1.6vw,2rem)] font-medium leading-[1.15] tracking-[-0.5px] text-ink-900">
-                      {row.title}
-                    </h3>
-                    <p className="t-body mt-4 text-text-secondary">
-                      {row.body}
-                    </p>
-                  </div>
-                  {row.image ? (
-                    <div className="relative aspect-[604/380] w-full overflow-hidden rounded-[20px] bg-ink-50 shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]">
-                      <Image
-                        src={row.image}
-                        alt={row.title}
-                        fill
-                        sizes="(min-width: 1024px) 604px, 100vw"
-                        className="object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      aria-hidden="true"
-                      className="relative aspect-[604/380] w-full overflow-hidden rounded-[20px] bg-[linear-gradient(120deg,#f4f7ea_0%,#c4d434_45%,#c7e8d9_100%)] shadow-[0_10px_26px_0_rgba(5,28,18,0.06)]"
-                    >
-                      <span className="absolute inset-0 flex items-center justify-center text-[13px] uppercase tracking-[0.14em] text-brand-900/40">
-                        {row.title}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </Reveal>
-            </div>
-          </section>
-        );
-      })}
-    </>
-  );
-}
-
 /* ---------- 4. Our Process ---------- */
 
 function ServiceProcess({ detail }: { detail: ServiceDetail }) {
@@ -233,7 +129,7 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-brand-950 section-y"
+      className="relative overflow-hidden bg-brand-950 py-[clamp(4rem,2rem+5vw,6.875rem)]"
     >
       <PatternBackdrop />
       <div className="shell relative grid grid-cols-1 gap-12 lg:grid-cols-[400px_1fr] lg:gap-24">
@@ -250,14 +146,14 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mt-5 max-w-[400px] text-[15px] leading-[1.5] text-ink-300">
+            <p className="mt-5 max-w-[400px] text-[18px] leading-7 text-ink-300">
               {process.body}
             </p>
           </Reveal>
           <Reveal delay={0.15}>
             <div className="mt-8">
               <Magnetic>
-                <PrimaryButton />
+                <PrimaryButton href="/services">Explore Service</PrimaryButton>
               </Magnetic>
             </div>
           </Reveal>
@@ -269,13 +165,13 @@ function ServiceProcess({ detail }: { detail: ServiceDetail }) {
           {/* dim rail track behind everything (always visible) */}
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute left-5 top-5 h-[calc(100%-40px)] w-px -translate-x-1/2 bg-white/10"
+            className="pointer-events-none absolute left-5 top-5 h-[calc(100%-40px)] w-0.5 -translate-x-1/2 bg-ink-400"
           />
           {/* lime rail on top — grows from 0 → 100% of that same track */}
           <motion.span
             aria-hidden="true"
             style={{ scaleY: progress, transformOrigin: "top" }}
-            className="pointer-events-none absolute left-5 top-5 h-[calc(100%-40px)] w-px -translate-x-1/2 bg-lime-400"
+            className="pointer-events-none absolute left-5 top-5 h-[calc(100%-40px)] w-0.5 -translate-x-1/2 bg-lime-400"
           />
           {process.steps.map((step, i) => (
             <TimelineStep
@@ -313,43 +209,34 @@ function TimelineStep({
   const sliceSize = 1 / total;
   const start = index * sliceSize;
   const end = start + sliceSize * 0.7;
-  const bodyOpacity = useTransform(progress, [start, end], [0.35, 1]);
-  const bodyY = useTransform(progress, [start, end], [12, 0]);
-  const markerFill = useTransform(progress, [start, end], [0, 1]);
-  const markerScale = useTransform(progress, [start, end], [0.85, 1]);
+  const fill = useTransform(progress, [start, end], [0, 1]);
+  const numberColor = useTransform(fill, [0, 0.5, 1], ["#737373", "#737373", "#012a1c"]);
+  const titleColor = useTransform(fill, [0, 1], ["#a3a3a3", "#c4d434"]);
   const n = String(index + 1).padStart(2, "0");
 
   return (
-    <li className="relative flex gap-6 pb-10 last:pb-0">
-      {/* Marker column */}
-      <motion.div
-        style={{ scale: markerScale }}
-        className="relative flex flex-col items-center"
-      >
-        <span className="relative z-10 flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-lime-400/50 bg-brand-950 text-[13px] font-medium text-white">
-          {/* lime fill wipes in behind the number as the step activates */}
+    <li className="relative flex gap-7">
+      <div className="relative flex w-10 shrink-0 flex-col items-center">
+        <span className="relative z-10 flex size-10 items-center justify-center overflow-hidden rounded-full border-[1.5px] border-ink-400 bg-ink-200">
           <motion.span
             aria-hidden="true"
-            style={{ scaleY: markerFill, transformOrigin: "bottom" }}
-            className="absolute inset-0 -z-0 bg-lime-400"
+            style={{ opacity: fill }}
+            className="absolute inset-0 bg-[#c4d434]"
           />
-          <motion.span
-            style={{ color: useTransform(markerFill, [0, 0.6, 1], ["#facc15", "#facc15", "#012a1c"]) }}
-            className="relative z-10 font-display"
-          >
+          <motion.span style={{ color: numberColor }} className="relative font-display text-[14px] font-medium">
             {n}
           </motion.span>
         </span>
-      </motion.div>
-      {/* Body */}
-      <motion.div style={{ opacity: bodyOpacity, y: bodyY }} className="pb-3 pt-1">
-        <h3 className="font-display text-[20px] font-medium leading-[1.3] text-white">
+      </div>
+      <div className={`flex min-w-0 flex-1 flex-col gap-[9px] pt-1.5 ${index === total - 1 ? "" : "pb-12"}`}>
+        <motion.h3
+          style={{ color: titleColor }}
+          className="font-display text-[22px] font-medium leading-tight tracking-[-0.3px]"
+        >
           {step.title}
-        </h3>
-        <p className="t-body mt-2 max-w-[520px] text-ink-300">
-          {step.body}
-        </p>
-      </motion.div>
+        </motion.h3>
+        <p className="max-w-[520px] text-[15.5px] leading-[1.56] text-ink-400">{step.body}</p>
+      </div>
     </li>
   );
 }
