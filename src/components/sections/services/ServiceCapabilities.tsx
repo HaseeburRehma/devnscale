@@ -218,7 +218,10 @@ function Panel({ tabs, active }: { tabs: readonly CapabilityTab[]; active: numbe
         })}
       </div>
 
-      <div className="flex flex-col gap-8 border-t border-border-subtle bg-white px-5 pb-8 pt-7 sm:flex-row sm:gap-12 sm:px-8">
+      <div
+        key={current}
+        className="flex flex-col gap-8 border-t border-border-subtle bg-white px-5 pb-8 pt-7 motion-safe:animate-[panel-info-in_320ms_ease-out] sm:flex-row sm:gap-12 sm:px-8"
+      >
         <div className="flex min-w-0 flex-1 flex-col gap-3.5">
           <p className="text-[13px] font-medium leading-4 text-text-muted">What you get</p>
           <ul className="flex flex-col gap-3.5">

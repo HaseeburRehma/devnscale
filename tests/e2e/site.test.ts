@@ -86,4 +86,20 @@ d("site e2e", () => {
     expect(hero).toContain("Book a Consultation");
     expect(hero).not.toContain("Our Services");
   });
+  it("every service tab has its own capability panel image", async () => {
+    const xml = await (await get("/sitemap.xml")).text();
+    const services = [...xml.matchAll(/<loc>[^<]*(\/services\/[^<]+)<\/loc>/g)].map((m) => m[1]);
+    for (const p of services) {
+      const html = await (await get(p)).text();
+      const stages = new Set([...html.matchAll(/stages%2F([a-z-]+)\.png/g)].map((m) => m[1]));
+      expect(stages.size, p).toBe(6);
+    }
+  });
+
+  it("about page has the auto-sliding team carousel with every member and no pagination", async () => {
+    const html = await (await get("/about")).text();
+    expect(html).toContain('aria-roledescription="carousel"');
+    for (const name of ["Faisal", "Saadi", "Qazi Ubaid", "Mubashir"]) expect(html).toContain(name);
+    expect(html).not.toMatch(/aria-label="Go to slide/);
+  });
 });

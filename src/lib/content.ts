@@ -668,32 +668,11 @@ export const ABOUT_VALUES = [
   },
 ] as const;
 
-// `photo`: path under /public for the member's portrait.
-// `linkedin`: profile URL (set to "#" when no real profile exists yet).
-type TeamMember = {
-  name: string;
-  role: string;
-  initials: string;
-  photo?: string;
-  linkedin?: string;
-};
-
-export const ABOUT_TEAM: {
-  eyebrow: string;
-  title: string;
-  subtitle: string;
-  members: TeamMember[];
-} = {
+export const ABOUT_TEAM = {
   eyebrow: "OUR TEAM",
   title: "The people behind the work.",
   subtitle:
     "A small, senior team — the people you meet are the people who build.",
-  members: [
-    { name: "Haseeb ur Rehman", role: "WordPress Developer", initials: "HR", photo: "/img/team/haseeb-ur-rehman.png", linkedin: "#" },
-    { name: "Hassan Tahir", role: "Front End Developer", initials: "HT", photo: "/img/team/hassan-tahir.png", linkedin: "#" },
-    { name: "Abdul Basit", role: "UI/UX Designer", initials: "AB", photo: "/img/team/abdul-basit.png", linkedin: "#" },
-    { name: "Mehroz Waseem", role: "UI/UX Designer", initials: "MW", photo: "/img/team/mehroz-waseem.png", linkedin: "#" },
-  ],
 };
 
 /* ============================================================

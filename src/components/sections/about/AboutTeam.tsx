@@ -1,80 +1,167 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useReducedMotion } from "motion/react";
 import Reveal from "@/components/ui/Reveal";
-import { ABOUT_TEAM } from "@/lib/content";
+import { ABOUT_TEAM, TEAM_MEMBERS } from "@/lib/content";
+
+const ADVANCE_MS = 3000;
+const SLIDE_MS = 700;
+
+const MEMBERS = TEAM_MEMBERS.members
+  .filter((m) => m.photo)
+  .map((m) => ({ ...m, card: m.photo!.replace("/img/team/", "/img/team/slider/") }));
+const N = MEMBERS.length;
+/* Three copies so the active card always has neighbours on both sides;
+ * the index snaps back to the middle copy without animating. */
+const LOOP = [...MEMBERS, ...MEMBERS, ...MEMBERS];
 
 /**
- * "OUR TEAM" — 4-column grid of member cards matching the Figma Teams
- * frame (5746:54789). Each card is a white rounded container with name +
- * role on top, then the Figma-exported portrait (pre-composited with
- * the dark-green background and blurred concentric gradient rings).
+ * "OUR TEAM" — Figma 07b · Team cards (302×378, frosted name card) in a
+ * centred auto-slider. The active member is centred, in full colour with a
+ * lime ring; the rest dim. No pagination: it advances every 3s, pauses on
+ * hover or focus, and can be swiped or clicked.
  */
 export default function AboutTeam() {
-  const { eyebrow, title, subtitle, members } = ABOUT_TEAM;
+  const { eyebrow, title, subtitle } = ABOUT_TEAM;
+  const [index, setIndex] = useState(N);
+  const [animate, setAnimate] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const pointerX = useRef<number | null>(null);
+
+  const go = useCallback((next: number) => {
+    setAnimate(true);
+    setIndex(next);
+  }, []);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.25 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reduce || paused || !visible) return;
+    const t = setTimeout(() => go(index + 1), ADVANCE_MS);
+    return () => clearTimeout(t);
+  }, [index, paused, visible, reduce, go]);
+
+  // After a slide lands in an outer copy, jump to the same member in the middle copy.
+  useEffect(() => {
+    if (index >= N && index < 2 * N) return;
+    const t = setTimeout(() => {
+      setAnimate(false);
+      setIndex((i) => ((i % N) + N) % N + N);
+    }, SLIDE_MS);
+    return () => clearTimeout(t);
+  }, [index]);
+
+  useEffect(() => {
+    if (animate) return;
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnimate(true)));
+    return () => cancelAnimationFrame(id);
+  }, [animate]);
+
+  const active = MEMBERS[index % N];
 
   return (
-    <section id="team" className="overflow-hidden bg-white section-y">
+    <section id="team" className="overflow-hidden bg-ink-50 py-[clamp(4rem,1.5rem+5.55vw,6.5rem)]">
       <div className="shell">
-        {/* Header row */}
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div>
+          <div className="flex flex-col gap-[18px]">
             <Reveal>
-              <p className="t-eyebrow">{eyebrow}</p>
+              <p className="text-[12px] leading-4 text-lime-700">{eyebrow}</p>
             </Reveal>
             <Reveal delay={0.05}>
-              <h2 className="t-subsection mt-4 text-ink-900">{title}</h2>
+              <h2 className="font-display text-[clamp(2rem,1.4rem+2.6vw,3rem)] font-bold leading-[1.17] tracking-[-1.5px] text-ink-900">
+                {title}
+              </h2>
             </Reveal>
           </div>
           <Reveal delay={0.1}>
-            <p className="t-body max-w-[320px] text-text-secondary lg:text-right">
-              {subtitle}
-            </p>
+            <p className="max-w-[320px] text-[16px] leading-6 text-text-secondary">{subtitle}</p>
           </Reveal>
         </div>
+      </div>
 
-        {/* Member grid */}
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {members.map((member, i) => (
-            <Reveal key={member.name} delay={i * 0.08}>
-              <MemberCard member={member} />
-            </Reveal>
-          ))}
-        </div>
+      <div
+        ref={ref}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Team members"
+        className="relative mt-12 touch-pan-y select-none [--cw:min(72vw,302px)] [--gap:16px] sm:[--cw:260px] lg:[--cw:302px] lg:[--gap:24px]"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onFocus={() => setPaused(true)}
+        onBlur={() => setPaused(false)}
+        onPointerDown={(e) => {
+          pointerX.current = e.clientX;
+        }}
+        onPointerUp={(e) => {
+          if (pointerX.current === null) return;
+          const dx = e.clientX - pointerX.current;
+          pointerX.current = null;
+          if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
+        }}
+      >
+        <p className="sr-only" aria-live="polite">
+          {`${active.name}, ${active.role}`}
+        </p>
+        <ul
+          className="ml-[50%] flex gap-[var(--gap)] py-3"
+          style={{
+            transform: `translateX(calc(-${index} * (var(--cw) + var(--gap)) - var(--cw) / 2))`,
+            transition: animate ? `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)` : "none",
+          }}
+        >
+          {LOOP.map((m, i) => {
+            const isActive = i === index;
+            const clone = i < N || i >= 2 * N;
+            return (
+              <li
+                key={i}
+                aria-hidden={clone || undefined}
+                onClick={() => !isActive && go(i)}
+                className={`relative aspect-[302/378] w-[var(--cw)] shrink-0 overflow-hidden rounded-[20px] bg-ink-100 ${
+                  animate ? "transition-[transform,opacity,filter,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" : ""
+                } ${
+                  isActive
+                    ? "scale-100 opacity-100 shadow-[0_18px_40px_rgba(1,42,28,0.22)] ring-2 ring-lime-400"
+                    : "scale-[0.9] cursor-pointer opacity-55 grayscale-[40%] hover:opacity-80"
+                }`}
+              >
+                <Image
+                  src={m.card}
+                  alt={clone ? "" : `${m.name}, ${m.role}`}
+                  fill
+                  sizes="(min-width: 1024px) 302px, (min-width: 640px) 260px, 72vw"
+                  className="object-cover"
+                />
+                <div
+                  className={`absolute inset-x-4 bottom-4 flex flex-col items-center gap-1 rounded-[14px] p-4 text-center backdrop-blur-md transition-colors duration-700 ${
+                    isActive ? "bg-[rgba(1,42,28,0.62)]" : "bg-black/20"
+                  }`}
+                >
+                  <p className="font-display text-[18px] font-medium leading-6 text-white">{m.name}</p>
+                  <p
+                    className={`text-[14px] leading-5 transition-colors duration-700 ${
+                      isActive ? "text-lime-300" : "text-ink-300"
+                    }`}
+                  >
+                    {m.role}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
-  );
-}
-
-function MemberCard({
-  member,
-}: {
-  member: (typeof ABOUT_TEAM)["members"][number];
-}) {
-  return (
-    <div className="group overflow-hidden rounded-[20px] border border-ink-200 bg-white px-3 py-2">
-      {/* Name + Role */}
-      <div className="px-1 py-2">
-        <h3 className="font-display text-[clamp(1.125rem,0.9rem+0.8vw,1.5rem)] font-medium uppercase leading-[32px] tracking-[-0.5px] text-ink-900">
-          {member.name}
-        </h3>
-        <p className="text-[14px] leading-5 text-ink-500">
-          {member.role}
-        </p>
-      </div>
-
-      {/* Pre-composited Figma export: person + gradient rings + green bg */}
-      {member.photo && (
-        <div className="relative aspect-[285/378] w-full overflow-hidden rounded-[12px]">
-          <Image
-            src={member.photo}
-            alt={member.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 310px"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          />
-        </div>
-      )}
-    </div>
   );
 }
