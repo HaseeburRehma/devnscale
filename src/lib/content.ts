@@ -454,7 +454,7 @@ export const FAQS = [
 ];
 
 export const CONTACT_DETAILS = [
-  { icon: "mail", label: "EMAIL", value: "waseeqaftab@devnscale.com" },
+  { icon: "mail", label: "EMAIL", value: "waseeq.aftab@devnscale.com" },
   { icon: "phone", label: "PHONE", value: "+92 339 5636702" },
   {
     icon: "pin",
@@ -506,7 +506,7 @@ export const FOOTER_LINKS = {
   ],
   contact: [
     { label: "+92 339 5636702", href: "tel:+923395636702" },
-    { label: "waseeqaftab@devnscale.com", href: "mailto:waseeqaftab@devnscale.com" },
+    { label: "waseeq.aftab@devnscale.com", href: "mailto:waseeq.aftab@devnscale.com" },
   ],
 };
 
@@ -791,7 +791,7 @@ export const CONTACT_REACH = {
   title: "Reach out to us",
   subtitle: "You can reach us by email, by phone, or with a visit to the studio.",
   cards: [
-    { icon: "mail", label: "Email", value: "waseeqaftab@devnscale.com" },
+    { icon: "mail", label: "Email", value: "waseeq.aftab@devnscale.com" },
     { icon: "phone", label: "Phone", value: "+92 339 5636702" },
     {
       icon: "pin",
