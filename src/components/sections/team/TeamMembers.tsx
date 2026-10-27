@@ -79,14 +79,13 @@ function MemberCard({ member }: { member: TeamPageMember }) {
             href={linkedin}
             label={own ? `${member.name} on LinkedIn` : "Dev N Scale on LinkedIn"}
           >
-            <path d="M10.672 5.336a4.002 4.002 0 0 1 4.002 4.002v4.669h-2.668V9.338a1.334 1.334 0 0 0-2.668 0v4.669H6.67V9.338a4.002 4.002 0 0 1 4.002-4.002ZM1.334 6.003h2.668v8.004H1.334V6.003ZM2.668 4.002a1.334 1.334 0 1 0 0-2.668 1.334 1.334 0 0 0 0 2.668Z" />
+            {LINKEDIN_ICON}
           </SocialLink>
           <SocialLink
             href={instagram}
             label={own ? `${member.name} on Instagram` : "Dev N Scale on Instagram"}
           >
-            <path d="M4.669 1.334h6.67a3.335 3.335 0 0 1 3.335 3.335v6.67a3.335 3.335 0 0 1-3.335 3.335h-6.67a3.335 3.335 0 0 1-3.335-3.335v-6.67a3.335 3.335 0 0 1 3.335-3.335Z" />
-            <path d="M10.672 7.584a2.668 2.668 0 1 1-5.278.782 2.668 2.668 0 0 1 5.278-.782ZM11.673 4.336h.006" />
+            {INSTAGRAM_ICON}
           </SocialLink>
         </div>
       </div>
@@ -94,7 +93,18 @@ function MemberCard({ member }: { member: TeamPageMember }) {
   );
 }
 
-function SocialLink({
+export const LINKEDIN_ICON = (
+  <path d="M10.672 5.336a4.002 4.002 0 0 1 4.002 4.002v4.669h-2.668V9.338a1.334 1.334 0 0 0-2.668 0v4.669H6.67V9.338a4.002 4.002 0 0 1 4.002-4.002ZM1.334 6.003h2.668v8.004H1.334V6.003ZM2.668 4.002a1.334 1.334 0 1 0 0-2.668 1.334 1.334 0 0 0 0 2.668Z" />
+);
+
+export const INSTAGRAM_ICON = (
+  <>
+    <path d="M4.669 1.334h6.67a3.335 3.335 0 0 1 3.335 3.335v6.67a3.335 3.335 0 0 1-3.335 3.335h-6.67a3.335 3.335 0 0 1-3.335-3.335v-6.67a3.335 3.335 0 0 1 3.335-3.335Z" />
+    <path d="M10.672 7.584a2.668 2.668 0 1 1-5.278.782 2.668 2.668 0 0 1 5.278-.782ZM11.673 4.336h.006" />
+  </>
+);
+
+export function SocialLink({
   href,
   label,
   children,

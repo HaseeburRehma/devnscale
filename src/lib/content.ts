@@ -529,10 +529,9 @@ export const TEAM_HERO = {
  * until personal handles are added. */
 export const TEAM_FOUNDER = {
   eyebrow: "MEET THE FOUNDER",
-  title: "Hey, I’m Waseeq.",
-  body: "I founded Dev N Scale and lead it as CEO and Art Director. I set the creative direction for our brand, our products and every client launch.",
-  photo: "/img/team/waseeq.png",
-  tags: ["Founder", "CEO", "Art Director"],
+  name: "Waseeq",
+  body: "CEO and Art Director. Sets the creative direction for our brand, products and every client launch.",
+  photo: "/img/team/waseeq-founder.png",
 };
 
 export const TEAM_SOCIAL_FALLBACK = {

@@ -395,6 +395,9 @@ body {
     opacity: 1;
     transform: none;
   }
+  [data-founder-letter] {
+    transform: none !important;
+  }
 }
 
 /* Case-study deck. Every card pins at the same offset with an ascending
