@@ -531,7 +531,7 @@ export const TEAM_FOUNDER = {
   eyebrow: "MEET THE FOUNDER",
   name: "Waseeq",
   body: "CEO and Art Director. Sets the creative direction for our brand, products and every client launch.",
-  photo: "/img/team/waseeq-founder.png",
+  photo: "/img/team/waseeq-founder.webp",
 };
 
 export const TEAM_SOCIAL_FALLBACK = {
