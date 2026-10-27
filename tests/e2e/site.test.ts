@@ -91,10 +91,11 @@ d("site e2e", () => {
     const services = [...xml.matchAll(/<loc>[^<]*(\/services\/[^<]+)<\/loc>/g)].map((m) => m[1]);
     for (const p of services) {
       const html = await (await get(p)).text();
-      const stages = new Set([...html.matchAll(/stages%2F([a-z-]+)\.png/g)].map((m) => m[1]));
-      // Full Stack has one Figma panel per tab; every other service has one shared panel.
-      expect(stages.size, p).toBe(p.endsWith("full-stack-development") ? 6 : 1);
-      for (const st of stages) expect(st, p).toMatch(/^(web-[a-z]+|mobile|design|ai|qa|pitch|marketing|staff)$/);
+      const stages = new Set([...html.matchAll(/stages%2F([a-z0-9-]+)\.png/g)].map((m) => m[1]));
+      // Every tab has its own Figma panel: <service>-1 to <service>-6.
+      expect(stages.size, p).toBe(6);
+      for (const st of stages) expect(st, p).toMatch(/^(web|mobile|design|ai|qa|pitch|marketing|staff)-[1-6]$/);
+      expect(new Set([...stages].map((st) => st.split("-")[0])).size, p).toBe(1);
     }
   });
 
