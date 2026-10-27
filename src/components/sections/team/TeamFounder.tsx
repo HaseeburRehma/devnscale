@@ -23,8 +23,7 @@ export default function TeamFounder() {
             src={photo}
             alt={`${name}, founder and CEO of Dev N Scale`}
             fill
-            // Pre-sized 1200w WebP served as-is: Vercel's optimizer is out of quota (402).
-            unoptimized
+            sizes="(min-width: 1440px) 600px, (min-width: 1024px) 42vw, 72vw"
             className="object-cover"
           />
         </div>

@@ -10,6 +10,13 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  images: {
+    // Pre-built WebP sizes (npm run images); see src/lib/image-loader.ts.
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
+    imageSizes: [384],
+    deviceSizes: [640, 1080, 1920],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

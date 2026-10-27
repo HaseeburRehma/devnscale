@@ -91,13 +91,38 @@ d("site e2e", () => {
     const services = [...xml.matchAll(/<loc>[^<]*(\/services\/[^<]+)<\/loc>/g)].map((m) => m[1]);
     for (const p of services) {
       const html = await (await get(p)).text();
-      const stages = new Set([...html.matchAll(/stages%2F([a-z0-9-]+)\.png/g)].map((m) => m[1]));
+      const stages = new Set([...html.matchAll(/img-opt\/services\/stages\/([a-z]+-[1-6])-\d+\.webp/g)].map((m) => m[1]));
       // Every tab has its own Figma panel: <service>-1 to <service>-6.
       expect(stages.size, p).toBe(6);
       for (const st of stages) expect(st, p).toMatch(/^(web|mobile|design|ai|qa|pitch|marketing|staff)-[1-6]$/);
       expect(new Set([...stages].map((st) => st.split("-")[0])).size, p).toBe(1);
     }
   });
+
+  it("every image on every page is a pre-built WebP that loads, never the Vercel optimizer", async () => {
+    const xml = await (await get("/sitemap.xml")).text();
+    const pages = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+    const urls = new Set<string>();
+    for (const p of pages) {
+      const html = (await (await get(p)).text()).replace(/&amp;/g, "&");
+      expect(html, p).not.toContain("/_next/image");
+      for (const m of html.matchAll(/(?:src|srcSet|srcset)="([^"]+)"/g)) {
+        for (const part of m[1].split(",")) {
+          const u = part.trim().split(/\s+/)[0];
+          if (u.startsWith("/img-opt/")) urls.add(u);
+        }
+      }
+    }
+    expect(urls.size).toBeGreaterThan(100);
+    const bad: string[] = [];
+    await Promise.all(
+      [...urls].map(async (u) => {
+        const r = await get(u);
+        if (r.status !== 200 || r.headers.get("content-type") !== "image/webp") bad.push(`${u} -> ${r.status}`);
+      }),
+    );
+    expect(bad).toEqual([]);
+  }, 180_000);
 
   it("about page has the auto-sliding team carousel with every member and no pagination", async () => {
     const html = await (await get("/about")).text();
