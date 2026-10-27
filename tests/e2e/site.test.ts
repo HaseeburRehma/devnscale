@@ -86,13 +86,15 @@ d("site e2e", () => {
     expect(hero).toContain("Book a Consultation");
     expect(hero).not.toContain("Our Services");
   });
-  it("every service tab has its own capability panel image", async () => {
+  it("service pages use the Figma capability panels", async () => {
     const xml = await (await get("/sitemap.xml")).text();
     const services = [...xml.matchAll(/<loc>[^<]*(\/services\/[^<]+)<\/loc>/g)].map((m) => m[1]);
     for (const p of services) {
       const html = await (await get(p)).text();
       const stages = new Set([...html.matchAll(/stages%2F([a-z-]+)\.png/g)].map((m) => m[1]));
-      expect(stages.size, p).toBe(6);
+      // Full Stack has one Figma panel per tab; every other service has one shared panel.
+      expect(stages.size, p).toBe(p.endsWith("full-stack-development") ? 6 : 1);
+      for (const st of stages) expect(st, p).toMatch(/^(web-[a-z]+|mobile|design|ai|qa|pitch|marketing|staff)$/);
     }
   });
 
