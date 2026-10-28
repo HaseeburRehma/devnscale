@@ -116,10 +116,15 @@ d("site e2e", () => {
     }
     expect(urls.size).toBeGreaterThan(100);
     const bad: string[] = [];
+    // ~1000 URLs: 16 at a time, or the test machine's own sockets time out.
+    const queue = [...urls];
     await Promise.all(
-      [...urls].map(async (u) => {
-        const r = await get(u);
-        if (r.status !== 200 || r.headers.get("content-type") !== "image/webp") bad.push(`${u} -> ${r.status}`);
+      Array.from({ length: 16 }, async () => {
+        for (let u = queue.pop(); u; u = queue.pop()) {
+          const r = await get(u);
+          await r.arrayBuffer();
+          if (r.status !== 200 || r.headers.get("content-type") !== "image/webp") bad.push(`${u} -> ${r.status}`);
+        }
       }),
     );
     expect(bad).toEqual([]);
