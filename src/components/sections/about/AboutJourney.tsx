@@ -169,7 +169,6 @@ export default function AboutJourney() {
               the arc that the path uses */}
           {milestones.map((m, i) => {
             const pos = CARD_POS[i] ?? CARD_POS[0];
-            const isFirst = i === 0;
             return (
               <motion.div
                 key={m.year}
@@ -193,13 +192,11 @@ export default function AboutJourney() {
                     pos.side === "left" ? "flex-row-reverse" : ""
                   }`}
                 >
-                  <span className="font-body text-[13px] italic text-ink-400">
+                  <span className="font-body text-[13px] italic text-lime-400/70">
                     0{i + 1}
                   </span>
                   <span
-                    className={`font-display text-[clamp(2rem,1.6rem+1.8vw,2.75rem)] font-bold leading-none tracking-[-0.03em] ${
-                      isFirst ? "text-lime-400" : "text-ink-400"
-                    }`}
+                    className="font-display text-[clamp(2rem,1.6rem+1.8vw,2.75rem)] font-bold leading-none tracking-[-0.03em] text-lime-400"
                   >
                     {m.year}
                   </span>
@@ -227,19 +224,13 @@ export default function AboutJourney() {
           />
           {milestones.map((m, i) => (
             <li key={m.year} className="relative pl-8">
-              <span
-                className={`absolute left-0 top-2 size-3 rounded-full ${
-                  i === 0 ? "bg-lime-400" : "bg-brand-200"
-                }`}
-              />
+              <span className="absolute left-0 top-2 size-3 rounded-full bg-lime-400 shadow-[0_0_10px_rgba(196,212,52,0.55)]" />
               <span className="inline-flex items-baseline gap-3">
-                <span className="font-body text-[13px] italic text-ink-400">
+                <span className="font-body text-[13px] italic text-lime-400/70">
                   0{i + 1}
                 </span>
                 <span
-                  className={`font-display text-[2rem] font-bold leading-none tracking-[-0.03em] ${
-                    i === 0 ? "text-lime-400" : "text-ink-400"
-                  }`}
+                  className="font-display text-[2rem] font-bold leading-none tracking-[-0.03em] text-lime-400"
                 >
                   {m.year}
                 </span>
@@ -292,7 +283,7 @@ function MilestoneDot({
         cx={x}
         cy={y}
         r={7}
-        fill={first ? "#c4d434" : "#9cd6bc"}
+        fill="#c4d434"
         style={{ opacity, scale, transformOrigin: `${x}px ${y}px` }}
       />
     </g>

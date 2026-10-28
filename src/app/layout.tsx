@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import SmoothScroll from "@/components/motion/SmoothScroll";
 import { CONTACT_DETAILS } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
@@ -15,6 +15,13 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -50,12 +57,22 @@ const JSON_LD = {
       logo: `${SITE_URL}/img/logos/lockup.png`,
       email: detail("mail"),
       telephone: detail("phone").replace(/\s/g, ""),
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Plot No 21, First Floor, Phase 1 Pakistan Town",
-        addressLocality: "Islamabad",
-        addressCountry: "PK",
-      },
+      address: [
+        {
+          "@type": "PostalAddress",
+          streetAddress: "Plot No 21, First Floor, Phase 1 Pakistan Town",
+          addressLocality: "Islamabad",
+          addressCountry: "PK",
+        },
+        {
+          "@type": "PostalAddress",
+          streetAddress: "5900 Balcones Dr, Ste 13485",
+          addressLocality: "Austin",
+          addressRegion: "TX",
+          postalCode: "78731",
+          addressCountry: "US",
+        },
+      ],
       description:
         "Software development and digital agency: UI/UX design, web and mobile development, AI chatbots, QA, pitch decks and digital marketing.",
     },
@@ -78,7 +95,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable} antialiased`}
     >
       <body>
         <script

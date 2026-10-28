@@ -9,7 +9,7 @@ import {
 } from "@/components/icons";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import Reveal from "@/components/ui/Reveal";
-import { CONTACT_DETAILS, SERVICE_OPTIONS } from "@/lib/content";
+import { CONTACT_DETAILS, SERVICE_OPTIONS, type ContactLine } from "@/lib/content";
 
 const DETAIL_ICONS = {
   mail: MailIcon,
@@ -107,17 +107,28 @@ export default function Contact() {
                 DETAIL_ICONS[detail.icon as keyof typeof DETAIL_ICONS];
               return (
                 <Reveal key={detail.label} delay={0.15 + i * 0.06}>
-                  <div className="group flex items-center gap-4">
-                    <span className="flex size-11 shrink-0 items-center justify-center rounded-[12px] bg-gradient-to-b from-ink-800 to-ink-950 shadow-[0_0_14px_1px_rgba(155,167,24,0.22)] transition-transform duration-300 group-hover:scale-105">
+                  <div className="flex items-start gap-4">
+                    <span className="flex size-11 shrink-0 items-center justify-center rounded-[12px] bg-gradient-to-b from-ink-800 to-ink-950 shadow-[0_0_14px_1px_rgba(155,167,24,0.22)]">
                       <Icon className="size-5 text-lime-400" />
                     </span>
-                    <span className="flex flex-col">
-                      <span className="text-[12px] leading-4 text-text-muted">
-                        {detail.label}
-                      </span>
-                      <span className="text-[16px] font-medium leading-[19px] text-ink-900">
-                        {detail.value}
-                      </span>
+                    <span className="flex min-w-0 flex-col gap-4">
+                      {detail.icon === "pin" ? (
+                        detail.lines.map((line) => (
+                          <span key={line.text} className="flex flex-col gap-1">
+                            <span className="text-[12px] uppercase leading-4 text-text-muted">
+                              {line.heading} Office
+                            </span>
+                            <ContactLink line={line} />
+                          </span>
+                        ))
+                      ) : (
+                        <span className="flex flex-col gap-1">
+                          <span className="text-[12px] leading-4 text-text-muted">{detail.label}</span>
+                          {detail.lines.map((line) => (
+                            <ContactLink key={line.text} line={line} />
+                          ))}
+                        </span>
+                      )}
                     </span>
                   </div>
                 </Reveal>
@@ -279,5 +290,18 @@ function Field({
       </label>
       {children}
     </div>
+  );
+}
+
+function ContactLink({ line }: { line: ContactLine }) {
+  const external = line.href.startsWith("http");
+  return (
+    <a
+      href={line.href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className="break-words text-[16px] font-medium leading-6 text-ink-900 transition-colors hover:text-lime-700"
+    >
+      {line.text}
+    </a>
   );
 }

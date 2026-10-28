@@ -24,6 +24,9 @@ export default function PageHero({
   showSecondary = true,
   backgroundImage,
   eyebrowClassName,
+  primary = { label: "Start A Project", href: "/contact" },
+  meta,
+  lgHeight,
 }: {
   eyebrow: string;
   title: string;
@@ -33,6 +36,12 @@ export default function PageHero({
   showSecondary?: boolean;
   backgroundImage?: string;
   eyebrowClassName?: string;
+  /** Primary CTA; `null` hides it (and the action row when there's no secondary). */
+  primary?: { label: string; href: string } | null;
+  /** Extra row under the subtitle, e.g. an article's author and date. */
+  meta?: React.ReactNode;
+  /** Desktop height from the page's Figma frame; defaults to 653 (557 for sm). */
+  lgHeight?: number;
 }) {
   const sm = size === "sm";
   const hasImage = Boolean(backgroundImage);
@@ -42,8 +51,9 @@ export default function PageHero({
       className={`relative isolate flex items-center overflow-hidden bg-[#02150e] pb-12 pt-[110px] sm:pb-16 sm:pt-[130px] ${
         sm
           ? "min-h-[440px] sm:min-h-[500px] lg:h-[557px] lg:pt-[74px]"
-          : "min-h-[500px] sm:min-h-[560px] lg:h-[653px] lg:items-start lg:pt-[170px]"
+          : `min-h-[500px] sm:min-h-[560px] lg:items-start lg:pt-[170px] ${lgHeight ? "lg:h-[var(--hero-h)] lg:min-h-0" : "lg:h-[653px]"}`
       } lg:pb-0`}
+      style={lgHeight ? ({ "--hero-h": `${lgHeight}px` } as React.CSSProperties) : undefined}
     >
       {hasImage ? (
         <>
@@ -102,19 +112,29 @@ export default function PageHero({
             {subtitle}
           </p>
 
-          <div
-            className="rise-in mt-7 flex flex-col items-center gap-4 sm:flex-row"
-            style={{ animationDelay: "320ms" }}
-          >
-            <Magnetic>
-              <PrimaryButton />
-            </Magnetic>
-            {showSecondary && (
-              <Magnetic>
-                <SecondaryButton />
-              </Magnetic>
-            )}
-          </div>
+          {meta && (
+            <div className="rise-in mt-7" style={{ animationDelay: "260ms" }}>
+              {meta}
+            </div>
+          )}
+
+          {(primary || showSecondary) && (
+            <div
+              className="rise-in mt-7 flex flex-col items-center gap-4 sm:flex-row"
+              style={{ animationDelay: "320ms" }}
+            >
+              {primary && (
+                <Magnetic>
+                  <PrimaryButton href={primary.href}>{primary.label}</PrimaryButton>
+                </Magnetic>
+              )}
+              {showSecondary && (
+                <Magnetic>
+                  <SecondaryButton />
+                </Magnetic>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </section>

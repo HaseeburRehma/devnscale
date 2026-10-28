@@ -9,9 +9,12 @@ import { ABOUT_TEAM, TEAM_MEMBERS } from "@/lib/content";
 const ADVANCE_MS = 3000;
 const SLIDE_MS = 700;
 
+/* Dawood leads the carousel; the rest follow the team page order. */
+const FIRST = "Dawood";
 const MEMBERS = TEAM_MEMBERS.members
   .filter((m) => m.photo)
-  .map((m) => ({ ...m, card: m.photo!.replace("/img/team/", "/img/team/slider/") }));
+  .sort((a, b) => Number(b.name === FIRST) - Number(a.name === FIRST))
+  .map((m) => ({ ...m, card: m.photo! }));
 const N = MEMBERS.length;
 /* Three copies so the active card always has neighbours on both sides;
  * the index snaps back to the middle copy without animating. */

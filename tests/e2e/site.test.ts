@@ -30,11 +30,12 @@ d("site e2e", () => {
     );
     expect(broken).toEqual([]);
     expect(links.has("/privacy")).toBe(true);
-    expect(links.has("/careers")).toBe(false);
+    expect(links.has("/careers")).toBe(true);
+    expect(links.has("/blog")).toBe(true);
   }, 180_000);
 
   it("unknown routes render the branded 404", async () => {
-    for (const p of ["/careers", "/case-study/nope", "/services/nope"]) {
+    for (const p of ["/blog/nope", "/case-study/nope", "/services/nope"]) {
       const r = await get(p);
       expect(r.status).toBe(404);
       expect(await r.text()).toContain("This page doesn");
@@ -59,10 +60,10 @@ d("site e2e", () => {
     expect([403, 503]).toContain(evil.status);
     expect((await get("/api/contact")).status).toBe(405);
   });
-  it("team page shows the founder and all 18 members", async () => {
+  it("team page shows the founder and all 19 members", async () => {
     const html = await (await get("/team")).text();
     expect(html).toContain("MEET THE FOUNDER");
-    expect((html.match(/<article/g) ?? []).length).toBe(18);
+    expect((html.match(/<article/g) ?? []).length).toBe(19);
     expect(html).toContain("What we care about.");
   });
 
@@ -124,10 +125,39 @@ d("site e2e", () => {
     expect(bad).toEqual([]);
   }, 180_000);
 
+  it("careers page lists the open roles and the hiring steps", async () => {
+    const html = await (await get("/careers")).text();
+    for (const t of ["Digital Marketing Specialist", "SEO Specialist", "UI/UX Designer", "How Hiring Works.", "Why People Stay."])
+      expect(html).toContain(t);
+    expect(html).toContain("mailto:careers@devnscale.com");
+  });
+
+  it("blog lists every post and each article renders with its contents", async () => {
+    const xml = await (await get("/sitemap.xml")).text();
+    const posts = [...xml.matchAll(/<loc>[^<]*(\/blog\/[^<]+)<\/loc>/g)].map((m) => m[1]);
+    expect(posts.length).toBe(7);
+    const index = await (await get("/blog")).text();
+    for (const p of posts) {
+      expect(index).toContain(`href="${p}"`);
+      const html = await (await get(p)).text();
+      expect(html, p).toContain("On this page");
+      expect(html, p).toContain('"@type":"BlogPosting"');
+      expect(html, p).toContain("Keep Reading.");
+    }
+  });
+
+  it("contact details show both emails, both phones and both offices", async () => {
+    for (const page of ["/", "/contact"]) {
+      const html = await (await get(page)).text();
+      for (const v of ["waseeqaftab786@gmail.com", "+92 310 5636702", "5900 Balcones Dr", "Islamabad"])
+        expect(html, page).toContain(v);
+    }
+  });
+
   it("about page has the auto-sliding team carousel with every member and no pagination", async () => {
     const html = await (await get("/about")).text();
     expect(html).toContain('aria-roledescription="carousel"');
-    for (const name of ["Faisal", "Saadi", "Qazi Ubaid", "Mubashir"]) expect(html).toContain(name);
+    for (const name of ["Dawood", "Faisal", "Saadi", "Qazi Ubaid", "Mubashir"]) expect(html).toContain(name);
     expect(html).not.toMatch(/aria-label="Go to slide/);
   });
 });

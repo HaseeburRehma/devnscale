@@ -453,14 +453,42 @@ export const FAQS = [
   },
 ];
 
-export const CONTACT_DETAILS = [
-  { icon: "mail", label: "EMAIL", value: "waseeq.aftab@devnscale.com" },
-  { icon: "phone", label: "PHONE", value: "+92 339 5636702" },
+const EMAILS = ["waseeq.aftab@devnscale.com", "waseeqaftab786@gmail.com"];
+const PHONES = ["+92 339 5636702", "+92 310 5636702"];
+export const OFFICES = [
+  { city: "Islamabad", address: "Plot No 21, First Floor, Phase 1 Pakistan Town, Islamabad, Pakistan" },
+  { city: "Austin", address: "5900 Balcones Dr, Ste 13485, Austin, TX 78731, USA" },
+];
+
+export type ContactLine = { heading?: string; text: string; href: string };
+const mapsHref = (address: string) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+
+/* `value` is the primary channel (structured data, legal pages, booking card);
+ * `lines` lists every email / number / office as Figma shows them. */
+export const CONTACT_DETAILS: {
+  icon: "mail" | "phone" | "pin";
+  label: string;
+  value: string;
+  lines: ContactLine[];
+}[] = [
+  {
+    icon: "mail",
+    label: "EMAIL",
+    value: EMAILS[0],
+    lines: EMAILS.map((e) => ({ text: e, href: `mailto:${e}` })),
+  },
+  {
+    icon: "phone",
+    label: "PHONE",
+    value: PHONES[0],
+    lines: PHONES.map((p) => ({ text: p, href: `tel:${p.replace(/\s/g, "")}` })),
+  },
   {
     icon: "pin",
     label: "OFFICE",
-    value:
-      "Plot No 21, First Floor, Phase 1 Pakistan Town, Islamabad, Pakistan",
+    value: OFFICES[0].address,
+    lines: OFFICES.map((o) => ({ heading: o.city, text: o.address, href: mapsHref(o.address) })),
   },
 ];
 
@@ -487,10 +515,7 @@ export const MARQUEE_ITEMS = [
   { label: "Smart Chat", icon: "chat" },
 ];
 
-/* Footer columns as they appear in the Figma. Careers, Blogs, Privacy
- * Policy, and Term & Condition don't have real pages yet — they route to
- * /careers, /blog, /privacy, /terms so a soft-404 lands somewhere the SEO
- * can crawl. Replace href when the actual pages ship. */
+/* Footer columns as they appear in the Figma. */
 export const FOOTER_LINKS = {
   main: [
     { label: "Home", href: "/" },
@@ -501,12 +526,14 @@ export const FOOTER_LINKS = {
   ],
   other: [
     { label: "Contact Us", href: "/contact" },
+    { label: "Careers", href: "/careers" },
+    { label: "Blogs", href: "/blog" },
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms & Conditions", href: "/terms" },
   ],
   contact: [
-    { label: "+92 339 5636702", href: "tel:+923395636702" },
-    { label: "waseeq.aftab@devnscale.com", href: "mailto:waseeq.aftab@devnscale.com" },
+    ...PHONES.map((p) => ({ label: p, href: `tel:${p.replace(/\s/g, "")}` })),
+    ...EMAILS.map((e) => ({ label: e, href: `mailto:${e}` })),
   ],
 };
 
@@ -550,21 +577,23 @@ export type TeamPageMember = {
 export const TEAM_MEMBERS = {
   title: "Meet the team.",
   body: "Designers, engineers, analysts and strategists. The people you meet are the people who build.",
+  /* Order and names follow the Figma "Team · Members" grid. */
   members: [
+    { name: "Rohan", role: "Product Analyst", photo: "/img/team/rohan.jpg" },
+    { name: "Haseeb", role: "AI and ML Developer", photo: "/img/team/haseeb-ai.jpg" },
+    { name: "Abdul Rehman", role: "SEO and Digital Marketing", photo: "/img/team/abdul.jpg" },
+    { name: "Hammad", role: "Backend Developer" },
+    { name: "Hassan Tahir", role: "Frontend Developer", photo: "/img/team/hassan-tahir.jpg" },
     { name: "Faisal", role: "Technical Partner", photo: "/img/team/faisal.jpg" },
     { name: "Anas", role: "Frontend Developer", photo: "/img/team/anas.jpg" },
     { name: "Usama", role: "Product Designer", photo: "/img/team/usama.jpg" },
     { name: "Mehroz", role: "Product Designer", photo: "/img/team/mehroz.jpg" },
     { name: "Basit", role: "Graphic and UI/UX Designer", photo: "/img/team/basit.jpg" },
     { name: "Qazi Ubaid", role: "Frontend Developer", photo: "/img/team/qazi-ubaid.jpg" },
-    { name: "Hassan Tahir", role: "Frontend Developer", photo: "/img/team/hassan-tahir.jpg" },
-    { name: "Abdul", role: "SEO and Digital Marketing", photo: "/img/team/abdul.jpg" },
     { name: "Uzair", role: "SQA Engineer", photo: "/img/team/uzair.jpg" },
-    { name: "Rohan", role: "Product Analyst", photo: "/img/team/rohan.jpg" },
-    { name: "Haseeb", role: "AI and ML Developer", photo: "/img/team/haseeb-ai.jpg" },
     { name: "Saad", role: "HR and Project Manager", photo: "/img/team/saad.jpg" },
     { name: "Abdullah", role: "Business Development" },
-    { name: "Dawood", role: "UI/UX and Graphic Designer" },
+    { name: "Dawood", role: "UI/UX and Graphic Designer", photo: "/img/team/dawood.jpg" },
     { name: "Junaid", role: "WordPress Developer", photo: "/img/team/junaid.jpg" },
     { name: "Haseeb", role: "WordPress and Frontend Developer", photo: "/img/team/haseeb-wp.jpg" },
     { name: "Mubashir", role: "WordPress Developer", photo: "/img/team/mubashir.jpg" },
@@ -790,14 +819,9 @@ export const CONTACT_REACH = {
   title: "Reach out to us",
   subtitle: "You can reach us by email, by phone, or with a visit to the studio.",
   cards: [
-    { icon: "mail", label: "Email", value: "waseeq.aftab@devnscale.com" },
-    { icon: "phone", label: "Phone", value: "+92 339 5636702" },
-    {
-      icon: "pin",
-      label: "Office",
-      value:
-        "Plot No 21, First Floor, Phase 1 Pakistan Town, Islamabad, Pakistan",
-    },
+    { icon: "mail", label: "Email" },
+    { icon: "phone", label: "Phone" },
+    { icon: "pin", label: "Office" },
   ],
 } as const;
 

@@ -2,7 +2,7 @@ import Image from "next/image";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import Reveal from "@/components/ui/Reveal";
 import FounderStage from "./FounderStage";
-import { INSTAGRAM_ICON, LINKEDIN_ICON, SocialLink } from "./TeamMembers";
+import { INSTAGRAM_ICON, LINKEDIN_ICON, SocialLink } from "@/components/ui/SocialLink";
 import { TEAM_FOUNDER, TEAM_SOCIAL_FALLBACK } from "@/lib/content";
 
 /* Figma "Option 06 · Giant name" (1440 × 820). Positions are in cqw of the

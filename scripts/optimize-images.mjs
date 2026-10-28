@@ -8,9 +8,8 @@ import sharp from "sharp";
 export const WIDTHS = [384, 640, 1080, 1920];
 const QUALITY = 75;
 const RASTER = /\.(png|jpe?g|webp)$/i;
-// Folders whose paths are built at runtime, so they never appear in the source
-// (AboutTeam swaps /img/team/ for /img/team/slider/).
-const RUNTIME_DIRS = ["team/slider"];
+// Folders whose paths are built at runtime, so they never appear in the source.
+const RUNTIME_DIRS = [];
 
 function walk(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((d) =>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
 import SecondaryButton from "@/components/ui/SecondaryButton";
 import { PROJECTS } from "@/lib/content";
@@ -36,7 +37,15 @@ export default function Projects() {
               style={{ zIndex: i + 1 }}
             >
               <div className="rounded-[24px] bg-[linear-gradient(90deg,#c4d434_0%,#7eb863_50%,#59a773_75%,#2f9580_100%)] p-[1.5px] shadow-[0_10px_30px_0_rgba(5,28,18,0.06)]">
-                <article className="group grid grid-cols-1 items-center gap-8 rounded-[22.5px] bg-white p-6 sm:p-8 md:grid-cols-[1fr_1.043fr] xl:grid-cols-[1fr_580px] xl:gap-12 xl:py-10 xl:pl-14 xl:pr-10">
+                <article className="group relative grid cursor-pointer grid-cols-1 items-center gap-8 rounded-[22.5px] bg-white p-6 sm:p-8 md:grid-cols-[1fr_1.043fr] xl:grid-cols-[1fr_580px] xl:gap-12 xl:py-10 xl:pl-14 xl:pr-10">
+                  {/* Whole card opens the case study; the button stays the
+                   *  keyboard and screen-reader link, so this one is hidden. */}
+                  <Link
+                    href={project.href}
+                    aria-hidden="true"
+                    tabIndex={-1}
+                    className="absolute inset-0 z-10 rounded-[22.5px]"
+                  />
                   <div className="flex flex-col items-start gap-6">
                     <span className="rounded-full border border-[#e5e5e5] bg-white px-3.5 py-2 text-[13px] font-medium text-[#525252]">
                       {project.pill}
@@ -50,7 +59,7 @@ export default function Projects() {
                       {project.body}
                     </p>
 
-                    <SecondaryButton variant="light" href={project.href} className="w-[220px]">
+                    <SecondaryButton variant="light" href={project.href} className="relative z-20 w-[220px]">
                       View Case Study
                     </SecondaryButton>
                   </div>
