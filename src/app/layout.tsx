@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import SmoothScroll from "@/components/motion/SmoothScroll";
+import CookieConsent from "@/components/CookieConsent";
 import { CONTACT_DETAILS } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -28,6 +29,8 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: "Dev N Scale",
+  // Search Console (haseebtylo@gmail.com, https://www.devnscale.com/ property)
+  verification: { google: "sYX3TC9-COAmXa5rYSYzDEIgVS9AyEqZV2JNLfd3Nt8" },
   title: "Dev N Scale — Services Built to Scale Your Business",
   description:
     "A full-service digital agency offering end-to-end design solutions from UI/UX and development to marketing and beyond. Everything you need to launch, grow, and scale.",
@@ -105,6 +108,7 @@ export default function RootLayout({
           }}
         />
         <SmoothScroll>{children}</SmoothScroll>
+        <CookieConsent />
       </body>
     </html>
   );

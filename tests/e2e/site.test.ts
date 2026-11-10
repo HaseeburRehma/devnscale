@@ -159,6 +159,14 @@ d("site e2e", () => {
     }
   });
 
+  it("has the Search Console tag and never ships Google Tag Manager before consent", async () => {
+    const html = await (await get("/")).text();
+    expect(html).toContain('name="google-site-verification" content="sYX3TC9-COAmXa5rYSYzDEIgVS9AyEqZV2JNLfd3Nt8"');
+    expect(html).not.toContain("googletagmanager.com/gtm.js");
+    const privacy = await (await get("/privacy")).text();
+    expect(privacy).toContain('id="cookies"');
+  });
+
   it("about page has the auto-sliding team carousel with every member and no pagination", async () => {
     const html = await (await get("/about")).text();
     expect(html).toContain('aria-roledescription="carousel"');

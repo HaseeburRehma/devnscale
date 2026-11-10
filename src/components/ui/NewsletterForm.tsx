@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRightIcon } from "@/components/icons";
+import { track } from "@/lib/tracking";
 
 type Status = { kind: "idle" | "sending" | "ok" | "error"; message?: string };
 
@@ -29,6 +30,7 @@ export default function NewsletterForm() {
         setStatus({ kind: "error", message: body.error ?? "Something went wrong. Please try again." });
         return;
       }
+      track("sign_up", { form_name: "newsletter" });
       form.reset();
       setStatus({ kind: "ok", message: "You're on the list. Thanks for subscribing." });
     } catch {

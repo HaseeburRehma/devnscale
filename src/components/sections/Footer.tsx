@@ -12,6 +12,7 @@ import {
   XIcon,
 } from "@/components/icons";
 import NewsletterForm from "@/components/ui/NewsletterForm";
+import { CookieSettingsButton } from "@/components/CookieConsent";
 import PatternBackdrop from "@/components/ui/PatternBackdrop";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import SecondaryButton from "@/components/ui/SecondaryButton";
@@ -86,6 +87,8 @@ export default function Footer() {
         <div className="mt-16 mb-10 flex flex-col items-center justify-between gap-4 rounded-full border border-white/10 bg-white/[0.06] px-8 py-4 sm:flex-row">
           <p className="text-[14px] text-ink-300 sm:text-[15px]">
             &copy; 2026 Dev N Scale - All Rights Reserved
+            <span aria-hidden="true" className="mx-2 text-white/30">·</span>
+            <CookieSettingsButton className="underline-offset-2 transition-colors hover:text-lime-400 hover:underline" />
           </p>
           <ul className="flex items-center gap-3">
             {SOCIALS.filter((s) => s.href).map(({ Icon, label, href }) => (

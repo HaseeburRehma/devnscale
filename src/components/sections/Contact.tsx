@@ -10,6 +10,7 @@ import {
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import Reveal from "@/components/ui/Reveal";
 import { CONTACT_DETAILS, SERVICE_OPTIONS, type ContactLine } from "@/lib/content";
+import { track } from "@/lib/tracking";
 
 const DETAIL_ICONS = {
   mail: MailIcon,
@@ -66,6 +67,7 @@ export default function Contact() {
         });
         return;
       }
+      track("generate_lead", { form_name: "contact" });
       form.reset();
       setService("");
       setStatus({

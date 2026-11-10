@@ -2,7 +2,7 @@ import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import PageHero from "@/components/sections/PageHero";
 
-export type LegalSection = { heading: string; body: React.ReactNode[] };
+export type LegalSection = { heading: string; id?: string; body: React.ReactNode[] };
 
 export default function LegalPage({
   eyebrow,
@@ -33,7 +33,7 @@ export default function LegalPage({
             <article className="mx-auto max-w-[760px]">
               <p className="text-[14px] text-text-tertiary">Last updated {updated}</p>
               {sections.map((s) => (
-                <div key={s.heading} className="mt-10">
+                <div key={s.heading} id={s.id} className="mt-10 scroll-mt-28">
                   <h2 className="font-display text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-medium leading-[1.3] tracking-[-0.5px] text-ink-900">
                     {s.heading}
                   </h2>

@@ -18,7 +18,7 @@ export default function PrivacyPage() {
       eyebrow="LEGAL"
       title="Privacy Policy"
       subtitle="What we collect through this website, why we collect it, and how to have it removed."
-      updated="26 October 2026"
+      updated="10 November 2026"
       sections={[
         {
           heading: "Who we are",
@@ -32,7 +32,17 @@ export default function PrivacyPage() {
             "Contact and booking forms: your name, email address, company, the service you are interested in, the project details you write, and whether you asked for an NDA.",
             "Newsletter form: your email address.",
             "Our hosting provider keeps standard server logs (IP address, browser, pages requested) to run and secure the site. We also use your IP address briefly to limit how often a form can be sent.",
-            "We do not use advertising or analytics cookies, and we do not sell or rent your information.",
+            "If you accept analytics cookies: how you use the site, through Google Analytics (see below).",
+            "We do not use advertising cookies, and we do not sell or rent your information.",
+          ],
+        },
+        {
+          heading: "Cookies and analytics",
+          id: "cookies",
+          body: [
+            "When you first visit, a banner asks whether we may use analytics cookies. Nothing is loaded until you click Accept. If you decline, we set no cookies and only remember your choice in your browser.",
+            "If you accept, we load Google Tag Manager and Google Analytics 4 (Google Ireland Ltd / Google LLC). They set the _ga and _ga_* cookies (up to 2 years) to count visits and see which pages, links and forms are used, including when a contact or newsletter form is sent. Google Analytics receives your IP address but does not store it, and we keep the data for 14 months. Advertising features and Google signals are switched off. Our legal basis is your consent.",
+            <>You can change your mind at any time with &quot;Cookie settings&quot; at the bottom of every page. Withdrawing deletes the Google Analytics cookies on this site.</>,
           ],
         },
         {
@@ -44,7 +54,7 @@ export default function PrivacyPage() {
         {
           heading: "Who we share it with",
           body: [
-            "Form submissions are delivered by email through Resend, our email provider, which processes them on our behalf. We share nothing else unless the law requires it.",
+            "Form submissions are delivered by email through Resend, our email provider, which processes them on our behalf. If you accept analytics cookies, usage data goes to Google as described above. We share nothing else unless the law requires it.",
           ],
         },
         {
